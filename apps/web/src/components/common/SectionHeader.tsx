@@ -10,13 +10,13 @@ export function SectionHeader({
   description,
 }: SectionHeaderProps) {
   return (
-    <header className="grid gap-2">
+    <header className="grid gap-2 items-start">
       {eyebrow ? (
-        <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">
+        <p className="w-fit h-fit rounded-md border border-emerald-700/15 bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-emerald-800 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200">
           {eyebrow}
         </p>
       ) : null}
-      <h1 className="text-3xl font-bold leading-tight tracking-normal text-neutral-950 dark:text-neutral-50 sm:text-4xl">
+      <h1 className="text-3xl font-black leading-tight tracking-normal text-neutral-950 dark:text-neutral-50 sm:text-4xl">
         {title}
       </h1>
       {description ? (

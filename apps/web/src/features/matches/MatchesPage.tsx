@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { searchMatchesByTeam } from "@/lib/api/matches";
 import { useQuery } from "@tanstack/react-query";
-import { CrossIcon, Search, XIcon } from "lucide-react";
+import { Search, XIcon } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 export function MatchesPage() {
@@ -41,7 +41,10 @@ export function MatchesPage() {
         title="Match schedules"
         description="Upcoming, live, and completed fixtures from FIFA's official data."
       />
-      <form className="flex flex-col gap-3 sm:flex-row" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-3 rounded-lg border border-neutral-200/80 bg-white/80 p-3 shadow-sm dark:border-white/10 dark:bg-neutral-950/70 sm:flex-row"
+        onSubmit={handleSubmit}
+      >
         <Input
           aria-label="Search matches by team"
           placeholder="Search matches by team..."

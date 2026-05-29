@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils/cn";
 
 export type FlagIconProps = {
@@ -36,14 +37,15 @@ export function FlagIcon({ country, className }: FlagIconProps) {
   }
 
   return (
-    <img
+    <Image
       src={`https://flagcdn.com/w40/${flagCode}.png`}
       alt={`${country} flag`}
+      width={28}
+      height={20}
       className={cn(
-        "h-5 w-5 rounded-2xl object-cover ring-1 ring-black/10 dark:ring-white/15",
+        "h-5 w-7 rounded-sm object-cover ring-1 ring-black/10 dark:ring-white/15",
         className,
       )}
-      loading="lazy"
     />
   );
 }

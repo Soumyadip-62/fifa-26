@@ -6,14 +6,13 @@ import { LoadingState } from "@/components/common/LoadingState";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { NewsList } from "@/components/news/NewsList";
 import { getNewsArticles } from "@/lib/api/news";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 
 export function NewsPage() {
   const {
     data: articles = [],
     isError,
-    isFetching,
     isSuccess,
   } = useSuspenseQuery({
     queryKey: ["news"],
@@ -21,12 +20,12 @@ export function NewsPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-auto max-w-7xl">
       <Suspense fallback={<LoadingState label="Loading news articles..." />}>
         {isError ? (
           <ErrorState message="Failed to load news articles." />
         ) : (
-          <div className="mx-auto grid w-full  gap-6 px-4 py-8 sm:px-6 lg:px-8">
+          <div className="mx-auto grid w-full gap-6 px-4 py-8 sm:px-6 lg:px-8">
             <SectionHeader
               eyebrow="News"
               title="News and blogs"

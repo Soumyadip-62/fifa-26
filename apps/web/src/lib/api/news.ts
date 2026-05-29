@@ -70,7 +70,6 @@ export async function getNewsArticles(): Promise<NewsArticle[]> {
     const data = await response
       .json()
       .then((data) => data.news as ApiNewsArticle[]);
-    console.log(data);
 
     return data.map(normalizeNewsArticle);
   } catch {

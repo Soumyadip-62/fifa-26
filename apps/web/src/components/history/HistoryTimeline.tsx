@@ -11,9 +11,9 @@ export function HistoryTimeline({ historyItems }: HistoryTimelineProps) {
   return (
     <section className="grid gap-4" aria-label="Tournament history timeline">
       {historyItems.map((item) => (
-        <Card className="bg-white/95 dark:bg-neutral-950/90" key={item.id}>
+        <Card className="overflow-hidden" key={item.id}>
           <CardContent className="grid gap-4 p-5 sm:grid-cols-[140px_1fr] sm:items-center">
-            <div className="rounded-xl bg-emerald-950 p-4 text-white dark:bg-emerald-950/70">
+            <div className="rounded-lg bg-neutral-950 p-4 text-white ring-1 ring-emerald-400/20 dark:bg-emerald-950/55">
               <p className="text-sm text-emerald-100">World Cup</p>
               <p className="text-3xl font-black">{item.year}</p>
               <p className="mt-2 text-sm text-emerald-100">Host: {item.host}</p>

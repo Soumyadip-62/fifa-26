@@ -7,7 +7,7 @@ export type LoadingStateProps = {
 export function LoadingState({ label = "Loading football data..." }: LoadingStateProps) {
   return (
     <section
-      className="grid gap-4 rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950"
+      className="grid gap-4 rounded-lg border border-neutral-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-neutral-950/80"
       aria-live="polite"
       aria-label={label}
     >

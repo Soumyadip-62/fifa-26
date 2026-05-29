@@ -31,12 +31,28 @@ export async function TeamDetailsPage({ teamId }: TeamDetailsPageProps) {
 
     return (
       <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-        <section className="rounded-2xl bg-neutral-950 p-5 text-white shadow-sm ring-1 ring-white/10 sm:p-8">
-          <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-            <TeamBadge className="rounded-xl bg-white p-4 dark:bg-neutral-900" {...team} ranking={team.fifaRanking} />
-            <div className="flex flex-wrap gap-2">
-              {team.group ? <Badge variant="success">{team.group}</Badge> : null}
-              {team.coach ? <Badge variant="outline" className="border-white/30 text-white">Coach: {team.coach}</Badge> : null}
+        <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
+          <div className="h-2 bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-300" />
+          <div className="p-5 sm:p-8">
+            <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+              <TeamBadge
+                className="rounded-lg bg-white p-4 dark:bg-neutral-900"
+                {...team}
+                ranking={team.fifaRanking}
+              />
+              <div className="flex flex-wrap gap-2">
+                {team.group ? (
+                  <Badge variant="success">{team.group}</Badge>
+                ) : null}
+                {team.coach ? (
+                  <Badge
+                    variant="outline"
+                    className="border-white/30 text-white"
+                  >
+                    Coach: {team.coach}
+                  </Badge>
+                ) : null}
+              </div>
             </div>
           </div>
         </section>
@@ -70,7 +86,7 @@ export async function TeamDetailsPage({ teamId }: TeamDetailsPageProps) {
               {team.players?.length ? (
                 <div className="grid gap-3">
                   {team.players.map((player) => (
-                    <div className="flex items-center gap-3 rounded-lg bg-neutral-100 p-3 dark:bg-neutral-900" key={player.id}>
+                    <div className="flex items-center gap-3 rounded-lg border border-neutral-200/80 bg-neutral-50 p-3 dark:border-white/10 dark:bg-white/5" key={player.id}>
                       <PlayerAvatar name={player.name} />
                       <div>
                         <p className="font-semibold text-neutral-950 dark:text-neutral-50">{player.name}</p>

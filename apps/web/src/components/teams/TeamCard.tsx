@@ -1,37 +1,46 @@
 import Link from "next/link";
+import Image from "next/image";
+import { images } from "@/assets";
 import { TeamBadge } from "@/components/common/TeamBadge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Team } from "@/types/team";
-import Image from "next/image";
 
 export type TeamCardProps = {
   team: Team;
 };
 
 export function TeamCard({ team }: TeamCardProps) {
-  const dummyTeamURL =
-    "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png";
+  const teamImage = team.logoUrl || team.image_url || images.teams.default;
+
   return (
     <Link
       className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
       href={`/teams/${team.id}`}
     >
-      <Card className="h-full bg-white/95 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:bg-neutral-950/90 dark:hover:border-emerald-700">
-        <CardContent className="grid gap-5 p-5 ">
+      <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
+        <div className="relative flex h-44 items-center justify-center overflow-hidden bg-neutral-950 p-6">
+          <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-emerald-700 via-cyan-600 to-amber-400" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(21,128,61,0.26),transparent_45%),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:auto,44px_44px]" />
           <Image
-            src={team.image_url! || dummyTeamURL}
+            src={teamImage}
             alt={`${team.name} logo`}
-            width={100}
-            height={100}
-            className=" mx-auto"
+            width={136}
+            height={136}
+            className="relative h-32 w-32 object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.35)] transition duration-300 group-hover:scale-105"
           />
+        </div>
+        <CardContent className="grid gap-5 p-5">
           <div className="flex items-start justify-between gap-3">
             <TeamBadge {...team} ranking={team.fifaRanking} compact />
-            {team.group ? <Badge variant="outline">{team.group}</Badge> : null}
+            {team.group ? (
+              <Badge className="shrink-0" variant="outline">
+                {team.group}
+              </Badge>
+            ) : null}
           </div>
           {team.stats ? (
-            <div className="grid grid-cols-3 rounded-lg bg-neutral-100 p-3 text-center text-sm dark:bg-neutral-900">
+            <div className="grid grid-cols-3 rounded-lg border border-neutral-200/80 bg-neutral-50 p-3 text-center text-sm dark:border-white/10 dark:bg-white/5">
               <div>
                 <p className="font-bold text-neutral-950 dark:text-neutral-50">
                   {team.stats.won}
@@ -60,7 +69,10 @@ export function TeamCard({ team }: TeamCardProps) {
           ) : null}
           {team.coach ? (
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Coach: {team.coach}
+              Coach{" "}
+              <span className="font-semibold text-neutral-800 dark:text-neutral-200">
+                {team.coach}
+              </span>
             </p>
           ) : null}
         </CardContent>

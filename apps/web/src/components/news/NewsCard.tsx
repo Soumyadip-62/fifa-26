@@ -39,8 +39,8 @@ export function NewsCard({ article }: NewsCardProps) {
       href={`${article.source}`}
       target="_blank"
     >
-      <Card className="h-full overflow-hidden bg-white/95 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:bg-neutral-950/90 dark:hover:border-emerald-700">
-        <div className="relative h-80 bg-neutral-100 dark:bg-neutral-900">
+      <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
+        <div className="relative h-72 bg-neutral-100 dark:bg-neutral-900">
           <Image
             src={imageSrc}
             alt={`${article.title} cover`}
@@ -48,10 +48,13 @@ export function NewsCard({ article }: NewsCardProps) {
             sizes="(min-width: 1024px) 360px, 100vw"
             className="object-cover transition group-hover:scale-105"
           />
+          {/* <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-neutral-950/70 to-transparent" /> */}
         </div>
         <CardContent className="grid gap-3 p-5">
           <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-            {/* {article.source ? <Badge variant="secondary">{article.source}</Badge> : null} */}
+            {article.tags?.[0] ? (
+              <Badge variant="secondary">{article.tags[0]}</Badge>
+            ) : null}
             <span>{formatDateOnly(article.publishedAt)}</span>
           </div>
           <h2 className="text-lg font-bold leading-7 text-neutral-950 dark:text-neutral-50">
@@ -64,7 +67,7 @@ export function NewsCard({ article }: NewsCardProps) {
           ) : null}
           {article.tags?.length ? (
             <div className="flex flex-wrap gap-2">
-              {article.tags.map((tag) => (
+              {article.tags.slice(1).map((tag) => (
                 <Badge variant="outline" key={tag}>
                   {tag}
                 </Badge>

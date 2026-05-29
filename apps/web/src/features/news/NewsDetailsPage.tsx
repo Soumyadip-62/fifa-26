@@ -30,7 +30,7 @@ export async function NewsDetailsPage({ slug }: NewsDetailsPageProps) {
 
     return (
       <article className="mx-auto grid w-full max-w-4xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="relative h-72 overflow-hidden rounded-2xl bg-neutral-100 shadow-sm dark:bg-neutral-900">
+        <div className="relative h-72 overflow-hidden rounded-lg bg-neutral-100 shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:bg-neutral-900 dark:shadow-none">
           <Image
             src={article.coverImageUrl ?? images.blogs.default}
             alt={`${article.title} cover`}
@@ -45,7 +45,7 @@ export async function NewsDetailsPage({ slug }: NewsDetailsPageProps) {
           title={article.title}
           description={`${formatDateOnly(article.publishedAt)}${article.author ? ` by ${article.author}` : ""}`}
         />
-        <div className="grid gap-5 rounded-xl border border-neutral-200 bg-white p-6 text-base leading-8 text-neutral-700 shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300">
+        <div className="grid gap-5 rounded-lg border border-neutral-200/80 bg-white/95 p-6 text-base leading-8 text-neutral-700 shadow-[0_18px_45px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-neutral-950/85 dark:text-neutral-300 dark:shadow-none">
           {article.excerpt ? <p className="text-lg font-medium text-neutral-950 dark:text-neutral-50">{article.excerpt}</p> : null}
           <p>{article.content ?? "Article content is not available yet."}</p>
           {article.tags?.length ? (

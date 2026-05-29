@@ -27,7 +27,7 @@ export function MatchCard({ match }: MatchCardProps) {
       className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
       href={`/matches/${match.id}`}
     >
-      <Card className="h-full overflow-hidden bg-white/95 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:bg-neutral-950/90 dark:hover:border-emerald-700">
+      <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
         {match.venueImageUrl ? (
           <div className="relative h-60 overflow-hidden bg-neutral-900">
             <Image
@@ -35,13 +35,13 @@ export function MatchCard({ match }: MatchCardProps) {
               alt={match.venue ? `${match.venue} stadium` : "Stadium"}
               fill
               sizes="(min-width: 1024px) 360px, 100vw"
-              className="object-cover opacity-85 transition group-hover:scale-105"
+              className="object-cover opacity-90 transition group-hover:scale-105"
             />
 
-            <div className="absolute inset-0 bg-black/30 flex justify-center items-center gap-2">
-              <TeamLogoImage team={match.homeTeam} />
+            <div className="absolute inset-0 flex items-center justify-center gap-3 bg-gradient-to-t from-neutral-950/70 via-neutral-950/30 to-transparent px-4">
+              <TeamLogoImage team={match.homeTeam} size={96} />
               <VsIcon />
-              <TeamLogoImage team={match.awayTeam} />
+              <TeamLogoImage team={match.awayTeam} size={96} />
             </div>
           </div>
         ) : null}
@@ -49,13 +49,13 @@ export function MatchCard({ match }: MatchCardProps) {
           <div className="flex items-center justify-between gap-3">
             <MatchStatusBadge status={match.status} />
             <span className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              {meta.length ? `${meta.join(" ⚽️ ")} ` : ""}
+              {meta.length ? meta.join(" / ") : ""}
             </span>
           </div>
           <div className="grid gap-3">
             <TeamBadge compact {...match.homeTeam} />
-            <div className="grid gap-2 rounded-lg bg-neutral-950 px-3 py-2 text-white dark:bg-emerald-950/50 sm:flex sm:items-center sm:justify-between">
-              <span className="text-xs leading-5 text-neutral-300">
+            <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
+              <span className="text-xs leading-5 text-neutral-300 dark:text-emerald-100">
                 {formatDate(match.date)}
               </span>
               <strong className="text-lg leading-none">{score}</strong>

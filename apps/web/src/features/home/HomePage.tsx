@@ -49,23 +49,24 @@ export async function HomePage() {
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:px-8">
-      <section className="relative flex min-h-100 items-center justify-start overflow-hidden rounded-2xl bg-emerald-950 p-6  text-white shadow-sm ring-1 ring-white/10 sm:p-8 lg:p-10">
+      <section className="relative flex min-h-[420px] items-center justify-start overflow-hidden rounded-lg bg-neutral-950 p-6 text-left text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10 sm:p-8 lg:p-10">
         <Image
           src={images.banners.worldCup2026}
           alt="FIFA 26 tournament banner"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-40"
+          className="object-cover object-center "
         />
-        <div className="relative grid max-w-lg gap-5">
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-200">
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-emerald-950/50 to-neutral-950/35" />
+        <div className="relative grid max-w-2xl justify-items-start gap-5">
+          <p className="rounded-md border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-100 backdrop-blur">
             Tournament dashboard
           </p>
-          <h1 className="text-4xl font-black leading-tight tracking-normal sm:text-5xl">
+          <h1 className="text-4xl font-black leading-tight tracking-normal sm:text-5xl lg:text-6xl">
             FIFA 2026
           </h1>
-          <p className="text-base leading-7 text-emerald-50">
+          <p className="max-w-xl text-base leading-7 text-emerald-50">
             Fixtures, teams, news, and tournament history in one API-ready
             frontend.
           </p>
@@ -139,7 +140,7 @@ export async function HomePage() {
       >
         {sections.map((section) => (
           <Link
-            className="rounded-xl border border-neutral-200 bg-white/95 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950/90 dark:hover:border-emerald-700"
+            className="rounded-lg border border-neutral-200/80 bg-white/95 p-5 shadow-[0_18px_45px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-neutral-950/85 dark:shadow-none dark:hover:border-emerald-500/60"
             href={section.href}
             key={section.href}
           >

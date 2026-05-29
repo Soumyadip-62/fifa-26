@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { EmptyState } from "@/components/common/EmptyState";
-import { ErrorState } from "@/components/common/ErrorState";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { TeamBadge } from "@/components/common/TeamBadge";
@@ -56,7 +55,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     "Loading..."
   ) : (
     <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <section className="overflow-hidden rounded-2xl bg-neutral-950 text-white shadow-sm ring-1 ring-white/10">
+      <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
         {match.venueImageUrl ? (
           <div className="relative h-60">
             <Image
@@ -68,10 +67,10 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
               className="object-cover opacity-55"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-transparent" />
-            <div className="absolute inset-0 bg-black/30 flex justify-center items-center gap-2">
-              <TeamLogoImage team={match.homeTeam} />
+            <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/25 px-4">
+              <TeamLogoImage team={match.homeTeam} size={110} />
               <VsIcon />
-              <TeamLogoImage team={match.awayTeam} />
+              <TeamLogoImage team={match.awayTeam} size={110} />
             </div>
           </div>
         ) : null}
@@ -89,10 +88,10 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
           </div>
           <div className="grid items-stretch gap-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
             <TeamBadge
-              className="rounded-xl bg-white p-4 dark:bg-neutral-900"
+              className="rounded-lg bg-white p-4 dark:bg-neutral-900"
               {...match.homeTeam}
             />
-            <div className="rounded-2xl border border-white/15 bg-white/10 px-6 py-5 text-center">
+            <div className="rounded-lg border border-white/15 bg-white/10 px-6 py-5 text-center shadow-sm">
               <p className="text-xs uppercase tracking-wide text-neutral-300">
                 {formatDate(match.date)}
               </p>
@@ -101,7 +100,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
               </strong>
             </div>
             <TeamBadge
-              className="rounded-xl bg-white p-4 dark:bg-neutral-900"
+              className="rounded-lg bg-white p-4 dark:bg-neutral-900"
               {...match.awayTeam}
             />
           </div>
