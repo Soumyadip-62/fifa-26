@@ -1,0 +1,3453 @@
+{
+  "competition": {
+    "name": "World Cup 2026",
+    "hostCountries": [
+      "Canada",
+      "USA",
+      "Mexico"
+    ],
+    "totalMatchesMentioned": 104,
+    "parsedMatches": 72,
+    "note": "Uploaded text includes group-stage fixtures only; knockout-stage matches are not present in the source text."
+  },
+  "stadiums": [
+    {
+      "city": "Mexico City",
+      "stadium": "Estadio Azteca"
+    },
+    {
+      "city": "Guadalajara (Zapopan)",
+      "stadium": "Estadio Akron"
+    },
+    {
+      "city": "Monterrey (Guadalupe)",
+      "stadium": "Estadio BBVA"
+    },
+    {
+      "city": "Atlanta",
+      "stadium": "Mercedes-Benz Stadium"
+    },
+    {
+      "city": "Boston (Foxborough)",
+      "stadium": "Gillette Stadium"
+    },
+    {
+      "city": "Dallas (Arlington)",
+      "stadium": "AT&T Stadium"
+    },
+    {
+      "city": "Houston",
+      "stadium": "NRG Stadium"
+    },
+    {
+      "city": "Kansas City",
+      "stadium": "Arrowhead Stadium"
+    },
+    {
+      "city": "Los Angeles (Inglewood)",
+      "stadium": "SoFi Stadium"
+    },
+    {
+      "city": "Miami (Miami Gardens)",
+      "stadium": "Hard Rock Stadium"
+    },
+    {
+      "city": "New York/New Jersey (East Rutherford)",
+      "stadium": "MetLife Stadium"
+    },
+    {
+      "city": "Philadelphia",
+      "stadium": "Lincoln Financial Field"
+    },
+    {
+      "city": "San Francisco Bay Area (Santa Clara)",
+      "stadium": "Levi's Stadium"
+    },
+    {
+      "city": "Seattle",
+      "stadium": "Lumen Field"
+    },
+    {
+      "city": "Toronto",
+      "stadium": "BMO Field"
+    },
+    {
+      "city": "Vancouver",
+      "stadium": "BC Place"
+    }
+  ],
+  "countryNameAliases": {
+    "South Korea": "Korea Republic",
+    "Iran": "IR Iran",
+    "Cape Verde": "Cabo Verde",
+    "DR Congo": "Congo DR",
+    "Ivory Coast": "Côte d'Ivoire",
+    "Czech Republic": "Czechia",
+    "Turkey": "Türkiye"
+  },
+  "groups": [
+    {
+      "group": "A",
+      "teams": [
+        "Mexico",
+        "South Africa",
+        "South Korea",
+        "Czech Republic"
+      ]
+    },
+    {
+      "group": "B",
+      "teams": [
+        "Canada",
+        "Bosnia & Herzegovina",
+        "Qatar",
+        "Switzerland"
+      ]
+    },
+    {
+      "group": "C",
+      "teams": [
+        "Brazil",
+        "Morocco",
+        "Haiti",
+        "Scotland"
+      ]
+    },
+    {
+      "group": "D",
+      "teams": [
+        "USA",
+        "Paraguay",
+        "Australia",
+        "Turkey"
+      ]
+    },
+    {
+      "group": "E",
+      "teams": [
+        "Germany",
+        "Curaçao",
+        "Ivory Coast",
+        "Ecuador"
+      ]
+    },
+    {
+      "group": "F",
+      "teams": [
+        "Netherlands",
+        "Japan",
+        "Sweden",
+        "Tunisia"
+      ]
+    },
+    {
+      "group": "G",
+      "teams": [
+        "Belgium",
+        "Egypt",
+        "Iran",
+        "New Zealand"
+      ]
+    },
+    {
+      "group": "H",
+      "teams": [
+        "Spain",
+        "Cape Verde",
+        "Saudi Arabia",
+        "Uruguay"
+      ]
+    },
+    {
+      "group": "I",
+      "teams": [
+        "France",
+        "Senegal",
+        "Iraq",
+        "Norway"
+      ]
+    },
+    {
+      "group": "J",
+      "teams": [
+        "Argentina",
+        "Algeria",
+        "Austria",
+        "Jordan"
+      ]
+    },
+    {
+      "group": "K",
+      "teams": [
+        "Portugal",
+        "DR Congo",
+        "Uzbekistan",
+        "Colombia"
+      ]
+    },
+    {
+      "group": "L",
+      "teams": [
+        "England",
+        "Croatia",
+        "Ghana",
+        "Panama"
+      ]
+    }
+  ],
+  "matchdays": [
+    {
+      "matchday": 1,
+      "date": "2026-06-11"
+    },
+    {
+      "matchday": 2,
+      "date": "2026-06-12"
+    },
+    {
+      "matchday": 3,
+      "date": "2026-06-13"
+    },
+    {
+      "matchday": 4,
+      "date": "2026-06-14"
+    },
+    {
+      "matchday": 5,
+      "date": "2026-06-15"
+    },
+    {
+      "matchday": 6,
+      "date": "2026-06-16"
+    },
+    {
+      "matchday": 7,
+      "date": "2026-06-17"
+    },
+    {
+      "matchday": 8,
+      "date": "2026-06-18"
+    },
+    {
+      "matchday": 9,
+      "date": "2026-06-19"
+    },
+    {
+      "matchday": 10,
+      "date": "2026-06-20"
+    },
+    {
+      "matchday": 11,
+      "date": "2026-06-21"
+    },
+    {
+      "matchday": 12,
+      "date": "2026-06-22"
+    },
+    {
+      "matchday": 13,
+      "date": "2026-06-23"
+    },
+    {
+      "matchday": 14,
+      "date": "2026-06-24"
+    },
+    {
+      "matchday": 15,
+      "date": "2026-06-25"
+    },
+    {
+      "matchday": 16,
+      "date": "2026-06-26"
+    },
+    {
+      "matchday": 17,
+      "date": "2026-06-27"
+    }
+  ],
+  "matches": [
+    {
+      "id": "wc2026-ga-01",
+      "matchNumber": 1,
+      "stage": "Group Stage",
+      "group": "A",
+      "matchday": 1,
+      "date": "2026-06-11",
+      "time": "13:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Mexico",
+      "awayTeam": "South Africa",
+      "venue": {
+        "city": "Mexico City",
+        "stadium": "Estadio Azteca",
+        "country": "Mexico"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Mexico vs South Africa",
+      "eventAlternateName": "South Africa @ Mexico",
+      "sportsDbEventId": "2391728",
+      "sportsDbHomeTeamId": "134497",
+      "sportsDbAwayTeamId": "136482",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3rmosi1748525208.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/xjz9j91553368824.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-11T19:00:00",
+      "dateUtc": "2026-06-11",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/dzhwsf1775058317.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/yok37q1775110706.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-11 Mexico vs South Africa"
+    },
+    {
+      "id": "wc2026-ga-02",
+      "matchNumber": 2,
+      "stage": "Group Stage",
+      "group": "A",
+      "matchday": 1,
+      "date": "2026-06-11",
+      "time": "20:00",
+      "timezone": "UTC-6",
+      "homeTeam": "South Korea",
+      "awayTeam": "Czech Republic",
+      "venue": {
+        "city": "Guadalajara (Zapopan)",
+        "stadium": "Estadio Akron",
+        "country": "Mexico"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "South Korea vs Czech Republic",
+      "eventAlternateName": "Czech Republic @ South Korea",
+      "sportsDbEventId": "2461103",
+      "sportsDbHomeTeamId": "134517",
+      "sportsDbAwayTeamId": "133904",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/a8nqfs1589564916.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1o0cx31654205806.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-12T02:00:00",
+      "dateUtc": "2026-06-12",
+      "timeUtc": "02:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/7ogw2s1775058371.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/1lvv8d1775110757.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-12 South Korea vs Czech Republic"
+    },
+    {
+      "id": "wc2026-gb-01",
+      "matchNumber": 3,
+      "stage": "Group Stage",
+      "group": "B",
+      "matchday": 2,
+      "date": "2026-06-12",
+      "time": "15:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Canada",
+      "awayTeam": "Bosnia-Herzegovina",
+      "venue": {
+        "city": "Toronto",
+        "stadium": "BMO Field",
+        "country": "Canada"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Canada vs Bosnia-Herzegovina",
+      "eventAlternateName": "Bosnia-Herzegovina @ Canada",
+      "sportsDbEventId": "2461104",
+      "sportsDbHomeTeamId": "140073",
+      "sportsDbAwayTeamId": "134510",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/2t631f1595154867.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/wtqqst1455463120.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-12T19:00:00",
+      "dateUtc": "2026-06-12",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/nsv3mc1775058372.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/5ioorn1775110758.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-12 Canada vs Bosnia-Herzegovina"
+    },
+    {
+      "id": "wc2026-gd-01",
+      "matchNumber": 4,
+      "stage": "Group Stage",
+      "group": "D",
+      "matchday": 2,
+      "date": "2026-06-12",
+      "time": "18:00",
+      "timezone": "UTC-7",
+      "homeTeam": "USA",
+      "awayTeam": "Paraguay",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "USA vs Paraguay",
+      "eventAlternateName": "Paraguay @ USA",
+      "sportsDbEventId": "2391729",
+      "sportsDbHomeTeamId": "134514",
+      "sportsDbAwayTeamId": "136471",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/21f0oi1597948195.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/khgav41553419195.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-13T01:00:00",
+      "dateUtc": "2026-06-13",
+      "timeUtc": "01:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/zzcn9j1775058318.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/qd0c3x1775110707.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-13 USA vs Paraguay"
+    },
+    {
+      "id": "wc2026-gb-02",
+      "matchNumber": 5,
+      "stage": "Group Stage",
+      "group": "B",
+      "matchday": 3,
+      "date": "2026-06-13",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Qatar",
+      "awayTeam": "Switzerland",
+      "venue": {
+        "city": "San Francisco Bay Area (Santa Clara)",
+        "stadium": "Levi's Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Qatar vs Switzerland",
+      "eventAlternateName": "Switzerland @ Qatar",
+      "sportsDbEventId": "2391732",
+      "sportsDbHomeTeamId": "136472",
+      "sportsDbAwayTeamId": "134506",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rs3ir31642708685.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/mb7yqe1717365808.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-13T19:00:00",
+      "dateUtc": "2026-06-13",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/ijfi9n1775058321.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/bergbn1775110710.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-13 Qatar vs Switzerland"
+    },
+    {
+      "id": "wc2026-gc-01",
+      "matchNumber": 6,
+      "stage": "Group Stage",
+      "group": "C",
+      "matchday": 3,
+      "date": "2026-06-13",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Brazil",
+      "awayTeam": "Morocco",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Brazil vs Morocco",
+      "eventAlternateName": "Morocco @ Brazil",
+      "sportsDbEventId": "2391730",
+      "sportsDbHomeTeamId": "134496",
+      "sportsDbAwayTeamId": "136139",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/jl6dip1726167280.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/hbmwkj1731791275.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-13T22:00:00",
+      "dateUtc": "2026-06-13",
+      "timeUtc": "22:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/mau34u1775058318.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/yqgi9o1775110708.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-13 Brazil vs Morocco"
+    },
+    {
+      "id": "wc2026-gc-02",
+      "matchNumber": 7,
+      "stage": "Group Stage",
+      "group": "C",
+      "matchday": 3,
+      "date": "2026-06-13",
+      "time": "21:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Haiti",
+      "awayTeam": "Scotland",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Haiti vs Scotland",
+      "eventAlternateName": "Scotland @ Haiti",
+      "sportsDbEventId": "2391731",
+      "sportsDbHomeTeamId": "140175",
+      "sportsDbAwayTeamId": "136450",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/gml8wx1598135302.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3691i11552945146.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-14T01:00:00",
+      "dateUtc": "2026-06-14",
+      "timeUtc": "01:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/24pszh1775058320.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/82hfcg1775110709.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-14 Haiti vs Scotland"
+    },
+    {
+      "id": "wc2026-gd-02",
+      "matchNumber": 8,
+      "stage": "Group Stage",
+      "group": "D",
+      "matchday": 3,
+      "date": "2026-06-13",
+      "time": "21:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Australia",
+      "awayTeam": "Turkey",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place",
+        "country": "Canada"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Australia vs Turkey",
+      "eventAlternateName": "Turkey @ Australia",
+      "sportsDbEventId": "2461105",
+      "sportsDbHomeTeamId": "134500",
+      "sportsDbAwayTeamId": "135985",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/lark6k1661780848.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/70c4oo1591982459.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-14T04:00:00",
+      "dateUtc": "2026-06-14",
+      "timeUtc": "04:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/kgoj1q1775058373.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/p37w6p1775110759.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-14 Australia vs Turkey"
+    },
+    {
+      "id": "wc2026-ge-01",
+      "matchNumber": 9,
+      "stage": "Group Stage",
+      "group": "E",
+      "matchday": 4,
+      "date": "2026-06-14",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Germany",
+      "awayTeam": "Curaçao",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Germany vs Curaçao",
+      "eventAlternateName": "Curaçao @ Germany",
+      "sportsDbEventId": "2391733",
+      "sportsDbHomeTeamId": "133907",
+      "sportsDbAwayTeamId": "140271",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1xysi51726167152.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/itygvb1600955363.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-14T17:00:00",
+      "dateUtc": "2026-06-14",
+      "timeUtc": "17:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/c58bxh1775058322.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/jar87s1775110711.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-14 Germany vs Curaçao"
+    },
+    {
+      "id": "wc2026-gf-01",
+      "matchNumber": 10,
+      "stage": "Group Stage",
+      "group": "F",
+      "matchday": 4,
+      "date": "2026-06-14",
+      "time": "15:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Netherlands",
+      "awayTeam": "Japan",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Netherlands vs Japan",
+      "eventAlternateName": "Japan @ Netherlands",
+      "sportsDbEventId": "2391735",
+      "sportsDbHomeTeamId": "133905",
+      "sportsDbAwayTeamId": "134503",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1p0hr41593787110.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/ffsyxz1591989843.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-14T20:00:00",
+      "dateUtc": "2026-06-14",
+      "timeUtc": "20:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/8rj5lv1775058324.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/n034to1775110712.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-14 Netherlands vs Japan"
+    },
+    {
+      "id": "wc2026-ge-02",
+      "matchNumber": 11,
+      "stage": "Group Stage",
+      "group": "E",
+      "matchday": 4,
+      "date": "2026-06-14",
+      "time": "19:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Ivory Coast",
+      "awayTeam": "Ecuador",
+      "venue": {
+        "city": "Philadelphia",
+        "stadium": "Lincoln Financial Field",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Ivory Coast vs Ecuador",
+      "eventAlternateName": "Ecuador @ Ivory Coast",
+      "sportsDbEventId": "2391734",
+      "sportsDbHomeTeamId": "134502",
+      "sportsDbAwayTeamId": "134507",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rwxuuu1455465643.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/47wv2y1591989301.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-14T23:00:00",
+      "dateUtc": "2026-06-14",
+      "timeUtc": "23:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/61g7b91775058323.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/iaod111775110711.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-14 Ivory Coast vs Ecuador"
+    },
+    {
+      "id": "wc2026-gf-02",
+      "matchNumber": 12,
+      "stage": "Group Stage",
+      "group": "F",
+      "matchday": 4,
+      "date": "2026-06-14",
+      "time": "20:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Sweden",
+      "awayTeam": "Tunisia",
+      "venue": {
+        "city": "Monterrey (Guadalupe)",
+        "stadium": "Estadio BBVA",
+        "country": "Mexico"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Sweden vs Tunisia",
+      "eventAlternateName": "Tunisia @ Sweden",
+      "sportsDbEventId": "2461106",
+      "sportsDbHomeTeamId": "133916",
+      "sportsDbAwayTeamId": "136142",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/h5adzg1591981772.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/7r89rg1526727277.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-15T02:00:00",
+      "dateUtc": "2026-06-15",
+      "timeUtc": "02:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/hja0ne1775058374.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/b43cx71775110759.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-15 Sweden vs Tunisia"
+    },
+    {
+      "id": "wc2026-gh-01",
+      "matchNumber": 13,
+      "stage": "Group Stage",
+      "group": "H",
+      "matchday": 5,
+      "date": "2026-06-15",
+      "time": "12:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Spain",
+      "awayTeam": "Cape Verde",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Spain vs Cape Verde",
+      "eventAlternateName": "Cape Verde @ Spain",
+      "sportsDbEventId": "2391739",
+      "sportsDbHomeTeamId": "133909",
+      "sportsDbAwayTeamId": "136477",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/ncgqyr1726166942.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/5jn0o71593280376.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-15T16:00:00",
+      "dateUtc": "2026-06-15",
+      "timeUtc": "16:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/xi9bqn1775058328.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/v2j76h1775110716.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-15 Spain vs Cape Verde"
+    },
+    {
+      "id": "wc2026-gg-01",
+      "matchNumber": 14,
+      "stage": "Group Stage",
+      "group": "G",
+      "matchday": 5,
+      "date": "2026-06-15",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Belgium",
+      "awayTeam": "Egypt",
+      "venue": {
+        "city": "Seattle",
+        "stadium": "Lumen Field",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Belgium vs Egypt",
+      "eventAlternateName": "Egypt @ Belgium",
+      "sportsDbEventId": "2391736",
+      "sportsDbHomeTeamId": "134515",
+      "sportsDbAwayTeamId": "136138",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/8xlvxv1592062265.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uheyzo1742102234.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-15T19:00:00",
+      "dateUtc": "2026-06-15",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/uejz5h1775058325.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/69rnif1775110713.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-15 Belgium vs Egypt"
+    },
+    {
+      "id": "wc2026-gh-02",
+      "matchNumber": 15,
+      "stage": "Group Stage",
+      "group": "H",
+      "matchday": 5,
+      "date": "2026-06-15",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Saudi Arabia",
+      "awayTeam": "Uruguay",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Saudi Arabia vs Uruguay",
+      "eventAlternateName": "Uruguay @ Saudi Arabia",
+      "sportsDbEventId": "2391738",
+      "sportsDbHomeTeamId": "136137",
+      "sportsDbAwayTeamId": "134504",
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/24xwpq1594125742.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/6vjbr11726167756.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-15T22:00:00",
+      "dateUtc": "2026-06-15",
+      "timeUtc": "22:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": "https://r2.thesportsdb.com/images/media/event/thumb/zhbzh41775058327.jpg",
+      "posterUrl": "https://r2.thesportsdb.com/images/media/event/poster/vi98se1775110715.jpg",
+      "videoUrl": null,
+      "sourceFilename": "FIFA World Cup 2026-06-15 Saudi Arabia vs Uruguay"
+    },
+    {
+      "id": "wc2026-gg-02",
+      "matchNumber": 16,
+      "stage": "Group Stage",
+      "group": "G",
+      "matchday": 5,
+      "date": "2026-06-15",
+      "time": "18:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Iran",
+      "awayTeam": "New Zealand",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Iran vs New Zealand",
+      "eventAlternateName": "New Zealand @ Iran",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-16T01:00:00",
+      "dateUtc": "2026-06-16",
+      "timeUtc": "01:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gi-01",
+      "matchNumber": 17,
+      "stage": "Group Stage",
+      "group": "I",
+      "matchday": 6,
+      "date": "2026-06-16",
+      "time": "15:00",
+      "timezone": "UTC-4",
+      "homeTeam": "France",
+      "awayTeam": "Senegal",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "France vs Senegal",
+      "eventAlternateName": "Senegal @ France",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-16T19:00:00",
+      "dateUtc": "2026-06-16",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gi-02",
+      "matchNumber": 18,
+      "stage": "Group Stage",
+      "group": "I",
+      "matchday": 6,
+      "date": "2026-06-16",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Iraq",
+      "awayTeam": "Norway",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Iraq vs Norway",
+      "eventAlternateName": "Norway @ Iraq",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-16T22:00:00",
+      "dateUtc": "2026-06-16",
+      "timeUtc": "22:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gj-01",
+      "matchNumber": 19,
+      "stage": "Group Stage",
+      "group": "J",
+      "matchday": 6,
+      "date": "2026-06-16",
+      "time": "20:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Argentina",
+      "awayTeam": "Algeria",
+      "venue": {
+        "city": "Kansas City",
+        "stadium": "Arrowhead Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Argentina vs Algeria",
+      "eventAlternateName": "Algeria @ Argentina",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-17T01:00:00",
+      "dateUtc": "2026-06-17",
+      "timeUtc": "01:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gj-02",
+      "matchNumber": 20,
+      "stage": "Group Stage",
+      "group": "J",
+      "matchday": 6,
+      "date": "2026-06-16",
+      "time": "21:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Austria",
+      "awayTeam": "Jordan",
+      "venue": {
+        "city": "San Francisco Bay Area (Santa Clara)",
+        "stadium": "Levi's Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Austria vs Jordan",
+      "eventAlternateName": "Jordan @ Austria",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-17T04:00:00",
+      "dateUtc": "2026-06-17",
+      "timeUtc": "04:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gk-01",
+      "matchNumber": 21,
+      "stage": "Group Stage",
+      "group": "K",
+      "matchday": 7,
+      "date": "2026-06-17",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Portugal",
+      "awayTeam": "DR Congo",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Portugal vs DR Congo",
+      "eventAlternateName": "DR Congo @ Portugal",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-17T17:00:00",
+      "dateUtc": "2026-06-17",
+      "timeUtc": "17:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gl-01",
+      "matchNumber": 22,
+      "stage": "Group Stage",
+      "group": "L",
+      "matchday": 7,
+      "date": "2026-06-17",
+      "time": "15:00",
+      "timezone": "UTC-5",
+      "homeTeam": "England",
+      "awayTeam": "Croatia",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "England vs Croatia",
+      "eventAlternateName": "Croatia @ England",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-17T20:00:00",
+      "dateUtc": "2026-06-17",
+      "timeUtc": "20:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gl-02",
+      "matchNumber": 23,
+      "stage": "Group Stage",
+      "group": "L",
+      "matchday": 7,
+      "date": "2026-06-17",
+      "time": "19:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Ghana",
+      "awayTeam": "Panama",
+      "venue": {
+        "city": "Toronto",
+        "stadium": "BMO Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Ghana vs Panama",
+      "eventAlternateName": "Panama @ Ghana",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-17T23:00:00",
+      "dateUtc": "2026-06-17",
+      "timeUtc": "23:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gk-02",
+      "matchNumber": 24,
+      "stage": "Group Stage",
+      "group": "K",
+      "matchday": 7,
+      "date": "2026-06-17",
+      "time": "20:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Uzbekistan",
+      "awayTeam": "Colombia",
+      "venue": {
+        "city": "Mexico City",
+        "stadium": "Estadio Azteca"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Uzbekistan vs Colombia",
+      "eventAlternateName": "Colombia @ Uzbekistan",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-18T02:00:00",
+      "dateUtc": "2026-06-18",
+      "timeUtc": "02:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ga-03",
+      "matchNumber": 25,
+      "stage": "Group Stage",
+      "group": "A",
+      "matchday": 8,
+      "date": "2026-06-18",
+      "time": "12:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Czech Republic",
+      "awayTeam": "South Africa",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Czech Republic vs South Africa",
+      "eventAlternateName": "South Africa @ Czech Republic",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1o0cx31654205806.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/xjz9j91553368824.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-18T16:00:00",
+      "dateUtc": "2026-06-18",
+      "timeUtc": "16:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gb-03",
+      "matchNumber": 26,
+      "stage": "Group Stage",
+      "group": "B",
+      "matchday": 8,
+      "date": "2026-06-18",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Switzerland",
+      "awayTeam": "Bosnia & Herzegovina",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Switzerland vs Bosnia & Herzegovina",
+      "eventAlternateName": "Bosnia & Herzegovina @ Switzerland",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/mb7yqe1717365808.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/wtqqst1455463120.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-18T19:00:00",
+      "dateUtc": "2026-06-18",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gb-04",
+      "matchNumber": 27,
+      "stage": "Group Stage",
+      "group": "B",
+      "matchday": 8,
+      "date": "2026-06-18",
+      "time": "15:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Canada",
+      "awayTeam": "Qatar",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Canada vs Qatar",
+      "eventAlternateName": "Qatar @ Canada",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/2t631f1595154867.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rs3ir31642708685.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-18T22:00:00",
+      "dateUtc": "2026-06-18",
+      "timeUtc": "22:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ga-04",
+      "matchNumber": 28,
+      "stage": "Group Stage",
+      "group": "A",
+      "matchday": 8,
+      "date": "2026-06-18",
+      "time": "19:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Mexico",
+      "awayTeam": "South Korea",
+      "venue": {
+        "city": "Guadalajara (Zapopan)",
+        "stadium": "Estadio Akron"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Mexico vs South Korea",
+      "eventAlternateName": "South Korea @ Mexico",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3rmosi1748525208.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/a8nqfs1589564916.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-19T01:00:00",
+      "dateUtc": "2026-06-19",
+      "timeUtc": "01:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gd-03",
+      "matchNumber": 29,
+      "stage": "Group Stage",
+      "group": "D",
+      "matchday": 9,
+      "date": "2026-06-19",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "USA",
+      "awayTeam": "Australia",
+      "venue": {
+        "city": "Seattle",
+        "stadium": "Lumen Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "USA vs Australia",
+      "eventAlternateName": "Australia @ USA",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/21f0oi1597948195.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/lark6k1661780848.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-19T19:00:00",
+      "dateUtc": "2026-06-19",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gc-03",
+      "matchNumber": 30,
+      "stage": "Group Stage",
+      "group": "C",
+      "matchday": 9,
+      "date": "2026-06-19",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Scotland",
+      "awayTeam": "Morocco",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Scotland vs Morocco",
+      "eventAlternateName": "Morocco @ Scotland",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3691i11552945146.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/hbmwkj1731791275.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-19T22:00:00",
+      "dateUtc": "2026-06-19",
+      "timeUtc": "22:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gc-04",
+      "matchNumber": 31,
+      "stage": "Group Stage",
+      "group": "C",
+      "matchday": 9,
+      "date": "2026-06-19",
+      "time": "20:30",
+      "timezone": "UTC-4",
+      "homeTeam": "Brazil",
+      "awayTeam": "Haiti",
+      "venue": {
+        "city": "Philadelphia",
+        "stadium": "Lincoln Financial Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Brazil vs Haiti",
+      "eventAlternateName": "Haiti @ Brazil",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/jl6dip1726167280.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/gml8wx1598135302.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-20T00:30:00",
+      "dateUtc": "2026-06-20",
+      "timeUtc": "00:30",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gd-04",
+      "matchNumber": 32,
+      "stage": "Group Stage",
+      "group": "D",
+      "matchday": 9,
+      "date": "2026-06-19",
+      "time": "20:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Turkey",
+      "awayTeam": "Paraguay",
+      "venue": {
+        "city": "San Francisco Bay Area (Santa Clara)",
+        "stadium": "Levi's Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Turkey vs Paraguay",
+      "eventAlternateName": "Paraguay @ Turkey",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/70c4oo1591982459.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/khgav41553419195.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-20T03:00:00",
+      "dateUtc": "2026-06-20",
+      "timeUtc": "03:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gf-03",
+      "matchNumber": 33,
+      "stage": "Group Stage",
+      "group": "F",
+      "matchday": 10,
+      "date": "2026-06-20",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Netherlands",
+      "awayTeam": "Sweden",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Netherlands vs Sweden",
+      "eventAlternateName": "Sweden @ Netherlands",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1p0hr41593787110.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/h5adzg1591981772.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-20T17:00:00",
+      "dateUtc": "2026-06-20",
+      "timeUtc": "17:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ge-03",
+      "matchNumber": 34,
+      "stage": "Group Stage",
+      "group": "E",
+      "matchday": 10,
+      "date": "2026-06-20",
+      "time": "16:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Germany",
+      "awayTeam": "Ivory Coast",
+      "venue": {
+        "city": "Toronto",
+        "stadium": "BMO Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Germany vs Ivory Coast",
+      "eventAlternateName": "Ivory Coast @ Germany",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1xysi51726167152.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rwxuuu1455465643.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-20T20:00:00",
+      "dateUtc": "2026-06-20",
+      "timeUtc": "20:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ge-04",
+      "matchNumber": 35,
+      "stage": "Group Stage",
+      "group": "E",
+      "matchday": 10,
+      "date": "2026-06-20",
+      "time": "19:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Ecuador",
+      "awayTeam": "Curaçao",
+      "venue": {
+        "city": "Kansas City",
+        "stadium": "Arrowhead Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Ecuador vs Curaçao",
+      "eventAlternateName": "Curaçao @ Ecuador",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/47wv2y1591989301.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/itygvb1600955363.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-21T00:00:00",
+      "dateUtc": "2026-06-21",
+      "timeUtc": "00:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gf-04",
+      "matchNumber": 36,
+      "stage": "Group Stage",
+      "group": "F",
+      "matchday": 10,
+      "date": "2026-06-20",
+      "time": "22:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Tunisia",
+      "awayTeam": "Japan",
+      "venue": {
+        "city": "Monterrey (Guadalupe)",
+        "stadium": "Estadio BBVA"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Tunisia vs Japan",
+      "eventAlternateName": "Japan @ Tunisia",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/7r89rg1526727277.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/ffsyxz1591989843.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-21T04:00:00",
+      "dateUtc": "2026-06-21",
+      "timeUtc": "04:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gh-03",
+      "matchNumber": 37,
+      "stage": "Group Stage",
+      "group": "H",
+      "matchday": 11,
+      "date": "2026-06-21",
+      "time": "12:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Spain",
+      "awayTeam": "Saudi Arabia",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Spain vs Saudi Arabia",
+      "eventAlternateName": "Saudi Arabia @ Spain",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/ncgqyr1726166942.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/24xwpq1594125742.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-21T16:00:00",
+      "dateUtc": "2026-06-21",
+      "timeUtc": "16:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gg-03",
+      "matchNumber": 38,
+      "stage": "Group Stage",
+      "group": "G",
+      "matchday": 11,
+      "date": "2026-06-21",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Belgium",
+      "awayTeam": "Iran",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Belgium vs Iran",
+      "eventAlternateName": "Iran @ Belgium",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/8xlvxv1592062265.png",
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-21T19:00:00",
+      "dateUtc": "2026-06-21",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gh-04",
+      "matchNumber": 39,
+      "stage": "Group Stage",
+      "group": "H",
+      "matchday": 11,
+      "date": "2026-06-21",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Uruguay",
+      "awayTeam": "Cape Verde",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Uruguay vs Cape Verde",
+      "eventAlternateName": "Cape Verde @ Uruguay",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/6vjbr11726167756.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/5jn0o71593280376.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-21T22:00:00",
+      "dateUtc": "2026-06-21",
+      "timeUtc": "22:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gg-04",
+      "matchNumber": 40,
+      "stage": "Group Stage",
+      "group": "G",
+      "matchday": 11,
+      "date": "2026-06-21",
+      "time": "18:00",
+      "timezone": "UTC-7",
+      "homeTeam": "New Zealand",
+      "awayTeam": "Egypt",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "New Zealand vs Egypt",
+      "eventAlternateName": "Egypt @ New Zealand",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uheyzo1742102234.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-22T01:00:00",
+      "dateUtc": "2026-06-22",
+      "timeUtc": "01:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gj-03",
+      "matchNumber": 41,
+      "stage": "Group Stage",
+      "group": "J",
+      "matchday": 12,
+      "date": "2026-06-22",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Argentina",
+      "awayTeam": "Austria",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Argentina vs Austria",
+      "eventAlternateName": "Austria @ Argentina",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-22T17:00:00",
+      "dateUtc": "2026-06-22",
+      "timeUtc": "17:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gi-03",
+      "matchNumber": 42,
+      "stage": "Group Stage",
+      "group": "I",
+      "matchday": 12,
+      "date": "2026-06-22",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeam": "France",
+      "awayTeam": "Iraq",
+      "venue": {
+        "city": "Philadelphia",
+        "stadium": "Lincoln Financial Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "France vs Iraq",
+      "eventAlternateName": "Iraq @ France",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-22T21:00:00",
+      "dateUtc": "2026-06-22",
+      "timeUtc": "21:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gi-04",
+      "matchNumber": 43,
+      "stage": "Group Stage",
+      "group": "I",
+      "matchday": 12,
+      "date": "2026-06-22",
+      "time": "20:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Norway",
+      "awayTeam": "Senegal",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Norway vs Senegal",
+      "eventAlternateName": "Senegal @ Norway",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-23T00:00:00",
+      "dateUtc": "2026-06-23",
+      "timeUtc": "00:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gj-04",
+      "matchNumber": 44,
+      "stage": "Group Stage",
+      "group": "J",
+      "matchday": 12,
+      "date": "2026-06-22",
+      "time": "20:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Jordan",
+      "awayTeam": "Algeria",
+      "venue": {
+        "city": "San Francisco Bay Area (Santa Clara)",
+        "stadium": "Levi's Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Jordan vs Algeria",
+      "eventAlternateName": "Algeria @ Jordan",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-23T03:00:00",
+      "dateUtc": "2026-06-23",
+      "timeUtc": "03:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gk-03",
+      "matchNumber": 45,
+      "stage": "Group Stage",
+      "group": "K",
+      "matchday": 13,
+      "date": "2026-06-23",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Portugal",
+      "awayTeam": "Uzbekistan",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Portugal vs Uzbekistan",
+      "eventAlternateName": "Uzbekistan @ Portugal",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-23T17:00:00",
+      "dateUtc": "2026-06-23",
+      "timeUtc": "17:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gl-03",
+      "matchNumber": 46,
+      "stage": "Group Stage",
+      "group": "L",
+      "matchday": 13,
+      "date": "2026-06-23",
+      "time": "16:00",
+      "timezone": "UTC-4",
+      "homeTeam": "England",
+      "awayTeam": "Ghana",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "England vs Ghana",
+      "eventAlternateName": "Ghana @ England",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-23T20:00:00",
+      "dateUtc": "2026-06-23",
+      "timeUtc": "20:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gl-04",
+      "matchNumber": 47,
+      "stage": "Group Stage",
+      "group": "L",
+      "matchday": 13,
+      "date": "2026-06-23",
+      "time": "19:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Panama",
+      "awayTeam": "Croatia",
+      "venue": {
+        "city": "Toronto",
+        "stadium": "BMO Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Panama vs Croatia",
+      "eventAlternateName": "Croatia @ Panama",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-23T23:00:00",
+      "dateUtc": "2026-06-23",
+      "timeUtc": "23:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gk-04",
+      "matchNumber": 48,
+      "stage": "Group Stage",
+      "group": "K",
+      "matchday": 13,
+      "date": "2026-06-23",
+      "time": "20:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Colombia",
+      "awayTeam": "DR Congo",
+      "venue": {
+        "city": "Guadalajara (Zapopan)",
+        "stadium": "Estadio Akron"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Colombia vs DR Congo",
+      "eventAlternateName": "DR Congo @ Colombia",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-24T02:00:00",
+      "dateUtc": "2026-06-24",
+      "timeUtc": "02:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gb-05",
+      "matchNumber": 49,
+      "stage": "Group Stage",
+      "group": "B",
+      "matchday": 14,
+      "date": "2026-06-24",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Switzerland",
+      "awayTeam": "Canada",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Switzerland vs Canada",
+      "eventAlternateName": "Canada @ Switzerland",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/mb7yqe1717365808.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/2t631f1595154867.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-24T19:00:00",
+      "dateUtc": "2026-06-24",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gb-06",
+      "matchNumber": 50,
+      "stage": "Group Stage",
+      "group": "B",
+      "matchday": 14,
+      "date": "2026-06-24",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Bosnia & Herzegovina",
+      "awayTeam": "Qatar",
+      "venue": {
+        "city": "Seattle",
+        "stadium": "Lumen Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Bosnia & Herzegovina vs Qatar",
+      "eventAlternateName": "Qatar @ Bosnia & Herzegovina",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/wtqqst1455463120.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rs3ir31642708685.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-24T19:00:00",
+      "dateUtc": "2026-06-24",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gc-05",
+      "matchNumber": 51,
+      "stage": "Group Stage",
+      "group": "C",
+      "matchday": 14,
+      "date": "2026-06-24",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Scotland",
+      "awayTeam": "Brazil",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Scotland vs Brazil",
+      "eventAlternateName": "Brazil @ Scotland",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3691i11552945146.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/jl6dip1726167280.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-24T22:00:00",
+      "dateUtc": "2026-06-24",
+      "timeUtc": "22:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gc-06",
+      "matchNumber": 52,
+      "stage": "Group Stage",
+      "group": "C",
+      "matchday": 14,
+      "date": "2026-06-24",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Morocco",
+      "awayTeam": "Haiti",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Morocco vs Haiti",
+      "eventAlternateName": "Haiti @ Morocco",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/hbmwkj1731791275.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/gml8wx1598135302.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-24T22:00:00",
+      "dateUtc": "2026-06-24",
+      "timeUtc": "22:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ga-05",
+      "matchNumber": 53,
+      "stage": "Group Stage",
+      "group": "A",
+      "matchday": 14,
+      "date": "2026-06-24",
+      "time": "19:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Czech Republic",
+      "awayTeam": "Mexico",
+      "venue": {
+        "city": "Mexico City",
+        "stadium": "Estadio Azteca"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Czech Republic vs Mexico",
+      "eventAlternateName": "Mexico @ Czech Republic",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1o0cx31654205806.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3rmosi1748525208.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-25T01:00:00",
+      "dateUtc": "2026-06-25",
+      "timeUtc": "01:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ga-06",
+      "matchNumber": 54,
+      "stage": "Group Stage",
+      "group": "A",
+      "matchday": 14,
+      "date": "2026-06-24",
+      "time": "19:00",
+      "timezone": "UTC-6",
+      "homeTeam": "South Africa",
+      "awayTeam": "South Korea",
+      "venue": {
+        "city": "Monterrey (Guadalupe)",
+        "stadium": "Estadio BBVA"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "South Africa vs South Korea",
+      "eventAlternateName": "South Korea @ South Africa",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/xjz9j91553368824.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/a8nqfs1589564916.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-25T01:00:00",
+      "dateUtc": "2026-06-25",
+      "timeUtc": "01:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ge-05",
+      "matchNumber": 55,
+      "stage": "Group Stage",
+      "group": "E",
+      "matchday": 15,
+      "date": "2026-06-25",
+      "time": "16:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Curaçao",
+      "awayTeam": "Ivory Coast",
+      "venue": {
+        "city": "Philadelphia",
+        "stadium": "Lincoln Financial Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Curaçao vs Ivory Coast",
+      "eventAlternateName": "Ivory Coast @ Curaçao",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/itygvb1600955363.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rwxuuu1455465643.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-25T20:00:00",
+      "dateUtc": "2026-06-25",
+      "timeUtc": "20:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ge-06",
+      "matchNumber": 56,
+      "stage": "Group Stage",
+      "group": "E",
+      "matchday": 15,
+      "date": "2026-06-25",
+      "time": "16:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Ecuador",
+      "awayTeam": "Germany",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Ecuador vs Germany",
+      "eventAlternateName": "Germany @ Ecuador",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/47wv2y1591989301.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1xysi51726167152.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-25T20:00:00",
+      "dateUtc": "2026-06-25",
+      "timeUtc": "20:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gf-05",
+      "matchNumber": 57,
+      "stage": "Group Stage",
+      "group": "F",
+      "matchday": 15,
+      "date": "2026-06-25",
+      "time": "18:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Japan",
+      "awayTeam": "Sweden",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Japan vs Sweden",
+      "eventAlternateName": "Sweden @ Japan",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/ffsyxz1591989843.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/h5adzg1591981772.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-25T23:00:00",
+      "dateUtc": "2026-06-25",
+      "timeUtc": "23:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gf-06",
+      "matchNumber": 58,
+      "stage": "Group Stage",
+      "group": "F",
+      "matchday": 15,
+      "date": "2026-06-25",
+      "time": "18:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Tunisia",
+      "awayTeam": "Netherlands",
+      "venue": {
+        "city": "Kansas City",
+        "stadium": "Arrowhead Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Tunisia vs Netherlands",
+      "eventAlternateName": "Netherlands @ Tunisia",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/7r89rg1526727277.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/1p0hr41593787110.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-25T23:00:00",
+      "dateUtc": "2026-06-25",
+      "timeUtc": "23:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gd-05",
+      "matchNumber": 59,
+      "stage": "Group Stage",
+      "group": "D",
+      "matchday": 15,
+      "date": "2026-06-25",
+      "time": "19:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Turkey",
+      "awayTeam": "USA",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Turkey vs USA",
+      "eventAlternateName": "USA @ Turkey",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/70c4oo1591982459.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/21f0oi1597948195.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-26T02:00:00",
+      "dateUtc": "2026-06-26",
+      "timeUtc": "02:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gd-06",
+      "matchNumber": 60,
+      "stage": "Group Stage",
+      "group": "D",
+      "matchday": 15,
+      "date": "2026-06-25",
+      "time": "19:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Paraguay",
+      "awayTeam": "Australia",
+      "venue": {
+        "city": "San Francisco Bay Area (Santa Clara)",
+        "stadium": "Levi's Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Paraguay vs Australia",
+      "eventAlternateName": "Australia @ Paraguay",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/khgav41553419195.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/lark6k1661780848.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-26T02:00:00",
+      "dateUtc": "2026-06-26",
+      "timeUtc": "02:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gi-05",
+      "matchNumber": 61,
+      "stage": "Group Stage",
+      "group": "I",
+      "matchday": 16,
+      "date": "2026-06-26",
+      "time": "15:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Norway",
+      "awayTeam": "France",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Norway vs France",
+      "eventAlternateName": "France @ Norway",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-26T19:00:00",
+      "dateUtc": "2026-06-26",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gi-06",
+      "matchNumber": 62,
+      "stage": "Group Stage",
+      "group": "I",
+      "matchday": 16,
+      "date": "2026-06-26",
+      "time": "15:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Senegal",
+      "awayTeam": "Iraq",
+      "venue": {
+        "city": "Toronto",
+        "stadium": "BMO Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Senegal vs Iraq",
+      "eventAlternateName": "Iraq @ Senegal",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-26T19:00:00",
+      "dateUtc": "2026-06-26",
+      "timeUtc": "19:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gh-05",
+      "matchNumber": 63,
+      "stage": "Group Stage",
+      "group": "H",
+      "matchday": 16,
+      "date": "2026-06-26",
+      "time": "19:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Cape Verde",
+      "awayTeam": "Saudi Arabia",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Cape Verde vs Saudi Arabia",
+      "eventAlternateName": "Saudi Arabia @ Cape Verde",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/5jn0o71593280376.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/24xwpq1594125742.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T00:00:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "00:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gh-06",
+      "matchNumber": 64,
+      "stage": "Group Stage",
+      "group": "H",
+      "matchday": 16,
+      "date": "2026-06-26",
+      "time": "18:00",
+      "timezone": "UTC-6",
+      "homeTeam": "Uruguay",
+      "awayTeam": "Spain",
+      "venue": {
+        "city": "Guadalajara (Zapopan)",
+        "stadium": "Estadio Akron"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Uruguay vs Spain",
+      "eventAlternateName": "Spain @ Uruguay",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/6vjbr11726167756.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/ncgqyr1726166942.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T00:00:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "00:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gg-05",
+      "matchNumber": 65,
+      "stage": "Group Stage",
+      "group": "G",
+      "matchday": 16,
+      "date": "2026-06-26",
+      "time": "20:00",
+      "timezone": "UTC-7",
+      "homeTeam": "Egypt",
+      "awayTeam": "Iran",
+      "venue": {
+        "city": "Seattle",
+        "stadium": "Lumen Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Egypt vs Iran",
+      "eventAlternateName": "Iran @ Egypt",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uheyzo1742102234.png",
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T03:00:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "03:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gg-06",
+      "matchNumber": 66,
+      "stage": "Group Stage",
+      "group": "G",
+      "matchday": 16,
+      "date": "2026-06-26",
+      "time": "20:00",
+      "timezone": "UTC-7",
+      "homeTeam": "New Zealand",
+      "awayTeam": "Belgium",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "New Zealand vs Belgium",
+      "eventAlternateName": "Belgium @ New Zealand",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/8xlvxv1592062265.png",
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T03:00:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "03:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gl-05",
+      "matchNumber": 67,
+      "stage": "Group Stage",
+      "group": "L",
+      "matchday": 17,
+      "date": "2026-06-27",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Panama",
+      "awayTeam": "England",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Panama vs England",
+      "eventAlternateName": "England @ Panama",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T21:00:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "21:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gl-06",
+      "matchNumber": 68,
+      "stage": "Group Stage",
+      "group": "L",
+      "matchday": 17,
+      "date": "2026-06-27",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeam": "Croatia",
+      "awayTeam": "Ghana",
+      "venue": {
+        "city": "Philadelphia",
+        "stadium": "Lincoln Financial Field"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Croatia vs Ghana",
+      "eventAlternateName": "Ghana @ Croatia",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T21:00:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "21:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gk-05",
+      "matchNumber": 69,
+      "stage": "Group Stage",
+      "group": "K",
+      "matchday": 17,
+      "date": "2026-06-27",
+      "time": "19:30",
+      "timezone": "UTC-4",
+      "homeTeam": "Colombia",
+      "awayTeam": "Portugal",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Colombia vs Portugal",
+      "eventAlternateName": "Portugal @ Colombia",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T23:30:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "23:30",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gk-06",
+      "matchNumber": 70,
+      "stage": "Group Stage",
+      "group": "K",
+      "matchday": 17,
+      "date": "2026-06-27",
+      "time": "19:30",
+      "timezone": "UTC-4",
+      "homeTeam": "DR Congo",
+      "awayTeam": "Uzbekistan",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "DR Congo vs Uzbekistan",
+      "eventAlternateName": "Uzbekistan @ DR Congo",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-27T23:30:00",
+      "dateUtc": "2026-06-27",
+      "timeUtc": "23:30",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gj-05",
+      "matchNumber": 71,
+      "stage": "Group Stage",
+      "group": "J",
+      "matchday": 17,
+      "date": "2026-06-27",
+      "time": "21:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Algeria",
+      "awayTeam": "Austria",
+      "venue": {
+        "city": "Kansas City",
+        "stadium": "Arrowhead Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Algeria vs Austria",
+      "eventAlternateName": "Austria @ Algeria",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-28T02:00:00",
+      "dateUtc": "2026-06-28",
+      "timeUtc": "02:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-gj-06",
+      "matchNumber": 72,
+      "stage": "Group Stage",
+      "group": "J",
+      "matchday": 17,
+      "date": "2026-06-27",
+      "time": "21:00",
+      "timezone": "UTC-5",
+      "homeTeam": "Jordan",
+      "awayTeam": "Argentina",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "Jordan vs Argentina",
+      "eventAlternateName": "Argentina @ Jordan",
+      "sportsDbEventId": null,
+      "sportsDbHomeTeamId": null,
+      "sportsDbAwayTeamId": null,
+      "homeTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-28T02:00:00",
+      "dateUtc": "2026-06-28",
+      "timeUtc": "02:00",
+      "statusCode": null,
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    }
+  ]
+}
