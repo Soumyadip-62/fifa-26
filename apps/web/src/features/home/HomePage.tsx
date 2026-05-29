@@ -106,7 +106,7 @@ export async function HomePage() {
         />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] items-start">
         {featuredMatch ? (
           <div className="grid gap-3">
             <SectionHeader eyebrow="Featured match" title="Main fixture" />
@@ -114,7 +114,7 @@ export async function HomePage() {
           </div>
         ) : null}
         <div className="grid gap-3">
-          <SectionHeader eyebrow="Top teams" title="Teams to watch" />
+          <SectionHeader eyebrow="Top teams" title="Favorite Teams" />
           <Card>
             <CardContent className="grid gap-4 p-5">
               {teams.slice(0, 3).map((team) => (
