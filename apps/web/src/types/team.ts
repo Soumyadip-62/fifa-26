@@ -18,6 +18,14 @@ export type Team = {
   id: string;
   name: string;
   country: string;
+  name_normalised?: string;
+  continent?: string;
+  flag_icon?: string;
+  flag_unicode?: string;
+  fifa_code?: string;
+  confed?: string;
+  image_url?: string | null;
+  sportsdb_team_id?: string | null;
   logoUrl?: string;
   flagUrl?: string;
   shortCode?: string;

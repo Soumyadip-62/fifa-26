@@ -7,7 +7,6 @@ export class SearchService {
 
   searchMatchesByTeam(team: string) {
     const normalizedTeam = normalize(team);
-
     if (!normalizedTeam) {
       return [];
     }

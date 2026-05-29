@@ -16,51 +16,71 @@ const sections = [
   {
     href: "/matches",
     title: "Match schedules",
-    description: "Browse upcoming, live, and finished fixtures from the mock API layer.",
+    description:
+      "Browse upcoming, live, and finished fixtures from the mock API layer.",
   },
   {
     href: "/teams",
     title: "Team pages",
-    description: "Review team profile data that can later connect to backend responses.",
+    description:
+      "Review team profile data that can later connect to backend responses.",
   },
   {
     href: "/news",
     title: "News and blogs",
-    description: "Read article listings and details with typed frontend-friendly content.",
+    description:
+      "Read article listings and details with typed frontend-friendly content.",
   },
   {
     href: "/history",
     title: "Football history",
-    description: "Scan previous winners, host countries, final scores, and summaries.",
+    description:
+      "Scan previous winners, host countries, final scores, and summaries.",
   },
 ];
 
 export async function HomePage() {
-  const [matches, teams, articles] = await Promise.all([getMatches(), getTeams(), getNewsArticles()]);
+  const [matches, teams, articles] = await Promise.all([
+    getMatches(),
+    getTeams(),
+    getNewsArticles(),
+  ]);
   const featuredMatch = matches[0];
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:px-8">
-      <section className="relative overflow-hidden rounded-2xl bg-emerald-950 p-6 text-white shadow-sm ring-1 ring-white/10 sm:p-8 lg:p-10">
+      <section className="relative flex min-h-100 items-center justify-start overflow-hidden rounded-2xl bg-emerald-950 p-6  text-white shadow-sm ring-1 ring-white/10 sm:p-8 lg:p-10">
         <Image
           src={images.banners.worldCup2026}
           alt="FIFA 26 tournament banner"
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-35"
+          className="object-cover object-center opacity-40"
         />
-        <div className="relative grid max-w-3xl gap-5">
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-200">Tournament dashboard</p>
-          <h1 className="text-4xl font-black leading-tight tracking-normal sm:text-5xl">FIFA 26 football stats platform</h1>
-          <p className="text-base leading-7 text-emerald-50">
-            Fixtures, teams, news, and tournament history in one API-ready frontend.
+        <div className="relative grid max-w-lg gap-5">
+          <p className="text-xs font-bold uppercase tracking-wide text-emerald-200">
+            Tournament dashboard
           </p>
-          <div className="flex flex-wrap gap-3">
+          <h1 className="text-4xl font-black leading-tight tracking-normal sm:text-5xl">
+            FIFA 2026
+          </h1>
+          <p className="text-base leading-7 text-emerald-50">
+            Fixtures, teams, news, and tournament history in one API-ready
+            frontend.
+          </p>
+          <div className="flex flex-wrap justify-start gap-3">
             <Link className={buttonVariants()} href="/matches">
               View matches
             </Link>
-            <Link className={buttonVariants({ variant: "outline", className: "border-white/40 bg-white/10 text-white hover:bg-white/20 dark:text-white" })} href="/teams">
+            <Link
+              className={buttonVariants({
+                variant: "outline",
+                className:
+                  "border-white/40 bg-white/10 text-white hover:bg-white/20 dark:text-white",
+              })}
+              href="/teams"
+            >
               Explore teams
             </Link>
           </div>
@@ -68,9 +88,21 @@ export async function HomePage() {
       </section>
 
       <section className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Tracked teams" value={teams.length} helper="Mock API data" />
-        <StatCard label="Fixtures" value={matches.length} helper="Scheduled and live" />
-        <StatCard label="Articles" value={articles.length} helper="News ready" />
+        <StatCard
+          label="Tracked teams"
+          value={teams.length}
+          helper="Mock API data"
+        />
+        <StatCard
+          label="Fixtures"
+          value={matches.length}
+          helper="Scheduled and live"
+        />
+        <StatCard
+          label="Articles"
+          value={articles.length}
+          helper="News ready"
+        />
       </section>
 
       <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
@@ -101,15 +133,22 @@ export async function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Platform sections">
+      <section
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        aria-label="Platform sections"
+      >
         {sections.map((section) => (
           <Link
             className="rounded-xl border border-neutral-200 bg-white/95 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950/90 dark:hover:border-emerald-700"
             href={section.href}
             key={section.href}
           >
-            <h2 className="text-lg font-bold text-neutral-950 dark:text-neutral-50">{section.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">{section.description}</p>
+            <h2 className="text-lg font-bold text-neutral-950 dark:text-neutral-50">
+              {section.title}
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              {section.description}
+            </p>
           </Link>
         ))}
       </section>

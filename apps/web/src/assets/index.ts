@@ -1,6 +1,6 @@
 export const images = {
   banners: {
-    worldCup2026: "/assets/images/banners/world-cup-2026.svg",
+    worldCup2026: "/assets/images/banners/world-cup26.png",
   },
   teams: {
     argentina: "/assets/images/teams/argentina.svg",

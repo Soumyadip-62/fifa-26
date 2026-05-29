@@ -1,5 +1,6 @@
 import { mockMatches } from "@/data/mock/matches";
 import { images } from "@/assets";
+import { apiUrl } from "@/lib/api/config";
 import type { Match, MatchStatus, MatchTeam } from "@/types/match";
 
 type ApiVenue = {
@@ -80,7 +81,7 @@ function normalizeMatch(match: ApiMatch): Match {
 
 export async function getMatches(): Promise<Match[]> {
   try {
-    const response = await fetch("http://localhost:3001/matches/");
+    const response = await fetch(apiUrl("/matches"));
     if (!response.ok) {
       throw new Error("Failed to fetch matches");
     }
@@ -93,7 +94,7 @@ export async function getMatches(): Promise<Match[]> {
 
 export async function getMatchById(matchId: string): Promise<Match> {
   try {
-    const response = await fetch(`http://localhost:3001/matches/${matchId}`);
+    const response = await fetch(apiUrl(`/matches/${matchId}`));
     if (!response.ok) {
       throw new Error("Failed to fetch match");
     }
@@ -112,9 +113,8 @@ export async function searchMatchesByTeam(team: string): Promise<Match[]> {
   }
 
   try {
-    const response = await fetch(
-      `http://localhost:3001/search/matches?team=${encodeURIComponent(query)}`,
-    );
+    const url = apiUrl(`/search/matches?team=${encodeURIComponent(query)}`);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Failed to search matches");
     }
