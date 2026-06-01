@@ -14,6 +14,7 @@ import { formatDate } from "@/lib/utils/formatDate";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { TeamLogoImage } from "@/components/matches/TeamLogoImage";
 import VsIcon from "@/components/Icons/VsIcon";
+import { getTeamPlayersById } from "@/lib/api/teams";
 
 export type MatchDetailsPageProps = {
   matchId: string;
@@ -28,6 +29,29 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     queryKey: ["matches", matchId],
     queryFn: () => getMatchById(matchId),
   });
+
+  console.log(match);
+
+  const {
+    data: homeTeamPlayers,
+    isPending: isHomeTeamPlayersPending,
+    error: homeTeamPlayersError,
+  } = useSuspenseQuery({
+    queryKey: ["teams", match.homeTeam.id],
+    queryFn: () => getTeamPlayersById(match.homeTeam.id),
+  });
+
+  console.log(homeTeamPlayers);
+
+  const {
+    data: awayTeamPlayers,
+    isPending: isAwayTeamPlayersPending,
+    error: awayTeamPlayersError,
+  } = useSuspenseQuery({
+    queryKey: ["teams", match.awayTeam.id],
+    queryFn: () => getTeamPlayersById(match.awayTeam.id),
+  });
+  console.log(awayTeamPlayers);
 
   if (error) {
     return (
@@ -125,20 +149,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
         />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardContent className="grid gap-4 p-5">
-            <SectionHeader
-              eyebrow="Timeline"
-              title="Match events"
-              description="Live events can plug into this section later."
-            />
-            <Separator />
-            <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-              No timeline events available yet.
-            </p>
-          </CardContent>
-        </Card>
+      <section className="grid gap-4 ">
         <Card>
           <CardContent className="grid gap-4 p-5">
             <SectionHeader
@@ -149,6 +160,19 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
             <Separator />
             <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
               Lineups have not been published.
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="grid gap-4 p-5">
+            <SectionHeader
+              eyebrow="Timeline"
+              title="Match events"
+              description="Live events can plug into this section later."
+            />
+            <Separator />
+            <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              No timeline events available yet.
             </p>
           </CardContent>
         </Card>

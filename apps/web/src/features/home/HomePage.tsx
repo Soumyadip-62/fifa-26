@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { images } from "@/assets";
 import { SectionHeader } from "@/components/common/SectionHeader";
+import { FirstMatchCountdown } from "@/components/home/FirstMatchCountdown";
 import { StatCard } from "@/components/common/StatCard";
 import { TeamBadge } from "@/components/common/TeamBadge";
 import { MatchCard } from "@/components/matches/MatchCard";
@@ -11,6 +12,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { getMatches } from "@/lib/api/matches";
 import { getNewsArticles } from "@/lib/api/news";
 import { getTeams } from "@/lib/api/teams";
+import type { Match } from "@/types/match";
 
 const sections = [
   {
@@ -39,13 +41,33 @@ const sections = [
   },
 ];
 
+function parseMatchStart(match: Match) {
+  const startTime = Date.parse(match.date);
+
+  return Number.isFinite(startTime) ? startTime : null;
+}
+
+function getFirstMatch(matches: Match[]) {
+  return [...matches]
+    .map((match) => ({ match, startTime: parseMatchStart(match) }))
+    .filter(
+      (entry): entry is { match: Match; startTime: number } =>
+        entry.startTime !== null,
+    )
+    .sort((first, second) => first.startTime - second.startTime)[0];
+}
+
 export async function HomePage() {
   const [matches, teams, articles] = await Promise.all([
     getMatches(),
     getTeams(),
     getNewsArticles(),
   ]);
-  const featuredMatch = matches[0];
+  const firstMatch = getFirstMatch(matches);
+  const featuredMatch = firstMatch?.match ?? matches[0];
+  const firstMatchLabel = firstMatch
+    ? `${firstMatch.match.homeTeam.name} vs ${firstMatch.match.awayTeam.name}`
+    : null;
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:px-8">
@@ -85,6 +107,13 @@ export async function HomePage() {
               Explore teams
             </Link>
           </div>
+          {firstMatch && firstMatchLabel ? (
+            <FirstMatchCountdown
+              matchId={firstMatch.match.id}
+              matchLabel={firstMatchLabel}
+              targetIso={new Date(firstMatch.startTime).toISOString()}
+            />
+          ) : null}
         </div>
       </section>
 

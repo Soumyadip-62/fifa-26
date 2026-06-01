@@ -1,19 +1,28 @@
+"use client";
 import Image from "next/image";
 import { cn } from "@/lib/utils/cn";
 
 export type FlagIconProps = {
-  country: string;
+  country?: string | null;
   className?: string;
 };
 
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
-function normalize(value: string) {
+function normalize(value: string | null | undefined) {
+  if (!value) {
+    return "";
+  }
+
   return value.toLowerCase().replace(/[^a-z]/g, "");
 }
 
-function getCountryCode(country: string) {
+function getCountryCode(country: string | null | undefined) {
   const normalizedCountry = normalize(country);
+
+  if (!normalizedCountry) {
+    return null;
+  }
 
   for (let first = 65; first <= 90; first += 1) {
     for (let second = 65; second <= 90; second += 1) {
@@ -39,7 +48,7 @@ export function FlagIcon({ country, className }: FlagIconProps) {
   return (
     <Image
       src={`https://flagcdn.com/w40/${flagCode}.png`}
-      alt={`${country} flag`}
+      alt={`${country ?? "Country"} flag`}
       width={28}
       height={20}
       className={cn(

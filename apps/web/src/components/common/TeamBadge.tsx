@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { images } from "@/assets";
 import { FlagIcon } from "@/components/common/FlagIcon";

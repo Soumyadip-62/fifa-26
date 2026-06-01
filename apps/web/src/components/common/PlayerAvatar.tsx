@@ -7,8 +7,12 @@ export type PlayerAvatarProps = {
   imageUrl?: string;
 };
 
-export function PlayerAvatar({ name, imageUrl }: PlayerAvatarProps) {
+export function PlayerAvatar({
+  name = "Unknown Player",
+  imageUrl,
+}: PlayerAvatarProps) {
   const initials = name
+    .toString()
     .split(" ")
     .map((part) => part[0])
     .join("")
@@ -18,11 +22,35 @@ export function PlayerAvatar({ name, imageUrl }: PlayerAvatarProps) {
   return (
     <Avatar className="h-12 w-12">
       {imageUrl ? (
-        <Image src={imageUrl} alt={`${name} headshot`} width={48} height={48} className="h-full w-full object-cover" />
+        <Image
+          src={imageUrl}
+          alt={`${name} headshot`}
+          width={48}
+          height={48}
+          className="h-full w-full object-cover"
+        />
       ) : (
-        <Image src={images.placeholders.player} alt="" width={48} height={48} className="h-full w-full object-cover" />
+        <Image
+          src={images.placeholders.player}
+          alt=""
+          width={48}
+          height={48}
+          className="h-full w-full object-cover"
+        />
       )}
-      <AvatarFallback>{initials}</AvatarFallback>
+      <AvatarFallback>
+        {initials ? (
+          initials
+        ) : (
+          <Image
+            src={images.placeholders.player}
+            alt=""
+            width={48}
+            height={48}
+            className="h-full w-full object-cover"
+          />
+        )}
+      </AvatarFallback>
     </Avatar>
   );
 }

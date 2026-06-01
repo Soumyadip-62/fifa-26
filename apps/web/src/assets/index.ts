@@ -27,4 +27,8 @@ export const images = {
   placeholders: {
     player: "/assets/images/placeholders/player.svg",
   },
+
+  logos: {
+    fifa_logo: "/assets/images/banners/WC26_Logo.avif",
+  },
 } as const;

@@ -12,11 +12,15 @@ export type TeamCardProps = {
 
 export function TeamCard({ team }: TeamCardProps) {
   const teamImage = team.logoUrl || team.image_url || images.teams.default;
+  const teamId = team.sportsdb_team_id ?? team.id;
+  const teamHref = team.group
+    ? `/teams/${teamId}?group=${encodeURIComponent(team.group)}`
+    : `/teams/${teamId}`;
 
   return (
     <Link
       className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
-      href={`/teams/${team.id}`}
+      href={teamHref}
     >
       <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
         <div className="relative flex h-44 items-center justify-center overflow-hidden bg-neutral-950 p-6">

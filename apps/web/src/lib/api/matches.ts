@@ -32,10 +32,12 @@ function toTeam(
   team: MatchTeam | string | undefined,
   fallbackName: string,
   logoUrl?: string | null,
+  teamID?: string,
 ): MatchTeam {
   if (team && typeof team === "object") {
     return {
       ...team,
+      teamID,
       logoUrl: team.logoUrl ?? logoUrl ?? undefined,
     };
   }
@@ -59,6 +61,25 @@ function toStatus(status: string | undefined): MatchStatus {
     : "scheduled";
 }
 
+function toUtcIso(value: string | undefined) {
+  if (!value) {
+    return undefined;
+  }
+
+  const timestamp = /[zZ]|[+-]\d{2}:?\d{2}$/.test(value) ? value : `${value}Z`;
+  const parsed = Date.parse(timestamp);
+
+  return Number.isFinite(parsed) ? new Date(parsed).toISOString() : undefined;
+}
+
+function toMatchDate(match: ApiMatch) {
+  return (
+    toUtcIso(match.timestampUtc) ??
+    toUtcIso(match.date) ??
+    new Date().toISOString()
+  );
+}
+
 function normalizeMatch(match: ApiMatch): Match {
   const venue =
     typeof match.venue === "object" ? match.venue.stadium : match.venue;
@@ -68,7 +89,7 @@ function normalizeMatch(match: ApiMatch): Match {
     ...match,
     id: match.id ?? crypto.randomUUID(),
     tournament: match.tournament ?? "FIFA 26",
-    date: match.date ?? new Date().toISOString(),
+    date: toMatchDate(match),
     homeTeam: toTeam(match.homeTeam, "Home Team", match.homeTeamBadgeUrl),
     awayTeam: toTeam(match.awayTeam, "Away Team", match.awayTeamBadgeUrl),
     venue,

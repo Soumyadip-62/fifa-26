@@ -969,8 +969,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "134511",
       "sportsDbAwayTeamId": "137449",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uttpvw1455465617.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/91xpk81742982935.png",
       "score": {
         "home": null,
         "away": null
@@ -1013,8 +1013,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "133913",
       "sportsDbAwayTeamId": "136143",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/p3n0z51726166851.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/wh8dya1526727459.png",
       "score": {
         "home": null,
         "away": null
@@ -1057,8 +1057,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "140148",
       "sportsDbAwayTeamId": "136516",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/aqidfn1742100110.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/gyfn811591973155.png",
       "score": {
         "home": null,
         "away": null
@@ -1146,7 +1146,7 @@
       "sportsDbHomeTeamId": "135986",
       "sportsDbAwayTeamId": "140145",
       "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/874p631628721400.png",
-      "awayTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/59fo2s1742100034.png",
       "score": {
         "home": null,
         "away": null
@@ -1189,8 +1189,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "133908",
       "sportsDbAwayTeamId": "136475",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/swqvpy1455466083.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/s85jjw1728749022.png",
       "score": {
         "home": null,
         "away": null
@@ -1233,7 +1233,7 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "133914",
       "sportsDbAwayTeamId": "133912",
-      "homeTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/vf5ttc1726166739.png",
       "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/vvtsyu1455465317.png",
       "score": {
         "home": null,
@@ -1277,7 +1277,7 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "134513",
       "sportsDbAwayTeamId": "136141",
-      "homeTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/j589xw1751526124.png",
       "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/asp2ck1715849700.png",
       "score": {
         "home": null,
@@ -1321,8 +1321,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "140151",
       "sportsDbAwayTeamId": "134501",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/u5bgze1597943605.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/4ymyku1691180081.png",
       "score": {
         "home": null,
         "away": null
@@ -1938,7 +1938,7 @@
       "sportsDbHomeTeamId": "134515",
       "sportsDbAwayTeamId": "134511",
       "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/8xlvxv1592062265.png",
-      "awayTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uttpvw1455465617.png",
       "score": {
         "home": null,
         "away": null
@@ -2025,7 +2025,7 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "137449",
       "sportsDbAwayTeamId": "136138",
-      "homeTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/91xpk81742982935.png",
       "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uheyzo1742102234.png",
       "score": {
         "home": null,
@@ -2113,8 +2113,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "133913",
       "sportsDbAwayTeamId": "140148",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/p3n0z51726166851.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/aqidfn1742100110.png",
       "score": {
         "home": null,
         "away": null
@@ -2157,8 +2157,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "136516",
       "sportsDbAwayTeamId": "136143",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/gyfn811591973155.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/wh8dya1526727459.png",
       "score": {
         "home": null,
         "away": null
@@ -2201,7 +2201,7 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "140145",
       "sportsDbAwayTeamId": "134516",
-      "homeTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/59fo2s1742100034.png",
       "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/rrwpry1455460218.png",
       "score": {
         "home": null,
@@ -2245,8 +2245,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "133908",
       "sportsDbAwayTeamId": "140151",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/swqvpy1455466083.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/u5bgze1597943605.png",
       "score": {
         "home": null,
         "away": null
@@ -2289,8 +2289,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "133914",
       "sportsDbAwayTeamId": "134513",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/vf5ttc1726166739.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/j589xw1751526124.png",
       "score": {
         "home": null,
         "away": null
@@ -2377,8 +2377,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "134501",
       "sportsDbAwayTeamId": "136475",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/4ymyku1691180081.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/s85jjw1728749022.png",
       "score": {
         "home": null,
         "away": null
@@ -2949,8 +2949,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "136516",
       "sportsDbAwayTeamId": "133913",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/gyfn811591973155.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/p3n0z51726166851.png",
       "score": {
         "home": null,
         "away": null
@@ -2993,8 +2993,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "136143",
       "sportsDbAwayTeamId": "140148",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/wh8dya1526727459.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/aqidfn1742100110.png",
       "score": {
         "home": null,
         "away": null
@@ -3126,7 +3126,7 @@
       "sportsDbHomeTeamId": "136138",
       "sportsDbAwayTeamId": "134511",
       "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uheyzo1742102234.png",
-      "awayTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/uttpvw1455465617.png",
       "score": {
         "home": null,
         "away": null
@@ -3169,7 +3169,7 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "137449",
       "sportsDbAwayTeamId": "134515",
-      "homeTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/91xpk81742982935.png",
       "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/8xlvxv1592062265.png",
       "score": {
         "home": null,
@@ -3214,7 +3214,7 @@
       "sportsDbHomeTeamId": "136141",
       "sportsDbAwayTeamId": "133914",
       "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/asp2ck1715849700.png",
-      "awayTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/vf5ttc1726166739.png",
       "score": {
         "home": null,
         "away": null
@@ -3258,7 +3258,7 @@
       "sportsDbHomeTeamId": "133912",
       "sportsDbAwayTeamId": "134513",
       "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/vvtsyu1455465317.png",
-      "awayTeamBadgeUrl": null,
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/j589xw1751526124.png",
       "score": {
         "home": null,
         "away": null
@@ -3301,8 +3301,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "134501",
       "sportsDbAwayTeamId": "133908",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/4ymyku1691180081.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/swqvpy1455466083.png",
       "score": {
         "home": null,
         "away": null
@@ -3345,8 +3345,8 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "136475",
       "sportsDbAwayTeamId": "140151",
-      "homeTeamBadgeUrl": null,
-      "awayTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/s85jjw1728749022.png",
+      "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/u5bgze1597943605.png",
       "score": {
         "home": null,
         "away": null
@@ -3433,7 +3433,7 @@
       "sportsDbEventId": null,
       "sportsDbHomeTeamId": "140145",
       "sportsDbAwayTeamId": "134509",
-      "homeTeamBadgeUrl": null,
+      "homeTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/59fo2s1742100034.png",
       "awayTeamBadgeUrl": "https://r2.thesportsdb.com/images/media/team/badge/3zplhu1726167477.png",
       "score": {
         "home": null,

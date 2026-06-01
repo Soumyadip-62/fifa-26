@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { images } from "@/assets";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -12,13 +14,23 @@ export function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-emerald-900/10 bg-white/88 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/88">
       <div className="mx-auto flex min-h-16 w-full max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-        <Link className="inline-flex items-center gap-3 text-base font-black tracking-normal text-emerald-950 dark:text-emerald-200" href="/">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-700 text-sm text-white shadow-sm dark:bg-emerald-400 dark:text-emerald-950">
-            26
+        <Link
+          className="inline-flex items-center gap-3 text-base font-black tracking-normal text-emerald-950 dark:text-emerald-200"
+          href="/"
+        >
+          <span className="relative h-9 w-9  shadow-sm">
+            <Image
+              src={images.logos.fifa_logo}
+              alt="FIFA 26"
+              fill
+              sizes="36px"
+              className="object-contain"
+              priority
+            />
           </span>
-          <span className="grid leading-tight">
-            <span>FIFA 26</span>
-            <span className="text-[10px] font-bold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+          <span className="grid leading-tight ">
+            <span className="font-bold">FIFA 26</span>
+            <span className="text-[10px] leading-4 font-bold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
               Tournament Hub
             </span>
           </span>

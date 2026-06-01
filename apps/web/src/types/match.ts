@@ -12,6 +12,7 @@ export type MatchTeam = {
   flagUrl?: string;
   shortCode?: string;
   country?: string;
+  teamID?: string;
 };
 
 export type MatchScore = {
@@ -26,6 +27,11 @@ export type Match = {
   stage?: string;
   group?: string;
   date: string;
+  dateUtc?: string;
+  time?: string;
+  timeUtc?: string;
+  timezone?: string;
+  timestampUtc?: string;
   venue?: string;
   venueImageUrl?: string;
   city?: string;
