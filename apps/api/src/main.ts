@@ -39,6 +39,7 @@ async function bootstrap() {
   loadEnvFile();
 
   const app = await NestFactory.create(AppModule);
+  const frontendUrl = process.env.FRONTEND_URL?.replace(/\/+$/, '');
 
   app.enableCors({
     origin: [
@@ -46,8 +47,9 @@ async function bootstrap() {
       'http://127.0.0.1:14000',
       'http://localhost:3000',
       'http://127.0.0.1:3000',
-      'https://fifa-26-web.vercel.app/',
-    ],
+      'https://fifa-26-web.vercel.app',
+      frontendUrl,
+    ].filter(Boolean),
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
   });
