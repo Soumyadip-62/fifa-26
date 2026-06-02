@@ -11,10 +11,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getMatchById } from "@/lib/api/matches";
 import { formatDate } from "@/lib/utils/formatDate";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { TeamLogoImage } from "@/components/matches/TeamLogoImage";
 import VsIcon from "@/components/Icons/VsIcon";
 import { getTeamPlayersById } from "@/lib/api/teams";
+import { MatchTeamPlayersSection } from "./MatchTeamPlayersSection";
 
 export type MatchDetailsPageProps = {
   matchId: string;
@@ -30,28 +31,25 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     queryFn: () => getMatchById(matchId),
   });
 
-  console.log(match);
-
   const {
     data: homeTeamPlayers,
     isPending: isHomeTeamPlayersPending,
     error: homeTeamPlayersError,
-  } = useSuspenseQuery({
-    queryKey: ["teams", match.homeTeam.id],
-    queryFn: () => getTeamPlayersById(match.homeTeam.id),
+  } = useQuery({
+    enabled: Boolean(match.homeTeam.teamID),
+    queryKey: ["players", match.homeTeam.teamID],
+    queryFn: () => getTeamPlayersById(match.homeTeam.teamID!),
   });
-
-  console.log(homeTeamPlayers);
 
   const {
     data: awayTeamPlayers,
     isPending: isAwayTeamPlayersPending,
     error: awayTeamPlayersError,
-  } = useSuspenseQuery({
-    queryKey: ["teams", match.awayTeam.id],
-    queryFn: () => getTeamPlayersById(match.awayTeam.id),
+  } = useQuery({
+    enabled: Boolean(match.awayTeam.teamID),
+    queryKey: ["players", match.awayTeam.teamID],
+    queryFn: () => getTeamPlayersById(match.awayTeam.teamID!),
   });
-  console.log(awayTeamPlayers);
 
   if (error) {
     return (
@@ -149,20 +147,24 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
         />
       </section>
 
-      <section className="grid gap-4 ">
-        <Card>
-          <CardContent className="grid gap-4 p-5">
-            <SectionHeader
-              eyebrow="Lineup"
-              title="Lineup preview"
-              description="Squad and formation data will appear when the API is ready."
-            />
-            <Separator />
-            <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-              Lineups have not been published.
-            </p>
-          </CardContent>
-        </Card>
+      <section className="grid gap-4 lg:grid-cols-2">
+        <MatchTeamPlayersSection
+          error={homeTeamPlayersError}
+          isPending={Boolean(match.homeTeam.teamID) && isHomeTeamPlayersPending}
+          players={homeTeamPlayers}
+          side="home"
+          team={match.homeTeam}
+        />
+        <MatchTeamPlayersSection
+          error={awayTeamPlayersError}
+          isPending={Boolean(match.awayTeam.teamID) && isAwayTeamPlayersPending}
+          players={awayTeamPlayers}
+          side="away"
+          team={match.awayTeam}
+        />
+      </section>
+
+      <section className="grid gap-4">
         <Card>
           <CardContent className="grid gap-4 p-5">
             <SectionHeader

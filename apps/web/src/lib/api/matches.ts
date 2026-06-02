@@ -18,6 +18,8 @@ type ApiMatch = Partial<
   score?: Match["score"];
   status?: string;
   venue?: string | ApiVenue;
+  sportsDbHomeTeamId?: string;
+  sportsDbAwayTeamId?: string;
 };
 
 const statuses = new Set<MatchStatus>([
@@ -28,30 +30,51 @@ const statuses = new Set<MatchStatus>([
   "cancelled",
 ]);
 
+function trimOptional(value: string | null | undefined) {
+  const trimmed = value?.trim();
+
+  return trimmed || undefined;
+}
+
+function toSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function toTeam(
   team: MatchTeam | string | undefined,
   fallbackName: string,
   logoUrl?: string | null,
   teamID?: string,
 ): MatchTeam {
+  const normalizedLogoUrl = trimOptional(logoUrl);
+  const normalizedTeamID = trimOptional(teamID);
+
   if (team && typeof team === "object") {
+    const name = trimOptional(team.name) ?? fallbackName;
+    const id = trimOptional(team.id) ?? toSlug(name);
+    const sportsDbTeamID = normalizedTeamID ?? trimOptional(team.teamID);
+
     return {
       ...team,
-      teamID,
-      logoUrl: team.logoUrl ?? logoUrl ?? undefined,
+      id,
+      name,
+      country: trimOptional(team.country) ?? name,
+      logoUrl: trimOptional(team.logoUrl) ?? normalizedLogoUrl,
+      teamID: sportsDbTeamID,
     };
   }
 
-  const name = team ?? fallbackName;
+  const name = trimOptional(team) ?? fallbackName;
 
   return {
-    id: name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, ""),
+    id: toSlug(name),
     name,
     country: name,
-    logoUrl: logoUrl ?? undefined,
+    logoUrl: normalizedLogoUrl,
+    teamID: normalizedTeamID,
   };
 }
 
@@ -90,8 +113,18 @@ function normalizeMatch(match: ApiMatch): Match {
     id: match.id ?? crypto.randomUUID(),
     tournament: match.tournament ?? "FIFA 26",
     date: toMatchDate(match),
-    homeTeam: toTeam(match.homeTeam, "Home Team", match.homeTeamBadgeUrl),
-    awayTeam: toTeam(match.awayTeam, "Away Team", match.awayTeamBadgeUrl),
+    homeTeam: toTeam(
+      match.homeTeam,
+      "Home Team",
+      match.homeTeamBadgeUrl,
+      match.sportsDbHomeTeamId,
+    ),
+    awayTeam: toTeam(
+      match.awayTeam,
+      "Away Team",
+      match.awayTeamBadgeUrl,
+      match.sportsDbAwayTeamId,
+    ),
     venue,
     venueImageUrl: match.venueImageUrl ?? images.stadiums.default,
     city,
