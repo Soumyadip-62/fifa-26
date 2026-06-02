@@ -7,9 +7,6 @@ services:
     buildCommand: pnpm install --frozen-lockfile=false && pnpm build
     startCommand: pnpm start:prod
     envVars:
-      - key: NODE_ENV
-        value: production
-
       - key: PORT
         value: 10000
 
