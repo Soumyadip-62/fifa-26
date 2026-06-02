@@ -23,13 +23,13 @@ services:
         value: "https://api.currentsapi.services/v1/"
 
       - key: NEWS_API_TOKEN
-        value: "4QXDSq73YEdCNC3XHP-CMzAi9qaKQYEc3-EIkVrHnLKhHsnR"
+        sync: false
 
       - key: SPORTSMONK_API_URL
         value: "https://api.sportmonks.com/v3/football/"
 
       - key: SPORTSMONK_API_TOKEN
-        value: "YbDF3JFdhuMbTEtDEvJAjtUTzX5aDSPL6xOoMiVjgBKBDGl9xlNErENSFuT2"
+        sync: false
 
       - key: THESPORTSDB_API_URL
         value: "https://www.thesportsdb.com/api/v1/json/123/"
