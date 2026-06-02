@@ -46,6 +46,7 @@ async function bootstrap() {
       'http://127.0.0.1:14000',
       'http://localhost:3000',
       'http://127.0.0.1:3000',
+      'https://fifa-26-web.vercel.app/',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
