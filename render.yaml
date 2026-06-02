@@ -19,8 +19,17 @@ services:
       - key: FRONTEND_URL
         sync: false
 
-      - key: THESPORTSDB_API_KEY
-        value: "123"
+      - key: NEWS_API_URL
+        value: "https://api.currentsapi.services/v1/"
 
-      - key: GNEWS_API_KEY
-        sync: false
+      - key: NEWS_API_TOKEN
+        value: "4QXDSq73YEdCNC3XHP-CMzAi9qaKQYEc3-EIkVrHnLKhHsnR"
+
+      - key: SPORTSMONK_API_URL
+        value: "https://api.sportmonks.com/v3/football/"
+
+      - key: SPORTSMONK_API_TOKEN
+        value: "YbDF3JFdhuMbTEtDEvJAjtUTzX5aDSPL6xOoMiVjgBKBDGl9xlNErENSFuT2"
+
+      - key: THESPORTSDB_API_URL
+        value: "https://www.thesportsdb.com/api/v1/json/123/"
