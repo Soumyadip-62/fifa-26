@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: fifa26-api
+    runtime: node
+    plan: free
+    rootDir: apps/api
+    buildCommand: pnpm install --frozen-lockfile=false && pnpm prisma generate && pnpm prisma migrate deploy && pnpm build
+    startCommand: pnpm start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 10000
+
+      - key: DATABASE_URL
+        sync: false
+
+      - key: FRONTEND_URL
+        sync: false
+
+      - key: THESPORTSDB_API_KEY
+        value: "123"
+
+      - key: GNEWS_API_KEY
+        sync: false
