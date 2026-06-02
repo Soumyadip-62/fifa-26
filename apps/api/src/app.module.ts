@@ -6,9 +6,10 @@ import { SearchModule } from './search/search.module';
 import { NewsModule } from './news/news.module';
 import { TeamsModule } from './teams/teams.module';
 import { HistoryModule } from './history/history.module';
+import { PlayersModule } from './players/players.module';
 
 @Module({
-  imports: [MatchesModule, SearchModule, NewsModule, TeamsModule, HistoryModule],
+  imports: [MatchesModule, SearchModule, NewsModule, TeamsModule, HistoryModule, PlayersModule],
   controllers: [AppController],
   providers: [AppService],
 })

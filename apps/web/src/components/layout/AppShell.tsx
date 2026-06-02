@@ -12,7 +12,7 @@ export function AppShell({ children }: AppShellProps) {
     <div className="app-bg flex min-h-svh flex-col">
       <QueryProvider>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-16">{children}</main>
         <Footer />
       </QueryProvider>
     </div>

@@ -106,15 +106,15 @@ export function FirstMatchCountdown({
       <div className="grid grid-cols-4 gap-2">
         {units.map((unit) => (
           <div
-            className="grid min-h-16 place-items-center rounded-md border border-white/10 bg-white/10 px-2 py-2 text-center"
+            className="grid min-h-16 place-items-center rounded-md border border-white/10 bg-white/10 px-1 sm:px-2 py-2 text-center"
             key={unit.label}
           >
-            <span className="text-xl font-black leading-none text-white sm:text-2xl">
+            <span className="text-md sm:text-xl font-black leading-none text-white sm:text-2xl">
               {typeof unit.value === "number"
                 ? formatTimeValue(unit.value)
                 : "--"}
             </span>
-            <span className="mt-1 text-[10px] font-bold uppercase tracking-wide text-emerald-100">
+            <span className="mt-1 text-[6px] sm:text-[10px] font-bold uppercase tracking-wide text-emerald-100">
               {unit.label}
             </span>
           </div>
