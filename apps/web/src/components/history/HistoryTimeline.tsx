@@ -33,6 +33,23 @@ export function HistoryTimeline({ historyItems }: HistoryTimelineProps) {
                   Final: {item.winner} vs {item.runnerUp ?? "TBD"}
                   {item.finalScore ? `, ${item.finalScore}` : ""}
                 </p>
+                {((item.winnerGoals && item.winnerGoals.length > 0) || 
+                  (item.runnerUpGoals && item.runnerUpGoals.length > 0)) && (
+                  <div className="grid gap-1 border-t border-neutral-100 dark:border-neutral-800 pt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                    {item.winnerGoals && item.winnerGoals.length > 0 && (
+                      <div className="flex items-start gap-1">
+                        <span className="font-semibold text-emerald-600 dark:text-emerald-400 min-w-[75px]">{item.winner}:</span>
+                        <span>⚽ {item.winnerGoals.map(g => `${g.name} ${g.minute}${g.offset ? `+${g.offset}` : ""}'${g.penalty ? " (P)" : g.owngoal ? " (OG)" : ""}`).join(", ")}</span>
+                      </div>
+                    )}
+                    {item.runnerUpGoals && item.runnerUpGoals.length > 0 && (
+                      <div className="flex items-start gap-1">
+                        <span className="font-semibold text-neutral-600 dark:text-neutral-400 min-w-[75px]">{item.runnerUp}:</span>
+                        <span>⚽ {item.runnerUpGoals.map(g => `${g.name} ${g.minute}${g.offset ? `+${g.offset}` : ""}'${g.penalty ? " (P)" : g.owngoal ? " (OG)" : ""}`).join(", ")}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
                 {item.summary ? (
                   <ReadMoreText
                     className="text-sm leading-7 text-neutral-700 dark:text-neutral-300"

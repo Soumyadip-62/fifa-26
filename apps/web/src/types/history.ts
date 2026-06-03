@@ -1,3 +1,11 @@
+export type GoalScorer = {
+  name: string;
+  minute: number;
+  offset?: number;
+  owngoal?: boolean;
+  penalty?: boolean;
+};
+
 export type TournamentHistory = {
   id: string;
   year: number;
@@ -7,4 +15,6 @@ export type TournamentHistory = {
   thirdPlace?: string;
   finalScore?: string;
   summary?: string;
+  winnerGoals?: GoalScorer[];
+  runnerUpGoals?: GoalScorer[];
 };
