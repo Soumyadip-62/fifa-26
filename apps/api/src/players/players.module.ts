@@ -7,7 +7,4 @@ import { Player } from 'src/teams/teams.service';
   controllers: [PlayersController],
   providers: [PlayersService],
 })
-export class PlayersModule {
-  private readonly player: Player[] = [];
-  private readonly apiurl = process.env.THESPORTSDB_API_URL;
-}
+export class PlayersModule {}

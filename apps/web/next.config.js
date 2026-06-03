@@ -5,6 +5,7 @@ const nextConfig = {
     "http://localhost:3001",
     "https://r2.thesportsdb.com",
     "https://fifa26-api.onrender.com/",
+    "http://192.168.10.83:14000",
   ],
   images: {
     remotePatterns: [

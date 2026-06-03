@@ -142,6 +142,15 @@ main {
   min-width: 0;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .app-bg {
   background-color: #f4f7f5;
   background-image:

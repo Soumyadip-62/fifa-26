@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { EmptyState } from "@/components/common/EmptyState";
-import { ErrorState } from "@/components/common/ErrorState";
 import { PlayerAvatar } from "@/components/common/PlayerAvatar";
+import PlayerDetailsDrawer from "@/components/common/PlayerDetailsDrawer";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { TeamBadge } from "@/components/common/TeamBadge";
@@ -10,7 +10,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getTeamById, getTeamPlayersById } from "@/lib/api/teams";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import type { Player } from "@/types/team";
 
 export type TeamDetailsPageProps = {
@@ -145,51 +145,60 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
             {teamPlayers?.length ? (
               <div className="grid gap-3">
                 {teamPlayers.map((player) => (
-                  <div
-                    className="grid gap-4 rounded-lg border border-neutral-200/80 bg-neutral-50 p-4 dark:border-white/10 dark:bg-white/5 sm:grid-cols-[auto_1fr]"
-                    key={player.id}
-                  >
-                    <PlayerAvatar
-                      name={player.name}
-                      imageUrl={getPlayerImageUrl(player)}
-                    />
-                    <div className="grid min-w-0 gap-3">
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="truncate font-semibold text-neutral-950 dark:text-neutral-50">
-                            {player.name}
-                          </p>
-                          <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                            {player.position}
-                          </p>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {player.shirtNumber ? (
-                            <Badge variant="secondary">
-                              No. {player.shirtNumber}
-                            </Badge>
-                          ) : null}
-                          {getTextValue(player.strStatus) ? (
-                            <Badge variant="success">
-                              {getTextValue(player.strStatus)}
-                            </Badge>
-                          ) : null}
-                        </div>
-                      </div>
-                      <dl className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
-                        {getPlayerDetails(player).map((detail) => (
-                          <div key={detail.label} className="min-w-0">
-                            <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-                              {detail.label}
-                            </dt>
-                            <dd className="truncate text-neutral-800 dark:text-neutral-200">
-                              {detail.value}
-                            </dd>
+                  <PlayerDetailsDrawer key={player.id} player={player}>
+                    <div
+                      className="grid w-full cursor-pointer gap-4 rounded-lg border border-neutral-200/80 bg-neutral-50 p-4 text-left transition-colors hover:bg-emerald-50/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 sm:grid-cols-[auto_1fr]"
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          event.currentTarget.click();
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <PlayerAvatar
+                        name={player.name}
+                        imageUrl={getPlayerImageUrl(player)}
+                      />
+                      <div className="grid min-w-0 gap-3">
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <p className="truncate font-semibold text-neutral-950 dark:text-neutral-50">
+                              {player.name}
+                            </p>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                              {player.position}
+                            </p>
                           </div>
-                        ))}
-                      </dl>
+                          <div className="flex flex-wrap gap-2">
+                            {player.shirtNumber ? (
+                              <Badge variant="secondary">
+                                No. {player.shirtNumber}
+                              </Badge>
+                            ) : null}
+                            {getTextValue(player.strStatus) ? (
+                              <Badge variant="success">
+                                {getTextValue(player.strStatus)}
+                              </Badge>
+                            ) : null}
+                          </div>
+                        </div>
+                        <dl className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
+                          {getPlayerDetails(player).map((detail) => (
+                            <div key={detail.label} className="min-w-0">
+                              <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                {detail.label}
+                              </dt>
+                              <dd className="truncate text-neutral-800 dark:text-neutral-200">
+                                {detail.value}
+                              </dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
                     </div>
-                  </div>
+                  </PlayerDetailsDrawer>
                 ))}
               </div>
             ) : (
@@ -214,14 +223,6 @@ const EmptyTeamState = () => {
       <Link className={buttonVariants({ variant: "outline" })} href="/teams">
         Back to teams
       </Link>
-    </div>
-  );
-};
-
-const ErrorTeamState = () => {
-  return (
-    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <ErrorState message="Failed to load team details." />
     </div>
   );
 };
