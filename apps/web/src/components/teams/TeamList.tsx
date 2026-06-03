@@ -24,7 +24,7 @@ export function TeamList({ teams }: TeamListProps) {
         <h3 className="w-fit rounded-md border border-emerald-700/15 bg-emerald-50 px-3 py-1.5 text-sm font-black uppercase tracking-wide text-emerald-900 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200">
           Group {group}
         </h3>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 items-baseline">
           {teams.map((team) => (
             <TeamCard key={team.id} team={team} />
           ))}

@@ -158,7 +158,7 @@ const PlayerDetailsDrawer = ({
                 <dl className="grid gap-3 rounded-lg border border-neutral-200/80 p-3 text-sm dark:border-white/10 sm:grid-cols-2 sm:p-4">
                   {details.map((detail) => (
                     <div className="min-w-0" key={detail.label}>
-                      <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                      <dt className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                         {detail.label}
                       </dt>
                       <dd className="mt-1 break-words font-medium text-neutral-900 dark:text-neutral-100">
