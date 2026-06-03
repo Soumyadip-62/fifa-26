@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Michroma, Orbitron } from "next/font/google";
+import { Orbitron, Poppins } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import "./globals.css";
 
@@ -9,10 +9,10 @@ const orbitron = Orbitron({
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const michroma = Michroma({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-michroma",
-  weight: "400",
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${michroma.className} ${michroma.variable} ${orbitron.variable}`}>
+      <body className={`${poppins.variable} ${orbitron.variable}`}>
         <AppShell>{children}</AppShell>
       </body>
     </html>

@@ -23,7 +23,7 @@ export function TeamCard({ team }: TeamCardProps) {
       href={teamHref}
     >
       <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
-        <div className="relative flex h-44 items-center justify-center overflow-hidden bg-neutral-950 p-6">
+        <div className="relative flex h-40 items-center justify-center overflow-hidden bg-neutral-950 p-6 sm:h-44">
           <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-emerald-700 via-cyan-600 to-amber-400" />
           <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(21,128,61,0.26),transparent_45%),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:auto,44px_44px]" />
           <Image
@@ -34,7 +34,7 @@ export function TeamCard({ team }: TeamCardProps) {
             className="relative h-32 w-32 object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.35)] transition duration-300 group-hover:scale-105"
           />
         </div>
-        <CardContent className="grid gap-5 p-5">
+        <CardContent className="grid gap-5 p-5 sm:p-6">
           <div className="flex items-start justify-between gap-3">
             <TeamBadge {...team} ranking={team.fifaRanking} compact />
             {team.group ? (
@@ -44,7 +44,7 @@ export function TeamCard({ team }: TeamCardProps) {
             ) : null}
           </div>
           {team.stats ? (
-            <div className="grid grid-cols-3 rounded-lg border border-neutral-200/80 bg-neutral-50 p-3 text-center text-sm dark:border-white/10 dark:bg-white/5">
+            <div className="grid grid-cols-3 rounded-lg border border-neutral-200/80 bg-neutral-50 p-4 text-center text-sm dark:border-white/10 dark:bg-white/5">
               <div>
                 <p className="font-bold text-neutral-950 dark:text-neutral-50">
                   {team.stats.won}

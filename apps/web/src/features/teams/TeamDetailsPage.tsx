@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
 import { EmptyState } from "@/components/common/EmptyState";
+import { MotionReveal } from "@/components/common/MotionReveal";
 import { PlayerAvatar } from "@/components/common/PlayerAvatar";
 import PlayerDetailsDrawer from "@/components/common/PlayerDetailsDrawer";
+import { ReadMoreText } from "@/components/common/ReadMoreText";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { TeamBadge } from "@/components/common/TeamBadge";
@@ -66,37 +68,39 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
   });
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
       {isTeamSuccess && isPlayersSuccess ? (
         <>
-          <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
-            <div className="h-2 bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-300" />
-            <div className="p-5 sm:p-8">
-              <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-                <TeamBadge
-                  className="rounded-lg bg-white p-4 dark:bg-neutral-900"
-                  ranking={team!.fifaRanking || undefined}
-                  name={team!.name}
-                  country={team!.country}
-                  logoUrl={team!.logoUrl}
-                  flagUrl={team!.flagUrl}
-                  shortCode={team!.shortCode}
-                />
-                <div className="flex flex-wrap gap-2">
-                  {group ? <Badge variant="success">{group}</Badge> : null}
-                  {team!.coach ? (
-                    <Badge
-                      variant="outline"
-                      className="border-white/30 text-white"
-                    >
-                      Coach: {team!.coach}
-                    </Badge>
-                  ) : null}
+          <MotionReveal>
+            <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
+              <div className="h-2 bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-300" />
+              <div className="p-5 sm:p-8">
+                <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+                  <TeamBadge
+                    className="rounded-lg bg-white p-4 dark:bg-neutral-900"
+                    ranking={team!.fifaRanking || undefined}
+                    name={team!.name}
+                    country={team!.country}
+                    logoUrl={team!.logoUrl}
+                    flagUrl={team!.flagUrl}
+                    shortCode={team!.shortCode}
+                  />
+                  <div className="flex flex-wrap gap-2">
+                    {group ? <Badge variant="success">{group}</Badge> : null}
+                    {team!.coach ? (
+                      <Badge
+                        variant="outline"
+                        className="border-white/30 text-white"
+                      >
+                        Coach: {team!.coach}
+                      </Badge>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-          <section className="grid gap-4 sm:grid-cols-4">
+            </section>
+          </MotionReveal>
+          <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <StatCard label="Ranking" value={team!.fifaRanking ?? "TBD"} />
             <StatCard label="Played" value={team!.stats?.played ?? 0} />
             <StatCard label="Wins" value={team!.stats?.won ?? 0} />
@@ -107,14 +111,20 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
         <EmptyTeamState />
       ) : null}
 
-      <section className="grid gap-4 ">
+      <section className="grid gap-5">
         <Card>
-          <CardContent className="grid gap-4 p-5">
+          <CardContent className="grid gap-5 p-5 sm:p-6">
             <SectionHeader
               eyebrow="Profile"
               title="Team details"
-              description={`${team!.strDescriptionEN}`}
             />
+            {team!.strDescriptionEN ? (
+              <ReadMoreText
+                className="max-w-4xl text-sm leading-7 text-neutral-700 dark:text-neutral-300 sm:text-base sm:leading-8"
+                maxLength={420}
+                text={team!.strDescriptionEN}
+              />
+            ) : null}
             <dl className="grid gap-3 text-sm">
               <div className="flex justify-between gap-4">
                 <dt className="text-neutral-500 dark:text-neutral-400">
@@ -136,16 +146,20 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="grid gap-4 p-5">
+          <CardContent className="grid gap-5 p-5 sm:p-6">
             <SectionHeader
               eyebrow="Squad"
               title="Player preview"
               description="Player cards are ready for future squad data."
             />
             {teamPlayers?.length ? (
-              <div className="grid gap-3">
-                {teamPlayers.map((player) => (
-                  <PlayerDetailsDrawer key={player.id} player={player}>
+              <div className="grid gap-4">
+                {teamPlayers.map((player, index) => (
+                  <MotionReveal
+                    delay={Math.min(index * 0.025, 0.16)}
+                    key={player.id}
+                  >
+                    <PlayerDetailsDrawer player={player}>
                     <div
                       className="grid w-full cursor-pointer gap-4 rounded-lg border border-neutral-200/80 bg-neutral-50 p-4 text-left transition-colors hover:bg-emerald-50/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 sm:grid-cols-[auto_1fr]"
                       onKeyDown={(event) => {
@@ -198,7 +212,8 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                         </dl>
                       </div>
                     </div>
-                  </PlayerDetailsDrawer>
+                    </PlayerDetailsDrawer>
+                  </MotionReveal>
                 ))}
               </div>
             ) : (

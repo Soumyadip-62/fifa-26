@@ -25,7 +25,7 @@ export function NewsPage() {
         {isError ? (
           <ErrorState message="Failed to load news articles." />
         ) : (
-          <div className="mx-auto grid w-full gap-6 px-4 py-8 sm:px-6 lg:px-8">
+          <div className="mx-auto grid w-full gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
             <SectionHeader
               eyebrow="News"
               title="News and blogs"

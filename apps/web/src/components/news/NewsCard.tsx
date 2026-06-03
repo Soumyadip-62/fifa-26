@@ -3,6 +3,7 @@ import Image from "next/image";
 import { images } from "@/assets";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { ReadMoreText } from "@/components/common/ReadMoreText";
 import { formatDateOnly } from "@/lib/utils/formatDate";
 import type { NewsArticle } from "@/types/news";
 
@@ -40,7 +41,7 @@ export function NewsCard({ article }: NewsCardProps) {
       target="_blank"
     >
       <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
-        <div className="relative h-72 bg-neutral-100 dark:bg-neutral-900">
+        <div className="relative h-56 bg-neutral-100 dark:bg-neutral-900 sm:h-72">
           <Image
             src={imageSrc}
             alt={`${article.title} cover`}
@@ -50,20 +51,22 @@ export function NewsCard({ article }: NewsCardProps) {
           />
           {/* <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-neutral-950/70 to-transparent" /> */}
         </div>
-        <CardContent className="grid gap-3 p-5">
+        <CardContent className="grid gap-4 p-5 sm:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
             {article.tags?.[0] ? (
               <Badge variant="secondary">{article.tags[0]}</Badge>
             ) : null}
             <span>{formatDateOnly(article.publishedAt)}</span>
           </div>
-          <h2 className="text-lg font-bold leading-7 text-neutral-950 dark:text-neutral-50">
+          <h2 className="font-heading text-lg font-bold leading-7 text-neutral-950 dark:text-neutral-50">
             {article.title}
           </h2>
           {article.excerpt ? (
-            <p className="text-xs leading-6 text-neutral-600 dark:text-neutral-400">
-              {article.excerpt}
-            </p>
+            <ReadMoreText
+              className="text-sm leading-6 text-neutral-600 dark:text-neutral-400"
+              maxLength={150}
+              text={article.excerpt}
+            />
           ) : null}
           {article.tags?.length ? (
             <div className="flex flex-wrap gap-2">

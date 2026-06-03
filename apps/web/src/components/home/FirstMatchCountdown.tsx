@@ -109,7 +109,7 @@ export function FirstMatchCountdown({
             className="grid min-h-16 place-items-center rounded-md border border-white/10 bg-white/10 px-1 sm:px-2 py-2 text-center"
             key={unit.label}
           >
-            <span className="text-md sm:text-xl font-black leading-none text-white sm:text-2xl">
+            <span className="font-heading text-md sm:text-xl font-black leading-none text-white sm:text-2xl">
               {typeof unit.value === "number"
                 ? formatTimeValue(unit.value)
                 : "--"}

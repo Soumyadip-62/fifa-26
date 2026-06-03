@@ -29,7 +29,7 @@ export function MatchCard({ match }: MatchCardProps) {
     >
       <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
         {match.venueImageUrl ? (
-          <div className="relative h-60 overflow-hidden bg-neutral-900">
+          <div className="relative h-52 overflow-hidden bg-neutral-900 sm:h-60">
             <Image
               src={match.venueImageUrl}
               alt={match.venue ? `${match.venue} stadium` : "Stadium"}
@@ -45,7 +45,7 @@ export function MatchCard({ match }: MatchCardProps) {
             </div>
           </div>
         ) : null}
-        <CardContent className="grid gap-4 p-5">
+        <CardContent className="grid gap-5 p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3">
             <MatchStatusBadge status={match.status} />
             <span className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
@@ -54,7 +54,7 @@ export function MatchCard({ match }: MatchCardProps) {
           </div>
           <div className="grid gap-3">
             <TeamBadge compact {...match.homeTeam} />
-            <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
+            <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-4 py-3 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
               <span className="text-xs leading-5 text-neutral-300 dark:text-emerald-100">
                 {formatDate(match.date)}
               </span>

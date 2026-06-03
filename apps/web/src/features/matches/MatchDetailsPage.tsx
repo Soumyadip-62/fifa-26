@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { EmptyState } from "@/components/common/EmptyState";
+import { MotionReveal } from "@/components/common/MotionReveal";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { TeamBadge } from "@/components/common/TeamBadge";
@@ -76,8 +77,9 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
   return isPending ? (
     "Loading..."
   ) : (
-    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
+    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+      <MotionReveal>
+        <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
         {match.venueImageUrl ? (
           <div className="relative h-60">
             <Image
@@ -117,7 +119,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
               <p className="text-xs uppercase tracking-wide text-neutral-300">
                 {formatDate(match.date)}
               </p>
-              <strong className="mt-2 block text-4xl font-black">
+              <strong className="font-heading mt-2 block text-4xl font-black">
                 {score}
               </strong>
             </div>
@@ -127,9 +129,10 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
             />
           </div>
         </div>
-      </section>
+        </section>
+      </MotionReveal>
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-5 sm:grid-cols-3">
         <StatCard
           label="Venue"
           value={match.venue ?? "TBD"}
@@ -147,7 +150,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
         />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-2">
+      <section className="grid gap-5 lg:grid-cols-2">
         <MatchTeamPlayersSection
           error={homeTeamPlayersError}
           isPending={Boolean(match.homeTeam.teamID) && isHomeTeamPlayersPending}
@@ -164,9 +167,9 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
         />
       </section>
 
-      <section className="grid gap-4">
+      <MotionReveal className="grid gap-4">
         <Card>
-          <CardContent className="grid gap-4 p-5">
+          <CardContent className="grid gap-5 p-5 sm:p-6">
             <SectionHeader
               eyebrow="Timeline"
               title="Match events"
@@ -178,7 +181,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
             </p>
           </CardContent>
         </Card>
-      </section>
+      </MotionReveal>
     </div>
   );
 }

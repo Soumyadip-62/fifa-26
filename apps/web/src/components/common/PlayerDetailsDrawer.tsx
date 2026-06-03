@@ -16,6 +16,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { ReadMoreText } from "@/components/common/ReadMoreText";
 import { Separator } from "@/components/ui/separator";
 import type { Player } from "@/types/team";
 
@@ -107,7 +108,7 @@ const PlayerDetailsDrawer = ({
         <div className="scrollbar-hide grid h-full w-full content-start gap-4 overflow-y-auto px-4 pb-5 sm:gap-5 sm:px-6 sm:pb-6">
           <DrawerHeader className="grid grid-cols-[1fr_auto] items-start gap-4 px-0 pb-0 text-left">
             <div className="min-w-0">
-              <DrawerTitle className="truncate text-xl font-black sm:text-2xl">
+              <DrawerTitle className="font-heading truncate text-xl font-black sm:text-2xl">
                 {player.name}
               </DrawerTitle>
               <DrawerDescription>
@@ -172,9 +173,11 @@ const PlayerDetailsDrawer = ({
               {description ? (
                 <>
                   <Separator />
-                  <p className="text-sm leading-6 text-neutral-700 dark:text-neutral-300">
-                    {description}
-                  </p>
+                  <ReadMoreText
+                    className="text-sm leading-7 text-neutral-700 dark:text-neutral-300"
+                    maxLength={360}
+                    text={description}
+                  />
                 </>
               ) : null}
 

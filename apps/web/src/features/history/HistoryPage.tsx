@@ -9,7 +9,7 @@ export async function HistoryPage() {
     const historyItems = await getTournamentHistory();
 
     return (
-      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
         <SectionHeader
           eyebrow="History"
           title="Tournament history"
@@ -24,7 +24,7 @@ export async function HistoryPage() {
     );
   } catch {
     return (
-      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
         <SectionHeader eyebrow="History" title="Tournament history" />
         <ErrorState message="Failed to load tournament history." />
       </div>

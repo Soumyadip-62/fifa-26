@@ -1,598 +1,202 @@
-# DESIGN_ENHANCEMENT.md
+# UI Readability and Animation Improvements
 
+## Major Changes
 
-## Tailwind + shadcn/ui Enhancement Rules
+* Replace the **Michroma** font with **Poppins** for body text, paragraph text, descriptions, labels, and general readable content.
+* Keep the **Orbitron** font only for headings, hero titles, section titles, and major visual headings.
+* Improve overall text readability across the app.
+* Reduce font sizes on mobile screens where the current text feels too large or difficult to scan.
+* Increase spacing across pages, sections, cards, and components to make the layout feel cleaner and less cramped.
+* Review all pages and adjust typography, line-height, spacing, and alignment where needed.
+* Make paragraph-heavy sections easier to read with proper text width, line-height, and spacing.
+* Add a **Read More / Show Less** feature wherever long paragraphs or descriptions are shown.
+* Ensure text remains readable in both light mode and dark mode.
+* Avoid over-styling typography. Keep it clean, modern, and user-friendly.
 
-Use Tailwind CSS and shadcn/ui for all design enhancement work.
+## Font Usage Rules
 
-Preferred shadcn components:
-
-```txt
-Card
-Button
-Badge
-Avatar
-Skeleton
-Tabs
-Table
-Separator
-Sheet
-DropdownMenu
-Input
-```
-
-Use Tailwind for page layout, responsive grids, spacing, and small visual adjustments.
-
-Do not add another UI library.
-Do not over-customize shadcn primitives.
-Wrap shadcn components inside domain components instead of editing generated files.
-
-Example:
+Use **Poppins** for:
 
 ```txt
-components/ui/card.tsx              generated shadcn primitive
-components/matches/MatchCard.tsx    football-specific card
+body text
+paragraphs
+descriptions
+labels
+buttons
+cards
+metadata
+navigation items
+table content
+form text
 ```
 
-## Purpose
-
-Enhance the frontend visual experience without changing the core app architecture.
-
-Current UI is basic. Improve visual quality by adding football-specific imagery, flags, player photos, team logos, better cards, and stronger screen composition.
-
-Do not over-engineer. Do not rebuild the app from scratch. Improve existing screens step by step.
-
----
-
-## Priority
-
-Design improvement priority:
-
-1. Add real visual identity to pages.
-2. Use team flags, team logos, and player images where data allows.
-3. Improve cards and list layouts.
-4. Improve empty/loading/error states.
-5. Keep the layout responsive and clean.
-6. Avoid excessive animations and decoration.
-
----
-
-## Design Direction
-
-Use a modern football app style:
-
-- Clean sports dashboard feel.
-- Dark or neutral base sections are acceptable.
-- Use football imagery as accents, not clutter.
-- Prioritize readability over fancy visuals.
-- Use consistent spacing, cards, and section headers.
-- Design should feel like a live football tournament app.
-
-Do not create a luxury landing page style unless explicitly asked.
-
----
-
-## Visual Assets To Add
-
-Use these asset types:
+Use **Orbitron** only for:
 
 ```txt
-Team logos
-Country flags
-Player headshots
-Stadium images
-Football pitch background accents
-Tournament/banner images
-News/blog cover images
+page headings
+section headings
+hero titles
+stat highlights
+important sports-style titles
 ```
 
-Preferred asset paths:
+Do not use Orbitron for long text or paragraph content.
+
+## Responsive Typography
+
+Review mobile screens carefully.
+
+On mobile:
+
+* Reduce oversized headings.
+* Keep paragraph text readable.
+* Avoid text overflow.
+* Keep line-height comfortable.
+* Ensure cards and sections do not feel crowded.
+* Maintain clear visual hierarchy.
+
+Suggested approach:
 
 ```txt
-public/assets/images/teams/
-public/assets/images/players/
-public/assets/images/flags/
-public/assets/images/stadiums/
-public/assets/images/blogs/
-public/assets/images/banners/
+mobile headings: smaller and tighter
+desktop headings: larger and more expressive
+paragraphs: readable, not too small
+line-height: comfortable for scanning
 ```
 
-Example:
+## Spacing Improvements
+
+Increase and normalize spacing across:
 
 ```txt
-public/assets/images/flags/argentina.svg
-public/assets/images/teams/argentina.png
-public/assets/images/players/messi.png
-public/assets/images/stadiums/metlife-stadium.jpg
-public/assets/images/banners/world-cup-2026.jpg
+pages
+sections
+cards
+grids
+headers
+match cards
+team cards
+player cards
+news/blog cards
+detail pages
 ```
 
-If assets are not available yet, use local placeholder images from the same folder structure.
+Focus on:
 
-Do not hotlink random external images directly inside components.
+* Consistent section gaps
+* Better card padding
+* Better grid spacing
+* Cleaner vertical rhythm
+* Better spacing between headings and content
+* Proper spacing between images, text, badges, and actions
 
----
+Avoid random spacing values unless required.
 
-## Asset Index Rule
+## Read More Feature
 
-If the project has an asset index file, register image paths there.
+Wherever long descriptions or paragraphs are displayed, add a simple **Read More / Show Less** behavior.
 
-Preferred file:
+Use this for:
 
 ```txt
-src/assets/index.ts
+team descriptions
+player bios
+news excerpts
+blog previews
+match descriptions
+stadium descriptions
+tournament/history content
 ```
 
-Example:
+Default behavior:
 
-```ts
-export const images = {
-  banners: {
-    worldCup2026: '/assets/images/banners/world-cup-2026.jpg',
-  },
-  flags: {
-    argentina: '/assets/images/flags/argentina.svg',
-    brazil: '/assets/images/flags/brazil.svg',
-    france: '/assets/images/flags/france.svg',
-  },
-  teams: {
-    argentina: '/assets/images/teams/argentina.png',
-    brazil: '/assets/images/teams/brazil.png',
-    france: '/assets/images/teams/france.png',
-  },
-};
+* Show a short preview first.
+* Add a “Read More” button/link.
+* Expand the full text on click.
+* Add “Show Less” after expanding.
+* Keep the interaction simple and accessible.
+
+## Animation Improvements
+
+Install Motion:
+
+```bash
+pnpm add motion
 ```
 
-Use the asset index instead of hardcoding image paths repeatedly.
+Use Motion for subtle and meaningful UI animations.
 
----
+Go through all pages and identify which sections can benefit from light animation.
 
-## Next Image Rule
-
-Always use `next/image` for local images.
-
-Example:
-
-```tsx
-import Image from 'next/image';
-
-<Image
-  src={team.logoUrl}
-  alt={`${team.name} logo`}
-  width={40}
-  height={40}
-/>
-```
-
-Add meaningful `alt` text.
-
-Do not use plain `<img>` unless there is a very specific reason.
-
----
-
-## Components To Create
-
-Create reusable design components instead of repeating visual logic.
-
-Recommended components:
+Good places to add animation:
 
 ```txt
-src/components/common/AppImage.tsx
-src/components/common/FlagIcon.tsx
-src/components/common/TeamBadge.tsx
-src/components/common/PlayerAvatar.tsx
-src/components/common/StatCard.tsx
-src/components/common/MatchCard.tsx
-src/components/common/NewsCard.tsx
-src/components/common/SectionHeader.tsx
-src/components/common/EmptyState.tsx
-src/components/common/LoadingState.tsx
+hero section
+page sections
+match cards
+team cards
+player cards
+news/blog cards
+stats cards
+tabs
+empty states
+loading states
 ```
 
-Keep components simple.
+## Animation Direction
 
----
+Keep animations simple, smooth, and beautiful.
 
-## Team Badge
-
-Use TeamBadge wherever a team is shown.
-
-TeamBadge should support:
+Use subtle effects such as:
 
 ```txt
-logo
-team name
-country flag
-short code
-optional ranking
+fade in
+slight slide up
+small scale on hover
+soft staggered card reveal
+smooth tab/content transition
 ```
 
-Example layout:
+Avoid making the app animation-heavy.
+
+Do not add:
 
 ```txt
-[logo] Argentina
-       [flag] ARG
+excessive bouncing
+large scaling
+infinite motion
+distracting effects
+slow animations
+animations on every tiny element
 ```
 
-Use it in:
+Animations should improve the experience, not distract from the data.
+
+## Implementation Rules
+
+* Do not change existing functionality.
+* Do not change API logic or data structure.
+* Do not rewrite pages from scratch.
+* Improve the existing UI gradually.
+* Keep components reusable and maintainable.
+* Use Tailwind CSS for layout, spacing, typography, and responsive styling.
+* Use shadcn/ui components where already used or appropriate.
+* Use Motion only where it adds value.
+* Ensure all updated sections remain responsive.
+* Ensure all updated sections remain dark-mode friendly.
+
+## Expected Output
+
+After completing the changes, provide:
 
 ```txt
-Match cards
-Team list
-Team details page
-Standings table
-Stats page
+files changed
+font changes made
+spacing/readability improvements
+mobile typography fixes
+read more sections added
+animation changes added
+any assumptions or pending improvements
 ```
 
----
-
-## Flag Usage
-
-Use flags to improve scannability.
-
-Add flags in:
-
-```txt
-Country/team filters
-Team detail header
-Match cards
-Standing rows
-Player cards
-History winners list
-```
-
-Keep flag sizes small:
-
-```txt
-16px - inline text
-20px - table/list rows
-24px - cards
-32px - page headers
-```
-
-Do not use oversized flags as backgrounds unless the page specifically needs a hero section.
-
----
-
-## Player Images
-
-Use player images in:
-
-```txt
-Top scorers
-Player cards
-Team squad section
-Match lineup preview
-Player detail page later
-```
-
-Player image rules:
-
-- Use circular or rounded avatar style.
-- Keep consistent size.
-- Add fallback initials if image is missing.
-- Do not break layout if image fails.
-
-Recommended sizes:
-
-```txt
-Avatar small: 32x32
-Avatar medium: 48x48
-Avatar large: 72x72
-Feature player: 120x120
-```
-
----
-
-## Page-Specific Enhancements
-
-### Home Page
-
-Improve with:
-
-```txt
-Hero banner for FIFA / World Cup 2026
-Featured match card
-Upcoming matches section
-Top teams section with logos and flags
-Latest news cards with cover images
-Small stats summary cards
-```
-
-Avoid too many sections at once. Keep the first fold clean.
-
-Suggested structure:
-
-```txt
-Hero Section
-Featured Match
-Upcoming Matches
-Top Teams
-Latest News
-```
-
----
-
-### Matches Page
-
-Improve with:
-
-```txt
-Date grouped match list
-Team logos
-Country flags
-Venue/stadium image thumbnail if available
-Match status badge
-Score display
-Competition round label
-```
-
-Match card should show:
-
-```txt
-Date + time
-Round/stage
-Home team logo + name
-Away team logo + name
-Score or kickoff time
-Venue
-Status badge
-```
-
----
-
-### Match Details Page
-
-Improve with:
-
-```txt
-Large match header
-Team logos and flags
-Score block
-Venue image
-Match stats cards
-Timeline/events section
-Lineup placeholder section
-Head-to-head mini section
-```
-
-Do not implement advanced live visualizations yet unless data exists.
-
----
-
-### Teams Page
-
-Improve with:
-
-```txt
-Team grid cards
-Team logo
-Country flag
-Group/region info
-Short stats preview
-Search/filter bar
-```
-
-Team card should be compact and clickable.
-
----
-
-### Team Details Page
-
-Improve with:
-
-```txt
-Team hero header
-Logo + flag
-Key stats
-Recent matches
-Squad/player preview
-Tournament history
-```
-
----
-
-### Stats Page
-
-Improve with:
-
-```txt
-Stat summary cards
-Top scorers with player images
-Top teams with logos
-Standings table with flags
-Simple charts later only if useful
-```
-
-Do not add complex chart work now unless requested.
-
----
-
-### History Page
-
-Improve with:
-
-```txt
-World Cup winners timeline
-Winner flags
-Host country flags
-Final match cards
-Classic matches section
-```
-
-Use flags and small imagery to make history easier to scan.
-
----
-
-### Blogs / News Page
-
-Improve with:
-
-```txt
-Cover image cards
-Category badges
-Author/date metadata
-Featured article card
-Grid layout for articles
-```
-
-If cover image is missing, use a default football/news placeholder.
-
----
-
-## Loading States
-
-Use skeletons or simple loading cards.
-
-Do not show plain text only:
-
-```txt
-Loading...
-```
-
-Preferred:
-
-```txt
-Card skeleton
-Avatar skeleton
-Image placeholder skeleton
-```
-
----
-
-## Empty States
-
-Create useful empty states.
-
-Examples:
-
-```txt
-No matches found
-No news available yet
-No players added for this team
-No historical records found
-```
-
-Include a small visual icon or image placeholder.
-
----
-
-## Error States
-
-Keep errors user-friendly.
-
-Example:
-
-```txt
-Could not load matches. Try again later.
-```
-
-Do not expose raw API/server errors in the UI.
-
----
-
-## Responsive Rules
-
-Mobile first.
-
-Use layouts like:
-
-```txt
-Mobile: 1 column
-Tablet: 2 columns
-Desktop: 3-4 columns where suitable
-```
-
-Cards should not become too wide on desktop.
-
-Use max-width containers for readable pages.
-
----
-
-## Design Restraints
-
-Do not spend too much time on:
-
-```txt
-Complex animations
-Advanced micro-interactions
-Custom chart design
-Pixel-perfect landing page visuals
-Heavy glassmorphism everywhere
-Too many gradients
-```
-
-Allowed:
-
-```txt
-Subtle hover effects
-Rounded cards
-Soft shadows
-Light gradients in hero/headers
-Status badges
-Clean grid layouts
-```
-
----
-
-## Accessibility
-
-Required:
-
-```txt
-Meaningful image alt text
-Readable contrast
-Keyboard-friendly clickable cards
-Visible focus states
-No text baked into images unless decorative
-```
-
----
-
-## Data Fallback Rules
-
-If an image field is missing:
-
-```txt
-Team logo missing -> use default team placeholder
-Flag missing -> hide flag or use neutral globe icon
-Player image missing -> use initials/avatar fallback
-Blog image missing -> use default blog cover
-Stadium image missing -> use gradient/placeholder
-```
-
-Never allow broken images in the UI.
-
----
-
-## Implementation Order
-
-Recommended order:
-
-```txt
-1. Add asset folder structure
-2. Add placeholder images/icons
-3. Create TeamBadge
-4. Create PlayerAvatar
-5. Create MatchCard
-6. Create NewsCard
-7. Improve Home page
-8. Improve Matches page
-9. Improve Teams page
-10. Improve Stats and History pages
-```
-
----
-
-## Caveman Summary
-
-```txt
-Goal: make UI less basic.
-Add: images, flags, team logos, player avatars.
-Create reusable components.
-Use next/image.
-No hotlink random images.
-No overdesign.
-Mobile first.
-No broken images.
-```
+  

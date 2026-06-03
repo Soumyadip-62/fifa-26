@@ -71,7 +71,7 @@ export function Header() {
               />
             </span>
             <span className="grid leading-tight ">
-              <span className="font-bold">FIFA 26</span>
+              <span className="font-heading font-bold">FIFA 26</span>
               <span className="text-[10px] leading-4 font-bold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
                 Tournament Hub
               </span>
