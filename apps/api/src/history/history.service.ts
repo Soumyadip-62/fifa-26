@@ -88,6 +88,9 @@ export class HistoryService {
   getAllFinals() {
     return this.finals;
   }
+  getMatchesByYear(year: number) {
+    return;
+  }
 
   private readWorldCupHistory(basePath: string) {
     return readdirSync(basePath, { withFileTypes: true })
