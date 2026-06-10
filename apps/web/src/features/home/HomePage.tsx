@@ -14,6 +14,7 @@ import { getMatches } from "@/lib/api/matches";
 import { getNewsArticles } from "@/lib/api/news";
 import { getTeams } from "@/lib/api/teams";
 import type { Match } from "@/types/match";
+import { MonitorPlay, RadioTower, Tv } from "lucide-react";
 
 const sections = [
   {
@@ -39,6 +40,49 @@ const sections = [
     title: "Football history",
     description:
       "Scan previous winners, host countries, final scores, and summaries.",
+  },
+];
+
+const watchPlatforms = [
+  {
+    name: "Unite8 Sports",
+    label: "Official TV broadcaster",
+    logo: "Unite8",
+    badgeClass: "bg-emerald-400 text-neutral-950",
+    icon: Tv,
+    description:
+      "Four dedicated ZEE sports channels carry every tournament fixture.",
+    channels: [
+      "Hindi: Unite8 Sports 1",
+      "Hindi: Unite8 Sports 1 HD",
+      "English: Unite8 Sports 2",
+      "English: Unite8 Sports 2 HD",
+    ],
+  },
+  {
+    name: "ZEE5",
+    label: "Official live streaming",
+    logo: "ZEE5",
+    badgeClass: "bg-violet-500 text-white",
+    icon: MonitorPlay,
+    description:
+      "Live and on-demand streaming across mobile, tablet, and connected TV.",
+    channels: ["All matches live", "On-demand replays", "Mobile and tablet", "Connected TV"],
+  },
+  {
+    name: "DD Sports",
+    label: "Free telecast",
+    logo: "DD",
+    badgeClass: "bg-amber-300 text-neutral-950",
+    icon: RadioTower,
+    description:
+      "Prasar Bharati free-to-air coverage for biggest tournament fixtures.",
+    channels: [
+      "Opening match",
+      "All quarter-finals",
+      "All semi-finals",
+      "Grand finale",
+    ],
   },
 ];
 
@@ -116,6 +160,98 @@ export async function HomePage() {
                 targetIso={new Date(firstMatch.startTime).toISOString()}
               />
             ) : null}
+          </div>
+        </section>
+      </MotionReveal>
+
+      <MotionReveal>
+        <section className="my-8 overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.24)] ring-1 ring-white/10">
+          <div className="grid gap-0 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="relative grid content-between gap-8 border-b border-white/10 p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
+              <div className="grid gap-4">
+                <p className="w-fit rounded-md border border-emerald-300/20 bg-emerald-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-100">
+                  Where to watch
+                </p>
+                <div className="grid gap-3">
+                  <h2 className="font-heading text-3xl font-black tracking-normal sm:text-4xl">
+                    Broadcast hub
+                  </h2>
+                  <p className="max-w-md text-sm leading-7 text-neutral-300 sm:text-base">
+                    Official television, live streaming, and free-to-air
+                    options for FIFA 2026 coverage.
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg border border-white/10 bg-white/[0.06] p-4">
+                  <p className="text-xs font-bold uppercase tracking-wide text-neutral-400">
+                    Coverage
+                  </p>
+                  <p className="font-heading mt-2 text-3xl font-black text-white">
+                    104
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-400">matches</p>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-white/[0.06] p-4">
+                  <p className="text-xs font-bold uppercase tracking-wide text-neutral-400">
+                    Access
+                  </p>
+                  <p className="font-heading mt-2 text-3xl font-black text-white">
+                    TV
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-400">stream + free</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4 p-5 sm:p-7 lg:grid-cols-3 lg:p-8">
+              {watchPlatforms.map((platform, index) => {
+                const Icon = platform.icon;
+
+                return (
+                  <MotionReveal
+                    className="h-full"
+                    delay={Math.min(index * 0.05, 0.15)}
+                    key={platform.name}
+                  >
+                    <article className="group flex h-full flex-col gap-5 rounded-lg border border-white/10 bg-white/[0.07] p-5 transition duration-300 hover:-translate-y-1 hover:border-emerald-300/60 hover:bg-white/[0.1]">
+                      <div className="flex items-start justify-between gap-4">
+                        <div
+                          className={`grid h-12 min-w-20 place-items-center rounded-md px-3 font-heading text-sm font-black tracking-normal shadow-lg transition duration-300 group-hover:scale-105 ${platform.badgeClass}`}
+                          aria-label={`${platform.name} logo`}
+                        >
+                          {platform.logo}
+                        </div>
+                        <div className="grid size-10 place-items-center rounded-md border border-white/10 bg-white/[0.06] text-emerald-200 transition duration-300 group-hover:bg-emerald-400/10">
+                          <Icon className="size-5" aria-hidden="true" />
+                        </div>
+                      </div>
+                      <div className="grid gap-2">
+                        <p className="text-xs font-bold uppercase tracking-wide text-emerald-200">
+                          {platform.label}
+                        </p>
+                        <h3 className="font-heading text-xl font-black text-white">
+                          {platform.name}
+                        </h3>
+                        <p className="text-sm leading-7 text-neutral-300">
+                          {platform.description}
+                        </p>
+                      </div>
+                      <ul className="mt-auto grid gap-2">
+                        {platform.channels.map((channel) => (
+                          <li
+                            className="rounded-md border border-white/10 bg-neutral-950/45 px-3 py-2 text-sm font-medium text-neutral-200 transition group-hover:border-emerald-300/30"
+                            key={channel}
+                          >
+                            {channel}
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  </MotionReveal>
+                );
+              })}
+            </div>
           </div>
         </section>
       </MotionReveal>

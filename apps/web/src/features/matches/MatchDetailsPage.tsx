@@ -80,55 +80,55 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
       <MotionReveal>
         <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
-        {match.venueImageUrl ? (
-          <div className="relative h-60">
-            <Image
-              src={match.venueImageUrl}
-              alt={match.venue ? `${match.venue} stadium` : "Stadium"}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover opacity-55"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/25 px-4">
-              <TeamLogoImage team={match.homeTeam} size={110} />
-              <VsIcon />
-              <TeamLogoImage team={match.awayTeam} size={110} />
+          {match.venueImageUrl ? (
+            <div className="relative h-60">
+              <Image
+                src={match.venueImageUrl}
+                alt={match.venue ? `${match.venue} stadium` : "Stadium"}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover opacity-55"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/25 px-4">
+                <TeamLogoImage team={match.homeTeam} size={110} />
+                <VsIcon />
+                <TeamLogoImage team={match.awayTeam} size={110} />
+              </div>
             </div>
-          </div>
-        ) : null}
-        <div className="grid gap-6 p-5 sm:p-8">
-          <div className="flex flex-wrap items-center gap-3">
-            <MatchStatusBadge status={match.status} />
-            <span className="text-sm text-neutral-300">
-              {match.stage ?? match.tournament}
-            </span>
-            {match.group ? (
+          ) : null}
+          <div className="grid gap-6 p-5 sm:p-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <MatchStatusBadge status={match.status} />
               <span className="text-sm text-neutral-300">
-                Group {match.group}
+                {match.stage ?? match.tournament}
               </span>
-            ) : null}
-          </div>
-          <div className="grid items-stretch gap-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
-            <TeamBadge
-              className="rounded-lg bg-white p-4 dark:bg-neutral-900"
-              {...match.homeTeam}
-            />
-            <div className="rounded-lg border border-white/15 bg-white/10 px-6 py-5 text-center shadow-sm">
-              <p className="text-xs uppercase tracking-wide text-neutral-300">
-                {formatDate(match.date)}
-              </p>
-              <strong className="font-heading mt-2 block text-4xl font-black">
-                {score}
-              </strong>
+              {match.group ? (
+                <span className="text-sm text-neutral-300">
+                  Group {match.group}
+                </span>
+              ) : null}
             </div>
-            <TeamBadge
-              className="rounded-lg bg-white p-4 dark:bg-neutral-900"
-              {...match.awayTeam}
-            />
+            <div className="grid items-stretch gap-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
+              <TeamBadge
+                className="rounded-lg bg-white p-4 dark:bg-neutral-900"
+                {...match.homeTeam}
+              />
+              <div className="rounded-lg border border-white/15 bg-white/10 px-6 py-5 text-center shadow-sm">
+                <p className="text-xs uppercase tracking-wide text-neutral-300">
+                  {formatDate(match.date)}
+                </p>
+                <strong className="font-heading mt-2 block text-4xl font-black">
+                  {score}
+                </strong>
+              </div>
+              <TeamBadge
+                className="rounded-lg bg-white p-4 dark:bg-neutral-900"
+                {...match.awayTeam}
+              />
+            </div>
           </div>
-        </div>
         </section>
       </MotionReveal>
 
@@ -149,6 +149,15 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
           helper="API-ready state"
         />
       </section>
+
+      <div
+        style={{ padding: "24px" }}
+        className=" rounded-xl bg-neutral-300 dark:bg-neutral-800"
+      >
+        <h3 className="text-md md:text-xl font-semibold font-sans">
+          These lineups are not confirmed yet!
+        </h3>
+      </div>
 
       <section className="grid gap-5 lg:grid-cols-2">
         <MatchTeamPlayersSection
