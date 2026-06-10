@@ -27,25 +27,50 @@ export function HistoryTimeline({ historyItems }: HistoryTimelineProps) {
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="success">Winner</Badge>
                   <FlagIcon country={item.winner} />
-                  <h2 className="font-heading text-lg font-bold text-neutral-950 dark:text-neutral-50 sm:text-xl">{item.winner}</h2>
+                  <h2 className="font-heading text-lg font-bold text-neutral-950 dark:text-neutral-50 sm:text-xl">
+                    {item.winner}
+                  </h2>
                 </div>
                 <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
                   Final: {item.winner} vs {item.runnerUp ?? "TBD"}
                   {item.finalScore ? `, ${item.finalScore}` : ""}
                 </p>
-                {((item.winnerGoals && item.winnerGoals.length > 0) || 
+                {((item.winnerGoals && item.winnerGoals.length > 0) ||
                   (item.runnerUpGoals && item.runnerUpGoals.length > 0)) && (
-                  <div className="grid gap-1 border-t border-neutral-100 dark:border-neutral-800 pt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                  <div
+                    className="grid gap-1 border-t border-neutral-100/10 dark:border-neutral-900/50 text-xs text-neutral-500 dark:text-neutral-400"
+                    style={{ paddingTop: "0.5rem" }}
+                  >
                     {item.winnerGoals && item.winnerGoals.length > 0 && (
                       <div className="flex items-start gap-1">
-                        <span className="font-semibold text-emerald-600 dark:text-emerald-400 min-w-[75px]">{item.winner}:</span>
-                        <span>⚽ {item.winnerGoals.map(g => `${g.name} ${g.minute}${g.offset ? `+${g.offset}` : ""}'${g.penalty ? " (P)" : g.owngoal ? " (OG)" : ""}`).join(", ")}</span>
+                        <span className="font-semibold text-emerald-600 dark:text-emerald-400 min-w-[75px]">
+                          {item.winner}:
+                        </span>
+                        <span>
+                          ⚽{" "}
+                          {item.winnerGoals
+                            .map(
+                              (g) =>
+                                `${g.name} ${g.minute}${g.offset ? `+${g.offset}` : ""}'${g.penalty ? " (P)" : g.owngoal ? " (OG)" : ""}`,
+                            )
+                            .join(", ")}
+                        </span>
                       </div>
                     )}
                     {item.runnerUpGoals && item.runnerUpGoals.length > 0 && (
                       <div className="flex items-start gap-1">
-                        <span className="font-semibold text-neutral-600 dark:text-neutral-400 min-w-[75px]">{item.runnerUp}:</span>
-                        <span>⚽ {item.runnerUpGoals.map(g => `${g.name} ${g.minute}${g.offset ? `+${g.offset}` : ""}'${g.penalty ? " (P)" : g.owngoal ? " (OG)" : ""}`).join(", ")}</span>
+                        <span className="font-semibold text-neutral-600 dark:text-neutral-400 min-w-[75px]">
+                          {item.runnerUp}:
+                        </span>
+                        <span>
+                          ⚽{" "}
+                          {item.runnerUpGoals
+                            .map(
+                              (g) =>
+                                `${g.name} ${g.minute}${g.offset ? `+${g.offset}` : ""}'${g.penalty ? " (P)" : g.owngoal ? " (OG)" : ""}`,
+                            )
+                            .join(", ")}
+                        </span>
                       </div>
                     )}
                   </div>
