@@ -8,9 +8,34 @@ import { TeamsModule } from './teams/teams.module';
 import { HistoryModule } from './history/history.module';
 import { PlayersModule } from './players/players.module';
 import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { VenuesModule } from './venues/venues.module';
 
 @Module({
-  imports: [MatchesModule, SearchModule, NewsModule, TeamsModule, HistoryModule, PlayersModule, UserModule],
+  imports: [
+    MatchesModule,
+    SearchModule,
+    NewsModule,
+    TeamsModule,
+    HistoryModule,
+    PlayersModule,
+    UserModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      autoLoadEntities: true,
+      synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
+    VenuesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

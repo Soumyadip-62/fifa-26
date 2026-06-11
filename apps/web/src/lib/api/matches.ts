@@ -159,6 +159,19 @@ export async function getMatchById(matchId: string): Promise<Match> {
   }
 }
 
+export async function getQualifierMatches(): Promise<Match[]> {
+  try {
+    const response = await fetch(apiUrl("/matches/qualifier-matches"));
+    if (!response.ok) {
+      throw new Error("Failed to fetch qualifier matches");
+    }
+    const data = (await response.json()) as Match[];
+    return data.map(normalizeMatch);
+  } catch {
+    return [];
+  }
+}
+
 export async function searchMatchesByTeam(team: string): Promise<Match[]> {
   const query = team.trim();
 

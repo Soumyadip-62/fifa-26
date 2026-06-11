@@ -93,7 +93,7 @@ export function Header() {
                 ))}
               </ul>
             </nav>
-            <ProfileDrawer />
+            {/* <ProfileDrawer /> */}
             <Button
               aria-controls="mobile-navigation"
               aria-expanded={isDrawerOpen}
