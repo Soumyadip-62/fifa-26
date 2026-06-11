@@ -10,6 +10,11 @@ export class MatchesController {
     return this.matchesService.findAll();
   }
 
+  @Get('qualifier-matches')
+  getQualifierMatches() {
+    return this.matchesService.findAllQualifierMatches();
+  }
+
   @Get(':matchId')
   getMatchDetails(@Param('matchId') matchId: string) {
     return this.matchesService.findOne(matchId);

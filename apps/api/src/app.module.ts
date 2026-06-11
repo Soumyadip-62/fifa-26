@@ -7,9 +7,10 @@ import { NewsModule } from './news/news.module';
 import { TeamsModule } from './teams/teams.module';
 import { HistoryModule } from './history/history.module';
 import { PlayersModule } from './players/players.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [MatchesModule, SearchModule, NewsModule, TeamsModule, HistoryModule, PlayersModule],
+  imports: [MatchesModule, SearchModule, NewsModule, TeamsModule, HistoryModule, PlayersModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

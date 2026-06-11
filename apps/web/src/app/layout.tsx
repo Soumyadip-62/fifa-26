@@ -20,15 +20,24 @@ export const metadata: Metadata = {
   description: "Football schedules, teams, news, and history.",
 };
 
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} ${orbitron.variable}`}>
-        <AppShell>{children}</AppShell>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,0 +1,1431 @@
+{
+  "competition": {
+    "name": "World Cup 2026",
+    "hostCountries": [
+      "Canada",
+      "USA",
+      "Mexico"
+    ],
+    "totalMatchesMentioned": 104,
+    "parsedMatches": 32,
+    "note": "Knockout-stage fixtures only; team slots are placeholders until qualified teams are known."
+  },
+  "stadiums": [
+    {
+      "city": "Mexico City",
+      "stadium": "Estadio Azteca"
+    },
+    {
+      "city": "Guadalajara (Zapopan)",
+      "stadium": "Estadio Akron"
+    },
+    {
+      "city": "Monterrey (Guadalupe)",
+      "stadium": "Estadio BBVA"
+    },
+    {
+      "city": "Atlanta",
+      "stadium": "Mercedes-Benz Stadium"
+    },
+    {
+      "city": "Boston (Foxborough)",
+      "stadium": "Gillette Stadium"
+    },
+    {
+      "city": "Dallas (Arlington)",
+      "stadium": "AT&T Stadium"
+    },
+    {
+      "city": "Houston",
+      "stadium": "NRG Stadium"
+    },
+    {
+      "city": "Kansas City",
+      "stadium": "Arrowhead Stadium"
+    },
+    {
+      "city": "Los Angeles (Inglewood)",
+      "stadium": "SoFi Stadium"
+    },
+    {
+      "city": "Miami (Miami Gardens)",
+      "stadium": "Hard Rock Stadium"
+    },
+    {
+      "city": "New York/New Jersey (East Rutherford)",
+      "stadium": "MetLife Stadium"
+    },
+    {
+      "city": "Philadelphia",
+      "stadium": "Lincoln Financial Field"
+    },
+    {
+      "city": "San Francisco Bay Area (Santa Clara)",
+      "stadium": "Levi's Stadium"
+    },
+    {
+      "city": "Seattle",
+      "stadium": "Lumen Field"
+    },
+    {
+      "city": "Toronto",
+      "stadium": "BMO Field"
+    },
+    {
+      "city": "Vancouver",
+      "stadium": "BC Place"
+    }
+  ],
+  "matchdays": [
+    {
+      "matchday": 1,
+      "date": "2026-06-28"
+    },
+    {
+      "matchday": 2,
+      "date": "2026-06-29"
+    },
+    {
+      "matchday": 3,
+      "date": "2026-06-30"
+    },
+    {
+      "matchday": 4,
+      "date": "2026-07-01"
+    },
+    {
+      "matchday": 5,
+      "date": "2026-07-02"
+    },
+    {
+      "matchday": 6,
+      "date": "2026-07-03"
+    },
+    {
+      "matchday": 7,
+      "date": "2026-07-04"
+    },
+    {
+      "matchday": 8,
+      "date": "2026-07-05"
+    },
+    {
+      "matchday": 9,
+      "date": "2026-07-06"
+    },
+    {
+      "matchday": 10,
+      "date": "2026-07-07"
+    },
+    {
+      "matchday": 11,
+      "date": "2026-07-09"
+    },
+    {
+      "matchday": 12,
+      "date": "2026-07-10"
+    },
+    {
+      "matchday": 13,
+      "date": "2026-07-11"
+    },
+    {
+      "matchday": 14,
+      "date": "2026-07-14"
+    },
+    {
+      "matchday": 15,
+      "date": "2026-07-15"
+    },
+    {
+      "matchday": 16,
+      "date": "2026-07-18"
+    },
+    {
+      "matchday": 17,
+      "date": "2026-07-19"
+    }
+  ],
+  "matches": [
+    {
+      "id": "wc2026-ko-073",
+      "matchNumber": 73,
+      "stage": "Round of 32",
+      "matchday": 1,
+      "date": "2026-06-28",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "2A",
+      "awayTeamSlot": "2B",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "2A vs 2B",
+      "eventAlternateName": "2B @ 2A",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-28T19:00:00",
+      "dateUtc": "2026-06-28",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-074",
+      "matchNumber": 74,
+      "stage": "Round of 32",
+      "matchday": 2,
+      "date": "2026-06-29",
+      "time": "16:30",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "1E",
+      "awayTeamSlot": "3A/B/C/D/F",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1E vs 3A/B/C/D/F",
+      "eventAlternateName": "3A/B/C/D/F @ 1E",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-29T20:30:00",
+      "dateUtc": "2026-06-29",
+      "timeUtc": "20:30",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-075",
+      "matchNumber": 75,
+      "stage": "Round of 32",
+      "matchday": 2,
+      "date": "2026-06-29",
+      "time": "19:00",
+      "timezone": "UTC-6",
+      "homeTeamSlot": "1F",
+      "awayTeamSlot": "2C",
+      "venue": {
+        "city": "Monterrey (Guadalupe)",
+        "stadium": "Estadio BBVA",
+        "country": "Mexico"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1F vs 2C",
+      "eventAlternateName": "2C @ 1F",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-30T01:00:00",
+      "dateUtc": "2026-06-30",
+      "timeUtc": "01:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-076",
+      "matchNumber": 76,
+      "stage": "Round of 32",
+      "matchday": 2,
+      "date": "2026-06-29",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "1C",
+      "awayTeamSlot": "2F",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1C vs 2F",
+      "eventAlternateName": "2F @ 1C",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-29T17:00:00",
+      "dateUtc": "2026-06-29",
+      "timeUtc": "17:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-077",
+      "matchNumber": 77,
+      "stage": "Round of 32",
+      "matchday": 3,
+      "date": "2026-06-30",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "1I",
+      "awayTeamSlot": "3C/D/F/G/H",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1I vs 3C/D/F/G/H",
+      "eventAlternateName": "3C/D/F/G/H @ 1I",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-30T21:00:00",
+      "dateUtc": "2026-06-30",
+      "timeUtc": "21:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-078",
+      "matchNumber": 78,
+      "stage": "Round of 32",
+      "matchday": 3,
+      "date": "2026-06-30",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "2E",
+      "awayTeamSlot": "2I",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "2E vs 2I",
+      "eventAlternateName": "2I @ 2E",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-06-30T17:00:00",
+      "dateUtc": "2026-06-30",
+      "timeUtc": "17:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-079",
+      "matchNumber": 79,
+      "stage": "Round of 32",
+      "matchday": 3,
+      "date": "2026-06-30",
+      "time": "19:00",
+      "timezone": "UTC-6",
+      "homeTeamSlot": "1A",
+      "awayTeamSlot": "3C/E/F/H/I",
+      "venue": {
+        "city": "Mexico City",
+        "stadium": "Estadio Azteca",
+        "country": "Mexico"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1A vs 3C/E/F/H/I",
+      "eventAlternateName": "3C/E/F/H/I @ 1A",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-01T01:00:00",
+      "dateUtc": "2026-07-01",
+      "timeUtc": "01:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-080",
+      "matchNumber": 80,
+      "stage": "Round of 32",
+      "matchday": 4,
+      "date": "2026-07-01",
+      "time": "12:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "1L",
+      "awayTeamSlot": "3E/H/I/J/K",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1L vs 3E/H/I/J/K",
+      "eventAlternateName": "3E/H/I/J/K @ 1L",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-01T16:00:00",
+      "dateUtc": "2026-07-01",
+      "timeUtc": "16:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-081",
+      "matchNumber": 81,
+      "stage": "Round of 32",
+      "matchday": 4,
+      "date": "2026-07-01",
+      "time": "17:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "1D",
+      "awayTeamSlot": "3B/E/F/I/J",
+      "venue": {
+        "city": "San Francisco Bay Area (Santa Clara)",
+        "stadium": "Levi's Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1D vs 3B/E/F/I/J",
+      "eventAlternateName": "3B/E/F/I/J @ 1D",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-02T00:00:00",
+      "dateUtc": "2026-07-02",
+      "timeUtc": "00:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-082",
+      "matchNumber": 82,
+      "stage": "Round of 32",
+      "matchday": 4,
+      "date": "2026-07-01",
+      "time": "13:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "1G",
+      "awayTeamSlot": "3A/E/H/I/J",
+      "venue": {
+        "city": "Seattle",
+        "stadium": "Lumen Field",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1G vs 3A/E/H/I/J",
+      "eventAlternateName": "3A/E/H/I/J @ 1G",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-01T20:00:00",
+      "dateUtc": "2026-07-01",
+      "timeUtc": "20:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-083",
+      "matchNumber": 83,
+      "stage": "Round of 32",
+      "matchday": 5,
+      "date": "2026-07-02",
+      "time": "19:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "2K",
+      "awayTeamSlot": "2L",
+      "venue": {
+        "city": "Toronto",
+        "stadium": "BMO Field",
+        "country": "Canada"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "2K vs 2L",
+      "eventAlternateName": "2L @ 2K",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-02T23:00:00",
+      "dateUtc": "2026-07-02",
+      "timeUtc": "23:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-084",
+      "matchNumber": 84,
+      "stage": "Round of 32",
+      "matchday": 5,
+      "date": "2026-07-02",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "1H",
+      "awayTeamSlot": "2J",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1H vs 2J",
+      "eventAlternateName": "2J @ 1H",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-02T19:00:00",
+      "dateUtc": "2026-07-02",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-085",
+      "matchNumber": 85,
+      "stage": "Round of 32",
+      "matchday": 5,
+      "date": "2026-07-02",
+      "time": "20:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "1B",
+      "awayTeamSlot": "3E/F/G/I/J",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place",
+        "country": "Canada"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1B vs 3E/F/G/I/J",
+      "eventAlternateName": "3E/F/G/I/J @ 1B",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-03T03:00:00",
+      "dateUtc": "2026-07-03",
+      "timeUtc": "03:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-086",
+      "matchNumber": 86,
+      "stage": "Round of 32",
+      "matchday": 6,
+      "date": "2026-07-03",
+      "time": "18:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "1J",
+      "awayTeamSlot": "2H",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1J vs 2H",
+      "eventAlternateName": "2H @ 1J",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-03T22:00:00",
+      "dateUtc": "2026-07-03",
+      "timeUtc": "22:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-087",
+      "matchNumber": 87,
+      "stage": "Round of 32",
+      "matchday": 6,
+      "date": "2026-07-03",
+      "time": "20:30",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "1K",
+      "awayTeamSlot": "3D/E/I/J/L",
+      "venue": {
+        "city": "Kansas City",
+        "stadium": "Arrowhead Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "1K vs 3D/E/I/J/L",
+      "eventAlternateName": "3D/E/I/J/L @ 1K",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-04T01:30:00",
+      "dateUtc": "2026-07-04",
+      "timeUtc": "01:30",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-088",
+      "matchNumber": 88,
+      "stage": "Round of 32",
+      "matchday": 6,
+      "date": "2026-07-03",
+      "time": "13:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "2D",
+      "awayTeamSlot": "2G",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "2D vs 2G",
+      "eventAlternateName": "2G @ 2D",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-03T18:00:00",
+      "dateUtc": "2026-07-03",
+      "timeUtc": "18:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-089",
+      "matchNumber": 89,
+      "stage": "Round of 16",
+      "matchday": 7,
+      "date": "2026-07-04",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W74",
+      "awayTeamSlot": "W77",
+      "venue": {
+        "city": "Philadelphia",
+        "stadium": "Lincoln Financial Field",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W74 vs W77",
+      "eventAlternateName": "W77 @ W74",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-04T21:00:00",
+      "dateUtc": "2026-07-04",
+      "timeUtc": "21:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-090",
+      "matchNumber": 90,
+      "stage": "Round of 16",
+      "matchday": 7,
+      "date": "2026-07-04",
+      "time": "12:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "W73",
+      "awayTeamSlot": "W75",
+      "venue": {
+        "city": "Houston",
+        "stadium": "NRG Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W73 vs W75",
+      "eventAlternateName": "W75 @ W73",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-04T17:00:00",
+      "dateUtc": "2026-07-04",
+      "timeUtc": "17:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-091",
+      "matchNumber": 91,
+      "stage": "Round of 16",
+      "matchday": 8,
+      "date": "2026-07-05",
+      "time": "16:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W76",
+      "awayTeamSlot": "W78",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W76 vs W78",
+      "eventAlternateName": "W78 @ W76",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-05T20:00:00",
+      "dateUtc": "2026-07-05",
+      "timeUtc": "20:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-092",
+      "matchNumber": 92,
+      "stage": "Round of 16",
+      "matchday": 8,
+      "date": "2026-07-05",
+      "time": "18:00",
+      "timezone": "UTC-6",
+      "homeTeamSlot": "W79",
+      "awayTeamSlot": "W80",
+      "venue": {
+        "city": "Mexico City",
+        "stadium": "Estadio Azteca",
+        "country": "Mexico"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W79 vs W80",
+      "eventAlternateName": "W80 @ W79",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-06T00:00:00",
+      "dateUtc": "2026-07-06",
+      "timeUtc": "00:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-093",
+      "matchNumber": 93,
+      "stage": "Round of 16",
+      "matchday": 9,
+      "date": "2026-07-06",
+      "time": "14:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "W83",
+      "awayTeamSlot": "W84",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W83 vs W84",
+      "eventAlternateName": "W84 @ W83",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-06T19:00:00",
+      "dateUtc": "2026-07-06",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-094",
+      "matchNumber": 94,
+      "stage": "Round of 16",
+      "matchday": 9,
+      "date": "2026-07-06",
+      "time": "17:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "W81",
+      "awayTeamSlot": "W82",
+      "venue": {
+        "city": "Seattle",
+        "stadium": "Lumen Field",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W81 vs W82",
+      "eventAlternateName": "W82 @ W81",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-07T00:00:00",
+      "dateUtc": "2026-07-07",
+      "timeUtc": "00:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-095",
+      "matchNumber": 95,
+      "stage": "Round of 16",
+      "matchday": 10,
+      "date": "2026-07-07",
+      "time": "12:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W86",
+      "awayTeamSlot": "W88",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W86 vs W88",
+      "eventAlternateName": "W88 @ W86",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-07T16:00:00",
+      "dateUtc": "2026-07-07",
+      "timeUtc": "16:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-096",
+      "matchNumber": 96,
+      "stage": "Round of 16",
+      "matchday": 10,
+      "date": "2026-07-07",
+      "time": "13:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "W85",
+      "awayTeamSlot": "W87",
+      "venue": {
+        "city": "Vancouver",
+        "stadium": "BC Place",
+        "country": "Canada"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W85 vs W87",
+      "eventAlternateName": "W87 @ W85",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-07T20:00:00",
+      "dateUtc": "2026-07-07",
+      "timeUtc": "20:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-097",
+      "matchNumber": 97,
+      "stage": "Quarter-final",
+      "matchday": 11,
+      "date": "2026-07-09",
+      "time": "16:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W89",
+      "awayTeamSlot": "W90",
+      "venue": {
+        "city": "Boston (Foxborough)",
+        "stadium": "Gillette Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W89 vs W90",
+      "eventAlternateName": "W90 @ W89",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-09T20:00:00",
+      "dateUtc": "2026-07-09",
+      "timeUtc": "20:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-098",
+      "matchNumber": 98,
+      "stage": "Quarter-final",
+      "matchday": 12,
+      "date": "2026-07-10",
+      "time": "12:00",
+      "timezone": "UTC-7",
+      "homeTeamSlot": "W93",
+      "awayTeamSlot": "W94",
+      "venue": {
+        "city": "Los Angeles (Inglewood)",
+        "stadium": "SoFi Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W93 vs W94",
+      "eventAlternateName": "W94 @ W93",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-10T19:00:00",
+      "dateUtc": "2026-07-10",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-099",
+      "matchNumber": 99,
+      "stage": "Quarter-final",
+      "matchday": 13,
+      "date": "2026-07-11",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W91",
+      "awayTeamSlot": "W92",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W91 vs W92",
+      "eventAlternateName": "W92 @ W91",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-11T21:00:00",
+      "dateUtc": "2026-07-11",
+      "timeUtc": "21:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-100",
+      "matchNumber": 100,
+      "stage": "Quarter-final",
+      "matchday": 13,
+      "date": "2026-07-11",
+      "time": "20:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "W95",
+      "awayTeamSlot": "W96",
+      "venue": {
+        "city": "Kansas City",
+        "stadium": "Arrowhead Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W95 vs W96",
+      "eventAlternateName": "W96 @ W95",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-12T01:00:00",
+      "dateUtc": "2026-07-12",
+      "timeUtc": "01:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-101",
+      "matchNumber": 101,
+      "stage": "Semi-final",
+      "matchday": 14,
+      "date": "2026-07-14",
+      "time": "14:00",
+      "timezone": "UTC-5",
+      "homeTeamSlot": "W97",
+      "awayTeamSlot": "W98",
+      "venue": {
+        "city": "Dallas (Arlington)",
+        "stadium": "AT&T Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W97 vs W98",
+      "eventAlternateName": "W98 @ W97",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-14T19:00:00",
+      "dateUtc": "2026-07-14",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-102",
+      "matchNumber": 102,
+      "stage": "Semi-final",
+      "matchday": 15,
+      "date": "2026-07-15",
+      "time": "15:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W99",
+      "awayTeamSlot": "W100",
+      "venue": {
+        "city": "Atlanta",
+        "stadium": "Mercedes-Benz Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W99 vs W100",
+      "eventAlternateName": "W100 @ W99",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-15T19:00:00",
+      "dateUtc": "2026-07-15",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-103",
+      "matchNumber": 103,
+      "stage": "Match for third place",
+      "matchday": 16,
+      "date": "2026-07-18",
+      "time": "17:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "L101",
+      "awayTeamSlot": "L102",
+      "venue": {
+        "city": "Miami (Miami Gardens)",
+        "stadium": "Hard Rock Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "L101 vs L102",
+      "eventAlternateName": "L102 @ L101",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-18T21:00:00",
+      "dateUtc": "2026-07-18",
+      "timeUtc": "21:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    },
+    {
+      "id": "wc2026-ko-104",
+      "matchNumber": 104,
+      "stage": "Final",
+      "matchday": 17,
+      "date": "2026-07-19",
+      "time": "15:00",
+      "timezone": "UTC-4",
+      "homeTeamSlot": "W101",
+      "awayTeamSlot": "W102",
+      "venue": {
+        "city": "New York/New Jersey (East Rutherford)",
+        "stadium": "MetLife Stadium",
+        "country": "United States"
+      },
+      "status": "scheduled",
+      "season": "2026",
+      "league": {
+        "id": "4429",
+        "name": "FIFA World Cup",
+        "badgeUrl": "https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png",
+        "sport": "Soccer"
+      },
+      "eventName": "W101 vs W102",
+      "eventAlternateName": "W102 @ W101",
+      "sportsDbEventId": null,
+      "score": {
+        "home": null,
+        "away": null
+      },
+      "timestampUtc": "2026-07-19T19:00:00",
+      "dateUtc": "2026-07-19",
+      "timeUtc": "19:00",
+      "statusCode": "NS",
+      "isPostponed": false,
+      "thumbnailUrl": null,
+      "posterUrl": null,
+      "videoUrl": null,
+      "sourceFilename": null
+    }
+  ]
+}
