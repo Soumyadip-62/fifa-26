@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/cn";
 import { Menu, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ProfileDrawer } from "./ProfileDrawer";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -54,7 +55,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-emerald-900/10 bg-white/88 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/88">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-emerald-900/10 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/80">
         <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
           <Link
             className="inline-flex items-center gap-3 text-base font-black tracking-normal text-emerald-950 dark:text-emerald-200"
@@ -77,36 +78,39 @@ export function Header() {
               </span>
             </span>
           </Link>
-          <nav className="hidden sm:block" aria-label="Primary navigation">
-            <ul className="flex flex-wrap gap-1 rounded-lg border border-neutral-200/80 bg-white/75 p-1 dark:border-white/10 dark:bg-white/5">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    className="inline-flex rounded-md px-3 py-2 text-sm font-semibold text-neutral-600 transition-colors hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-emerald-200"
-                    href={item.href}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <Button
-            aria-controls="mobile-navigation"
-            aria-expanded={isDrawerOpen}
-            aria-label="Open navigation menu"
-            className="h-10 w-10 p-0 sm:hidden"
-            onClick={() => setIsDrawerOpen(true)}
-            type="button"
-            variant="outline"
-          >
-            <Menu aria-hidden="true" className="h-5 w-5" />
-          </Button>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <nav className="hidden sm:block" aria-label="Primary navigation">
+              <ul className="flex flex-wrap gap-1 rounded-lg border border-neutral-200/80 bg-white/75 p-1 dark:border-white/10 dark:bg-white/5">
+                {navItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      className="inline-flex rounded-md px-3 py-2 text-sm font-semibold text-neutral-600 transition-colors hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-emerald-200"
+                      href={item.href}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <ProfileDrawer />
+            <Button
+              aria-controls="mobile-navigation"
+              aria-expanded={isDrawerOpen}
+              aria-label="Open navigation menu"
+              className="h-10 w-10 p-0 sm:hidden"
+              onClick={() => setIsDrawerOpen(true)}
+              type="button"
+              variant="outline"
+            >
+              <Menu aria-hidden="true" className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
       </header>
       <div
         className={cn(
-          "fixed inset-0 z-[60] bg-neutral-950/45 opacity-0 backdrop-blur-sm transition-opacity sm:hidden",
+          "fixed inset-0 z-60 bg-neutral-950/45 opacity-0 backdrop-blur-sm transition-opacity sm:hidden",
           isDrawerOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none",
@@ -117,14 +121,13 @@ export function Header() {
       <aside
         id="mobile-navigation"
         className={cn(
-          "fixed right-0 top-0 z-[70] h-svh w-full max-w-80 border-l border-neutral-200 bg-white p-4 shadow-2xl transition-transform duration-200 dark:border-white/10 dark:bg-neutral-950 sm:hidden",
+          "fixed right-0 top-0 z-70 h-svh w-full max-w-80 border-l border-neutral-200 bg-white p-4 shadow-2xl transition-transform duration-200 dark:border-white/10 dark:bg-neutral-950 sm:hidden",
           isDrawerOpen
             ? "translate-x-0"
             : "pointer-events-none translate-x-full",
         )}
         aria-hidden={!isDrawerOpen}
         aria-modal="true"
-        role="dialog"
       >
         <div className="flex items-center justify-between gap-3">
           <span className="text-sm font-bold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
@@ -145,7 +148,7 @@ export function Header() {
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
-                  className="flex rounded-md px-3 py-3 text-base font-semibold text-neutral-700 transition-colors hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-emerald-200"
+                  className="flex rounded-md px-3 py-3 text-base font-semibold text-neutral-700 transition-colors bg-linear-to-tr from-emerald-500 to-teal-400 hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-emerald-200"
                   href={item.href}
                   onClick={() => setIsDrawerOpen(false)}
                 >

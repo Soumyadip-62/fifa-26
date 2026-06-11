@@ -61,6 +61,7 @@ type GroupStageSchedule = {
 @Injectable()
 export class MatchesService {
   private readonly matches: GroupStageMatch[];
+  private readonly qualifierMatches: GroupStageMatch[];
 
   constructor() {
     const schedulePath = join(
@@ -72,11 +73,24 @@ export class MatchesService {
       readFileSync(schedulePath, 'utf8'),
     ) as GroupStageSchedule;
 
+    const qualifierMatchesPath = join(
+      process.cwd(),
+      'fifa-data',
+      'qualifier-matches-schedule.json',
+    );
+    const qualifierMatches = JSON.parse(
+      readFileSync(qualifierMatchesPath, 'utf8'),
+    ) as GroupStageSchedule;
+
     this.matches = schedule.matches;
+    this.qualifierMatches = qualifierMatches.matches;
   }
 
   findAll() {
     return this.matches;
+  }
+  findAllQualifierMatches() {
+    return this.qualifierMatches;
   }
 
   findOne(matchId: string) {
