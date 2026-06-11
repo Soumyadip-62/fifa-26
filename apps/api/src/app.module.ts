@@ -8,9 +8,19 @@ import { TeamsModule } from './teams/teams.module';
 import { HistoryModule } from './history/history.module';
 import { PlayersModule } from './players/players.module';
 import { UserModule } from './user/user.module';
+import { VenuesModule } from './venues/venues.module';
 
 @Module({
-  imports: [MatchesModule, SearchModule, NewsModule, TeamsModule, HistoryModule, PlayersModule, UserModule],
+  imports: [
+    MatchesModule,
+    SearchModule,
+    NewsModule,
+    TeamsModule,
+    HistoryModule,
+    PlayersModule,
+    UserModule,
+    VenuesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
