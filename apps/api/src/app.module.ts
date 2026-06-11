@@ -10,6 +10,7 @@ import { PlayersModule } from './players/players.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { VenuesModule } from './venues/venues.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         rejectUnauthorized: false,
       },
     }),
+    VenuesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
