@@ -5,12 +5,13 @@ import { ErrorState } from "@/components/common/ErrorState";
 import { MotionReveal } from "@/components/common/MotionReveal";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MatchList } from "@/components/matches/MatchList";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { searchMatchesByTeam } from "@/lib/api/matches";
 import { useQuery } from "@tanstack/react-query";
-import { Search, XIcon } from "lucide-react";
+import { Search, XIcon, Sparkles } from "lucide-react";
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 export function MatchesPage() {
   const [teamSearch, setTeamSearch] = useState("");
@@ -37,11 +38,20 @@ export function MatchesPage() {
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
-      <SectionHeader
-        eyebrow="Matches"
-        title="Match schedules"
-        description="Upcoming, live, and completed fixtures from FIFA's official data."
-      />
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <SectionHeader
+          eyebrow="Matches"
+          title="Match schedules"
+          description="Upcoming, live, and completed fixtures from FIFA's official data."
+        />
+        <Link
+          href="/matches/knockout-matches"
+          className={buttonVariants({ variant: "default", className: "bg-emerald-600 hover:bg-emerald-700 text-white font-bold inline-flex items-center gap-2 shadow-md hover:shadow-lg transition-all" })}
+        >
+          <Sparkles className="h-4 w-4" /> Knockout Stage
+        </Link>
+      </div>
+
       <MotionReveal>
         <form
           className="flex flex-col gap-3 rounded-lg border border-neutral-200/80 bg-white/80 p-4 shadow-sm dark:border-white/10 dark:bg-neutral-950/70 sm:flex-row sm:p-5"

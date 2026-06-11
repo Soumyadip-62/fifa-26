@@ -17,6 +17,9 @@ import { TeamLogoImage } from "@/components/matches/TeamLogoImage";
 import VsIcon from "@/components/Icons/VsIcon";
 import { getTeamPlayersById } from "@/lib/api/teams";
 import { MatchTeamPlayersSection } from "./MatchTeamPlayersSection";
+import { VenueDetailsDrawer } from "@/components/matches/VenueDetailsDrawer";
+import { searchVenueByName } from "@/lib/api/venues";
+import { images } from "@/assets";
 
 export type MatchDetailsPageProps = {
   matchId: string;
@@ -52,6 +55,15 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     queryFn: () => getTeamPlayersById(match.awayTeam.teamID!),
   });
 
+  const { data: venuesData } = useQuery({
+    enabled: Boolean(match?.venue),
+    queryKey: ["venueSearch", match?.venue],
+    queryFn: () => searchVenueByName(match.venue!),
+  });
+
+  const venueDetails = venuesData && venuesData.length > 0 ? venuesData[0] : null;
+  const bannerBgImage = venueDetails?.strThumb || match.venueImageUrl || images.banners.sfStadium;
+
   if (error) {
     return (
       <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
@@ -79,65 +91,97 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
   ) : (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
       <MotionReveal>
-        <section className="overflow-hidden rounded-lg bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
-          {match.venueImageUrl ? (
-            <div className="relative h-60">
-              <Image
-                src={match.venueImageUrl}
-                alt={match.venue ? `${match.venue} stadium` : "Stadium"}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover opacity-55"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/25 px-4">
-                <TeamLogoImage team={match.homeTeam} size={110} />
-                <VsIcon />
-                <TeamLogoImage team={match.awayTeam} size={110} />
-              </div>
-            </div>
-          ) : null}
-          <div className="grid gap-6 p-5 sm:p-8">
+        <section className="relative overflow-hidden rounded-xl bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
+          {/* STADIUM BACKGROUND IMAGE */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src={bannerBgImage}
+              alt={match.venue ? `${match.venue} stadium` : "Stadium"}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-60"
+            />
+            {/* GRADIENT OVERLAYS */}
+            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/10 via-transparent to-neutral-950/20" />
+          </div>
+
+          {/* INNER CONTENT */}
+          <div className="relative z-10 grid gap-6 p-6 sm:p-8 md:p-10 md:py-16">
             <div className="flex flex-wrap items-center gap-3">
               <MatchStatusBadge status={match.status} />
-              <span className="text-sm text-neutral-300">
+              <span className="text-sm font-semibold text-neutral-300">
                 {match.stage ?? match.tournament}
               </span>
               {match.group ? (
-                <span className="text-sm text-neutral-300">
+                <span className="text-sm font-semibold text-neutral-300">
                   Group {match.group}
                 </span>
               ) : null}
             </div>
-            <div className="grid items-stretch gap-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
-              <TeamBadge
-                className="rounded-lg bg-white p-4 dark:bg-neutral-900"
-                {...match.homeTeam}
-              />
-              <div className="rounded-lg border border-white/15 bg-white/10 px-6 py-5 text-center shadow-sm">
-                <p className="text-xs uppercase tracking-wide text-neutral-300">
-                  {formatDate(match.date)}
-                </p>
-                <strong className="font-heading mt-2 block text-4xl font-black">
-                  {score}
-                </strong>
+
+            <div className="grid items-center gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-8">
+              {/* Home Team */}
+              <div className="flex flex-col items-center md:items-end text-center md:text-right gap-3">
+                <TeamLogoImage team={match.homeTeam} size={100} className="shadow-lg transform transition hover:scale-105" />
+                <div>
+                  <h2 className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
+                    {match.homeTeam.name}
+                  </h2>
+                  <span className="text-xs text-neutral-400 font-bold uppercase tracking-wider">
+                    {match.homeTeam.shortCode}
+                  </span>
+                </div>
               </div>
-              <TeamBadge
-                className="rounded-lg bg-white p-4 dark:bg-neutral-900"
-                {...match.awayTeam}
-              />
+
+              {/* VS & Score Board */}
+              <div className="flex flex-col items-center justify-center gap-2">
+                <div className="rounded-xl border border-white/20 bg-neutral-950/80 backdrop-blur-md px-6 py-4 text-center shadow-2xl min-w-[140px]">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                    {formatDate(match.date)}
+                  </p>
+                  <strong className="font-heading mt-1.5 block text-3xl font-black tracking-tighter text-white md:text-4xl">
+                    {score}
+                  </strong>
+                </div>
+              </div>
+
+              {/* Away Team */}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-3">
+                <TeamLogoImage team={match.awayTeam} size={100} className="shadow-lg transform transition hover:scale-105" />
+                <div>
+                  <h2 className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
+                    {match.awayTeam.name}
+                  </h2>
+                  <span className="text-xs text-neutral-400 font-bold uppercase tracking-wider">
+                    {match.awayTeam.shortCode}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </MotionReveal>
 
       <section className="grid gap-5 sm:grid-cols-3">
-        <StatCard
-          label="Venue"
-          value={match.venue ?? "TBD"}
-          helper={match.city ?? "City TBD"}
-        />
+        {match.venue ? (
+          <VenueDetailsDrawer venueName={match.venue}>
+            <div className="cursor-pointer transition hover:-translate-y-0.5 hover:shadow-md rounded-lg overflow-hidden">
+              <StatCard
+                label="Venue"
+                value={match.venue}
+                helper={match.city ?? "City TBD"}
+              />
+            </div>
+          </VenueDetailsDrawer>
+        ) : (
+          <StatCard
+            label="Venue"
+            value="TBD"
+            helper="City TBD"
+          />
+        )}
         <StatCard
           label="Stage"
           value={match.stage ?? "Match"}

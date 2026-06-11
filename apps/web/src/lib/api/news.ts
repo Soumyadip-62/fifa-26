@@ -77,6 +77,22 @@ export async function getNewsArticles(): Promise<NewsArticle[]> {
   }
 }
 
+export async function getNewsArticlesByKeywords(keywords: string): Promise<NewsArticle[]> {
+  try {
+    const response = await fetch(apiUrl(`/news/${encodeURIComponent(keywords)}`));
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch news by keywords");
+    }
+
+    const data = await response.json();
+    const articles = (Array.isArray(data) ? data : data.news || data.articles || []) as ApiNewsArticle[];
+    return articles.map(normalizeNewsArticle);
+  } catch {
+    return [];
+  }
+}
+
 export async function getNewsArticleBySlug(
   slug: string,
 ): Promise<NewsArticle | null> {
