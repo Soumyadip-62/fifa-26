@@ -21,19 +21,19 @@ import { VenuesModule } from './venues/venues.module';
     HistoryModule,
     PlayersModule,
     UserModule,
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    // }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   url: process.env.DATABASE_URL,
-    //   autoLoadEntities: true,
-    //   synchronize: true,
-    //   ssl: {
-    //     rejectUnauthorized: false,
-    //   },
-    // }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      autoLoadEntities: true,
+      synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
     VenuesModule,
   ],
   controllers: [AppController],
