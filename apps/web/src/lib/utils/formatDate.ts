@@ -1,7 +1,11 @@
 export function formatDate(value: string): string {
   return new Intl.DateTimeFormat("en", {
-    dateStyle: "medium",
-    timeStyle: "short",
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   }).format(new Date(value));
 }
 
