@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Orbitron, Poppins } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const orbitron = Orbitron({
@@ -56,6 +58,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AppShell>{children}</AppShell>
+          <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
