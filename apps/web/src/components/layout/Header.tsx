@@ -12,6 +12,7 @@ import { ProfileDrawer } from "./ProfileDrawer";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/matches", label: "Matches" },
+  { href: "/points-table", label: "Points Table" },
   { href: "/teams", label: "Teams" },
   { href: "/news", label: "News" },
   { href: "/history", label: "History" },
