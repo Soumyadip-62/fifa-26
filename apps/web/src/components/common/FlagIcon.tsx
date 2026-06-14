@@ -79,7 +79,11 @@ function normalize(value: string | null | undefined) {
     return "";
   }
 
-  return value.toLowerCase().replace(/[^a-z]/g, "");
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z]/g, "");
 }
 
 function getCountryCode(country: string | null | undefined) {
