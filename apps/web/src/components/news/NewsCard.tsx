@@ -4,7 +4,7 @@ import { images } from "@/assets";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ReadMoreText } from "@/components/common/ReadMoreText";
-import { formatDateOnly } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import type { NewsArticle } from "@/types/news";
 
 export type NewsCardProps = {
@@ -56,7 +56,7 @@ export function NewsCard({ article }: NewsCardProps) {
             {article.tags?.[0] ? (
               <Badge variant="secondary">{article.tags[0]}</Badge>
             ) : null}
-            <span>{formatDateOnly(article.publishedAt)}</span>
+            <span><FormattedDateTime date={article.publishedAt} dateOnly={true} /></span>
           </div>
           <h2 className="font-heading text-lg font-bold leading-7 text-neutral-950 dark:text-neutral-50">
             {article.title}

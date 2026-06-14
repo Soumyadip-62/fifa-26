@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { TeamBadge } from "@/components/common/TeamBadge";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatDate } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import type { Match } from "@/types/match";
 import { MatchStatusBadge } from "./MatchStatusBadge";
 import VsIcon from "../Icons/VsIcon";
@@ -56,7 +56,7 @@ export function MatchCard({ match }: MatchCardProps) {
             <TeamBadge compact {...match.homeTeam} />
             <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-4 py-3 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
               <span className="text-xs leading-5 text-neutral-300 dark:text-emerald-100">
-                {formatDate(match.date)}
+                <FormattedDateTime date={match.date} />
               </span>
               <strong className="text-lg leading-none">{score}</strong>
             </div>

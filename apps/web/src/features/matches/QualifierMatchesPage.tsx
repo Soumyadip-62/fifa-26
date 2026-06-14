@@ -11,19 +11,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getQualifierMatches } from "@/lib/api/matches";
-import { formatDate } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import { cn } from "@/lib/utils/cn";
 import { useQuery } from "@tanstack/react-query";
 import type { Match } from "@/types/match";
 import {
   Trophy,
   MapPin,
-  Calendar,
-  Clock,
   Search,
   XIcon,
   ChevronRight,
-  Medal,
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
@@ -764,7 +761,7 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
           {/* Glowing Green Score/Date Box */}
           <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
             <span className="text-[11px] text-neutral-300 dark:text-emerald-100">
-              {formatDate(match.date)}
+              <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
           </div>
@@ -829,7 +826,7 @@ function RoundOf16MatchCard({ match }: { match: QM }) {
           {/* Glowing Blue Score/Date Box */}
           <div className="grid gap-2 rounded-lg border border-blue-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-blue-300/20 dark:bg-blue-950/45 sm:flex sm:items-center sm:justify-between">
             <span className="text-[11px] text-blue-300 dark:text-blue-100">
-              {formatDate(match.date)}
+              <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
           </div>
@@ -894,7 +891,7 @@ function QuarterFinalMatchCard({ match }: { match: QM }) {
           {/* Glowing Violet Score/Date Box */}
           <div className="grid gap-2 rounded-lg border border-violet-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-violet-300/20 dark:bg-violet-950/45 sm:flex sm:items-center sm:justify-between">
             <span className="text-[11px] text-violet-300 dark:text-violet-100">
-              {formatDate(match.date)}
+              <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
           </div>
@@ -959,7 +956,7 @@ function SemiFinalMatchCard({ match }: { match: QM }) {
           {/* Glowing Orange Score/Date Box */}
           <div className="grid gap-2 rounded-lg border border-orange-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-orange-300/20 dark:bg-orange-950/45 sm:flex sm:items-center sm:justify-between">
             <span className="text-[11px] text-orange-300 dark:text-orange-100">
-              {formatDate(match.date)}
+              <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
           </div>
@@ -1024,7 +1021,7 @@ function ThirdPlaceMatchCard({ match }: { match: QM }) {
           {/* Glowing Teal Score/Date Box */}
           <div className="grid gap-2 rounded-lg border border-teal-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-teal-300/20 dark:bg-neutral-950/45 sm:flex sm:items-center sm:justify-between">
             <span className="text-[11px] text-teal-300 dark:text-teal-100">
-              {formatDate(match.date)}
+              <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
           </div>
@@ -1116,7 +1113,7 @@ function FinalMatchCard({ match }: { match: QM }) {
           {/* Golden score & date box */}
           <div className="grid gap-2 rounded-lg border border-yellow-500/30 bg-gradient-to-r from-yellow-950/45 to-amber-950/45 px-4 py-3.5 text-center sm:flex sm:items-center sm:justify-between">
             <span className="text-xs font-semibold text-yellow-200">
-              {formatDate(match.date)}
+              <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-lg font-black tracking-widest text-yellow-400">
               {score}
