@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils/cn";
 import { Menu, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ProfileDrawer } from "./ProfileDrawer";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -20,6 +21,7 @@ const navItems = [
 
 export function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!isDrawerOpen) {
@@ -82,16 +84,27 @@ export function Header() {
           <div className="flex items-center gap-2 sm:gap-4">
             <nav className="hidden sm:block" aria-label="Primary navigation">
               <ul className="flex flex-wrap gap-1 rounded-lg border border-neutral-200/80 bg-white/75 p-1 dark:border-white/10 dark:bg-white/5">
-                {navItems.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      className="inline-flex rounded-md px-3 py-2 text-sm font-semibold text-neutral-600 transition-colors hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-emerald-200"
-                      href={item.href}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+                {navItems.map((item) => {
+                  const isActive =
+                    item.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(item.href);
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        className={cn(
+                          "inline-flex rounded-md px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600",
+                          isActive
+                            ? "bg-emerald-600 text-white dark:bg-emerald-500/20 dark:text-emerald-400"
+                            : "text-neutral-600 hover:bg-emerald-50 hover:text-emerald-900 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-emerald-200"
+                        )}
+                        href={item.href}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
             {/* <ProfileDrawer /> */}
@@ -146,17 +159,28 @@ export function Header() {
         </div>
         <nav className="mt-6" aria-label="Mobile navigation">
           <ul className="grid gap-2">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  className="flex rounded-md px-3 py-3 text-base font-semibold text-neutral-700 transition-colors bg-linear-to-tr from-emerald-500 to-teal-400 hover:bg-emerald-50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-emerald-200"
-                  href={item.href}
-                  onClick={() => setIsDrawerOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    className={cn(
+                      "flex rounded-md px-3 py-3 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600",
+                      isActive
+                        ? "bg-emerald-600 text-white dark:bg-emerald-500/20 dark:text-emerald-400"
+                        : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-emerald-200"
+                    )}
+                    href={item.href}
+                    onClick={() => setIsDrawerOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </aside>

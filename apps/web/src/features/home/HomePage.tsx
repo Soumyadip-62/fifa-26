@@ -128,14 +128,16 @@ export async function HomePage() {
   const featuredMatches = matches
     .filter((match) => {
       const matchDateStr = match.date.split("T")[0];
-      const isTodayOrTomorrow =
-        matchDateStr === todayStr ||
-        match.dateUtc === todayStr ||
-        matchDateStr === tomorrowStr ||
-        match.dateUtc === tomorrowStr;
-      const isUpcoming =
-        match.status === "scheduled" || match.status === "live";
-      return isTodayOrTomorrow && isUpcoming;
+      const isToday = matchDateStr === todayStr || match.dateUtc === todayStr;
+      const isTomorrow = matchDateStr === tomorrowStr || match.dateUtc === tomorrowStr;
+
+      if (isToday) {
+        return true;
+      }
+      if (isTomorrow) {
+        return match.status === "scheduled" || match.status === "live";
+      }
+      return false;
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
@@ -177,9 +179,9 @@ export async function HomePage() {
                   className:
                     "border-white/40 bg-white/10 text-white hover:bg-white/20 dark:text-white",
                 })}
-                href="/teams"
+                href="/points-table"
               >
-                Explore teams
+                View points table
               </Link>
             </div>
           </div>
@@ -189,7 +191,7 @@ export async function HomePage() {
       {featuredMatches.length > 0 ? (
         <MotionReveal className="grid gap-4">
           <SectionHeader
-            eyebrow="Upcoming matches"
+            eyebrow="Featured matches"
             title="Matches To Look Out For"
           />
           <div
