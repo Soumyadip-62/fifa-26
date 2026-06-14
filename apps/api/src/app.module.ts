@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VenuesModule } from './venues/venues.module';
+import { PointsTableModule } from './points-table/points-table.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { VenuesModule } from './venues/venues.module';
       },
     }),
     VenuesModule,
+    PointsTableModule,
   ],
   controllers: [AppController],
   providers: [AppService],

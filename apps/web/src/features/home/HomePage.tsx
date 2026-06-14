@@ -119,8 +119,27 @@ export async function HomePage() {
     getTeams(),
     getNewsArticles(),
   ]);
+  const now = new Date();
+  const todayStr = now.toISOString().split("T")[0];
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+  const featuredMatches = matches
+    .filter((match) => {
+      const matchDateStr = match.date.split("T")[0];
+      const isTodayOrTomorrow =
+        matchDateStr === todayStr ||
+        match.dateUtc === todayStr ||
+        matchDateStr === tomorrowStr ||
+        match.dateUtc === tomorrowStr;
+      const isUpcoming =
+        match.status === "scheduled" || match.status === "live";
+      return isTodayOrTomorrow && isUpcoming;
+    })
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
   const firstMatch = getFirstMatch(matches);
-  const featuredMatch = firstMatch?.match ?? matches[0];
   const firstMatchLabel = firstMatch
     ? `${firstMatch.match.homeTeam.name} vs ${firstMatch.match.awayTeam.name}`
     : null;
@@ -146,8 +165,7 @@ export async function HomePage() {
               FIFA 2026
             </h1>
             <p className="max-w-xl text-sm leading-7 text-emerald-50 sm:text-base">
-              Fixtures, teams, news, and tournament history in one API-ready
-              frontend.
+              Explore real-time match fixtures, detailed team profiles, latest news updates, official broadcast hubs, and historical tournament archives on a production-ready dashboard.
             </p>
             <div className="flex flex-wrap justify-start gap-3">
               <Link className={buttonVariants()} href="/matches">
@@ -164,16 +182,36 @@ export async function HomePage() {
                 Explore teams
               </Link>
             </div>
-            {firstMatch && firstMatchLabel ? (
-              <FirstMatchCountdown
-                matchId={firstMatch.match.id}
-                matchLabel={firstMatchLabel}
-                targetIso={new Date(firstMatch.startTime).toISOString()}
-              />
-            ) : null}
           </div>
         </section>
       </MotionReveal>
+
+      {featuredMatches.length > 0 ? (
+        <MotionReveal className="grid gap-4">
+          <SectionHeader
+            eyebrow="Upcoming matches"
+            title="Matches To Look Out For"
+          />
+          <div
+            className={`grid gap-6 ${featuredMatches.length === 1 ? "grid-cols-1 max-w-xl mx-auto" : "md:grid-cols-2 lg:grid-cols-3"}`}
+          >
+            {featuredMatches.map((match) => (
+              <MatchCard key={match.id} match={match} />
+            ))}
+          </div>
+        </MotionReveal>
+      ) : null}
+
+      <section className="grid gap-5">
+        <SectionHeader eyebrow="Latest news" title="Tournament updates" />
+        <div className="grid gap-5 md:grid-cols-2">
+          {articles.slice(0, 2).map((article, index) => (
+            <MotionReveal delay={Math.min(index * 0.05, 0.12)} key={article.id}>
+              <NewsCard article={article} />
+            </MotionReveal>
+          ))}
+        </div>
+      </section>
 
       <MotionReveal>
         <section className="my-8 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-[0_24px_70px_rgba(4,22,13,0.08)] transition-all dark:border-white/10 dark:bg-neutral-950 dark:shadow-[0_24px_70px_rgba(4,22,13,0.24)]">
@@ -307,36 +345,6 @@ export async function HomePage() {
           value={articles.length}
           helper="News ready"
         />
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] items-start">
-        {featuredMatch ? (
-          <MotionReveal className="grid gap-4">
-            <SectionHeader eyebrow="Featured match" title="Main fixture" />
-            <MatchCard match={featuredMatch} />
-          </MotionReveal>
-        ) : null}
-        <MotionReveal className="grid gap-4" delay={0.05}>
-          <SectionHeader eyebrow="Top teams" title="Favorite Teams" />
-          <Card>
-            <CardContent className="grid gap-4 p-5 sm:p-6">
-              {teams.slice(0, 3).map((team) => (
-                <TeamBadge key={team.id} {...team} ranking={team.fifaRanking} />
-              ))}
-            </CardContent>
-          </Card>
-        </MotionReveal>
-      </section>
-
-      <section className="grid gap-5">
-        <SectionHeader eyebrow="Latest news" title="Tournament updates" />
-        <div className="grid gap-5 md:grid-cols-2">
-          {articles.slice(0, 2).map((article, index) => (
-            <MotionReveal delay={Math.min(index * 0.05, 0.12)} key={article.id}>
-              <NewsCard article={article} />
-            </MotionReveal>
-          ))}
-        </div>
       </section>
 
       <section
