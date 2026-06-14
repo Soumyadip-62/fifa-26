@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Trophy, Search, Sparkles, Grid, ArrowRight, Award } from "lucide-react";
 import { FlagIcon } from "@/components/common/FlagIcon";
-import { TeamBadge } from "@/components/common/TeamBadge";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MotionReveal } from "@/components/common/MotionReveal";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,7 +14,7 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { getStandings } from "@/lib/api/standings";
 import { getMatches } from "@/lib/api/matches";
-import { formatDate } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 
 export function PointsTablePage() {
   const [selectedGroup, setSelectedGroup] = useState<string>("All");
@@ -486,7 +485,7 @@ export function PointsTablePage() {
                         </div>
                       </div>
                       <div className="mt-3.5 border-t border-neutral-100 dark:border-white/5 pt-2 flex items-center justify-between text-[11px] text-neutral-400 dark:text-neutral-500">
-                        <span>{formatDate(match.date)}</span>
+                        <span><FormattedDateTime date={match.date} /></span>
                         <span>{match.city || "Venue TBD"}</span>
                       </div>
                     </Link>

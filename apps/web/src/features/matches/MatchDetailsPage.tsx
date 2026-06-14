@@ -5,16 +5,14 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { MotionReveal } from "@/components/common/MotionReveal";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { StatCard } from "@/components/common/StatCard";
-import { TeamBadge } from "@/components/common/TeamBadge";
 import { MatchStatusBadge } from "@/components/matches/MatchStatusBadge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getMatchById } from "@/lib/api/matches";
-import { formatDate } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { TeamLogoImage } from "@/components/matches/TeamLogoImage";
-import VsIcon from "@/components/Icons/VsIcon";
 import { getTeamPlayersById } from "@/lib/api/teams";
 import { MatchTeamPlayersSection } from "./MatchTeamPlayersSection";
 import { VenueDetailsDrawer } from "@/components/matches/VenueDetailsDrawer";
@@ -139,7 +137,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
               <div className="flex flex-col items-center justify-center gap-2">
                 <div className="rounded-xl border border-white/20 bg-neutral-950/80 backdrop-blur-md px-6 py-4 text-center shadow-2xl min-w-[140px]">
                   <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
-                    {formatDate(match.date)}
+                    <FormattedDateTime date={match.date} />
                   </p>
                   <strong className="font-heading mt-1.5 block text-3xl font-black tracking-tighter text-white md:text-4xl">
                     {score}

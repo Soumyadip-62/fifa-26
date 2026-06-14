@@ -1,25 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { images } from "@/assets";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MotionReveal } from "@/components/common/MotionReveal";
-import { FirstMatchCountdown } from "@/components/home/FirstMatchCountdown";
 import { StatCard } from "@/components/common/StatCard";
-import { TeamBadge } from "@/components/common/TeamBadge";
 import { MatchCard } from "@/components/matches/MatchCard";
 import { NewsCard } from "@/components/news/NewsCard";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getMatches } from "@/lib/api/matches";
 import { getNewsArticles } from "@/lib/api/news";
 import { getTeams } from "@/lib/api/teams";
-import type { Match } from "@/types/match";
 import { MonitorPlay, RadioTower, Tv } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { useQuery } from "@tanstack/react-query";
+import { LoadingState } from "@/components/common/LoadingState";
 
 const sections = [
   {
@@ -97,33 +92,37 @@ const watchPlatforms = [
   },
 ];
 
-function parseMatchStart(match: Match) {
-  const startTime = Date.parse(match.date);
 
-  return Number.isFinite(startTime) ? startTime : null;
-}
 
-function getFirstMatch(matches: Match[]) {
-  return [...matches]
-    .map((match) => ({ match, startTime: parseMatchStart(match) }))
-    .filter(
-      (entry): entry is { match: Match; startTime: number } =>
-        entry.startTime !== null,
-    )
-    .sort((first, second) => first.startTime - second.startTime)[0];
-}
+export function HomePage() {
+  const { data: matches = [], isPending: isMatchesPending } = useQuery({
+    queryKey: ["matches"],
+    queryFn: getMatches,
+  });
 
-export async function HomePage() {
-  const [matches, teams, articles] = await Promise.all([
-    getMatches(),
-    getTeams(),
-    getNewsArticles(),
-  ]);
+  const { data: teams = [], isPending: isTeamsPending } = useQuery({
+    queryKey: ["teams"],
+    queryFn: getTeams,
+  });
+
+  const { data: articles = [], isPending: isArticlesPending } = useQuery({
+    queryKey: ["articles"],
+    queryFn: getNewsArticles,
+  });
+
   const now = new Date();
   const todayStr = now.toISOString().split("T")[0];
   const tomorrow = new Date(now);
   tomorrow.setDate(tomorrow.getDate() + 1);
   const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+  if (isMatchesPending || isTeamsPending || isArticlesPending) {
+    return (
+      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+        <LoadingState />
+      </div>
+    );
+  }
 
   const featuredMatches = matches
     .filter((match) => {
@@ -141,10 +140,7 @@ export async function HomePage() {
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  const firstMatch = getFirstMatch(matches);
-  const firstMatchLabel = firstMatch
-    ? `${firstMatch.match.homeTeam.name} vs ${firstMatch.match.awayTeam.name}`
-    : null;
+
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:gap-12 lg:px-8 lg:py-12">
