@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class VenuesService {
-  private readonly apiUrl = process.env.THESPORTSDB_API_URL || 'https://www.thesportsdb.com/api/v1/json/123/';
+  private readonly apiUrl =
+    process.env.THESPORTSDB_API_URL ||
+    'https://www.thesportsdb.com/api/v1/json/123/';
 
   async searchVenues(name: string) {
     const url = new URL('searchvenues.php', this.apiUrl);

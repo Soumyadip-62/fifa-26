@@ -32,7 +32,6 @@ export class NewsService {
     url.searchParams.set('language', 'en');
 
     console.log(url);
-    
 
     const response = await fetch(url, {
       headers: {

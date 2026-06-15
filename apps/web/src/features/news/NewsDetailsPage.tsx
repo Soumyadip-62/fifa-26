@@ -9,7 +9,7 @@ import { SectionHeader } from "@/components/common/SectionHeader";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getNewsArticleBySlug } from "@/lib/api/news";
-import { formatDateOnly } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 
 export type NewsDetailsPageProps = {
   slug: string;
@@ -48,7 +48,12 @@ export async function NewsDetailsPage({ slug }: NewsDetailsPageProps) {
           <SectionHeader
             eyebrow={article.source ?? "News"}
             title={article.title}
-            description={`${formatDateOnly(article.publishedAt)}${article.author ? ` by ${article.author}` : ""}`}
+            description={
+              <>
+                <FormattedDateTime date={article.publishedAt} dateOnly={true} />
+                {article.author ? ` by ${article.author}` : ""}
+              </>
+            }
           />
         </MotionReveal>
         <MotionReveal delay={0.08}>

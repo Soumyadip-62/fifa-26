@@ -9,12 +9,81 @@ export type FlagIconProps = {
 
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
+const overrides: Record<string, string> = {
+  // Germany
+  germany: "de",
+  westgermany: "de",
+  eastgermany: "de",
+  
+  // Curaçao
+  curacao: "cw",
+  
+  // Bosnia & Herzegovina
+  bosnia: "ba",
+  bosniaherzegovina: "ba",
+  bosniaandherzegovina: "ba",
+
+  // Qatar
+  qatar: "qa",
+  
+  // UK Countries
+  england: "gb-eng",
+  scotland: "gb-sct",
+  wales: "gb-wls",
+  northernireland: "gb-nir",
+
+  // USA
+  usa: "us",
+  unitedstates: "us",
+  unitedstatesofamerica: "us",
+
+  // Czech Republic
+  czechrepublic: "cz",
+  czechia: "cz",
+  czechoslovakia: "cz",
+
+  // Turkey
+  turkey: "tr",
+  turkiye: "tr",
+
+  // Ivory Coast
+  ivorycoast: "ci",
+  cotedivoire: "ci",
+
+  // Congo
+  drcongo: "cd",
+  congodr: "cd",
+  democraticthecongo: "cd",
+  congo: "cg",
+  zaire: "cd",
+
+  // Korea
+  southkorea: "kr",
+  korearepublic: "kr",
+
+  // Iran
+  iriran: "ir",
+
+  // Other historical / name variants
+  ussr: "ru",
+  sovietunion: "ru",
+  yugoslavia: "rs",
+  dutcheastindies: "id",
+  trinidadandtobago: "tt",
+  serbiaandmontenegro: "rs",
+  caboverde: "cv"
+};
+
 function normalize(value: string | null | undefined) {
   if (!value) {
     return "";
   }
 
-  return value.toLowerCase().replace(/[^a-z]/g, "");
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z]/g, "");
 }
 
 function getCountryCode(country: string | null | undefined) {
@@ -24,13 +93,20 @@ function getCountryCode(country: string | null | undefined) {
     return null;
   }
 
+  if (overrides[normalizedCountry]) {
+    return overrides[normalizedCountry];
+  }
+
   for (let first = 65; first <= 90; first += 1) {
     for (let second = 65; second <= 90; second += 1) {
       const code = `${String.fromCharCode(first)}${String.fromCharCode(second)}`;
-      const regionName = regionNames.of(code);
-
-      if (regionName && normalize(regionName) === normalizedCountry) {
-        return code.toLowerCase();
+      try {
+        const regionName = regionNames.of(code);
+        if (regionName && normalize(regionName) === normalizedCountry) {
+          return code.toLowerCase();
+        }
+      } catch (e) {
+        // Ignore invalid codes
       }
     }
   }

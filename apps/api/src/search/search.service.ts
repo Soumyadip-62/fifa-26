@@ -5,19 +5,17 @@ import { MatchesService } from '../matches/matches.service';
 export class SearchService {
   constructor(private readonly matchesService: MatchesService) {}
 
-  searchMatchesByTeam(team: string) {
+  async searchMatchesByTeam(team: string) {
     const normalizedTeam = normalize(team);
     if (!normalizedTeam) {
       return [];
     }
 
-    return this.matchesService
-      .findAll()
-      .filter(
-        (match) =>
-          normalize(match.homeTeam).includes(normalizedTeam) ||
-          normalize(match.awayTeam).includes(normalizedTeam),
-      );
+    return (await this.matchesService.findAll()).filter(
+      (match) =>
+        normalize(match.homeTeam).includes(normalizedTeam) ||
+        normalize(match.awayTeam).includes(normalizedTeam),
+    );
   }
 }
 

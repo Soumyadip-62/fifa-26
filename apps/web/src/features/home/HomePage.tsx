@@ -1,25 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { images } from "@/assets";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MotionReveal } from "@/components/common/MotionReveal";
-import { FirstMatchCountdown } from "@/components/home/FirstMatchCountdown";
 import { StatCard } from "@/components/common/StatCard";
-import { TeamBadge } from "@/components/common/TeamBadge";
 import { MatchCard } from "@/components/matches/MatchCard";
 import { NewsCard } from "@/components/news/NewsCard";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getMatches } from "@/lib/api/matches";
 import { getNewsArticles } from "@/lib/api/news";
 import { getTeams } from "@/lib/api/teams";
-import type { Match } from "@/types/match";
 import { MonitorPlay, RadioTower, Tv } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { useQuery } from "@tanstack/react-query";
+import { LoadingState } from "@/components/common/LoadingState";
 
 const sections = [
   {
@@ -97,33 +92,55 @@ const watchPlatforms = [
   },
 ];
 
-function parseMatchStart(match: Match) {
-  const startTime = Date.parse(match.date);
 
-  return Number.isFinite(startTime) ? startTime : null;
-}
 
-function getFirstMatch(matches: Match[]) {
-  return [...matches]
-    .map((match) => ({ match, startTime: parseMatchStart(match) }))
-    .filter(
-      (entry): entry is { match: Match; startTime: number } =>
-        entry.startTime !== null,
-    )
-    .sort((first, second) => first.startTime - second.startTime)[0];
-}
+export function HomePage() {
+  const { data: matches = [], isPending: isMatchesPending } = useQuery({
+    queryKey: ["matches"],
+    queryFn: getMatches,
+  });
 
-export async function HomePage() {
-  const [matches, teams, articles] = await Promise.all([
-    getMatches(),
-    getTeams(),
-    getNewsArticles(),
-  ]);
-  const firstMatch = getFirstMatch(matches);
-  const featuredMatch = firstMatch?.match ?? matches[0];
-  const firstMatchLabel = firstMatch
-    ? `${firstMatch.match.homeTeam.name} vs ${firstMatch.match.awayTeam.name}`
-    : null;
+  const { data: teams = [], isPending: isTeamsPending } = useQuery({
+    queryKey: ["teams"],
+    queryFn: getTeams,
+  });
+
+  const { data: articles = [], isPending: isArticlesPending } = useQuery({
+    queryKey: ["articles"],
+    queryFn: getNewsArticles,
+  });
+
+  const now = new Date();
+  const todayStr = now.toISOString().split("T")[0];
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+  if (isMatchesPending || isTeamsPending || isArticlesPending) {
+    return (
+      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+        <LoadingState />
+      </div>
+    );
+  }
+
+  const featuredMatches = matches
+    .filter((match) => {
+      const matchDateStr = match.date.split("T")[0];
+      const isToday = matchDateStr === todayStr || match.dateUtc === todayStr;
+      const isTomorrow = matchDateStr === tomorrowStr || match.dateUtc === tomorrowStr;
+
+      if (isToday) {
+        return true;
+      }
+      if (isTomorrow) {
+        return match.status === "scheduled" || match.status === "live";
+      }
+      return false;
+    })
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:gap-12 lg:px-8 lg:py-12">
@@ -146,8 +163,7 @@ export async function HomePage() {
               FIFA 2026
             </h1>
             <p className="max-w-xl text-sm leading-7 text-emerald-50 sm:text-base">
-              Fixtures, teams, news, and tournament history in one API-ready
-              frontend.
+              Explore real-time match fixtures, detailed team profiles, latest news updates, official broadcast hubs, and historical tournament archives on a production-ready dashboard.
             </p>
             <div className="flex flex-wrap justify-start gap-3">
               <Link className={buttonVariants()} href="/matches">
@@ -159,21 +175,41 @@ export async function HomePage() {
                   className:
                     "border-white/40 bg-white/10 text-white hover:bg-white/20 dark:text-white",
                 })}
-                href="/teams"
+                href="/points-table"
               >
-                Explore teams
+                View points table
               </Link>
             </div>
-            {firstMatch && firstMatchLabel ? (
-              <FirstMatchCountdown
-                matchId={firstMatch.match.id}
-                matchLabel={firstMatchLabel}
-                targetIso={new Date(firstMatch.startTime).toISOString()}
-              />
-            ) : null}
           </div>
         </section>
       </MotionReveal>
+
+      {featuredMatches.length > 0 ? (
+        <MotionReveal className="grid gap-4">
+          <SectionHeader
+            eyebrow="Featured matches"
+            title="Matches To Look Out For"
+          />
+          <div
+            className={`grid gap-6 ${featuredMatches.length === 1 ? "grid-cols-1 max-w-xl mx-auto" : "md:grid-cols-2 lg:grid-cols-3"}`}
+          >
+            {featuredMatches.map((match) => (
+              <MatchCard key={match.id} match={match} />
+            ))}
+          </div>
+        </MotionReveal>
+      ) : null}
+
+      <section className="grid gap-5">
+        <SectionHeader eyebrow="Latest news" title="Tournament updates" />
+        <div className="grid gap-5 md:grid-cols-2">
+          {articles.slice(0, 2).map((article, index) => (
+            <MotionReveal delay={Math.min(index * 0.05, 0.12)} key={article.id}>
+              <NewsCard article={article} />
+            </MotionReveal>
+          ))}
+        </div>
+      </section>
 
       <MotionReveal>
         <section className="my-8 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-[0_24px_70px_rgba(4,22,13,0.08)] transition-all dark:border-white/10 dark:bg-neutral-950 dark:shadow-[0_24px_70px_rgba(4,22,13,0.24)]">
@@ -307,36 +343,6 @@ export async function HomePage() {
           value={articles.length}
           helper="News ready"
         />
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] items-start">
-        {featuredMatch ? (
-          <MotionReveal className="grid gap-4">
-            <SectionHeader eyebrow="Featured match" title="Main fixture" />
-            <MatchCard match={featuredMatch} />
-          </MotionReveal>
-        ) : null}
-        <MotionReveal className="grid gap-4" delay={0.05}>
-          <SectionHeader eyebrow="Top teams" title="Favorite Teams" />
-          <Card>
-            <CardContent className="grid gap-4 p-5 sm:p-6">
-              {teams.slice(0, 3).map((team) => (
-                <TeamBadge key={team.id} {...team} ranking={team.fifaRanking} />
-              ))}
-            </CardContent>
-          </Card>
-        </MotionReveal>
-      </section>
-
-      <section className="grid gap-5">
-        <SectionHeader eyebrow="Latest news" title="Tournament updates" />
-        <div className="grid gap-5 md:grid-cols-2">
-          {articles.slice(0, 2).map((article, index) => (
-            <MotionReveal delay={Math.min(index * 0.05, 0.12)} key={article.id}>
-              <NewsCard article={article} />
-            </MotionReveal>
-          ))}
-        </div>
       </section>
 
       <section

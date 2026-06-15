@@ -1,6 +1,6 @@
 "use client";
 
-import { formatDate } from "@/lib/utils/formatDate";
+import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "fifa26:first-match-countdown";
@@ -96,8 +96,7 @@ export function FirstMatchCountdown({
           className="text-xs font-semibold text-white/80"
           dateTime={activeCountdown.targetIso}
         >
-          {formatDate(targetIso)}
-          {/* {formatTimeValue(activeCountdown.targetIso)} */}
+          <FormattedDateTime date={targetIso} />
         </time>
       </div>
       <p className="text-sm font-semibold text-white">
