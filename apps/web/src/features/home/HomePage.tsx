@@ -6,7 +6,7 @@ import { images } from "@/assets";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MotionReveal } from "@/components/common/MotionReveal";
 import { StatCard } from "@/components/common/StatCard";
-import { MatchCard } from "@/components/matches/MatchCard";
+import { FeaturedMatchesSlider } from "@/components/matches/FeaturedMatchesSlider";
 import { NewsCard } from "@/components/news/NewsCard";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getMatches } from "@/lib/api/matches";
@@ -92,8 +92,6 @@ const watchPlatforms = [
   },
 ];
 
-
-
 export function HomePage() {
   const { data: matches = [], isPending: isMatchesPending } = useQuery({
     queryKey: ["matches"],
@@ -110,12 +108,6 @@ export function HomePage() {
     queryFn: getNewsArticles,
   });
 
-  const now = new Date();
-  const todayStr = now.toISOString().split("T")[0];
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowStr = tomorrow.toISOString().split("T")[0];
-
   if (isMatchesPending || isTeamsPending || isArticlesPending) {
     return (
       <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
@@ -123,24 +115,6 @@ export function HomePage() {
       </div>
     );
   }
-
-  const featuredMatches = matches
-    .filter((match) => {
-      const matchDateStr = match.date.split("T")[0];
-      const isToday = matchDateStr === todayStr || match.dateUtc === todayStr;
-      const isTomorrow = matchDateStr === tomorrowStr || match.dateUtc === tomorrowStr;
-
-      if (isToday) {
-        return true;
-      }
-      if (isTomorrow) {
-        return match.status === "scheduled" || match.status === "live";
-      }
-      return false;
-    })
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:gap-12 lg:px-8 lg:py-12">
@@ -163,7 +137,9 @@ export function HomePage() {
               FIFA 2026
             </h1>
             <p className="max-w-xl text-sm leading-7 text-emerald-50 sm:text-base">
-              Explore real-time match fixtures, detailed team profiles, latest news updates, official broadcast hubs, and historical tournament archives on a production-ready dashboard.
+              Explore real-time match fixtures, detailed team profiles, latest
+              news updates, official broadcast hubs, and historical tournament
+              archives on a production-ready dashboard.
             </p>
             <div className="flex flex-wrap justify-start gap-3">
               <Link className={buttonVariants()} href="/matches">
@@ -184,21 +160,7 @@ export function HomePage() {
         </section>
       </MotionReveal>
 
-      {featuredMatches.length > 0 ? (
-        <MotionReveal className="grid gap-4">
-          <SectionHeader
-            eyebrow="Featured matches"
-            title="Matches To Look Out For"
-          />
-          <div
-            className={`grid gap-6 ${featuredMatches.length === 1 ? "grid-cols-1 max-w-xl mx-auto" : "md:grid-cols-2 lg:grid-cols-3"}`}
-          >
-            {featuredMatches.map((match) => (
-              <MatchCard key={match.id} match={match} />
-            ))}
-          </div>
-        </MotionReveal>
-      ) : null}
+      <FeaturedMatchesSlider matches={matches} />
 
       <section className="grid gap-5">
         <SectionHeader eyebrow="Latest news" title="Tournament updates" />

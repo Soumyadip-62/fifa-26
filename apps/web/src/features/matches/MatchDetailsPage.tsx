@@ -59,8 +59,10 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     queryFn: () => searchVenueByName(match.venue!),
   });
 
-  const venueDetails = venuesData && venuesData.length > 0 ? venuesData[0] : null;
-  const bannerBgImage = venueDetails?.strThumb || match.venueImageUrl || images.banners.sfStadium;
+  const venueDetails =
+    venuesData && venuesData.length > 0 ? venuesData[0] : null;
+  const bannerBgImage =
+    venueDetails?.strThumb || match.venueImageUrl || images.banners.sfStadium;
 
   if (error) {
     return (
@@ -122,7 +124,11 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
             <div className="grid items-center gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-8">
               {/* Home Team */}
               <div className="flex flex-col items-center md:items-end text-center md:text-right gap-3">
-                <TeamLogoImage team={match.homeTeam} size={100} className="shadow-lg transform transition hover:scale-105" />
+                <TeamLogoImage
+                  team={match.homeTeam}
+                  size={100}
+                  className="shadow-lg transform transition hover:scale-105"
+                />
                 <div>
                   <h2 className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
                     {match.homeTeam.name}
@@ -147,7 +153,11 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
 
               {/* Away Team */}
               <div className="flex flex-col items-center md:items-start text-center md:text-left gap-3">
-                <TeamLogoImage team={match.awayTeam} size={100} className="shadow-lg transform transition hover:scale-105" />
+                <TeamLogoImage
+                  team={match.awayTeam}
+                  size={100}
+                  className="shadow-lg transform transition hover:scale-105"
+                />
                 <div>
                   <h2 className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
                     {match.awayTeam.name}
@@ -174,11 +184,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
             </div>
           </VenueDetailsDrawer>
         ) : (
-          <StatCard
-            label="Venue"
-            value="TBD"
-            helper="City TBD"
-          />
+          <StatCard label="Venue" value="TBD" helper="City TBD" />
         )}
         <StatCard
           label="Stage"
@@ -192,14 +198,16 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
         />
       </section>
 
-      <div
-        style={{ padding: "24px" }}
-        className=" rounded-xl bg-neutral-300 dark:bg-neutral-800"
-      >
-        <h3 className="text-md md:text-xl font-semibold font-sans">
-          These lineups are not confirmed yet!
-        </h3>
-      </div>
+      {match.status === "scheduled" && (
+        <div
+          style={{ padding: "24px" }}
+          className=" rounded-xl bg-neutral-300 dark:bg-neutral-800"
+        >
+          <h3 className="text-md md:text-xl font-semibold font-sans">
+            These lineups are not confirmed yet!
+          </h3>
+        </div>
+      )}
 
       <section className="grid gap-5 lg:grid-cols-2">
         <MatchTeamPlayersSection
