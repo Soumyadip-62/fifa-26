@@ -228,7 +228,7 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
 /* ------------------------------------------------------------------ */
 
 const ARROW_BTN =
-  "absolute top-1/2 -translate-y-1/2 z-10 flex size-9 items-center justify-center rounded-full border border-neutral-200 bg-white/90 text-neutral-600 shadow-lg backdrop-blur transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 disabled:pointer-events-none disabled:opacity-0 dark:border-white/10 dark:bg-neutral-900/90 dark:text-neutral-300 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-950/60 dark:hover:text-emerald-400";
+  "absolute top-1/2 -translate-y-1/2 z-10 hidden md:flex size-9 items-center justify-center rounded-full border border-neutral-200 bg-white/90 text-neutral-600 shadow-lg backdrop-blur transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 disabled:pointer-events-none disabled:opacity-0 dark:border-white/10 dark:bg-neutral-900/90 dark:text-neutral-300 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-950/60 dark:hover:text-emerald-400";
 
 function MatchRowSlider({ matches }: { matches: Match[] }) {
   const rowRef = useRef<HTMLDivElement>(null);
@@ -258,7 +258,8 @@ function MatchRowSlider({ matches }: { matches: Match[] }) {
   }, []);
 
   return (
-    <div className="group/row relative">
+    <div className="group/row relative -mx-4 px-4 sm:mx-0 sm:px-0">
+      {/* Left arrow */}
       {canScrollLeft && (
         <button
           aria-label="Scroll matches left"
@@ -272,14 +273,14 @@ function MatchRowSlider({ matches }: { matches: Match[] }) {
 
       <div
         ref={rowRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 scrollbar-hide sm:gap-6"
         onScroll={checkScroll}
-        style={{ scrollbarWidth: "none" }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {matches.map((match, i) => (
           <div
             key={match.id}
-            className="w-[340px] shrink-0 snap-start sm:w-[380px]"
+            className="w-[280px] shrink-0 snap-start sm:w-[380px]"
           >
             <MotionReveal delay={Math.min(i * 0.04, 0.16)}>
               <MatchCard match={match} />
@@ -288,6 +289,7 @@ function MatchRowSlider({ matches }: { matches: Match[] }) {
         ))}
       </div>
 
+      {/* Right arrow */}
       {canScrollRight && (
         <button
           aria-label="Scroll matches right"
