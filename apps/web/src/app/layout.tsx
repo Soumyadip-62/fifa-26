@@ -53,7 +53,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${orbitron.variable}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
