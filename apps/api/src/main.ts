@@ -48,6 +48,7 @@ async function bootstrap() {
       'http://localhost:3000',
       'http://127.0.0.1:3000',
       'https://fifa-26-web.vercel.app',
+      'https://www.wccompanion.online',
       frontendUrl,
     ].filter(Boolean),
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
