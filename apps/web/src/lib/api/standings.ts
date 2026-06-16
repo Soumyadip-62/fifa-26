@@ -6,6 +6,8 @@ export type StandingsTeam = {
   shortName: string;
   tla: string;
   crest: string;
+  sportsdb_team_id?: string | null;
+  sportsdbTeamId?: string | null;
 };
 
 export type StandingsTableEntry = {

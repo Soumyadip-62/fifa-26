@@ -7,6 +7,81 @@ export class PointsTableService {
   private cache: any = null;
   private lastFetched = 0;
   private readonly CACHE_TTL = 60 * 1000; // 1 minute cache
+  private teamsMap = new Map<string, string>();
+
+  constructor() {
+    this.loadTeamsMap();
+  }
+
+  private loadTeamsMap() {
+    try {
+      const teamsPath = join(process.cwd(), 'fifa-data', 'teams-data.json');
+      const teams = JSON.parse(readFileSync(teamsPath, 'utf8'));
+      for (const team of teams) {
+        const sportsdbId = team.sportsdb_team_id;
+        if (sportsdbId) {
+          if (team.name) {
+            this.teamsMap.set(this.normalizeTeamName(team.name), sportsdbId);
+          }
+          if (team.name_normalised) {
+            this.teamsMap.set(
+              this.normalizeTeamName(team.name_normalised),
+              sportsdbId,
+            );
+          }
+          if (team.fifa_code) {
+            this.teamsMap.set(team.fifa_code.toUpperCase(), sportsdbId);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load teams map in PointsTableService:', err);
+    }
+  }
+
+  private normalizeTeamName(name: string): string {
+    return name
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .replace(/&/g, 'and')
+      .replace(/[^a-zA-Z0-9]+/g, ' ')
+      .trim()
+      .toLowerCase();
+  }
+
+  private getSportsdbId(team: any): string | null {
+    if (!team) return null;
+    if (team.name) {
+      const id = this.teamsMap.get(this.normalizeTeamName(team.name));
+      if (id) return id;
+    }
+    if (team.shortName) {
+      const id = this.teamsMap.get(this.normalizeTeamName(team.shortName));
+      if (id) return id;
+    }
+    if (team.tla) {
+      const id = this.teamsMap.get(team.tla.toUpperCase());
+      if (id) return id;
+    }
+    return null;
+  }
+
+  private enrichStandings(data: any): void {
+    if (!data || !Array.isArray(data.standings)) return;
+    for (const standing of data.standings) {
+      if (standing && Array.isArray(standing.table)) {
+        for (const entry of standing.table) {
+          if (entry && entry.team) {
+            const sportsdbId = this.getSportsdbId(entry.team);
+            if (sportsdbId) {
+              entry.team.sportsdb_team_id = sportsdbId;
+              entry.team.sportsdbTeamId = sportsdbId;
+            }
+          }
+        }
+      }
+    }
+  }
 
   async getStandings(): Promise<any> {
     const now = Date.now();
@@ -30,6 +105,7 @@ export class PointsTableService {
       }
 
       const data = await response.json();
+      this.enrichStandings(data);
       this.cache = data;
       this.lastFetched = now;
       return data;
@@ -47,7 +123,11 @@ export class PointsTableService {
       const teamsPath = join(process.cwd(), 'fifa-data', 'teams-data.json');
       const teams = JSON.parse(readFileSync(teamsPath, 'utf8'));
 
-      const schedulePath = join(process.cwd(), 'fifa-data', 'group-stage-schedule.json');
+      const schedulePath = join(
+        process.cwd(),
+        'fifa-data',
+        'group-stage-schedule.json',
+      );
       const schedule = JSON.parse(readFileSync(schedulePath, 'utf8'));
 
       // Group teams by their group field (A-L)
@@ -61,11 +141,15 @@ export class PointsTableService {
           }
           groups[groupName].push({
             team: {
-              id: parseInt(team.sportsdb_team_id) || Math.floor(Math.random() * 10000),
+              id:
+                parseInt(team.sportsdb_team_id) ||
+                Math.floor(Math.random() * 10000),
               name: team.name,
               shortName: team.name,
               tla: team.fifa_code || team.name.slice(0, 3).toUpperCase(),
               crest: team.image_url || '',
+              sportsdb_team_id: team.sportsdb_team_id || null,
+              sportsdbTeamId: team.sportsdb_team_id || null,
             },
             playedGames: 0,
             form: null,
@@ -86,7 +170,8 @@ export class PointsTableService {
         // Only count finished group stage matches
         const isGroupStage = match.stage === 'Group Stage' || match.group;
         const isFinished = match.status === 'finished';
-        const hasScore = match.score && match.score.home !== null && match.score.away !== null;
+        const hasScore =
+          match.score && match.score.home !== null && match.score.away !== null;
 
         if (isGroupStage && isFinished && hasScore && match.group) {
           const groupName = `Group ${match.group}`;
@@ -94,10 +179,12 @@ export class PointsTableService {
 
           if (groupTable) {
             const homeTeamEntry = groupTable.find(
-              (entry) => entry.team.name.toLowerCase() === match.homeTeam.toLowerCase(),
+              (entry) =>
+                entry.team.name.toLowerCase() === match.homeTeam.toLowerCase(),
             );
             const awayTeamEntry = groupTable.find(
-              (entry) => entry.team.name.toLowerCase() === match.awayTeam.toLowerCase(),
+              (entry) =>
+                entry.team.name.toLowerCase() === match.awayTeam.toLowerCase(),
             );
 
             if (homeTeamEntry && awayTeamEntry) {

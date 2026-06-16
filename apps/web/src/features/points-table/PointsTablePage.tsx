@@ -3,7 +3,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Trophy, Search, Sparkles, Grid, ArrowRight, Award } from "lucide-react";
+import {
+  Trophy,
+  Search,
+  Sparkles,
+  Grid,
+  ArrowRight,
+  Award,
+} from "lucide-react";
 import { FlagIcon } from "@/components/common/FlagIcon";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MotionReveal } from "@/components/common/MotionReveal";
@@ -53,10 +60,11 @@ export function PointsTablePage() {
     }
 
     return standingsData.standings.filter((group) =>
-      group.table.some((entry) =>
-        entry.team.name.toLowerCase().includes(query) ||
-        entry.team.tla.toLowerCase().includes(query)
-      )
+      group.table.some(
+        (entry) =>
+          entry.team.name.toLowerCase().includes(query) ||
+          entry.team.tla.toLowerCase().includes(query),
+      ),
     );
   }, [standingsData, selectedGroup, searchQuery]);
 
@@ -67,8 +75,7 @@ export function PointsTablePage() {
     return matches
       .filter(
         (m) =>
-          m.group === groupLetter &&
-          (m.stage === "Group Stage" || !m.stage)
+          m.group === groupLetter && (m.stage === "Group Stage" || !m.stage),
       )
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [selectedGroup, matches]);
@@ -232,7 +239,7 @@ export function PointsTablePage() {
                             </td>
                             <td className="py-3">
                               <Link
-                                href={`/teams/${entry.team.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                                href={`/teams/${entry.team.sportsdbTeamId}?group=${groupData.group}`}
                                 className="inline-flex items-center gap-2 font-bold text-neutral-800 dark:text-neutral-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition"
                               >
                                 <div className="size-5 shrink-0 overflow-hidden rounded-md border border-neutral-100 bg-neutral-50 dark:border-white/10 dark:bg-neutral-900">
@@ -432,7 +439,9 @@ export function PointsTablePage() {
                     >
                       <div className="flex items-center justify-between mb-3.5">
                         <span className="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
-                          {match.matchNumber ? `Match ${match.matchNumber}` : ""}
+                          {match.matchNumber
+                            ? `Match ${match.matchNumber}`
+                            : ""}
                         </span>
                         <span
                           className={`inline-flex rounded px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide ${
@@ -467,7 +476,9 @@ export function PointsTablePage() {
                               {match.score.home}-{match.score.away}
                             </span>
                           ) : (
-                            <span className="text-[10px] text-neutral-400">VS</span>
+                            <span className="text-[10px] text-neutral-400">
+                              VS
+                            </span>
                           )}
                         </div>
 
@@ -485,7 +496,9 @@ export function PointsTablePage() {
                         </div>
                       </div>
                       <div className="mt-3.5 border-t border-neutral-100 dark:border-white/5 pt-2 flex items-center justify-between text-[11px] text-neutral-400 dark:text-neutral-500">
-                        <span><FormattedDateTime date={match.date} /></span>
+                        <span>
+                          <FormattedDateTime date={match.date} />
+                        </span>
                         <span>{match.city || "Venue TBD"}</span>
                       </div>
                     </Link>
