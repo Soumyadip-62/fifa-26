@@ -12,6 +12,10 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VenuesModule } from './venues/venues.module';
 import { PointsTableModule } from './points-table/points-table.module';
+import { TeamEntity } from './teams/entitites/teams.entity';
+import { MatchEntity } from './matches/entities/matches.entity';
+import { HistoricalMatchEntity } from './history/entities/history.entity';
+import { TournamentEntity } from './history/entities/tournament.entity';
 
 @Module({
   imports: [
@@ -29,6 +33,12 @@ import { PointsTableModule } from './points-table/points-table.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
+      entities: [
+        TeamEntity,
+        MatchEntity,
+        HistoricalMatchEntity,
+        TournamentEntity,
+      ],
       autoLoadEntities: true,
       synchronize: true,
       ssl: {

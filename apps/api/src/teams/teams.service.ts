@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { URL } from 'url';
+import { TeamEntity } from './entitites/teams.entity';
+import { Repository } from 'typeorm';
 
 // create type for teams
 export type Team = {
@@ -102,17 +105,14 @@ type Response = {
 
 @Injectable()
 export class TeamsService {
-  private readonly teams: Team[] = [];
   private readonly apiurl = process.env.THESPORTSDB_API_URL;
 
-  constructor() {
-    const teamsPath = join(process.cwd(), 'fifa-data', 'teams-data.json');
-    const teams = JSON.parse(readFileSync(teamsPath, 'utf8')) as Team[];
-
-    this.teams = teams;
-  }
-  getTeams() {
-    return this.teams;
+  constructor(
+    @InjectRepository(TeamEntity)
+    private readonly teamRepository: Repository<TeamEntity>,
+  ) {}
+  async getTeams() {
+    return this.teamRepository.find();
   }
   async getTeamPlayersById(id: string): Promise<Response | undefined> {
     if (!this.apiurl) {
