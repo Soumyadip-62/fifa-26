@@ -30,7 +30,7 @@ export function TeamsPage() {
   }, [input, teams]);
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <SectionHeader
         eyebrow="Teams"
         title="Team profiles"
@@ -43,7 +43,7 @@ export function TeamsPage() {
           placeholder="Search teams..."
           value={input}
           onChange={(e) => setinput(e.target.value)}
-          className="w-full rounded-md border border-neutral-200/80 bg-white/90 px-4 py-3 text-sm text-neutral-950 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-600/20 dark:border-white/10 dark:bg-neutral-950/75 dark:text-neutral-50"
+          className="w-full rounded-[24px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md px-5 py-3 text-sm text-zinc-950 dark:text-white shadow-xs outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-white/10"
         />
       </MotionReveal>
 

@@ -147,10 +147,10 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
         />
 
         {slides.length > 1 && (
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 bg-zinc-200/50 p-1 rounded-full dark:bg-zinc-800/50 border border-black/5 dark:border-white/5">
             <button
               aria-label="Previous day"
-              className="flex size-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 disabled:cursor-not-allowed disabled:opacity-30 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-400"
+              className="flex size-8 items-center justify-center rounded-full bg-white dark:bg-zinc-700 text-zinc-700 dark:text-white shadow-sm transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-20"
               disabled={activeIndex === 0}
               onClick={() => scrollTo(activeIndex - 1)}
               type="button"
@@ -159,7 +159,7 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
             </button>
             <button
               aria-label="Next day"
-              className="flex size-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 disabled:cursor-not-allowed disabled:opacity-30 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-400"
+              className="flex size-8 items-center justify-center rounded-full bg-white dark:bg-zinc-700 text-zinc-700 dark:text-white shadow-sm transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-20"
               disabled={activeIndex === slides.length - 1}
               onClick={() => scrollTo(activeIndex + 1)}
               type="button"
@@ -181,15 +181,15 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
             {/* Date label pill */}
             <div className="mb-4 flex items-center gap-3">
               <span
-                className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold tracking-wide ${
+                className={`inline-flex items-center rounded-full px-3 py-0.5 text-[10px] font-bold tracking-wide ${
                   slide.tag === "today"
-                    ? "border border-emerald-600/20 bg-emerald-50 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300"
-                    : "border border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-neutral-400"
+                    ? "bg-primary/10 text-primary"
+                    : "bg-zinc-200/60 dark:bg-zinc-800/40 text-zinc-500 dark:text-zinc-400 border border-black/5 dark:border-white/5"
                 }`}
               >
                 {slide.label}
               </span>
-              <span className="text-xs text-neutral-400 dark:text-neutral-500">
+              <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
                 {slide.matches.length}{" "}
                 {slide.matches.length === 1 ? "match" : "matches"}
               </span>
@@ -203,15 +203,15 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
 
       {/* Date dot indicators */}
       {slides.length > 1 && (
-        <div className="flex items-center justify-center gap-2 pt-2">
+        <div className="flex items-center justify-center gap-1.5 pt-2">
           {slides.map((slide, idx) => (
             <button
               key={slide.key}
               aria-label={`Go to ${slide.label}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 idx === activeIndex
-                  ? "w-6 bg-emerald-600 dark:bg-emerald-400"
-                  : "w-2 bg-neutral-300 hover:bg-neutral-400 dark:bg-white/20 dark:hover:bg-white/30"
+                  ? "w-4.5 bg-primary"
+                  : "w-1.5 bg-zinc-300 hover:bg-zinc-400 dark:bg-zinc-700 dark:hover:bg-zinc-600"
               }`}
               onClick={() => scrollTo(idx)}
               type="button"
@@ -219,6 +219,7 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
           ))}
         </div>
       )}
+
     </MotionReveal>
   );
 }

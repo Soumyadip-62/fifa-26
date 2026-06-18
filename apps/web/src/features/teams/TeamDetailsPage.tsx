@@ -98,13 +98,13 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
   const bannerUrl = team?.strBanner || images.banners.sfStadium;
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       {isTeamSuccess && isPlayersSuccess && team ? (
         <>
           {/* PREMIUM BANNER HEADER */}
           <MotionReveal>
-            <section className="relative overflow-hidden rounded-xl bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
-              <div className="relative h-48 w-full bg-neutral-900 sm:h-64 md:h-72">
+            <section className="relative overflow-hidden rounded-[28px] bg-zinc-950 text-white shadow-md border border-black/5 dark:border-white/5">
+              <div className="relative h-44 w-full bg-zinc-900 sm:h-56">
                 <Image
                   src={bannerUrl}
                   alt={`${team.name} Banner`}
@@ -112,37 +112,37 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                   priority
                   className="object-cover opacity-80"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/45 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/45 to-transparent" />
               </div>
 
               {/* Overlapping details bar */}
               <div className="relative px-5 pb-6 sm:px-8 sm:pb-8">
-                <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between -mt-16 sm:-mt-24">
+                <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between -mt-12 sm:-mt-16">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
                     {/* Big Team Logo */}
-                    <div className="relative h-28 w-28 flex-shrink-0 rounded-2xl border-4 border-neutral-950 bg-white p-3 shadow-xl dark:bg-neutral-900 sm:h-36 sm:w-36 flex items-center justify-center overflow-hidden">
+                    <div className="relative h-24 w-24 flex-shrink-0 rounded-2xl border-4 border-zinc-950 bg-white p-3 shadow-md dark:bg-zinc-900 sm:h-28 sm:w-28 flex items-center justify-center overflow-hidden">
                       {team.logoUrl ? (
                         <Image
                           src={team.logoUrl}
                           alt={`${team.name} Logo`}
-                          width={110}
-                          height={110}
+                          width={80}
+                          height={80}
                           className="object-contain"
                         />
                       ) : (
-                        <span className="text-xl font-bold text-neutral-400">
+                        <span className="text-lg font-bold text-zinc-400">
                           {team.shortCode || "TBD"}
                         </span>
                       )}
                     </div>
 
-                    <div className="grid gap-1.5">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h1 className="font-heading text-2xl font-black tracking-tight text-white sm:text-3xl">
+                    <div className="grid gap-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h1 className="font-heading text-xl font-black tracking-tight text-white sm:text-2xl">
                           {team.name}
                         </h1>
                         {team.flagUrl && (
-                          <div className="relative h-5 w-7 overflow-hidden rounded shadow-sm border border-white/10">
+                          <div className="relative h-4 w-6 overflow-hidden rounded border border-white/10 shadow-sm">
                             <Image
                               src={team.flagUrl}
                               alt={team.country}
@@ -152,7 +152,7 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                           </div>
                         )}
                       </div>
-                      <p className="text-sm text-neutral-400">
+                      <p className="text-xs text-zinc-400">
                         FIFA Code:{" "}
                         <span className="font-bold text-white">
                           {team.fifa_code || team.shortCode || "TBD"}
@@ -162,16 +162,16 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 md:mb-2">
+                  <div className="flex flex-wrap gap-2 md:mb-1">
                     {group ? (
-                      <Badge variant="success" className="px-3 py-1 font-bold text-xs">
+                      <Badge className="px-3 py-0.5 font-bold text-[10px] rounded-full bg-primary text-zinc-950 border-0">
                         {group}
                       </Badge>
                     ) : null}
                     {team.coach ? (
                       <Badge
                         variant="outline"
-                        className="border-white/30 text-white bg-neutral-900/60 backdrop-blur-sm px-3 py-1 text-xs"
+                        className="border-white/20 text-white bg-zinc-900/60 backdrop-blur-sm px-3 py-0.5 rounded-full text-[10px] font-semibold"
                       >
                         Coach: {team.coach}
                       </Badge>
@@ -183,7 +183,7 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
           </MotionReveal>
 
           {/* STATS SECTION */}
-          <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <StatCard label="Ranking" value={team.fifaRanking ?? "TBD"} />
             <StatCard label="Played" value={team.stats?.played ?? 0} />
             <StatCard label="Wins" value={team.stats?.won ?? 0} />
@@ -191,31 +191,31 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
           </section>
 
           {/* TEAM PROFILE */}
-          <section className="grid gap-8">
-            <Card>
-              <CardContent className="grid gap-5 p-5 sm:p-6">
+          <section className="grid gap-6">
+            <Card className="overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm">
+              <CardContent className="grid gap-4 p-5 sm:p-6">
                 <SectionHeader eyebrow="Profile" title="Team details" />
                 {team.strDescriptionEN ? (
                   <ReadMoreText
-                    className="max-w-4xl text-sm leading-7 text-neutral-700 dark:text-neutral-300 sm:text-base sm:leading-8"
+                    className="max-w-4xl text-xs leading-relaxed text-zinc-650 dark:text-zinc-300"
                     maxLength={420}
                     text={team.strDescriptionEN}
                   />
                 ) : null}
-                <dl className="grid gap-3 text-sm">
+                <dl className="grid gap-3 text-xs border-t border-black/5 dark:border-white/5 pt-4">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-neutral-500 dark:text-neutral-400">
+                    <dt className="text-zinc-500 dark:text-zinc-400 font-semibold">
                       Country
                     </dt>
-                    <dd className="font-semibold text-neutral-950 dark:text-neutral-50">
+                    <dd className="font-bold text-zinc-950 dark:text-zinc-50">
                       {team.country}
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-neutral-500 dark:text-neutral-400">
+                    <dt className="text-zinc-500 dark:text-zinc-400 font-semibold">
                       Group
                     </dt>
-                    <dd className="font-semibold text-neutral-950 dark:text-neutral-50">
+                    <dd className="font-bold text-zinc-950 dark:text-zinc-50">
                       {group ?? "TBD"}
                     </dd>
                   </div>
@@ -224,8 +224,8 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
             </Card>
 
             {/* FAN ART & TEAM CULTURE SECTION */}
-            <Card>
-              <CardContent className="grid gap-5 p-5 sm:p-6">
+            <Card className="overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm">
+              <CardContent className="grid gap-4 p-5 sm:p-6">
                 <SectionHeader
                   eyebrow="Culture"
                   title="Fan Art & Media"
@@ -236,7 +236,7 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                     {fanArts.map((artUrl, idx) => (
                       <div
                         key={idx}
-                        className="group relative aspect-video overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100 dark:border-white/10 dark:bg-neutral-900 shadow-sm"
+                        className="group relative aspect-video overflow-hidden rounded-2xl border border-black/5 bg-zinc-100 dark:border-white/5 dark:bg-zinc-900 shadow-sm"
                       >
                         <Image
                           src={artUrl}
@@ -254,8 +254,8 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-neutral-300 dark:border-white/10 p-8 text-center bg-neutral-50/50 dark:bg-neutral-900/10">
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  <div className="rounded-2xl border border-dashed border-zinc-300 dark:border-white/10 p-8 text-center bg-zinc-50/50 dark:bg-zinc-900/10">
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 font-semibold">
                       No official fan art media is registered in the database for this team yet.
                     </p>
                   </div>
@@ -264,8 +264,8 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
             </Card>
 
             {/* TEAM NEWS SECTION */}
-            <Card>
-              <CardContent className="grid gap-5 p-5 sm:p-6">
+            <Card className="overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm">
+              <CardContent className="grid gap-4 p-5 sm:p-6">
                 <SectionHeader
                   eyebrow="Coverage"
                   title="Latest Team News"
@@ -278,9 +278,9 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-neutral-300 dark:border-white/10 p-8 text-center bg-neutral-50/50 dark:bg-neutral-900/10 flex flex-col items-center justify-center gap-2">
-                    <Newspaper className="h-8 w-8 text-neutral-400 dark:text-neutral-600" />
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  <div className="rounded-2xl border border-dashed border-zinc-300 dark:border-white/10 p-8 text-center bg-zinc-50/50 dark:bg-zinc-900/10 flex flex-col items-center justify-center gap-2">
+                    <Newspaper className="h-6 w-6 text-zinc-400 dark:text-zinc-500" />
+                    <p className="text-xs text-zinc-550 dark:text-zinc-450 font-semibold">
                       No recent news articles found for this team.
                     </p>
                   </div>
@@ -289,15 +289,15 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
             </Card>
 
             {/* PLAYERS SECTION */}
-            <Card>
-              <CardContent className="grid gap-5 p-5 sm:p-6">
+            <Card className="overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm">
+              <CardContent className="grid gap-4 p-5 sm:p-6">
                 <SectionHeader
                   eyebrow="Squad"
                   title="Player preview"
                   description="Player cards are ready for future squad data."
                 />
                 {teamPlayers?.length ? (
-                  <div className="grid gap-4">
+                  <div className="grid gap-3">
                     {teamPlayers.map((player, index) => (
                       <MotionReveal
                         delay={Math.min(index * 0.025, 0.16)}
@@ -305,7 +305,7 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                       >
                         <PlayerDetailsDrawer player={player}>
                           <div
-                            className="grid w-full cursor-pointer gap-4 rounded-lg border border-neutral-200/80 bg-neutral-50 p-4 text-left transition-colors hover:bg-emerald-50/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 sm:grid-cols-[auto_1fr]"
+                            className="grid w-full cursor-pointer gap-4 rounded-2xl border border-black/5 bg-zinc-100/40 p-4 text-left transition-colors hover:bg-zinc-200/50 dark:border-white/5 dark:bg-zinc-800/10 dark:hover:bg-zinc-800/20 sm:grid-cols-[auto_1fr]"
                             onKeyDown={(event) => {
                               if (event.key === "Enter" || event.key === " ") {
                                 event.preventDefault();
@@ -322,33 +322,33 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                             <div className="grid min-w-0 gap-3">
                               <div className="flex flex-wrap items-start justify-between gap-3">
                                 <div className="min-w-0">
-                                  <p className="truncate font-semibold text-neutral-950 dark:text-neutral-50">
+                                  <p className="truncate font-bold text-zinc-900 dark:text-white text-sm">
                                     {player.name}
                                   </p>
-                                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                                  <p className="text-xs text-zinc-500 dark:text-zinc-400 font-semibold">
                                     {player.position}
                                   </p>
                                 </div>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-1.5">
                                   {player.shirtNumber ? (
-                                    <Badge variant="secondary">
+                                    <Badge className="rounded-full bg-zinc-200 text-zinc-700 dark:bg-zinc-850 dark:text-zinc-300 border-0 font-bold text-[9px]">
                                       No. {player.shirtNumber}
                                     </Badge>
                                   ) : null}
                                   {getTextValue(player.strStatus) ? (
-                                    <Badge variant="success">
+                                    <Badge className="rounded-full bg-primary/10 text-primary border-0 font-bold text-[9px] uppercase tracking-wider">
                                       {getTextValue(player.strStatus)}
                                     </Badge>
                                   ) : null}
                                 </div>
                               </div>
-                              <dl className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
+                              <dl className="grid gap-2 text-[10px] sm:grid-cols-2 lg:grid-cols-4">
                                 {getPlayerDetails(player).map((detail) => (
                                   <div key={detail.label} className="min-w-0">
-                                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                                    <dt className="font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
                                       {detail.label}
                                     </dt>
-                                    <dd className="truncate text-neutral-800 dark:text-neutral-200">
+                                    <dd className="truncate text-zinc-800 dark:text-zinc-200 font-semibold mt-0.5">
                                       {detail.value}
                                     </dd>
                                   </div>
@@ -361,7 +361,7 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                  <p className="text-xs leading-relaxed text-zinc-550 dark:text-zinc-450 font-semibold">
                     No players added for this team.
                   </p>
                 )}

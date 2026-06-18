@@ -2,55 +2,72 @@
 
 import { MotionReveal } from "@/components/common/MotionReveal";
 import Link from "next/link";
+import { Calendar, Shield, Newspaper, History } from "lucide-react";
+import { cn } from "@/lib/utils/cn";
 
 const sections = [
   {
     href: "/matches",
-    title: "Match schedules",
-    description:
-      "Browse upcoming, live, and finished fixtures from the mock API layer.",
+    title: "Match fixtures",
+    description: "Browse upcoming, live, and finished fixtures.",
+    icon: Calendar,
+    color: "bg-blue-500 text-white",
   },
   {
     href: "/teams",
-    title: "Team pages",
-    description:
-      "Review team profile data that can later connect to backend responses.",
+    title: "Team profiles",
+    description: "Review team profile details and squad rosters.",
+    icon: Shield,
+    color: "bg-emerald-500 text-white",
   },
   {
     href: "/news",
-    title: "News and blogs",
-    description:
-      "Read article listings and details with typed frontend-friendly content.",
+    title: "News & blogs",
+    description: "Read article listings and typed editorial details.",
+    icon: Newspaper,
+    color: "bg-orange-500 text-white",
   },
   {
     href: "/history",
-    title: "Football history",
-    description:
-      "Scan previous winners, host countries, final scores, and summaries.",
+    title: "Football archives",
+    description: "Scan previous winners, host countries, and summaries.",
+    icon: History,
+    color: "bg-purple-500 text-white",
   },
 ];
 
 export function PlatformSections() {
   return (
     <section
-      className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+      className="grid gap-5 grid-cols-2 lg:grid-cols-4"
       aria-label="Platform sections"
     >
-      {sections.map((section, index) => (
-        <MotionReveal delay={Math.min(index * 0.04, 0.18)} key={section.href}>
-          <Link
-            className="block h-full rounded-lg border border-neutral-200/80 bg-white/95 p-5 shadow-[0_18px_45px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-neutral-950/85 dark:shadow-none dark:hover:border-emerald-500/60 sm:p-6"
-            href={section.href}
-          >
-            <h2 className="font-heading text-lg font-bold text-neutral-950 dark:text-neutral-50">
-              {section.title}
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-400">
-              {section.description}
-            </p>
-          </Link>
-        </MotionReveal>
-      ))}
+      {sections.map((section, index) => {
+        const Icon = section.icon;
+        return (
+          <MotionReveal delay={Math.min(index * 0.04, 0.18)} key={section.href}>
+            <Link
+              className="group block h-full rounded-[28px] ios-glass p-5 shadow-[0_8px_32px_rgba(0,0,0,0.03)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 border border-black/5 dark:border-white/5"
+              href={section.href}
+            >
+              <div className="flex flex-col h-full justify-between gap-5">
+                <div className={cn("flex h-12 w-12 items-center justify-center rounded-[14px] shadow-md transition duration-300 group-hover:scale-110", section.color)}>
+                  <Icon className="h-6 w-6" />
+                </div>
+                <div className="grid gap-1">
+                  <h3 className="font-heading text-base font-bold text-zinc-950 dark:text-zinc-50 tracking-tight">
+                    {section.title}
+                  </h3>
+                  <p className="text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400">
+                    {section.description}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </MotionReveal>
+        );
+      })}
     </section>
   );
 }
+

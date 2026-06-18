@@ -9,6 +9,7 @@ import { StatCard } from "@/components/common/StatCard";
 import { FeaturedMatchesSlider } from "@/components/matches/FeaturedMatchesSlider";
 import { NewsCard } from "@/components/news/NewsCard";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils/cn";
 import { getMatches } from "@/lib/api/matches";
 import { getNewsArticles } from "@/lib/api/news";
 import { getTeams } from "@/lib/api/teams";
@@ -58,48 +59,47 @@ export function HomePage() {
     isMatchesPending || isTeamsPending || isArticlesPending;
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:gap-12 lg:px-8 lg:py-12">
+    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:gap-10 lg:px-8 lg:py-10">
       <MotionReveal>
-        <section className="relative flex min-h-[380px] items-center justify-start overflow-hidden rounded-lg bg-neutral-950 p-5 text-left text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10 sm:min-h-[430px] sm:p-8 lg:p-10">
+        <section className="relative flex min-h-[360px] items-center justify-start overflow-hidden rounded-[32px] bg-black p-6 text-left text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 sm:min-h-[400px] sm:p-8 lg:p-12">
           <Image
             src={images.banners.worldCup2026}
             alt="FIFA 26 tournament banner"
             fill
             priority
             sizes="(min-width: 1280px) 1280px, 100vw"
-            className="object-cover object-center "
+            className="object-cover object-center brightness-90 saturate-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-emerald-950/50 to-neutral-950/35" />
-          <div className="relative grid max-w-2xl justify-items-start gap-5">
-            <p className="rounded-md border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-100 backdrop-blur">
-              Tournament dashboard
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
+          <div className="relative grid max-w-2xl justify-items-start gap-4">
+            <p className="rounded-full border border-white/10 bg-white/15 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-md">
+              Tournament Dashboard
             </p>
-            <h1 className="font-heading text-3xl font-black tracking-normal sm:text-5xl lg:text-6xl">
+            <h1 className="font-heading text-4xl font-black tracking-tight sm:text-6xl lg:text-7xl">
               FIFA 2026
             </h1>
-            <p className="max-w-xl text-sm leading-7 text-emerald-50 sm:text-base">
+            <p className="max-w-xl text-xs leading-relaxed text-zinc-300 sm:text-sm">
               Explore real-time match fixtures, detailed team profiles, latest
               news updates, official broadcast hubs, and historical tournament
               archives on a production-ready dashboard.
             </p>
-            <div className="flex flex-wrap justify-start gap-3">
-              <Link className={buttonVariants()} href="/matches">
-                View matches
+            <div className="flex flex-wrap justify-start gap-3 mt-2">
+              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all")} href="/matches">
+                View Matches
               </Link>
               <Link
-                className={buttonVariants({
+                className={cn(buttonVariants({
                   variant: "outline",
-                  className:
-                    "border-white/40 bg-white/10 text-white hover:bg-white/20 dark:text-white",
-                })}
+                }), "rounded-full border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 px-6 py-5 text-xs tracking-wide transition-all")}
                 href="/points-table"
               >
-                View points table
+                View Points Table
               </Link>
             </div>
           </div>
         </section>
       </MotionReveal>
+
 
       <section>
         {isMatchesPending ? (

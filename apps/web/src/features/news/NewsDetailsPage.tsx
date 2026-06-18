@@ -31,9 +31,9 @@ export async function NewsDetailsPage({ slug }: NewsDetailsPageProps) {
     }
 
     return (
-      <article className="mx-auto grid w-full max-w-4xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+      <article className="mx-auto grid w-full max-w-4xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         <MotionReveal>
-          <div className="relative h-56 overflow-hidden rounded-lg bg-neutral-100 shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:bg-neutral-900 dark:shadow-none sm:h-72">
+          <div className="relative h-56 overflow-hidden rounded-[32px] bg-zinc-100 dark:bg-zinc-900 sm:h-72 border border-black/5 dark:border-white/5 shadow-xs">
             <Image
               src={article.coverImageUrl ?? images.blogs.default}
               alt={`${article.title} cover`}
@@ -57,23 +57,23 @@ export async function NewsDetailsPage({ slug }: NewsDetailsPageProps) {
           />
         </MotionReveal>
         <MotionReveal delay={0.08}>
-          <div className="grid gap-5 rounded-lg border border-neutral-200/80 bg-white/95 p-5 text-base leading-8 text-neutral-700 shadow-[0_18px_45px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-neutral-950/85 dark:text-neutral-300 dark:shadow-none sm:p-6">
+          <div className="grid gap-5 rounded-[28px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md p-5 text-sm leading-relaxed text-zinc-600 shadow-sm dark:border-white/10 dark:text-zinc-300 sm:p-6">
             {article.excerpt ? (
               <ReadMoreText
-                className="text-base font-medium leading-7 text-neutral-950 dark:text-neutral-50 sm:text-lg"
+                className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white leading-relaxed"
                 maxLength={220}
                 text={article.excerpt}
               />
             ) : null}
             <ReadMoreText
-              className="max-w-3xl text-base leading-8 text-neutral-700 dark:text-neutral-300"
+              className="max-w-3xl text-xs sm:text-sm leading-relaxed text-zinc-650 dark:text-zinc-300"
               maxLength={520}
               text={article.content ?? "Article content is not available yet."}
             />
             {article.tags?.length ? (
               <div className="flex flex-wrap gap-2">
                 {article.tags.map((tag) => (
-                  <Badge variant="outline" key={tag}>
+                  <Badge variant="secondary" className="rounded-full bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 border-0 font-semibold px-3 py-1 text-xs shadow-xs" key={tag}>
                     {tag}
                   </Badge>
                 ))}

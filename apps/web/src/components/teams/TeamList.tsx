@@ -21,8 +21,8 @@ export function TeamList({ teams }: TeamListProps) {
     );
 
     return Object.entries(grouped).map(([group, teams]) => (
-      <div key={group} className="col-span-1 grid gap-4">
-        <h3 className="font-heading w-fit rounded-md border border-emerald-700/15 bg-emerald-50 px-3 py-1.5 text-sm font-black uppercase tracking-wide text-emerald-900 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200">
+      <div key={group} className="col-span-1 grid gap-3">
+        <h3 className="font-heading text-xs font-black uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-1">
           Group {group}
         </h3>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2 items-baseline">

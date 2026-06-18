@@ -112,22 +112,22 @@ function Slot({
   return (
     <div
       className={cn(
-        "w-full overflow-hidden rounded-md border border-white/5 bg-neutral-900/90 shadow-md transition-all duration-200 hover:scale-105 hover:border-emerald-500/30",
-        highlight === "final" && "border-yellow-500/40 shadow-yellow-500/5",
-        highlight === "bronze" && "border-teal-500/30 shadow-teal-500/5",
+        "w-full overflow-hidden rounded-[12px] border border-black/5 bg-white/95 dark:border-white/5 dark:bg-zinc-900/90 shadow-xs transition-all duration-200 hover:scale-[1.03] hover:border-primary/20",
+        highlight === "final" && "border-yellow-400/50 shadow-[0_0_12px_rgba(251,191,36,0.15)]",
+        highlight === "bronze" && "border-teal-400/50 shadow-[0_0_12px_rgba(45,212,191,0.15)]",
       )}
     >
-      <div className="flex items-center justify-between border-b border-white/[0.04] px-2 py-1">
-        <span className="truncate text-[10px] font-semibold text-neutral-200">
+      <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 px-2 py-1">
+        <span className="truncate text-[10px] font-semibold text-zinc-700 dark:text-zinc-350">
           {code(h)}
         </span>
-        <span className="h-1.5 w-1.5 rounded-full bg-neutral-700" />
+        <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
       </div>
       <div className="flex items-center justify-between px-2 py-1">
-        <span className="truncate text-[10px] font-semibold text-neutral-200">
+        <span className="truncate text-[10px] font-semibold text-zinc-700 dark:text-zinc-350">
           {code(a)}
         </span>
-        <span className="h-1.5 w-1.5 rounded-full bg-neutral-700" />
+        <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
       </div>
     </div>
   );
@@ -231,7 +231,7 @@ export function QualifierMatchesPage() {
   };
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <SectionHeader
         eyebrow="Tournament Bracket"
         title="Qualifier Matches"
@@ -253,12 +253,12 @@ export function QualifierMatchesPage() {
         />
       ) : (
         <MotionReveal>
-          <section className="overflow-hidden rounded-xl border border-white/10 bg-neutral-950 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-            <div className="border-b border-white/5 bg-white/[0.02] px-4 py-3 text-center">
-              <h2 className="font-heading text-lg font-black uppercase tracking-widest text-white">
+          <section className="overflow-hidden rounded-[32px] border border-black/5 bg-zinc-200/20 dark:border-white/5 dark:bg-zinc-900/10 shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.3)]">
+            <div className="border-b border-black/5 dark:border-white/5 bg-zinc-150/40 dark:bg-zinc-950/40 px-4 py-3 text-center">
+              <h2 className="font-heading text-lg font-black uppercase tracking-widest text-zinc-950 dark:text-white">
                 World Champions
               </h2>
-              <p className="text-[10px] text-neutral-500">
+              <p className="text-[10px] text-zinc-500 dark:text-zinc-500 font-semibold">
                 FIFA World Cup 2026 · Knockout Bracket
               </p>
             </div>
@@ -525,7 +525,7 @@ export function QualifierMatchesPage() {
           <div className="grid gap-4">
             {/* Search Box */}
             <form
-              className="flex flex-col gap-3 rounded-lg border border-neutral-200/80 bg-white/80 p-4 shadow-sm dark:border-white/10 dark:bg-neutral-950/70 sm:flex-row sm:p-5"
+              className="flex flex-col gap-3 rounded-[28px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md p-4 shadow-xs dark:border-white/10 sm:flex-row sm:p-5"
               onSubmit={handleSubmit}
             >
               <Input
@@ -533,31 +533,32 @@ export function QualifierMatchesPage() {
                 placeholder="Search by slot (e.g. 1A, W73), venue, or city..."
                 value={teamSearch}
                 onChange={(event) => setTeamSearch(event.target.value)}
+                className="rounded-full border-black/5 dark:border-white/10 dark:bg-zinc-850/40 focus-visible:ring-primary focus-visible:ring-offset-0"
               />
 
               {submittedSearch.length > 0 && (
-                <Button variant="outline" onClick={handleClearSearch}>
+                <Button variant="outline" className="rounded-full h-10 w-10 p-0 border-black/5 dark:border-white/10 text-zinc-550 dark:text-zinc-400 dark:hover:text-white" onClick={handleClearSearch}>
                   <XIcon className="h-4 w-4" />
                 </Button>
               )}
 
-              <Button className="sm:w-auto" disabled={isFetching} type="submit">
-                <Search aria-hidden="true" className="h-4 w-4" />
+              <Button className="sm:w-auto rounded-full bg-zinc-950 hover:bg-zinc-900 text-white dark:bg-zinc-100 dark:hover:bg-zinc-200 dark:text-zinc-950 px-5 font-bold shadow-xs transition" disabled={isFetching} type="submit">
+                <Search aria-hidden="true" className="h-4 w-4 mr-1.5" />
                 Search
               </Button>
             </form>
 
             {/* Stage filter tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-neutral-200 pb-2 dark:border-white/10">
+            <div className="flex items-center gap-1 rounded-full bg-zinc-200/50 p-1 dark:bg-zinc-800/50 border border-black/5 dark:border-white/5 overflow-x-auto max-w-full scrollbar-hide">
               {STAGES.map((stage) => (
                 <button
                   key={stage}
                   onClick={() => setActiveStage(stage)}
                   className={cn(
-                    "relative pb-2.5 pt-1 text-xs font-bold uppercase tracking-wider transition-all duration-200 px-3",
+                    "inline-flex whitespace-nowrap rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all duration-200",
                     activeStage === stage
-                      ? "text-emerald-600 dark:text-emerald-400 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-emerald-500"
-                      : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white",
+                      ? "bg-white text-zinc-950 shadow-xs dark:bg-zinc-700 dark:text-white"
+                      : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200",
                   )}
                 >
                   {stage}
@@ -736,13 +737,13 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
       : `${match.score.home} - ${match.score.away}`;
 
   return (
-    <Card className="group h-full overflow-hidden border border-neutral-200/80 bg-white transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:border-white/10 dark:bg-neutral-950 dark:hover:border-emerald-500/60">
+    <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-emerald-500/5 dark:border-white/10 dark:hover:border-emerald-500/40">
       <CardHeaderImage match={match} accentClass="text-emerald-400 ring-emerald-500/20" />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
           <MatchStatusBadge status={match.status} />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Round of 32 / Match {match.matchNumber}
           </span>
         </div>
@@ -750,17 +751,17 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
         <div className="grid gap-2">
           {/* Home team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-emerald-50 text-[9px] font-black text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-[9px] font-black text-emerald-600 dark:text-emerald-400">
               H
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(h)}
             </p>
           </div>
 
           {/* Glowing Green Score/Date Box */}
-          <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
-            <span className="text-[11px] text-neutral-300 dark:text-emerald-100">
+          <div className="grid gap-2 rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-850/60 px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
@@ -768,17 +769,17 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
 
           {/* Away team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-violet-50 text-[9px] font-black text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-500/10 text-[9px] font-black text-violet-600 dark:text-violet-400">
               A
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(a)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-neutral-500" />
+        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-zinc-400" />
           <span className="truncate">
             {match.venue}
             {match.city ? `, ${match.city}` : ""}
@@ -801,13 +802,13 @@ function RoundOf16MatchCard({ match }: { match: QM }) {
       : `${match.score.home} - ${match.score.away}`;
 
   return (
-    <Card className="group h-full overflow-hidden border border-blue-200/80 bg-white transition hover:-translate-y-0.5 hover:border-blue-400 hover:shadow-lg dark:border-white/10 dark:bg-neutral-950 dark:hover:border-blue-500/60">
+    <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-blue-500/5 dark:border-white/10 dark:hover:border-blue-500/40">
       <CardHeaderImage match={match} accentClass="text-blue-400 ring-blue-500/20" />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
           <MatchStatusBadge status={match.status} />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500 dark:text-blue-400">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Round of 16 / Match {match.matchNumber}
           </span>
         </div>
@@ -815,17 +816,17 @@ function RoundOf16MatchCard({ match }: { match: QM }) {
         <div className="grid gap-2">
           {/* Home team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-blue-50 text-[9px] font-black text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/10 text-[9px] font-black text-blue-600 dark:text-blue-400">
               H
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(h)}
             </p>
           </div>
 
           {/* Glowing Blue Score/Date Box */}
-          <div className="grid gap-2 rounded-lg border border-blue-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-blue-300/20 dark:bg-blue-950/45 sm:flex sm:items-center sm:justify-between">
-            <span className="text-[11px] text-blue-300 dark:text-blue-100">
+          <div className="grid gap-2 rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-850/60 px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
@@ -833,17 +834,17 @@ function RoundOf16MatchCard({ match }: { match: QM }) {
 
           {/* Away team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-blue-50/50 text-[9px] font-black text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/10 text-[9px] font-black text-blue-600 dark:text-blue-400">
               A
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(a)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-blue-400" />
+        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-zinc-400" />
           <span className="truncate">
             {match.venue}
             {match.city ? `, ${match.city}` : ""}
@@ -866,13 +867,13 @@ function QuarterFinalMatchCard({ match }: { match: QM }) {
       : `${match.score.home} - ${match.score.away}`;
 
   return (
-    <Card className="group h-full overflow-hidden border border-violet-200 bg-white shadow-md transition hover:-translate-y-0.5 hover:border-violet-400 hover:shadow-violet-500/10 dark:border-violet-500/20 dark:bg-neutral-950 dark:hover:border-violet-500/60">
+    <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-violet-500/5 dark:border-white/10 dark:hover:border-violet-500/40">
       <CardHeaderImage match={match} accentClass="text-violet-400 ring-violet-500/20" />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
           <MatchStatusBadge status={match.status} />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-violet-500 dark:text-violet-400">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Quarter-final / Match {match.matchNumber}
           </span>
         </div>
@@ -880,17 +881,17 @@ function QuarterFinalMatchCard({ match }: { match: QM }) {
         <div className="grid gap-2">
           {/* Home team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-violet-50 text-[9px] font-black text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-500/10 text-[9px] font-black text-violet-600 dark:text-violet-400">
               H
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(h)}
             </p>
           </div>
 
           {/* Glowing Violet Score/Date Box */}
-          <div className="grid gap-2 rounded-lg border border-violet-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-violet-300/20 dark:bg-violet-950/45 sm:flex sm:items-center sm:justify-between">
-            <span className="text-[11px] text-violet-300 dark:text-violet-100">
+          <div className="grid gap-2 rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-850/60 px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
@@ -898,17 +899,17 @@ function QuarterFinalMatchCard({ match }: { match: QM }) {
 
           {/* Away team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-violet-50/50 text-[9px] font-black text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-500/10 text-[9px] font-black text-violet-600 dark:text-violet-400">
               A
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(a)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-violet-400" />
+        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-zinc-400" />
           <span className="truncate">
             {match.venue}
             {match.city ? `, ${match.city}` : ""}
@@ -931,13 +932,13 @@ function SemiFinalMatchCard({ match }: { match: QM }) {
       : `${match.score.home} - ${match.score.away}`;
 
   return (
-    <Card className="group h-full overflow-hidden border border-orange-200 bg-white shadow-lg transition hover:-translate-y-0.5 hover:border-orange-500 hover:shadow-orange-500/10 dark:border-orange-500/30 dark:bg-neutral-950 dark:hover:border-orange-500/60">
+    <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-orange-500/5 dark:border-white/10 dark:hover:border-orange-500/40">
       <CardHeaderImage match={match} accentClass="text-orange-400 ring-orange-500/20" />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
           <MatchStatusBadge status={match.status} />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-orange-500 dark:text-orange-400">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Semi-final / Match {match.matchNumber}
           </span>
         </div>
@@ -945,17 +946,17 @@ function SemiFinalMatchCard({ match }: { match: QM }) {
         <div className="grid gap-2">
           {/* Home team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-orange-50 text-[9px] font-black text-orange-700 dark:bg-orange-400/10 dark:text-orange-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-500/10 text-[9px] font-black text-orange-600 dark:text-orange-400">
               H
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(h)}
             </p>
           </div>
 
           {/* Glowing Orange Score/Date Box */}
-          <div className="grid gap-2 rounded-lg border border-orange-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-orange-300/20 dark:bg-orange-950/45 sm:flex sm:items-center sm:justify-between">
-            <span className="text-[11px] text-orange-300 dark:text-orange-100">
+          <div className="grid gap-2 rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-850/60 px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
@@ -963,17 +964,17 @@ function SemiFinalMatchCard({ match }: { match: QM }) {
 
           {/* Away team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-orange-50/50 text-[9px] font-black text-orange-700 dark:bg-orange-400/10 dark:text-orange-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-500/10 text-[9px] font-black text-orange-600 dark:text-orange-400">
               A
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(a)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-orange-400" />
+        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-zinc-400" />
           <span className="truncate">
             {match.venue}
             {match.city ? `, ${match.city}` : ""}
@@ -996,13 +997,13 @@ function ThirdPlaceMatchCard({ match }: { match: QM }) {
       : `${match.score.home} - ${match.score.away}`;
 
   return (
-    <Card className="group h-full overflow-hidden border border-teal-200 bg-white shadow-md transition hover:-translate-y-0.5 hover:border-teal-400 dark:border-teal-500/30 dark:bg-neutral-950 dark:hover:border-teal-500/60">
+    <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-teal-500/5 dark:border-white/10 dark:hover:border-teal-500/40">
       <CardHeaderImage match={match} accentClass="text-teal-400 ring-teal-500/20" />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
           <MatchStatusBadge status={match.status} />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-teal-500 dark:text-teal-400">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             3rd Place Playoff / Match {match.matchNumber}
           </span>
         </div>
@@ -1010,17 +1011,17 @@ function ThirdPlaceMatchCard({ match }: { match: QM }) {
         <div className="grid gap-2">
           {/* Home team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-teal-50 text-[9px] font-black text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-teal-500/10 text-[9px] font-black text-teal-650 dark:text-teal-400">
               H
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(h)}
             </p>
           </div>
 
           {/* Glowing Teal Score/Date Box */}
-          <div className="grid gap-2 rounded-lg border border-teal-700/20 bg-neutral-950 px-3 py-2 text-white dark:border-teal-300/20 dark:bg-neutral-950/45 sm:flex sm:items-center sm:justify-between">
-            <span className="text-[11px] text-teal-300 dark:text-teal-100">
+          <div className="grid gap-2 rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-850/60 px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
             <strong className="text-sm font-black tracking-wider">{score}</strong>
@@ -1028,17 +1029,17 @@ function ThirdPlaceMatchCard({ match }: { match: QM }) {
 
           {/* Away team */}
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded bg-teal-50/50 text-[9px] font-black text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-teal-500/10 text-[9px] font-black text-teal-650 dark:text-teal-400">
               A
             </span>
-            <p className="truncate text-xs font-bold text-neutral-800 dark:text-neutral-200">
+            <p className="truncate text-xs font-bold text-zinc-800 dark:text-zinc-200">
               {getSlotLabel(a)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-teal-400" />
+        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-zinc-400" />
           <span className="truncate">
             {match.venue}
             {match.city ? `, ${match.city}` : ""}
@@ -1061,7 +1062,7 @@ function FinalMatchCard({ match }: { match: QM }) {
       : `${match.score.home} - ${match.score.away}`;
 
   return (
-    <Card className="group relative col-span-full mx-auto w-full max-w-2xl overflow-hidden border-2 border-yellow-400 bg-neutral-950 shadow-[0_0_40px_rgba(251,191,36,0.3)] ring-1 ring-yellow-400/50 transition hover:border-yellow-300 hover:shadow-[0_0_50px_rgba(251,191,36,0.4)]">
+    <Card className="group relative col-span-full mx-auto w-full max-w-2xl overflow-hidden border-2 border-yellow-450 bg-white dark:bg-zinc-900 shadow-[0_12px_40px_rgba(251,191,36,0.15)] rounded-[32px] transition hover:border-yellow-400 hover:shadow-[0_12px_50px_rgba(251,191,36,0.25)]">
       {/* Real golden trophy cup banner image */}
       <div className="relative h-60 overflow-hidden sm:h-72">
         <Image
@@ -1073,15 +1074,15 @@ function FinalMatchCard({ match }: { match: QM }) {
         />
 
         {/* Golden radial background overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-zinc-900 via-transparent to-transparent" />
 
         {/* Center overlay with team slots and VS icon */}
         <div className="absolute inset-0 flex items-center justify-center gap-6 px-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-950/90 text-center font-heading text-sm font-black text-yellow-400 ring-2 ring-yellow-400/40">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-950/90 text-center font-heading text-sm font-black text-yellow-400 ring-2 ring-yellow-400/40">
             {h.slice(0, 4)}
           </div>
           <VsIcon />
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-950/90 text-center font-heading text-sm font-black text-yellow-400 ring-2 ring-yellow-400/40">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-950/90 text-center font-heading text-sm font-black text-yellow-400 ring-2 ring-yellow-400/40">
             {a.slice(0, 4)}
           </div>
         </div>
@@ -1090,11 +1091,11 @@ function FinalMatchCard({ match }: { match: QM }) {
       <CardContent className="relative grid gap-5 p-6 sm:p-8">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-yellow-400">
-            <Sparkles className="h-3.5 w-3.5 text-yellow-400 animate-pulse" />
+          <div className="flex items-center gap-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-yellow-655 dark:text-yellow-400">
+            <Sparkles className="h-3.5 w-3.5 text-yellow-500 dark:text-yellow-400 animate-pulse" />
             <span>FIFA World Cup Final</span>
           </div>
-          <span className="text-xs font-bold uppercase tracking-widest text-yellow-500/80">
+          <span className="text-xs font-bold uppercase tracking-widest text-yellow-600 dark:text-yellow-550">
             Match {match.matchNumber}
           </span>
         </div>
@@ -1102,36 +1103,36 @@ function FinalMatchCard({ match }: { match: QM }) {
         {/* Slot labels */}
         <div className="grid gap-3">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded bg-yellow-400 text-[10px] font-black text-neutral-950">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400 text-[10px] font-black text-zinc-950">
               H
             </span>
-            <p className="truncate text-sm font-black text-white">
+            <p className="truncate text-sm font-black text-zinc-800 dark:text-zinc-100">
               {getSlotLabel(h)}
             </p>
           </div>
 
           {/* Golden score & date box */}
-          <div className="grid gap-2 rounded-lg border border-yellow-500/30 bg-gradient-to-r from-yellow-950/45 to-amber-950/45 px-4 py-3.5 text-center sm:flex sm:items-center sm:justify-between">
-            <span className="text-xs font-semibold text-yellow-200">
+          <div className="grid gap-2 rounded-[18px] border border-yellow-500/20 bg-yellow-500/5 dark:bg-yellow-950/20 px-4 py-3.5 text-center sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-xs font-bold text-yellow-800 dark:text-yellow-300">
               <FormattedDateTime date={match.date} />
             </span>
-            <strong className="text-lg font-black tracking-widest text-yellow-400">
+            <strong className="text-base font-black tracking-widest text-yellow-650 dark:text-yellow-400">
               {score}
             </strong>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded bg-yellow-400 text-[10px] font-black text-neutral-950">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400 text-[10px] font-black text-zinc-950">
               A
             </span>
-            <p className="truncate text-sm font-black text-white">
+            <p className="truncate text-sm font-black text-zinc-800 dark:text-zinc-100">
               {getSlotLabel(a)}
             </p>
           </div>
         </div>
 
         {/* Venue details */}
-        <div className="flex items-center justify-between text-xs text-yellow-500/70 border-t border-yellow-500/10 pt-4">
+        <div className="flex items-center justify-between text-xs text-yellow-600 dark:text-yellow-550 border-t border-yellow-500/10 pt-4">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="h-4 w-4" />
             {match.venue}, {match.city}

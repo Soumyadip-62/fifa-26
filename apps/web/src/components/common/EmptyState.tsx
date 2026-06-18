@@ -5,15 +5,15 @@ export type EmptyStateProps = {
 
 export function EmptyState({ title, description }: EmptyStateProps) {
   return (
-    <section className="rounded-lg border border-dashed border-neutral-300 bg-white/85 p-8 text-center shadow-sm dark:border-white/15 dark:bg-neutral-950/75">
-      <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 ring-1 ring-emerald-700/10 dark:bg-emerald-400/10 dark:text-emerald-200 dark:ring-emerald-300/20">
+    <section className="rounded-[28px] border border-dashed border-zinc-300 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/30 p-8 text-center backdrop-blur-md shadow-xs">
+      <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-200/50 text-zinc-500 font-bold dark:bg-zinc-800 dark:text-zinc-400 border border-black/5 dark:border-white/5">
         0
       </div>
-      <h2 className="font-heading text-lg font-bold text-neutral-950 dark:text-neutral-50">
+      <h2 className="font-heading text-base font-black text-zinc-950 dark:text-white">
         {title}
       </h2>
       {description ? (
-        <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+        <p className="mx-auto mt-1 max-w-xl text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
           {description}
         </p>
       ) : null}
