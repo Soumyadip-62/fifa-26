@@ -57,19 +57,19 @@ const watchPlatforms = [
 export function BroadcastHub() {
   return (
     <MotionReveal>
-      <section className="my-8 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-[0_24px_70px_rgba(4,22,13,0.08)] transition-all dark:border-white/10 dark:bg-neutral-950 dark:shadow-[0_24px_70px_rgba(4,22,13,0.24)]">
+      <section className="my-6 overflow-hidden rounded-[32px] border border-black/5 bg-zinc-200/20 dark:border-white/5 dark:bg-zinc-900/10 shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.3)]">
         <div className="grid gap-0 lg:grid-cols-[0.6fr_1.4fr]">
           {/* Left Sidebar Content */}
-          <div className="relative flex flex-col justify-between gap-10 border-b border-neutral-200 p-6 sm:p-8 lg:border-b-0 lg:border-r dark:border-white/10 dark:bg-emerald-950/10">
-            <div className="grid gap-5">
-              <p className="w-fit rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-400/10 dark:text-emerald-400">
+          <div className="relative flex flex-col justify-between gap-8 border-b border-black/5 p-6 sm:p-8 lg:border-b-0 lg:border-r dark:border-white/5 dark:bg-zinc-900/20">
+            <div className="grid gap-4">
+              <p className="w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">
                 Live Coverage
               </p>
-              <div className="grid gap-3">
-                <h2 className="font-heading text-3xl font-black tracking-tight text-neutral-950 sm:text-4xl dark:text-white">
+              <div className="grid gap-2">
+                <h2 className="font-heading text-2xl font-black tracking-tight text-zinc-950 sm:text-3xl dark:text-white">
                   Broadcast Hub
                 </h2>
-                <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-base">
+                <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
                   Official television, live streaming, and free-to-air options
                   for world-class FIFA 2026 coverage.
                 </p>
@@ -77,25 +77,25 @@ export function BroadcastHub() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-4 transition duration-300 hover:bg-neutral-100 dark:border-emerald-500/10 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 dark:text-emerald-500/60">
+              <div className="rounded-[20px] border border-black/5 bg-white/60 p-4 dark:border-white/5 dark:bg-zinc-800/20">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                   Coverage
                 </p>
-                <p className="font-heading mt-1 text-3xl font-black text-neutral-950 dark:text-white">
+                <p className="font-heading mt-1 text-2xl font-black text-zinc-950 dark:text-white">
                   104
                 </p>
-                <p className="mt-0.5 text-[10px] text-neutral-500 dark:text-neutral-500">
+                <p className="mt-0.5 text-[9px] text-zinc-400 dark:text-zinc-500">
                   Full matches
                 </p>
               </div>
-              <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-4 transition duration-300 hover:bg-neutral-100 dark:border-emerald-500/10 dark:bg-emerald-950/30 dark:hover:bg-emerald-900/40">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 dark:text-emerald-500/60">
+              <div className="rounded-[20px] border border-black/5 bg-white/60 p-4 dark:border-white/5 dark:bg-zinc-800/20">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                   Access
                 </p>
-                <p className="font-heading mt-1 text-3xl font-black text-neutral-950 dark:text-white">
+                <p className="font-heading mt-1 text-2xl font-black text-zinc-950 dark:text-white">
                   4K
                 </p>
-                <p className="mt-0.5 text-[10px] text-neutral-500 dark:text-neutral-500">
+                <p className="mt-0.5 text-[9px] text-zinc-400 dark:text-zinc-500">
                   Multi-platform
                 </p>
               </div>
@@ -103,7 +103,7 @@ export function BroadcastHub() {
           </div>
 
           {/* Platform Grid */}
-          <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-3">
+          <div className="grid gap-5 p-6 sm:p-8 lg:grid-cols-3">
             {watchPlatforms.map((platform, index) => {
               const Icon = platform.icon;
 
@@ -113,32 +113,32 @@ export function BroadcastHub() {
                   delay={Math.min(index * 0.05, 0.15)}
                   key={platform.name}
                 >
-                  <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all duration-500 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-500/50 dark:hover:bg-white/10">
+                  <article className="group flex h-full flex-col overflow-hidden rounded-[24px] ios-glass transition-all duration-300 hover:scale-[1.01] hover:shadow-md border border-black/5 dark:border-white/5">
                     <div className="p-5 pb-0">
                       <div className="flex items-center justify-between gap-3">
                         <div
-                          className={`flex h-10 min-w-16 items-center justify-center rounded-lg px-3 font-heading text-xs font-black tracking-tight shadow-sm ring-1 ring-black/5 transition duration-500 group-hover:scale-105 ${platform.badgeClass}`}
+                          className={`flex h-8 min-w-14 items-center justify-center rounded-lg px-2.5 font-heading text-[10px] font-black tracking-tight shadow-sm ring-1 ring-black/5 transition duration-500 group-hover:scale-105 ${platform.badgeClass}`}
                           aria-label={`${platform.name} logo`}
                         >
                           {platform.logo}
                         </div>
-                        <div className="flex size-10 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition-colors duration-300 group-hover:bg-emerald-100 group-hover:text-emerald-700 dark:bg-white/5 dark:text-emerald-400/80 dark:group-hover:bg-emerald-500/20">
-                          <Icon className="size-5" aria-hidden="true" />
+                        <div className="flex size-9 items-center justify-center rounded-full bg-zinc-100 text-zinc-500 transition-colors duration-300 group-hover:bg-primary/20 group-hover:text-primary dark:bg-zinc-800/40 dark:text-zinc-400">
+                          <Icon className="size-4.5" aria-hidden="true" />
                         </div>
                       </div>
                     </div>
 
                     <div className="flex flex-1 flex-col p-5">
-                      <div className="mb-4">
-                        <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400/80">
+                      <div className="mb-3">
+                        <p className="mb-0.5 text-[9px] font-bold uppercase tracking-widest text-primary">
                           {platform.label}
                         </p>
-                        <h3 className="font-heading text-lg font-black text-neutral-950 dark:text-white">
+                        <h3 className="font-heading text-base font-black text-zinc-950 dark:text-white">
                           {platform.name}
                         </h3>
                       </div>
 
-                      <p className="mb-6 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                      <p className="mb-4 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
                         {platform.description}
                       </p>
 
@@ -146,7 +146,7 @@ export function BroadcastHub() {
                         <div className="flex flex-wrap gap-1.5">
                           {platform.channels.map((channel) => (
                             <span
-                              className="inline-flex rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[10px] font-medium text-neutral-700 transition group-hover:border-emerald-200 dark:border-white/5 dark:bg-black/20 dark:text-neutral-300 dark:group-hover:border-emerald-500/30"
+                              className="inline-flex rounded-full border border-black/5 bg-black/5 px-2.5 py-0.5 text-[9px] font-semibold text-zinc-700 transition dark:border-white/5 dark:bg-white/5 dark:text-zinc-300"
                               key={channel}
                             >
                               {channel}
@@ -155,11 +155,11 @@ export function BroadcastHub() {
                         </div>
 
                         {platform.link && (
-                          <Button className="w-full h-9 text-xs font-bold transition-all duration-300 group-hover:bg-emerald-600  dark:hover:bg-emerald-600">
-                            <Link href={platform.link} target="_blank">
+                          <Link href={platform.link} target="_blank" className="block w-full">
+                            <Button className="w-full h-8.5 rounded-full text-xs font-bold bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 shadow-sm transition">
                               Launch Platform
-                            </Link>
-                          </Button>
+                            </Button>
+                          </Link>
                         )}
                       </div>
                     </div>
@@ -173,3 +173,4 @@ export function BroadcastHub() {
     </MotionReveal>
   );
 }
+

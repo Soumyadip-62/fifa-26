@@ -87,40 +87,40 @@ export function FirstMatchCountdown({
   ];
 
   return (
-    <div className="grid w-full max-w-xl gap-3 rounded-lg border border-white/15 bg-neutral-950/35 p-4 shadow-sm backdrop-blur">
+    <div className="grid w-full max-w-xl gap-4 rounded-[28px] border border-black/5 dark:border-white/10 bg-black/70 dark:bg-zinc-900/60 p-5 shadow-lg backdrop-blur-xl">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-xs font-bold uppercase tracking-wide text-emerald-100">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-primary">
           First match countdown
         </p>
         <time
-          className="text-xs font-semibold text-white/80"
+          className="text-xs font-semibold text-zinc-300 dark:text-zinc-400"
           dateTime={activeCountdown.targetIso}
         >
           <FormattedDateTime date={targetIso} />
         </time>
       </div>
-      <p className="text-sm font-semibold text-white">
+      <p className="text-sm font-black tracking-tight text-white">
         {activeCountdown.matchLabel}
       </p>
       <div className="grid grid-cols-4 gap-2">
         {units.map((unit) => (
           <div
-            className="grid min-h-16 place-items-center rounded-md border border-white/10 bg-white/10 px-1 sm:px-2 py-2 text-center"
+            className="grid min-h-16 place-items-center rounded-[18px] border border-white/5 bg-white/10 px-1 sm:px-2 py-2.5 text-center shadow-xs"
             key={unit.label}
           >
-            <span className="font-heading text-md sm:text-xl font-black leading-none text-white sm:text-2xl">
+            <span className="font-heading text-lg sm:text-2xl font-black leading-none text-white">
               {typeof unit.value === "number"
                 ? formatTimeValue(unit.value)
                 : "--"}
             </span>
-            <span className="mt-1 text-[6px] sm:text-[10px] font-bold uppercase tracking-wide text-emerald-100">
+            <span className="mt-1 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-zinc-300">
               {unit.label}
             </span>
           </div>
         ))}
       </div>
       {remaining?.isFinished ? (
-        <p className="text-sm font-semibold text-emerald-100">
+        <p className="text-xs font-bold text-primary mt-1">
           The opening match is underway.
         </p>
       ) : null}

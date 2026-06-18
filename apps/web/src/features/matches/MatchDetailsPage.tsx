@@ -89,9 +89,9 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
   return isPending ? (
     "Loading..."
   ) : (
-    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <MotionReveal>
-        <section className="relative overflow-hidden rounded-xl bg-neutral-950 text-white shadow-[0_24px_70px_rgba(4,22,13,0.28)] ring-1 ring-white/10">
+        <section className="relative overflow-hidden rounded-[32px] bg-zinc-950 text-white shadow-xl border border-black/5 dark:border-white/5">
           {/* STADIUM BACKGROUND IMAGE */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -103,19 +103,19 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
               className="object-cover opacity-60"
             />
             {/* GRADIENT OVERLAYS */}
-            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/10 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/10 via-transparent to-neutral-950/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/20 via-transparent to-zinc-950/25" />
           </div>
 
           {/* INNER CONTENT */}
-          <div className="relative z-10 grid gap-6 p-6 sm:p-8 md:p-10 md:py-16">
+          <div className="relative z-10 grid gap-6 p-6 sm:p-8 md:p-10 md:py-14">
             <div className="flex flex-wrap items-center gap-3">
               <MatchStatusBadge status={match.status} />
-              <span className="text-sm font-semibold text-neutral-300">
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-350">
                 {match.stage ?? match.tournament}
               </span>
               {match.group ? (
-                <span className="text-sm font-semibold text-neutral-300">
+                <span className="text-xs font-bold uppercase tracking-wider text-zinc-350">
                   Group {match.group}
                 </span>
               ) : null}
@@ -133,7 +133,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
                   <h2 className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
                     {match.homeTeam.name}
                   </h2>
-                  <span className="text-xs text-neutral-400 font-bold uppercase tracking-wider">
+                  <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
                     {match.homeTeam.shortCode}
                   </span>
                 </div>
@@ -141,8 +141,8 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
 
               {/* VS & Score Board */}
               <div className="flex flex-col items-center justify-center gap-2">
-                <div className="rounded-xl border border-white/20 bg-neutral-950/80 backdrop-blur-md px-6 py-4 text-center shadow-2xl min-w-[140px]">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                <div className="rounded-[20px] border border-white/10 bg-black/60 backdrop-blur-md px-6 py-4 text-center shadow-lg min-w-[140px]">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-primary">
                     <FormattedDateTime date={match.date} />
                   </p>
                   <strong className="font-heading mt-1.5 block text-3xl font-black tracking-tighter text-white md:text-4xl">
@@ -162,7 +162,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
                   <h2 className="font-heading text-xl font-black tracking-tight text-white md:text-2xl">
                     {match.awayTeam.name}
                   </h2>
-                  <span className="text-xs text-neutral-400 font-bold uppercase tracking-wider">
+                  <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
                     {match.awayTeam.shortCode}
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
       <section className="grid gap-5 sm:grid-cols-3">
         {match.venue ? (
           <VenueDetailsDrawer venueName={match.venue}>
-            <div className="cursor-pointer transition hover:-translate-y-0.5 hover:shadow-md rounded-lg overflow-hidden">
+            <div className="cursor-pointer transition hover:scale-[1.01] rounded-[24px] overflow-hidden">
               <StatCard
                 label="Venue"
                 value={match.venue}
@@ -200,10 +200,9 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
 
       {match.status === "scheduled" && (
         <div
-          style={{ padding: "24px" }}
-          className=" rounded-xl bg-neutral-300 dark:bg-neutral-800"
+          className="rounded-[20px] bg-zinc-100/50 dark:bg-zinc-800/40 border border-black/5 dark:border-white/10 p-5 text-center backdrop-blur-xs"
         >
-          <h3 className="text-md md:text-xl font-semibold font-sans">
+          <h3 className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
             These lineups are not confirmed yet!
           </h3>
         </div>
@@ -227,15 +226,15 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
       </section>
 
       <MotionReveal className="grid gap-4">
-        <Card>
-          <CardContent className="grid gap-5 p-5 sm:p-6">
+        <Card className="rounded-[28px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md shadow-xs dark:border-white/10">
+          <CardContent className="grid gap-4 p-5 sm:p-6">
             <SectionHeader
               eyebrow="Timeline"
               title="Match events"
               description="Live events can plug into this section later."
             />
-            <Separator />
-            <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            <Separator className="bg-black/5 dark:bg-white/5" />
+            <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
               No timeline events available yet.
             </p>
           </CardContent>

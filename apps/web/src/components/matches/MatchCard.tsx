@@ -24,45 +24,45 @@ export function MatchCard({ match }: MatchCardProps) {
 
   return (
     <Link
-      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       href={`/matches/${match.id}`}
     >
-      <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-lg dark:hover:border-emerald-500/60">
+      <Card className="h-full overflow-hidden border border-black/5 dark:border-white/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm transition hover:scale-[1.01] hover:shadow-md">
         {match.venueImageUrl ? (
-          <div className="relative h-52 overflow-hidden bg-neutral-900 sm:h-60">
+          <div className="relative h-44 overflow-hidden bg-zinc-900 sm:h-52">
             <Image
               src={match.venueImageUrl}
               alt={match.venue ? `${match.venue} stadium` : "Stadium"}
               fill
               sizes="(min-width: 1024px) 360px, 100vw"
-              className="object-cover opacity-90 transition group-hover:scale-105"
+              className="object-cover opacity-80 transition group-hover:scale-105"
             />
 
-            <div className="absolute inset-0 flex items-center justify-center gap-3 bg-gradient-to-t from-neutral-950/70 via-neutral-950/30 to-transparent px-4">
-              <TeamLogoImage team={match.homeTeam} size={96} />
-              <VsIcon />
-              <TeamLogoImage team={match.awayTeam} size={96} />
+            <div className="absolute inset-0 flex items-center justify-center gap-4 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent px-4">
+              <TeamLogoImage team={match.homeTeam} size={72} />
+              <div className="bg-black/60 backdrop-blur-md text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs border border-white/10">VS</div>
+              <TeamLogoImage team={match.awayTeam} size={72} />
             </div>
           </div>
         ) : null}
-        <CardContent className="grid gap-5 p-5 sm:p-6">
+        <CardContent className="grid gap-4 p-5">
           <div className="flex items-center justify-between gap-3">
             <MatchStatusBadge status={match.status} />
-            <span className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-              {meta.length ? meta.join(" / ") : ""}
+            <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+              {meta.length ? meta.join(" · ") : ""}
             </span>
           </div>
-          <div className="grid gap-3">
+          <div className="grid gap-2">
             <TeamBadge compact {...match.homeTeam} />
-            <div className="grid gap-2 rounded-lg border border-emerald-700/20 bg-neutral-950 px-4 py-3 text-white dark:border-emerald-300/20 dark:bg-emerald-950/45 sm:flex sm:items-center sm:justify-between">
-              <span className="text-xs leading-5 text-neutral-300 dark:text-emerald-100">
+            <div className="grid gap-1.5 rounded-2xl border border-black/5 bg-zinc-100/80 dark:bg-zinc-800/30 px-3.5 py-2 sm:flex sm:items-center sm:justify-between">
+              <span className="text-[10px] font-semibold text-zinc-500 dark:text-zinc-400">
                 <FormattedDateTime date={match.date} />
               </span>
-              <strong className="text-lg leading-none">{score}</strong>
+              <strong className="text-sm font-black text-zinc-950 dark:text-white">{score}</strong>
             </div>
             <TeamBadge compact {...match.awayTeam} />
           </div>
-          <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+          <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 mt-1">
             {match.venue ? match.venue : "Venue TBD"}
             {match.city ? `, ${match.city}` : ""}
           </p>
@@ -71,3 +71,4 @@ export function MatchCard({ match }: MatchCardProps) {
     </Link>
   );
 }
+

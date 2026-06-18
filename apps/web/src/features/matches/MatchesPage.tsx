@@ -37,7 +37,7 @@ export function MatchesPage() {
   };
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <SectionHeader
           eyebrow="Matches"
@@ -46,7 +46,7 @@ export function MatchesPage() {
         />
         <Link
           href="/matches/knockout-matches"
-          className={buttonVariants({ variant: "default", className: "bg-emerald-600 hover:bg-emerald-700 text-white font-bold inline-flex items-center gap-2 shadow-md hover:shadow-lg transition-all" })}
+          className={buttonVariants({ variant: "default", className: "bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold inline-flex items-center gap-2 shadow-xs rounded-full transition-all" })}
         >
           <Sparkles className="h-4 w-4" /> Knockout Stage
         </Link>
@@ -54,7 +54,7 @@ export function MatchesPage() {
 
       <MotionReveal>
         <form
-          className="flex flex-col gap-3 rounded-lg border border-neutral-200/80 bg-white/80 p-4 shadow-sm dark:border-white/10 dark:bg-neutral-950/70 sm:flex-row sm:p-5"
+          className="flex flex-col gap-3 rounded-[28px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md p-4 shadow-xs dark:border-white/10 sm:flex-row sm:p-5"
           onSubmit={handleSubmit}
         >
           <Input
@@ -62,16 +62,17 @@ export function MatchesPage() {
             placeholder="Search matches by team..."
             value={teamSearch}
             onChange={(event) => setTeamSearch(event.target.value)}
+            className="rounded-full border-black/5 dark:border-white/10 dark:bg-zinc-850/40 focus-visible:ring-primary focus-visible:ring-offset-0"
           />
 
           {isSuccess && submittedSearch.length > 0 && (
-            <Button variant="outline" onClick={handleClearSearch}>
+            <Button variant="outline" className="rounded-full h-10 w-10 p-0 border-black/5 dark:border-white/10 text-zinc-550 dark:text-zinc-400 dark:hover:text-white" onClick={handleClearSearch}>
               <XIcon className="h-4 w-4" />
             </Button>
           )}
 
-          <Button className="sm:w-auto" disabled={isFetching} type="submit">
-            <Search aria-hidden="true" className="h-4 w-4" />
+          <Button className="sm:w-auto rounded-full bg-zinc-950 hover:bg-zinc-900 text-white dark:bg-zinc-100 dark:hover:bg-zinc-200 dark:text-zinc-950 px-5 font-bold shadow-xs transition" disabled={isFetching} type="submit">
+            <Search aria-hidden="true" className="h-4 w-4 mr-1.5" />
             Search
           </Button>
         </form>

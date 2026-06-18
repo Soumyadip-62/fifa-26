@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { TabBar } from "./TabBar";
 import { QueryProvider } from "./QueryProvider";
 
 export type AppShellProps = {
@@ -12,9 +13,11 @@ export function AppShell({ children }: AppShellProps) {
     <div className="app-bg flex min-h-svh flex-col">
       <QueryProvider>
         <Header />
-        <main className="flex-1 pt-16">{children}</main>
+        <main className="flex-1 pt-16 pb-24 sm:pb-0">{children}</main>
+        <TabBar />
         <Footer />
       </QueryProvider>
     </div>
   );
 }
+
