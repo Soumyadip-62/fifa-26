@@ -16,6 +16,9 @@ import { TeamEntity } from './teams/entitites/teams.entity';
 import { MatchEntity } from './matches/entities/matches.entity';
 import { HistoricalMatchEntity } from './history/entities/history.entity';
 import { TournamentEntity } from './history/entities/tournament.entity';
+import { ScheduleModule } from '@nestjs/schedule';
+import { NotificationService } from './notification/notification.service';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -29,7 +32,7 @@ import { TournamentEntity } from './history/entities/tournament.entity';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
@@ -47,8 +50,9 @@ import { TournamentEntity } from './history/entities/tournament.entity';
     }),
     VenuesModule,
     PointsTableModule,
+    NotificationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, NotificationService],
 })
 export class AppModule {}
