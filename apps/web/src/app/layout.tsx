@@ -42,6 +42,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { PushNotificationListener } from "@/components/providers/PushNotificationListener";
 import { MatchProvider } from "Context/MatchContext";
 
 export default function RootLayout({
@@ -59,6 +60,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <MatchProvider>
+            <PushNotificationListener />
             <AppShell>{children}</AppShell>
           </MatchProvider>
           <Analytics />
