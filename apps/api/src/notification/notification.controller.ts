@@ -11,9 +11,12 @@ export class NotificationController {
   }
 
   @Post('test')
-  testSendNotification(
-    @Body() body: { token: string; title: string; body: string },
+  send(
+    @Body()
+    body: {
+      token: string;
+    },
   ) {
-    return this.notificationService;
+    return this.notificationService.sendTest(body.token);
   }
 }
