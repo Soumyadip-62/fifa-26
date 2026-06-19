@@ -156,7 +156,7 @@ const PlayerDetailsDrawer = ({
 
           <div className="grid gap-6 md:grid-cols-[180px_1fr] md:items-start">
             {/* PORTRAIT CARD */}
-            <div className="group relative aspect-[4/5] w-full overflow-hidden rounded-[24px] border border-black/5 bg-zinc-50 p-2 dark:border-white/5 dark:bg-zinc-850/50 shadow-xs">
+            <div className="group relative aspect-[4/5] w-full overflow-hidden rounded-[24px] border border-black/5 bg-zinc-50 p-1 dark:border-white/5 dark:bg-zinc-850/50 shadow-xs">
               <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-zinc-900">
                 <Image
                   src={imageUrl ?? images.placeholders.player}
@@ -182,7 +182,7 @@ const PlayerDetailsDrawer = ({
                   </Badge>
                 ) : null}
                 {getTextValue(player.strNationality) ? (
-                  <Badge variant="outline" className="font-bold text-[10px] px-2.5 py-1 rounded-full border-black/5 dark:border-white/10 bg-zinc-50/50 dark:bg-zinc-850/30 text-zinc-650 dark:text-zinc-400">
+                  <Badge variant="outline" className="font-bold text-[10px] px-2.5 py-1 rounded-full border-black/5 dark:border-white/10 bg-zinc-50/50 dark:bg-black text-zinc-650 dark:text-zinc-400">
                     {getTextValue(player.strNationality)}
                   </Badge>
                 ) : null}
@@ -190,10 +190,10 @@ const PlayerDetailsDrawer = ({
 
               {/* STAT GRID DETAILS */}
               {details.length ? (
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-1">
                   {details.map((detail) => (
                     <div 
-                      className="flex items-center gap-3 rounded-[20px] border border-black/5 bg-zinc-50/50 p-3 dark:border-white/5 dark:bg-zinc-850/20 shadow-xs"
+                      className="flex items-center gap-3 rounded-[20px] border border-black/5 bg-zinc-50/50 p-3 dark:border-white/5 dark:bg-black shadow-xs"
                       key={detail.label}
                     >
                       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-white border border-black/5 dark:bg-zinc-850 dark:border-white/5 shadow-xs">

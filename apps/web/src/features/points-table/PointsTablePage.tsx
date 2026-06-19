@@ -117,7 +117,7 @@ export function PointsTablePage() {
       <MotionReveal>
         <div className="flex flex-col gap-4 rounded-[28px] border border-black/5 bg-zinc-200/25 p-4 shadow-sm dark:border-white/5 dark:bg-zinc-900/10 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
           {/* Quick Tabs - iOS Segmented Control style */}
-          <div className="flex flex-wrap gap-1 bg-zinc-200/50 dark:bg-zinc-800/40 p-1 rounded-full border border-black/5 dark:border-white/5 max-w-full overflow-x-auto">
+          <div className="flex flex-wrap gap-1 bg-zinc-200/50 dark:bg-zinc-800/40 p-2 rounded-[20px] sm:rounded-full border border-black/5 dark:border-white/5 max-w-full overflow-x-auto">
             <Button
               variant="ghost"
               onClick={() => handleGroupSelect("All")}

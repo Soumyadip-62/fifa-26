@@ -25,7 +25,7 @@ export function TeamBadge({
   className,
 }: TeamBadgeProps) {
   return (
-    <div className={cn("flex min-w-0 items-center gap-3 text-left", className)}>
+    <div className={cn("flex min-w-0 items-center gap-3 text-left ", className)}>
       <Image
         src={logoUrl || images.teams.default}
         alt={`${name} logo`}
@@ -38,15 +38,15 @@ export function TeamBadge({
           <FlagIcon country={country ?? name} />
           <p
             className={cn(
-              "truncate font-semibold text-neutral-950 dark:text-neutral-50",
+              "truncate font-semibold text-neutral-950 dark:text-neutral-50 text-wrap max-w-[150px]",
               compact ? "text-sm" : "text-base",
             )}
           >
             {name}
           </p>
         </div>
-        <div className="mt-1 flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
-          <span>{shortCode ?? country ?? "TBD"}</span>
+        <div className="text-xs text-neutral-500 dark:text-neutral-400">
+          {/* <span>{shortCode ?? country ?? "TBD"}</span> */}
           {ranking ? <span>Rank {ranking}</span> : null}
         </div>
       </div>

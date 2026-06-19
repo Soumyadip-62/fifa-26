@@ -42,6 +42,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { MatchProvider } from "Context/MatchContext";
 
 export default function RootLayout({
   children,
@@ -57,7 +58,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppShell>{children}</AppShell>
+          <MatchProvider>
+            <AppShell>{children}</AppShell>
+          </MatchProvider>
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

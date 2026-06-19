@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { images } from "@/assets";
 import { cn } from "@/lib/utils/cn";
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { DynamicIsland } from "./DynamicIsland";
 
@@ -19,6 +18,9 @@ const navItems = [
 
 export function Header() {
   const pathname = usePathname();
+
+  const isActivePath = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 ios-glass border-b border-black/5 dark:border-white/10 shadow-sm backdrop-blur-xl">
@@ -47,18 +49,15 @@ export function Header() {
           </span>
         </Link>
 
-        <div className="flex items-center justify-center flex-1 max-w-[200px] sm:max-w-xs">
+        <div className="hidden md:flex items-center justify-center flex-1 px-2">
           <DynamicIsland />
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <nav className="hidden sm:block" aria-label="Primary navigation">
+          <nav className="hidden lg:block" aria-label="Primary navigation">
             <ul className="flex items-center gap-1 rounded-full bg-zinc-200/50 p-1 dark:bg-zinc-800/50 border border-black/5 dark:border-white/5">
               {navItems.map((item) => {
-                const isActive =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href);
+                const isActive = isActivePath(item.href);
                 return (
                   <li key={item.href}>
                     <Link

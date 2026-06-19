@@ -128,7 +128,7 @@ export function FlagIcon({ country, className }: FlagIconProps) {
       width={28}
       height={20}
       className={cn(
-        "h-5 w-7 rounded-sm object-cover ring-1 ring-black/10 dark:ring-white/15",
+        "h-5 w-7 rounded-xs object-cover  ring-black/10 dark:ring-white/15",
         className,
       )}
     />
