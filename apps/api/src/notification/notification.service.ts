@@ -29,7 +29,7 @@ export class NotificationService {
 
     // 1. Get all matches
     const upcomingMatches = await this.matchRepo.find();
-    
+
     const nowMs = Date.now();
     const thirtyMinsMs = 30 * 60 * 1000;
     const twentyFiveMinsMs = 25 * 60 * 1000;
@@ -52,12 +52,21 @@ export class NotificationService {
 
     // 4. Send notifications
     for (const match of matchesToNotify) {
-      const title = 'Match Starts in 30 Mins! ⚽';
+      const matchDate = match.timestampUtc ? new Date(match.timestampUtc) : new Date();
+      const localTimeStr = matchDate.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      const title = `Next Match Starts at ${localTimeStr}! ⚽`;
       const body = `${match.homeTeam} vs ${match.awayTeam}`;
-      
-      this.logger.log(`Sending notification for: ${body} to ${tokens.length} users.`);
 
-      const promises = tokens.map((t) => this.firebase.send(t.token, title, body));
+      this.logger.log(
+        `Sending notification for: ${body} to ${tokens.length} users.`,
+      );
+
+      const promises = tokens.map((t) =>
+        this.firebase.send(t.token, title, body),
+      );
       await Promise.allSettled(promises);
     }
   }
@@ -67,7 +76,7 @@ export class NotificationService {
 
     // Check if we already saved this token
     const existing = await this.tokenRepo.findOne({ where: { token } });
-    
+
     if (!existing) {
       const newToken = this.tokenRepo.create({
         id: Date.now().toString() + Math.random().toString(36).substring(7),
