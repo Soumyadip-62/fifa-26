@@ -4,22 +4,25 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, Trophy, Tv, Calendar } from "lucide-react";
 
-export function DynamicIsland() {
+export function DynamicIsland({ hasLiveMatch = true }: { hasLiveMatch?: boolean }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  if (!hasLiveMatch) return null;
+
   return (
-    <div className="relative flex justify-center w-full z-50">
+    <div className="relative flex justify-center w-full z-50 h-[32px]">
       <motion.div
         layout
         onClick={() => setIsExpanded(!isExpanded)}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
-        className="cursor-pointer bg-black text-white rounded-[24px] flex items-center justify-between shadow-lg overflow-hidden border border-white/10 select-none"
+        className="absolute top-0 cursor-pointer bg-black/80 backdrop-blur-3xl text-white rounded-[32px] flex items-center justify-between shadow-lg overflow-hidden border border-white/10 select-none"
         style={{
-          width: isExpanded ? "340px" : "180px",
-          height: isExpanded ? "70px" : "32px",
-          paddingLeft: isExpanded ? "16px" : "10px",
-          paddingRight: isExpanded ? "16px" : "10px",
+          width: isExpanded ? "380px" : "180px",
+          height: isExpanded ? "80px" : "32px",
+          paddingLeft: isExpanded ? "16px" : "12px",
+          paddingRight: isExpanded ? "16px" : "12px",
+          boxShadow: "0px 10px 40px rgba(0, 0, 0, 0.1)",
         }}
         transition={{
           type: "spring",
@@ -34,18 +37,19 @@ export function DynamicIsland() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="flex items-center justify-between w-full text-[11px] font-semibold tracking-wide"
+              className="flex items-center justify-between w-full text-[12px] font-bold tracking-wide"
             >
               <div className="flex items-center gap-1.5">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                 </span>
-                <span>FIFA 26 Live</span>
+                <span className="text-red-500">75'</span>
               </div>
-              <div className="flex items-center gap-1 text-emerald-400">
-                <Trophy className="h-3 w-3" />
-                <span>104 fixtures</span>
+              <div className="flex items-center gap-2">
+                <span>ARG</span>
+                <span className="text-white/60 font-medium">2 - 1</span>
+                <span>FRA</span>
               </div>
             </motion.div>
           ) : (
@@ -54,21 +58,39 @@ export function DynamicIsland() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="flex items-center justify-between w-full h-full py-1"
+              className="flex items-center justify-between w-full h-full py-2 px-2"
             >
-              <div className="flex flex-col gap-0.5 justify-center">
-                <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Tournament Live</p>
-                <h4 className="text-xs font-black tracking-normal flex items-center gap-1 text-emerald-400">
-                  <Sparkles className="h-3.5 w-3.5 fill-current" />
-                  Road to 2026 Finals
-                </h4>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition">
-                  <Tv className="h-4 w-4" />
+              {/* Left Team - Argentina */}
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-lg border border-white/20 shadow-inner">
+                  🇦🇷
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition">
-                  <Calendar className="h-4 w-4" />
+                <div className="flex flex-col">
+                  <span className="text-sm font-black">Argentina</span>
+                  <span className="text-[10px] text-zinc-400 font-bold">Messi 23', 67'</span>
+                </div>
+              </div>
+
+              {/* Score & Time */}
+              <div className="flex flex-col items-center justify-center px-4">
+                <div className="flex items-center gap-1.5 text-[10px] text-red-500 font-bold uppercase tracking-wider">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500"></span>
+                  </span>
+                  75'
+                </div>
+                <span className="text-xl font-black tracking-tighter">2 - 1</span>
+              </div>
+
+              {/* Right Team - France */}
+              <div className="flex items-center gap-3 text-right">
+                <div className="flex flex-col">
+                  <span className="text-sm font-black">France</span>
+                  <span className="text-[10px] text-zinc-400 font-bold">Mbappé 45'</span>
+                </div>
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-700 to-blue-900 flex items-center justify-center text-lg border border-white/20 shadow-inner">
+                  🇫🇷
                 </div>
               </div>
             </motion.div>

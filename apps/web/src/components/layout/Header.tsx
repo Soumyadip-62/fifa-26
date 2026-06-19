@@ -21,7 +21,7 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 ios-glass border-b border-black/5 dark:border-white/10 shadow-sm">
+    <header className="fixed inset-x-0 top-0 z-50 ios-glass border-b border-black/5 dark:border-white/10 shadow-sm backdrop-blur-xl">
       <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
         <Link
           className="inline-flex items-center gap-2 text-base font-black tracking-normal text-zinc-950 dark:text-white"
@@ -38,7 +38,9 @@ export function Header() {
             />
           </span>
           <span className="grid leading-tight">
-            <span className="font-heading font-black text-sm tracking-tight">FIFA 26</span>
+            <span className="font-heading font-black text-sm tracking-tight">
+              FIFA 26
+            </span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
               Tournament Hub
             </span>
@@ -64,7 +66,7 @@ export function Header() {
                         "inline-flex rounded-full px-3.5 py-1.5 text-xs font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                         isActive
                           ? "bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white"
-                          : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+                          : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200",
                       )}
                       href={item.href}
                     >
@@ -80,4 +82,3 @@ export function Header() {
     </header>
   );
 }
-
