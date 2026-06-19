@@ -1,12 +1,22 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { InjectRepository } from '@nestjs/typeorm';
 import { FirebaseService } from 'src/firebase/firebase.service';
+import { SubscribedTokens } from './entities/notification.entity';
+import { MatchEntity } from '../matches/entities/matches.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class NotificationService {
   private readonly logger = new Logger(NotificationService.name);
 
-  constructor(private readonly firebase: FirebaseService) {}
+  constructor(
+    private readonly firebase: FirebaseService,
+    @InjectRepository(SubscribedTokens)
+    private readonly tokenRepo: Repository<SubscribedTokens>,
+    @InjectRepository(MatchEntity)
+    private readonly matchRepo: Repository<MatchEntity>,
+  ) {}
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   sendNotifications() {
@@ -15,17 +25,58 @@ export class NotificationService {
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   async sendMatchNotification() {
-    console.log('inside test notification');
+    this.logger.log('Checking for matches starting in 30 minutes...');
 
-    return await this.firebase.send(
-      'cXIVtr16WmD2qfCS_x37iS:APA91bEfNYgi5Ki31tzm4Hl8NZf12ds-rqZctHohjSaLgRFVseEiRi4DTfDHdNDAHfxu0vmRJNVzfAAOWB9-TKCZSfdrbJACRlVq8x6FThdIHx2dWd9piMI',
-      'Match Starts in Next 30 Mins',
-      'Arg vs Bra',
-    );
+    // 1. Get all matches
+    const upcomingMatches = await this.matchRepo.find();
+    
+    const nowMs = Date.now();
+    const thirtyMinsMs = 30 * 60 * 1000;
+    const twentyFiveMinsMs = 25 * 60 * 1000;
+
+    // 2. Find matches starting between 25 and 30 minutes from now (so we only notify once per match)
+    const matchesToNotify = upcomingMatches.filter((m) => {
+      if (!m.timestampUtc) return false;
+      const matchTime = new Date(m.timestampUtc).getTime();
+      const diff = matchTime - nowMs;
+      return diff > twentyFiveMinsMs && diff <= thirtyMinsMs;
+    });
+
+    if (matchesToNotify.length === 0) {
+      return;
+    }
+
+    // 3. Fetch all subscribed tokens
+    const tokens = await this.tokenRepo.find();
+    if (tokens.length === 0) return;
+
+    // 4. Send notifications
+    for (const match of matchesToNotify) {
+      const title = 'Match Starts in 30 Mins! ⚽';
+      const body = `${match.homeTeam} vs ${match.awayTeam}`;
+      
+      this.logger.log(`Sending notification for: ${body} to ${tokens.length} users.`);
+
+      const promises = tokens.map((t) => this.firebase.send(t.token, title, body));
+      await Promise.allSettled(promises);
+    }
   }
 
-  subcribe(token: string) {
-    console.log(token);
+  async subcribe(token: string) {
+    if (!token) return false;
+
+    // Check if we already saved this token
+    const existing = await this.tokenRepo.findOne({ where: { token } });
+    
+    if (!existing) {
+      const newToken = this.tokenRepo.create({
+        id: Date.now().toString() + Math.random().toString(36).substring(7),
+        token,
+      });
+      await this.tokenRepo.save(newToken);
+      this.logger.log(`New FCM Token subscribed: ${token}`);
+    }
+
     return true;
   }
   async sendTest(token: string) {
