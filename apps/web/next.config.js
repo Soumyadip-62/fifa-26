@@ -8,16 +8,7 @@ const nextConfig = {
     "http://192.168.10.83:14000",
   ],
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-      {
-        protocol: "http",
-        hostname: "**",
-      },
-    ],
+    unoptimized: true,
   },
 };
 
