@@ -113,8 +113,10 @@ function Slot({
     <div
       className={cn(
         "w-full overflow-hidden rounded-[12px] border border-black/5 bg-white/95 dark:border-white/5 dark:bg-zinc-900/90 shadow-xs transition-all duration-200 hover:scale-[1.03] hover:border-primary/20",
-        highlight === "final" && "border-yellow-400/50 shadow-[0_0_12px_rgba(251,191,36,0.15)]",
-        highlight === "bronze" && "border-teal-400/50 shadow-[0_0_12px_rgba(45,212,191,0.15)]",
+        highlight === "final" &&
+          "border-yellow-400/50 shadow-[0_0_12px_rgba(251,191,36,0.15)]",
+        highlight === "bronze" &&
+          "border-teal-400/50 shadow-[0_0_12px_rgba(45,212,191,0.15)]",
       )}
     >
       <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 px-2 py-1">
@@ -295,7 +297,10 @@ export function QualifierMatchesPage() {
                 {L32.map((n, i) => (
                   <div
                     key={n}
-                    style={{ gridColumn: 2, gridRow: `${i * 2 + 1}/${i * 2 + 3}` }}
+                    style={{
+                      gridColumn: 2,
+                      gridRow: `${i * 2 + 1}/${i * 2 + 3}`,
+                    }}
                     className="flex items-center px-0.5"
                   >
                     <Slot match={find(ms, n)} />
@@ -306,7 +311,10 @@ export function QualifierMatchesPage() {
                 {[0, 1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    style={{ gridColumn: 3, gridRow: `${i * 4 + 1}/${i * 4 + 5}` }}
+                    style={{
+                      gridColumn: 3,
+                      gridRow: `${i * 4 + 1}/${i * 4 + 5}`,
+                    }}
                   >
                     <Arm side="l" />
                   </div>
@@ -316,7 +324,10 @@ export function QualifierMatchesPage() {
                 {L16.map((n, i) => (
                   <div
                     key={n}
-                    style={{ gridColumn: 4, gridRow: `${i * 4 + 1}/${i * 4 + 5}` }}
+                    style={{
+                      gridColumn: 4,
+                      gridRow: `${i * 4 + 1}/${i * 4 + 5}`,
+                    }}
                     className="flex items-center px-0.5"
                   >
                     <Slot match={find(ms, n)} />
@@ -327,7 +338,10 @@ export function QualifierMatchesPage() {
                 {[0, 1].map((i) => (
                   <div
                     key={i}
-                    style={{ gridColumn: 5, gridRow: `${i * 8 + 1}/${i * 8 + 9}` }}
+                    style={{
+                      gridColumn: 5,
+                      gridRow: `${i * 8 + 1}/${i * 8 + 9}`,
+                    }}
                   >
                     <Arm side="l" />
                   </div>
@@ -337,7 +351,10 @@ export function QualifierMatchesPage() {
                 {LQF.map((n, i) => (
                   <div
                     key={n}
-                    style={{ gridColumn: 6, gridRow: `${i * 8 + 1}/${i * 8 + 9}` }}
+                    style={{
+                      gridColumn: 6,
+                      gridRow: `${i * 8 + 1}/${i * 8 + 9}`,
+                    }}
                     className="flex items-center px-0.5"
                   >
                     <Slot match={find(ms, n)} />
@@ -416,7 +433,10 @@ export function QualifierMatchesPage() {
                 {RQF.map((n, i) => (
                   <div
                     key={n}
-                    style={{ gridColumn: 14, gridRow: `${i * 8 + 1}/${i * 8 + 9}` }}
+                    style={{
+                      gridColumn: 14,
+                      gridRow: `${i * 8 + 1}/${i * 8 + 9}`,
+                    }}
                     className="flex items-center px-0.5"
                   >
                     <Slot match={find(ms, n)} />
@@ -427,7 +447,10 @@ export function QualifierMatchesPage() {
                 {[0, 1].map((i) => (
                   <div
                     key={i}
-                    style={{ gridColumn: 15, gridRow: `${i * 8 + 1}/${i * 8 + 9}` }}
+                    style={{
+                      gridColumn: 15,
+                      gridRow: `${i * 8 + 1}/${i * 8 + 9}`,
+                    }}
                   >
                     <Arm side="r" />
                   </div>
@@ -437,7 +460,10 @@ export function QualifierMatchesPage() {
                 {R16.map((n, i) => (
                   <div
                     key={n}
-                    style={{ gridColumn: 16, gridRow: `${i * 4 + 1}/${i * 4 + 5}` }}
+                    style={{
+                      gridColumn: 16,
+                      gridRow: `${i * 4 + 1}/${i * 4 + 5}`,
+                    }}
                     className="flex items-center px-0.5"
                   >
                     <Slot match={find(ms, n)} />
@@ -448,7 +474,10 @@ export function QualifierMatchesPage() {
                 {[0, 1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    style={{ gridColumn: 17, gridRow: `${i * 4 + 1}/${i * 4 + 5}` }}
+                    style={{
+                      gridColumn: 17,
+                      gridRow: `${i * 4 + 1}/${i * 4 + 5}`,
+                    }}
                   >
                     <Arm side="r" />
                   </div>
@@ -458,7 +487,10 @@ export function QualifierMatchesPage() {
                 {R32.map((n, i) => (
                   <div
                     key={n}
-                    style={{ gridColumn: 18, gridRow: `${i * 2 + 1}/${i * 2 + 3}` }}
+                    style={{
+                      gridColumn: 18,
+                      gridRow: `${i * 2 + 1}/${i * 2 + 3}`,
+                    }}
                     className="flex items-center px-0.5"
                   >
                     <Slot match={find(ms, n)} />
@@ -537,12 +569,20 @@ export function QualifierMatchesPage() {
               />
 
               {submittedSearch.length > 0 && (
-                <Button variant="outline" className="rounded-full h-10 w-10 p-0 border-black/5 dark:border-white/10 text-zinc-550 dark:text-zinc-400 dark:hover:text-white" onClick={handleClearSearch}>
+                <Button
+                  variant="outline"
+                  className="rounded-full h-10 w-10 p-0 border-black/5 dark:border-white/10 text-zinc-550 dark:text-zinc-400 dark:hover:text-white"
+                  onClick={handleClearSearch}
+                >
                   <XIcon className="h-4 w-4" />
                 </Button>
               )}
 
-              <Button className="sm:w-auto rounded-full bg-zinc-950 hover:bg-zinc-900 text-white dark:bg-zinc-100 dark:hover:bg-zinc-200 dark:text-zinc-950 px-5 font-bold shadow-xs transition" disabled={isFetching} type="submit">
+              <Button
+                className="sm:w-auto rounded-full bg-zinc-950 hover:bg-zinc-900 text-white dark:bg-zinc-100 dark:hover:bg-zinc-200 dark:text-zinc-950 px-5 font-bold shadow-xs transition"
+                disabled={isFetching}
+                type="submit"
+              >
                 <Search aria-hidden="true" className="h-4 w-4 mr-1.5" />
                 Search
               </Button>
@@ -638,7 +678,10 @@ function CardHeaderImage({
 }) {
   const h = match.homeTeamSlot ?? "TBD";
   const a = match.awayTeamSlot ?? "TBD";
-  const finalImage = STAGE_IMAGES[match.stage ?? ""] ?? match.venueImageUrl ?? images.stadiums.default;
+  const finalImage =
+    STAGE_IMAGES[match.stage ?? ""] ??
+    match.venueImageUrl ??
+    images.stadiums.default;
   return (
     <div className="relative h-48 overflow-hidden bg-neutral-900 sm:h-52">
       <Image
@@ -738,7 +781,10 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
 
   return (
     <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-emerald-500/5 dark:border-white/10 dark:hover:border-emerald-500/40">
-      <CardHeaderImage match={match} accentClass="text-emerald-400 ring-emerald-500/20" />
+      <CardHeaderImage
+        match={match}
+        accentClass="text-emerald-400 ring-emerald-500/20"
+      />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
@@ -748,7 +794,7 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
           </span>
         </div>
 
-        <div className="grid gap-2">
+        <div className="grid gap-3.5">
           {/* Home team */}
           <div className="flex items-center gap-2">
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-[9px] font-black text-emerald-600 dark:text-emerald-400">
@@ -760,11 +806,13 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
           </div>
 
           {/* Glowing Green Score/Date Box */}
-          <div className="grid gap-2 rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-850/60 px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
-            <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
+          <div className="flex items-center justify-between rounded-[18px] border border-black/5 bg-zinc-100/80 dark:bg-zinc-900/60 dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)] px-3.5 py-2.5 text-zinc-900 dark:text-white dark:border-white/5 sm:flex sm:items-center sm:justify-between shadow-xs">
+            <span className="text-[11px] text-zinc-550 dark:text-green-700 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
-            <strong className="text-sm font-black tracking-wider">{score}</strong>
+            <strong className="text-sm font-black tracking-wider">
+              {score}
+            </strong>
           </div>
 
           {/* Away team */}
@@ -780,7 +828,7 @@ function RoundOf32MatchCard({ match }: { match: QM }) {
 
         <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
           <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-zinc-400" />
-          <span className="truncate">
+          <span>
             {match.venue}
             {match.city ? `, ${match.city}` : ""}
           </span>
@@ -803,10 +851,13 @@ function RoundOf16MatchCard({ match }: { match: QM }) {
 
   return (
     <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-blue-500/5 dark:border-white/10 dark:hover:border-blue-500/40">
-      <CardHeaderImage match={match} accentClass="text-blue-400 ring-blue-500/20" />
+      <CardHeaderImage
+        match={match}
+        accentClass="text-blue-400 ring-blue-500/20"
+      />
 
       <CardContent className="grid gap-4 p-5">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-start justify-between gap-3">
           <MatchStatusBadge status={match.status} />
           <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Round of 16 / Match {match.matchNumber}
@@ -829,7 +880,9 @@ function RoundOf16MatchCard({ match }: { match: QM }) {
             <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
-            <strong className="text-sm font-black tracking-wider">{score}</strong>
+            <strong className="text-sm font-black tracking-wider">
+              {score}
+            </strong>
           </div>
 
           {/* Away team */}
@@ -868,7 +921,10 @@ function QuarterFinalMatchCard({ match }: { match: QM }) {
 
   return (
     <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-violet-500/5 dark:border-white/10 dark:hover:border-violet-500/40">
-      <CardHeaderImage match={match} accentClass="text-violet-400 ring-violet-500/20" />
+      <CardHeaderImage
+        match={match}
+        accentClass="text-violet-400 ring-violet-500/20"
+      />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
@@ -894,7 +950,9 @@ function QuarterFinalMatchCard({ match }: { match: QM }) {
             <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
-            <strong className="text-sm font-black tracking-wider">{score}</strong>
+            <strong className="text-sm font-black tracking-wider">
+              {score}
+            </strong>
           </div>
 
           {/* Away team */}
@@ -933,7 +991,10 @@ function SemiFinalMatchCard({ match }: { match: QM }) {
 
   return (
     <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-orange-500/5 dark:border-white/10 dark:hover:border-orange-500/40">
-      <CardHeaderImage match={match} accentClass="text-orange-400 ring-orange-500/20" />
+      <CardHeaderImage
+        match={match}
+        accentClass="text-orange-400 ring-orange-500/20"
+      />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
@@ -959,7 +1020,9 @@ function SemiFinalMatchCard({ match }: { match: QM }) {
             <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
-            <strong className="text-sm font-black tracking-wider">{score}</strong>
+            <strong className="text-sm font-black tracking-wider">
+              {score}
+            </strong>
           </div>
 
           {/* Away team */}
@@ -998,7 +1061,10 @@ function ThirdPlaceMatchCard({ match }: { match: QM }) {
 
   return (
     <Card className="group h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-xs transition hover:scale-[1.01] hover:shadow-teal-500/5 dark:border-white/10 dark:hover:border-teal-500/40">
-      <CardHeaderImage match={match} accentClass="text-teal-400 ring-teal-500/20" />
+      <CardHeaderImage
+        match={match}
+        accentClass="text-teal-400 ring-teal-500/20"
+      />
 
       <CardContent className="grid gap-4 p-5">
         <div className="flex items-center justify-between gap-3">
@@ -1024,7 +1090,9 @@ function ThirdPlaceMatchCard({ match }: { match: QM }) {
             <span className="text-[11px] text-zinc-550 dark:text-zinc-400 font-semibold">
               <FormattedDateTime date={match.date} />
             </span>
-            <strong className="text-sm font-black tracking-wider">{score}</strong>
+            <strong className="text-sm font-black tracking-wider">
+              {score}
+            </strong>
           </div>
 
           {/* Away team */}

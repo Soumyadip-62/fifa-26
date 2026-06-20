@@ -2,24 +2,164 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Sparkles, Trophy, Tv, Calendar } from "lucide-react";
+import { useMatchContext } from "Context/MatchContext";
+import { cn } from "@/lib/utils/cn";
 
-export function DynamicIsland() {
+export function DynamicIsland({
+  hasLiveMatch = true,
+  inlineMobile = false,
+}: {
+  hasLiveMatch?: boolean;
+  inlineMobile?: boolean;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { liveMatches, recentMatch } = useMatchContext();
+
+  // Prioritize active live matches; fallback to the most recent finished match
+  const match = liveMatches.length > 0 ? liveMatches[0] : recentMatch;
+
+  if (!hasLiveMatch || !match) return null;
+
+  const isLive = match.status.toLowerCase() === "live";
+  const getMobileTeamName = (team: typeof match.homeTeam) =>
+    (team.shortCode || team.name.slice(0, 3)).toUpperCase();
+
+  const renderExpandedContent = () => (
+    <div className="flex sm:flex-row items-center justify-between w-full h-full py-1.5">
+      {/* Left Team */}
+      <div
+        className={cn(
+          "flex items-center gap-2 sm:gap-3",
+          inlineMobile ? "flex-1" : "w-[110px] sm:w-[120px]",
+        )}
+      >
+        <div className="h-10 w-10 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-zinc-800 to-zinc-950 flex shrink-0 items-center justify-center border border-white/10 shadow-inner overflow-hidden relative">
+          {match.homeTeam.logoUrl || match.homeTeam.flagUrl ? (
+            <img
+              src={match.homeTeam.logoUrl || match.homeTeam.flagUrl}
+              alt={`${match.homeTeam.name} logo`}
+              className="h-6 w-6 sm:h-7 sm:w-7 object-contain"
+            />
+          ) : (
+            <span className="text-base sm:text-lg">⚽</span>
+          )}
+        </div>
+        <div className="flex flex-col min-w-0">
+          <span
+            className={cn(
+              "text-xs font-black",
+              inlineMobile
+                ? "line-clamp-2 leading-tight uppercase"
+                : "truncate",
+            )}
+          >
+            {inlineMobile
+              ? getMobileTeamName(match.homeTeam)
+              : match.homeTeam.name}
+          </span>
+          {match.stage && (
+            <span
+              className={cn(
+                "text-[10px] text-zinc-400 font-bold",
+                inlineMobile ? "line-clamp-2 leading-tight mt-0.5" : "truncate",
+              )}
+            >
+              {match.stage}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Score & Time */}
+      <div className="flex flex-col items-center justify-center px-1 sm:px-4 shrink-0">
+        <div className="flex items-center mb-0.5">
+          {isLive ? (
+            <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-1.5 sm:px-2 py-[2px] sm:py-[3px] text-[9px] font-bold uppercase tracking-widest text-red-500 leading-none">
+              <span className="relative flex h-1 w-1 sm:h-1.5 sm:w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1 w-1 sm:h-1.5 sm:w-1.5 bg-red-500"></span>
+              </span>
+              <span>LIVE</span>
+            </span>
+          ) : (
+            <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-400/10 px-1.5 sm:px-2 py-[2px] sm:py-[3px] text-[9px] font-bold uppercase tracking-widest text-amber-400 leading-none">
+              FT
+            </span>
+          )}
+        </div>
+        <span className="text-xl sm:text-2xl font-black tracking-tighter">
+          {match.score.home ?? 0} - {match.score.away ?? 0}
+        </span>
+      </div>
+
+      {/* Right Team */}
+      <div
+        className={cn(
+          "flex items-center gap-2 sm:gap-3 justify-end text-right",
+          inlineMobile ? "flex-1" : "w-[110px] sm:w-[120px]",
+        )}
+      >
+        <div className="flex flex-col min-w-0">
+          <span
+            className={cn(
+              "text-xs font-black",
+              inlineMobile
+                ? "line-clamp-2 leading-tight uppercase"
+                : "truncate",
+            )}
+          >
+            {inlineMobile
+              ? getMobileTeamName(match.awayTeam)
+              : match.awayTeam.name}
+          </span>
+          {match.stage && (
+            <span
+              className={cn(
+                "text-[10px] text-zinc-400 font-bold",
+                inlineMobile ? "line-clamp-2 leading-tight mt-0.5" : "truncate",
+              )}
+            >
+              {match.stage}
+            </span>
+          )}
+        </div>
+        <div className="h-10 w-10 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-zinc-800 to-zinc-950 flex shrink-0 items-center justify-center border border-white/10 shadow-inner overflow-hidden relative">
+          {match.awayTeam.logoUrl || match.awayTeam.flagUrl ? (
+            <img
+              src={match.awayTeam.logoUrl || match.awayTeam.flagUrl}
+              alt={`${match.awayTeam.name} logo`}
+              className="h-6 w-6 sm:h-7 sm:w-7 object-contain"
+            />
+          ) : (
+            <span className="text-base sm:text-lg">⚽</span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  if (inlineMobile) {
+    return (
+      <div className="md:hidden w-full bg-black/80 backdrop-blur-3xl text-white rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-white/10 p-2 sm:p-3">
+        {renderExpandedContent()}
+      </div>
+    );
+  }
 
   return (
-    <div className="relative flex justify-center w-full z-50">
+    <div className="relative flex justify-center w-full z-50 h-[32px]">
       <motion.div
         layout
         onClick={() => setIsExpanded(!isExpanded)}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
-        className="cursor-pointer bg-black text-white rounded-[24px] flex items-center justify-between shadow-lg overflow-hidden border border-white/10 select-none"
+        className="absolute top-0 cursor-pointer bg-black/80 backdrop-blur-3xl text-white rounded-[20px] flex items-center justify-between shadow-lg overflow-hidden border border-white/10 select-none"
         style={{
-          width: isExpanded ? "340px" : "180px",
-          height: isExpanded ? "70px" : "32px",
-          paddingLeft: isExpanded ? "16px" : "10px",
-          paddingRight: isExpanded ? "16px" : "10px",
+          width: isExpanded ? "min(380px, 92vw)" : "180px",
+          height: isExpanded ? "80px" : "32px",
+          paddingLeft: isExpanded ? "12px" : "10px",
+          paddingRight: isExpanded ? "12px" : "10px",
+          boxShadow: "0px 10px 40px rgba(0, 0, 0, 0.1)",
         }}
         transition={{
           type: "spring",
@@ -34,18 +174,35 @@ export function DynamicIsland() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="flex items-center justify-between w-full text-[11px] font-semibold tracking-wide"
+              className="flex items-center justify-between w-full text-[12px] font-bold tracking-wide"
             >
               <div className="flex items-center gap-1.5">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span>FIFA 26 Live</span>
+                {isLive ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-2 py-[3px] text-[9px] font-bold uppercase tracking-widest text-red-500 leading-none">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500"></span>
+                    </span>
+                    <span>LIVE</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-400/10 px-2 py-[3px] text-[9px] font-bold uppercase tracking-widest text-amber-400 leading-none">
+                    FT
+                  </span>
+                )}
               </div>
-              <div className="flex items-center gap-1 text-emerald-400">
-                <Trophy className="h-3 w-3" />
-                <span>104 fixtures</span>
+              <div className="flex items-center gap-2">
+                <span>
+                  {match.homeTeam.shortCode ||
+                    match.homeTeam.name.slice(0, 3).toUpperCase()}
+                </span>
+                <span className="text-white/60 font-medium">
+                  {match.score.home ?? 0} - {match.score.away ?? 0}
+                </span>
+                <span>
+                  {match.awayTeam.shortCode ||
+                    match.awayTeam.name.slice(0, 3).toUpperCase()}
+                </span>
               </div>
             </motion.div>
           ) : (
@@ -54,23 +211,9 @@ export function DynamicIsland() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="flex items-center justify-between w-full h-full py-1"
+              className="w-full h-full"
             >
-              <div className="flex flex-col gap-0.5 justify-center">
-                <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Tournament Live</p>
-                <h4 className="text-xs font-black tracking-normal flex items-center gap-1 text-emerald-400">
-                  <Sparkles className="h-3.5 w-3.5 fill-current" />
-                  Road to 2026 Finals
-                </h4>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition">
-                  <Tv className="h-4 w-4" />
-                </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition">
-                  <Calendar className="h-4 w-4" />
-                </div>
-              </div>
+              {renderExpandedContent()}
             </motion.div>
           )}
         </AnimatePresence>

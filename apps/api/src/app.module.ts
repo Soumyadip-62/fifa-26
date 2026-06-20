@@ -19,6 +19,7 @@ import { TournamentEntity } from './history/entities/tournament.entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { NotificationService } from './notification/notification.service';
 import { NotificationModule } from './notification/notification.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -51,8 +52,9 @@ import { NotificationModule } from './notification/notification.module';
     VenuesModule,
     PointsTableModule,
     NotificationModule,
+    FirebaseModule,
   ],
   controllers: [AppController],
-  providers: [AppService, NotificationService],
+  providers: [AppService],
 })
 export class AppModule {}

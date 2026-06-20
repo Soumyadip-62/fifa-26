@@ -18,7 +18,7 @@ export function SectionHeader({
           {eyebrow}
         </p>
       ) : null}
-      <h1 className="font-heading text-2xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-3xl lg:text-4xl">
+      <h1 className="font-heading text-[19px] sm:text-2xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-3xl lg:text-4xl">
         {title}
       </h1>
       {description ? (

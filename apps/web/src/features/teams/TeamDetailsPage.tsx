@@ -331,12 +331,12 @@ export function TeamDetailsPage({ teamId, group }: TeamDetailsPageProps) {
                                 </div>
                                 <div className="flex flex-wrap gap-1.5">
                                   {player.shirtNumber ? (
-                                    <Badge className="rounded-full bg-zinc-200 text-zinc-700 dark:bg-zinc-850 dark:text-zinc-300 border-0 font-bold text-[9px]">
+                                    <Badge className="rounded-full bg-zinc-200 text-zinc-700 dark:bg-black dark:text-zinc-300 border-0  text-[10px]">
                                       No. {player.shirtNumber}
                                     </Badge>
                                   ) : null}
                                   {getTextValue(player.strStatus) ? (
-                                    <Badge className="rounded-full bg-primary/10 text-primary border-0 font-bold text-[9px] uppercase tracking-wider">
+                                    <Badge className="rounded-full bg-primary/10 text-primary border-0 font-bold text-[10px] uppercase tracking-wider">
                                       {getTextValue(player.strStatus)}
                                     </Badge>
                                   ) : null}

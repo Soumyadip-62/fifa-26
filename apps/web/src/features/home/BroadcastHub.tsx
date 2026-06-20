@@ -60,7 +60,7 @@ export function BroadcastHub() {
       <section className="my-6 overflow-hidden rounded-[32px] border border-black/5 bg-zinc-200/20 dark:border-white/5 dark:bg-zinc-900/10 shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.3)]">
         <div className="grid gap-0 lg:grid-cols-[0.6fr_1.4fr]">
           {/* Left Sidebar Content */}
-          <div className="relative flex flex-col justify-between gap-8 border-b border-black/5 p-6 sm:p-8 lg:border-b-0 lg:border-r dark:border-white/5 dark:bg-zinc-900/20">
+          <div className="relative flex flex-col justify-between gap-8 border-b border-black/5 p-5 sm:p-8 lg:border-b-0 lg:border-r dark:border-white/5 dark:bg-zinc-900/20">
             <div className="grid gap-4">
               <p className="w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">
                 Live Coverage
@@ -103,7 +103,7 @@ export function BroadcastHub() {
           </div>
 
           {/* Platform Grid */}
-          <div className="grid gap-5 p-6 sm:p-8 lg:grid-cols-3">
+          <div className="grid gap-5 p-5 sm:p-8 lg:grid-cols-3">
             {watchPlatforms.map((platform, index) => {
               const Icon = platform.icon;
 
@@ -114,7 +114,7 @@ export function BroadcastHub() {
                   key={platform.name}
                 >
                   <article className="group flex h-full flex-col overflow-hidden rounded-[24px] ios-glass transition-all duration-300 hover:scale-[1.01] hover:shadow-md border border-black/5 dark:border-white/5">
-                    <div className="p-5 pb-0">
+                    <div className="p-4 sm:p-5 pb-0">
                       <div className="flex items-center justify-between gap-3">
                         <div
                           className={`flex h-8 min-w-14 items-center justify-center rounded-lg px-2.5 font-heading text-[10px] font-black tracking-tight shadow-sm ring-1 ring-black/5 transition duration-500 group-hover:scale-105 ${platform.badgeClass}`}
@@ -128,7 +128,7 @@ export function BroadcastHub() {
                       </div>
                     </div>
 
-                    <div className="flex flex-1 flex-col p-5">
+                    <div className="flex flex-1 flex-col p-4 sm:p-5">
                       <div className="mb-3">
                         <p className="mb-0.5 text-[9px] font-bold uppercase tracking-widest text-primary">
                           {platform.label}
@@ -143,10 +143,10 @@ export function BroadcastHub() {
                       </p>
 
                       <div className="mt-auto space-y-4">
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-2">
                           {platform.channels.map((channel) => (
                             <span
-                              className="inline-flex rounded-full border border-black/5 bg-black/5 px-2.5 py-0.5 text-[9px] font-semibold text-zinc-700 transition dark:border-white/5 dark:bg-white/5 dark:text-zinc-300"
+                              className="inline-flex rounded-full border border-black/5 bg-black/5 px-2.5 py-0.5 text-[10px] font-semibold text-zinc-700 transition dark:border-white/5 dark:bg-white/5 dark:text-zinc-300"
                               key={channel}
                             >
                               {channel}

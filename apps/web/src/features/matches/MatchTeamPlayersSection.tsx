@@ -67,7 +67,7 @@ export function MatchTeamPlayersSection({
               <MotionReveal delay={Math.min(index * 0.025, 0.16)} key={player.id}>
                 <PlayerDetailsDrawer player={player}>
                   <div
-                    className="grid w-full cursor-pointer grid-cols-[auto_1fr] gap-3 rounded-[20px] border border-black/5 bg-zinc-50/50 p-4 text-left transition-all hover:bg-zinc-100/60 dark:border-white/5 dark:bg-zinc-850/20 dark:hover:bg-zinc-800/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+                    className="grid w-full cursor-pointer grid-cols-[auto_1fr] gap-3 rounded-[20px] border border-black/5 bg-zinc-50/50 p-4 text-left transition-all hover:bg-zinc-100/60 dark:border-white/5 dark:bg-black dark:hover:bg-zinc-800/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
                     onKeyDown={(event) => {
                       if (event.key === "Enter" || event.key === " ") {
                         event.preventDefault();
@@ -92,7 +92,7 @@ export function MatchTeamPlayersSection({
                           </p>
                         </div>
                         {player.shirtNumber ? (
-                          <Badge variant="outline" className="rounded-full border-black/5 dark:border-white/10 bg-zinc-150/50 dark:bg-zinc-850/60 font-bold px-2 py-0.5 text-[10px] text-zinc-650 dark:text-zinc-400">No. {player.shirtNumber}</Badge>
+                          <Badge variant="outline" className="rounded-full border-black/5 dark:border-white/10 bg-zinc-150/50 dark:bg-zinc-850/60 font-bold px-2 py-0.5 text-[10px] text-zinc-650 dark:text-zinc-400 dark:border-green-700" >No. {player.shirtNumber}</Badge>
                         ) : null}
                       </div>
                       <div className="mt-2 flex flex-wrap gap-2 text-[10px] text-zinc-500 dark:text-zinc-400">

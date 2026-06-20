@@ -24,7 +24,7 @@ export function MatchCard({ match }: MatchCardProps) {
 
   return (
     <Link
-      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary h-full"
       href={`/matches/${match.id}`}
     >
       <Card className="h-full overflow-hidden border border-black/5 dark:border-white/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm transition hover:scale-[1.01] hover:shadow-md">
@@ -45,16 +45,16 @@ export function MatchCard({ match }: MatchCardProps) {
             </div>
           </div>
         ) : null}
-        <CardContent className="grid gap-4 p-5">
+        <CardContent className="grid gap-4  p-3.5 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <MatchStatusBadge status={match.status} />
             <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
               {meta.length ? meta.join(" · ") : ""}
             </span>
           </div>
-          <div className="grid gap-2">
+          <div className="grid gap-4">
             <TeamBadge compact {...match.homeTeam} />
-            <div className="grid gap-1.5 rounded-2xl border border-black/5 bg-zinc-100/80 dark:bg-zinc-800/30 px-3.5 py-2 sm:flex sm:items-center sm:justify-between">
+            <div className="grid gap-1.5 rounded-md sm:rounded-2xl border border-black/5 bg-zinc-100/80 dark:bg-zinc-800/30 px-3.5 py-2 sm:flex sm:items-center sm:justify-between text-center">
               <span className="text-[10px] font-semibold text-zinc-500 dark:text-zinc-400">
                 <FormattedDateTime date={match.date} />
               </span>

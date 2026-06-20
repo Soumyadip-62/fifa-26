@@ -36,7 +36,7 @@ export function NewsCard({ article }: NewsCardProps) {
 
   return (
     <Link
-      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary h-full"
       href={`${article.source}`}
       target="_blank"
     >
@@ -57,7 +57,7 @@ export function NewsCard({ article }: NewsCardProps) {
             ) : null}
             <span><FormattedDateTime date={article.publishedAt} dateOnly={true} /></span>
           </div>
-          <h2 className="font-heading text-base font-black leading-snug text-zinc-950 dark:text-white group-hover:text-primary transition duration-200">
+          <h2 className="font-heading text-base font-black leading-normal text-zinc-950 dark:text-white group-hover:text-primary transition duration-200">
             {article.title}
           </h2>
           {article.excerpt ? (

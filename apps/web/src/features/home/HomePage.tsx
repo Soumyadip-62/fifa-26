@@ -16,6 +16,7 @@ import { getTeams } from "@/lib/api/teams";
 import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DynamicIsland } from "@/components/layout/DynamicIsland";
 
 // Lazy load below-the-fold sections
 const BroadcastHub = dynamic(
@@ -60,6 +61,7 @@ export function HomePage() {
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:gap-10 lg:px-8 lg:py-10">
+      <DynamicIsland inlineMobile />
       <MotionReveal>
         <section className="relative flex min-h-[360px] items-center justify-start overflow-hidden rounded-[32px] bg-black p-6 text-left text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 sm:min-h-[400px] sm:p-8 lg:p-12">
           <Image
@@ -84,13 +86,13 @@ export function HomePage() {
               archives on a production-ready dashboard.
             </p>
             <div className="flex flex-wrap justify-start gap-3 mt-2">
-              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all")} href="/matches">
+              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-3 sm:py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all max-h-[32px] sm:max-h-[40px]")} href="/matches">
                 View Matches
               </Link>
               <Link
                 className={cn(buttonVariants({
                   variant: "outline",
-                }), "rounded-full border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 px-6 py-5 text-xs tracking-wide transition-all")}
+                }), "rounded-full border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 px-6 py-3 sm:py-5 text-xs tracking-wide transition-all max-h-[32px] sm:max-h-[40px]")}
                 href="/points-table"
               >
                 View Points Table

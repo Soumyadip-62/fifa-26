@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { InjectRepository } from '@nestjs/typeorm';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { MatchEntity } from './entities/matches.entity';
+import { Repository } from 'typeorm';
 
 type MatchVenue = {
   city: string;
@@ -52,6 +56,9 @@ export type GroupStageMatch = {
   posterUrl?: string | null;
   videoUrl?: string | null;
   sourceFilename?: string | null;
+  referees?: any[] | null;
+  footballDataorgHomeTeamId?: number | null;
+  footballDataorgAwayTeamId?: number | null;
 };
 
 type GroupStageSchedule = {
@@ -197,6 +204,9 @@ export class MatchesService {
   private lastFetchedTime = 0;
   private readonly CACHE_TTL_MS = 60 * 1000; // 1 minute cache
 
+  @InjectRepository(MatchEntity)
+  private readonly matchRepository: Repository<MatchEntity>;
+
   constructor() {
     const schedulePath = join(
       process.cwd(),
@@ -230,30 +240,11 @@ export class MatchesService {
     }
 
     try {
-      const apiKey = process.env.FOOTBALL_DATA_API_KEY;
-      const response = await fetch(
-        'https://api.football-data.org/v4/competitions/WC/matches?season=2026',
-        {
-          headers: {
-            'X-Auth-Token': apiKey || '',
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`Football-data.org API error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      const apiMatches = data.matches || [];
-
-      const mappedMatches = apiMatches.map((apiMatch: any, index: number) =>
-        mapFootballDataMatchToGroupStage(apiMatch, this.matches, index),
-      );
-
-      this.fetchedMatches = mappedMatches;
-      this.lastFetchedTime = now;
-      return mappedMatches;
+      const dbMatches = await this.matchRepository.find({
+        order: { matchNumber: 'ASC' },
+      });
+      this.fetchedMatches = dbMatches as GroupStageMatch[];
+      return dbMatches as any;
     } catch (error) {
       console.error(
         'Error fetching matches from football-data.org API, falling back to local data:',
@@ -284,5 +275,140 @@ export class MatchesService {
     }
 
     return match;
+  }
+
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async syncMatchesToDb() {
+    try {
+      const apiKey = process.env.FOOTBALL_DATA_API_KEY;
+      const response = await fetch(
+        'https://api.football-data.org/v4/competitions/WC/matches?season=2026',
+        {
+          headers: {
+            'X-Auth-Token': apiKey || '',
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Football-data.org API error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const apiMatches = data.matches || [];
+
+      const teamsDataPath = join(process.cwd(), 'fifa-data', 'teams-data.json');
+      let teamsData: any[] = [];
+      try {
+        teamsData = JSON.parse(readFileSync(teamsDataPath, 'utf8'));
+      } catch (e) {
+        console.error('Could not read teams-data.json', e);
+      }
+
+      const mappedMatches = apiMatches.map((m: any) => {
+        const homeName = m.homeTeam?.name;
+        const homeShort = m.homeTeam?.shortName;
+        const homeTla = m.homeTeam?.tla;
+        const awayName = m.awayTeam?.name;
+        const awayShort = m.awayTeam?.shortName;
+        const awayTla = m.awayTeam?.tla;
+
+        const homeTeamData = teamsData.find(
+          (t) =>
+            t.name === homeName ||
+            t.name_normalised === homeName ||
+            t.fifa_code === homeTla ||
+            t.name === homeShort ||
+            t.name_normalised === homeShort,
+        );
+
+        const awayTeamData = teamsData.find(
+          (t) =>
+            t.name === awayName ||
+            t.name_normalised === awayName ||
+            t.fifa_code === awayTla ||
+            t.name === awayShort ||
+            t.name_normalised === awayShort,
+        );
+
+        const localMatch =
+          this.matches.find(
+            (lm) =>
+              lm.homeTeam === homeTeamData?.name &&
+              lm.awayTeam === awayTeamData?.name,
+          ) ||
+          this.qualifierMatches.find(
+            (lm) =>
+              lm.homeTeam === homeTeamData?.name &&
+              lm.awayTeam === awayTeamData?.name,
+          );
+
+        return {
+          id: String(m.id),
+          matchNumber: localMatch?.matchNumber || m.matchday || 0,
+          stage: m.stage || 'UNKNOWN',
+          group: m.group || null,
+          matchday: m.matchday || null,
+          date: m.utcDate ? m.utcDate.split('T')[0] : '',
+          time: m.utcDate ? m.utcDate.split('T')[1].substring(0, 5) : '',
+          timezone: 'UTC',
+          homeTeam: homeTeamData?.name || m.homeTeam?.name || 'TBD',
+          awayTeam: awayTeamData?.name || m.awayTeam?.name || 'TBD',
+          venue: localMatch?.venue || {
+            city: null,
+            stadium: m.venue || null, // football-data API usually provides stadium string
+            country: null,
+          },
+          status: m.status || 'SCHEDULED',
+          season: m.season?.startDate
+            ? m.season.startDate.split('-')[0]
+            : '2026',
+          league: {
+            id: '4429',
+            name: 'FIFA World Cup',
+            badgeUrl:
+              'https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png',
+            sport: 'Soccer',
+          },
+          eventName: `${homeTeamData?.name || m.homeTeam?.name || 'TBD'} vs ${awayTeamData?.name || m.awayTeam?.name || 'TBD'}`,
+          eventAlternateName: `${awayTeamData?.name || m.awayTeam?.name || 'TBD'} @ ${homeTeamData?.name || m.homeTeam?.name || 'TBD'}`,
+          sportsDbEventId: null,
+          sportsDbHomeTeamId: homeTeamData?.sportsdb_team_id || null,
+          sportsDbAwayTeamId: awayTeamData?.sportsdb_team_id || null,
+          homeTeamBadgeUrl:
+            homeTeamData?.image_url || m.homeTeam?.crest || null,
+          awayTeamBadgeUrl:
+            awayTeamData?.image_url || m.awayTeam?.crest || null,
+          score: {
+            home: m.score?.fullTime?.home ?? null,
+            away: m.score?.fullTime?.away ?? null,
+          },
+          timestampUtc: m.utcDate || null,
+          dateUtc: m.utcDate ? m.utcDate.split('T')[0] : null,
+          timeUtc: m.utcDate ? m.utcDate.split('T')[1].substring(0, 5) : null,
+          statusCode: m.status || null,
+          isPostponed: false,
+          thumbnailUrl: null,
+          posterUrl: null,
+          videoUrl: null,
+          sourceFilename: null,
+          referees: m.referees || [],
+          footballDataorgHomeTeamId: m.homeTeam?.id || null,
+          footballDataorgAwayTeamId: m.awayTeam?.id || null,
+        };
+      });
+
+      // Efficiently upsert matches based on the 'id' primary key.
+      // This avoids the race condition of clearing the table and is much better for database performance (MVCC bloat).
+      await this.matchRepository.upsert(mappedMatches, ['id']);
+    } catch (error) {
+      console.error(
+        'Error fetching matches from football-data.org API, falling back to local data:',
+        error,
+      );
+      return this.fetchedMatches.length > 0
+        ? this.fetchedMatches
+        : this.matches;
+    }
   }
 }
