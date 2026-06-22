@@ -115,4 +115,7 @@ export class MatchEntity {
 
   @Column({ nullable: true })
   footballDataorgAwayTeamId: number;
+
+  @Column({ default: false })
+  isNotified: boolean;
 }

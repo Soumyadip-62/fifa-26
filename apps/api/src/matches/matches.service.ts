@@ -280,6 +280,20 @@ export class MatchesService {
   @Cron(CronExpression.EVERY_10_MINUTES)
   async syncMatchesToDb() {
     console.log('Syncing matches to database...');
+    const existingMatches = await this.matchRepository.find({
+      select: {
+        id: true,
+        isNotified: true,
+        status: true,
+      },
+    });
+    const isNotifiedMap = new Map<string, boolean>();
+    const existingStatusMap = new Map<string, string>();
+    existingMatches.forEach((m) => {
+      isNotifiedMap.set(m.id, m.isNotified);
+      existingStatusMap.set(m.id, m.status);
+    });
+
     try {
       const apiKey = process.env.FOOTBALL_DATA_API_KEY;
       const response = await fetch(
@@ -417,13 +431,22 @@ export class MatchesService {
           referees: m.referees || [],
           footballDataorgHomeTeamId: m.homeTeam?.id || null,
           footballDataorgAwayTeamId: m.awayTeam?.id || null,
+          isNotified: isNotifiedMap.get(String(m.id)) ?? false,
         };
       });
 
       // Efficiently upsert matches based on the 'id' primary key.
       // This avoids the race condition of clearing the table and is much better for database performance (MVCC bloat).
+      
+      const matchesToUpsert = mappedMatches.filter(m => {
+        // If the match is already known to be finished in our DB, skip the update to optimize syncing
+        if (existingStatusMap.get(m.id) === 'finished') {
+          return false;
+        }
+        return true;
+      });
 
-      await this.matchRepository.upsert(mappedMatches, ['id']);
+      await this.matchRepository.upsert(matchesToUpsert, ['id']);
     } catch (error) {
       console.error(
         'Error fetching matches from football-data.org API, falling back to local data:',
