@@ -279,6 +279,7 @@ export class MatchesService {
 
   @Cron(CronExpression.EVERY_10_MINUTES)
   async syncMatchesToDb() {
+    console.log('Syncing matches to database...');
     try {
       const apiKey = process.env.FOOTBALL_DATA_API_KEY;
       const response = await fetch(
@@ -304,6 +305,27 @@ export class MatchesService {
       } catch (e) {
         console.error('Could not read teams-data.json', e);
       }
+      const mapStatus = (apiStatus: string | undefined): string => {
+        if (!apiStatus) return 'scheduled';
+        switch (apiStatus.toUpperCase()) {
+          case 'IN_PLAY':
+          case 'PAUSED':
+            return 'live';
+          case 'FINISHED':
+          case 'AWARDED':
+            return 'finished';
+          case 'POSTPONED':
+          case 'SUSPENDED':
+            return 'postponed';
+          case 'CANCELED':
+          case 'CANCELLED':
+            return 'cancelled';
+          case 'SCHEDULED':
+          case 'TIMED':
+          default:
+            return 'scheduled';
+        }
+      };
 
       const mappedMatches = apiMatches.map((m: any) => {
         const homeName = m.homeTeam?.name;
@@ -359,7 +381,7 @@ export class MatchesService {
             stadium: m.venue || null, // football-data API usually provides stadium string
             country: null,
           },
-          status: m.status || 'SCHEDULED',
+          status: mapStatus(m.status),
           season: m.season?.startDate
             ? m.season.startDate.split('-')[0]
             : '2026',
@@ -400,6 +422,7 @@ export class MatchesService {
 
       // Efficiently upsert matches based on the 'id' primary key.
       // This avoids the race condition of clearing the table and is much better for database performance (MVCC bloat).
+
       await this.matchRepository.upsert(mappedMatches, ['id']);
     } catch (error) {
       console.error(
