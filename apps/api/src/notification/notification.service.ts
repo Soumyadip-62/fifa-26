@@ -34,12 +34,15 @@ export class NotificationService {
     const thirtyMinsMs = 30 * 60 * 1000;
     const twentyFiveMinsMs = 25 * 60 * 1000;
 
-    // 2. Find matches starting between 25 and 30 minutes from now (so we only notify once per match)
+    // 2. Find matches starting within 30 minutes from now that haven't been notified yet
     const matchesToNotify = upcomingMatches.filter((m) => {
       if (!m.timestampUtc) return false;
+      if (m.isNotified) return false; // Skip if already notified
       const matchTime = new Date(m.timestampUtc).getTime();
       const diff = matchTime - nowMs;
-      return diff > twentyFiveMinsMs && diff <= thirtyMinsMs;
+      // Notify if the match is starting within the next 30 minutes, or if it already started but wasn't notified yet
+      // To prevent notifying for super old matches if the server was down, we only notify if it's within the last hour or next 30 minutes
+      return diff > -3600000 && diff <= thirtyMinsMs;
     });
 
     if (matchesToNotify.length === 0) {
@@ -68,6 +71,10 @@ export class NotificationService {
         this.firebase.send(t.token, title, body),
       );
       await Promise.allSettled(promises);
+
+      // Mark as notified in DB
+      match.isNotified = true;
+      await this.matchRepo.save(match);
     }
   }
 

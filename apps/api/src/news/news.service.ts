@@ -31,8 +31,6 @@ export class NewsService {
     url.searchParams.set('keywords', 'FIFA 2026');
     url.searchParams.set('language', 'en');
 
-    console.log(url);
-
     const response = await fetch(url, {
       headers: {
         Authorization: this.apiKey,
