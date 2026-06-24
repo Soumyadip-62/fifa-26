@@ -57,10 +57,11 @@ export class NotificationService {
     for (const match of matchesToNotify) {
       const matchDate = match.timestampUtc ? new Date(match.timestampUtc) : new Date();
       const localTimeStr = matchDate.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
         hour: '2-digit',
         minute: '2-digit',
       });
-      const title = `Next Match Starts at ${localTimeStr}! ⚽`;
+      const title = `Next Match Starts at ${localTimeStr} IST! ⚽`;
       const body = `${match.homeTeam} vs ${match.awayTeam}`;
 
       this.logger.log(

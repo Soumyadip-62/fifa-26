@@ -23,11 +23,14 @@ export function MatchCard({ match }: MatchCardProps) {
   ].filter(Boolean);
 
   return (
-    <Link
-      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary h-full"
-      href={`/matches/${match.id}`}
-    >
-      <Card className="h-full overflow-hidden border border-black/5 dark:border-white/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm transition hover:scale-[1.01] hover:shadow-md">
+    <div className="group relative block h-full">
+      <Link
+        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[28px]"
+        href={`/matches/${match.id}`}
+      >
+        <span className="sr-only">View match details</span>
+      </Link>
+      <Card className="relative h-full overflow-hidden border border-black/5 dark:border-white/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm transition hover:scale-[1.01] hover:shadow-md">
         {match.venueImageUrl ? (
           <div className="relative h-44 overflow-hidden bg-zinc-900 sm:h-52">
             <Image
@@ -45,7 +48,7 @@ export function MatchCard({ match }: MatchCardProps) {
             </div>
           </div>
         ) : null}
-        <CardContent className="grid gap-4  p-3.5 sm:p-5">
+        <CardContent className="grid gap-4 p-3.5 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <MatchStatusBadge status={match.status} />
             <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
@@ -62,13 +65,17 @@ export function MatchCard({ match }: MatchCardProps) {
             </div>
             <TeamBadge compact {...match.awayTeam} />
           </div>
-          <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 mt-1">
-            {match.venue ? match.venue : "Venue TBD"}
-            {match.city ? `, ${match.city}` : ""}
-          </p>
+          
+          <div className="mt-1 flex items-center justify-between gap-2">
+            <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 truncate">
+              {match.venue ? match.venue : "Venue TBD"}
+              {match.city ? `, ${match.city}` : ""}
+            </p>
+
+          </div>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 }
 
