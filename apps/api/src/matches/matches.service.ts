@@ -287,10 +287,8 @@ export class MatchesService {
         status: true,
       },
     });
-    const isNotifiedMap = new Map<string, boolean>();
     const existingStatusMap = new Map<string, string>();
     existingMatches.forEach((m) => {
-      isNotifiedMap.set(m.id, m.isNotified);
       existingStatusMap.set(m.id, m.status);
     });
 
@@ -431,7 +429,6 @@ export class MatchesService {
           referees: m.referees || [],
           footballDataorgHomeTeamId: m.homeTeam?.id || null,
           footballDataorgAwayTeamId: m.awayTeam?.id || null,
-          isNotified: isNotifiedMap.get(String(m.id)) ?? false,
         };
       });
 
