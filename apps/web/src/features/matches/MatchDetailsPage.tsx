@@ -226,6 +226,8 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
       </section>
 
       <MotionReveal className="grid gap-4">
+
+
         <Card className="rounded-[28px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md shadow-xs dark:border-white/10">
           <CardContent className="grid gap-4 p-5 sm:p-6">
             <SectionHeader

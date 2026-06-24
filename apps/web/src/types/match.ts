@@ -39,4 +39,5 @@ export type Match = {
   homeTeam: MatchTeam;
   awayTeam: MatchTeam;
   score: MatchScore;
+  youtubeVideoId?: string;
 };

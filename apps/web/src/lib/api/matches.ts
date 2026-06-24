@@ -20,6 +20,7 @@ type ApiMatch = Partial<
   venue?: string | ApiVenue;
   sportsDbHomeTeamId?: string;
   sportsDbAwayTeamId?: string;
+  youtubeVideoId?: string;
 };
 
 const statuses = new Set<MatchStatus>([
@@ -130,6 +131,7 @@ function normalizeMatch(match: ApiMatch): Match {
     city,
     status: toStatus(match.status),
     score: match.score ?? { home: null, away: null },
+    youtubeVideoId: match.youtubeVideoId,
   };
 }
 
