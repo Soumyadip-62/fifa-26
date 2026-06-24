@@ -6,6 +6,55 @@ import { SubscribedTokens } from './entities/notification.entity';
 import { MatchEntity } from '../matches/entities/matches.entity';
 import { Repository } from 'typeorm';
 
+const TEAM_FLAGS: Record<string, string> = {
+  'Argentina': '🇦🇷',
+  'Australia': '🇦🇺',
+  'Austria': '🇦🇹',
+  'Belgium': '🇧🇪',
+  'Brazil': '🇧🇷',
+  'Cameroon': '🇨🇲',
+  'Canada': '🇨🇦',
+  'Chile': '🇨🇱',
+  'Colombia': '🇨🇴',
+  'Costa Rica': '🇨🇷',
+  'Croatia': '🇭🇷',
+  'Denmark': '🇩🇰',
+  'Ecuador': '🇪🇨',
+  'Egypt': '🇪🇬',
+  'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+  'France': '🇫🇷',
+  'Germany': '🇩🇪',
+  'Ghana': '🇬🇭',
+  'Iran': '🇮🇷',
+  'Italy': '🇮🇹',
+  'Japan': '🇯🇵',
+  'Mexico': '🇲🇽',
+  'Morocco': '🇲🇦',
+  'Netherlands': '🇳🇱',
+  'Nigeria': '🇳🇬',
+  'Peru': '🇵🇪',
+  'Poland': '🇵🇱',
+  'Portugal': '🇵🇹',
+  'Qatar': '🇶🇦',
+  'Saudi Arabia': '🇸🇦',
+  'Senegal': '🇸🇳',
+  'Serbia': '🇷🇸',
+  'South Korea': '🇰🇷',
+  'Spain': '🇪🇸',
+  'Sweden': '🇸🇪',
+  'Switzerland': '🇨🇭',
+  'Tunisia': '🇹🇳',
+  'United States': '🇺🇸',
+  'USA': '🇺🇸',
+  'Uruguay': '🇺🇾',
+  'Wales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿'
+};
+
+function getFlag(teamName: string): string {
+  if (!teamName) return '';
+  return TEAM_FLAGS[teamName] || '';
+}
+
 @Injectable()
 export class NotificationService {
   private readonly logger = new Logger(NotificationService.name);
@@ -61,8 +110,13 @@ export class NotificationService {
         hour: '2-digit',
         minute: '2-digit',
       });
-      const title = `Next Match Starts at ${localTimeStr} IST! ⚽`;
-      const body = `${match.homeTeam} vs ${match.awayTeam}`;
+      const title = `🚨 Match Kickoff in 30 Mins!`;
+      const homeFlag = getFlag(match.homeTeam);
+      const awayFlag = getFlag(match.awayTeam);
+      const homeDisplay = homeFlag ? `${homeFlag} ${match.homeTeam}` : match.homeTeam;
+      const awayDisplay = awayFlag ? `${awayFlag} ${match.awayTeam}` : match.awayTeam;
+      
+      const body = `${homeDisplay} vs ${awayDisplay} ⚽\n⏰ ${localTimeStr} IST`;
 
       this.logger.log(
         `Sending notification for: ${body} to ${tokens.length} users.`,
