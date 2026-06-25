@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Headers, Param, Post } from '@nestjs/common';
 import { MatchesService } from './matches.service';
+import { assertAdminSecret } from '../common/admin-auth';
 
 @Controller('matches')
 export class MatchesController {
@@ -16,7 +17,8 @@ export class MatchesController {
   }
 
   @Post('sync')
-  async syncMatches() {
+  async syncMatches(@Headers() headers: Record<string, string | string[] | undefined>) {
+    assertAdminSecret(headers);
     await this.matchesService.syncMatchesToDb();
     return { ok: true, syncedAt: new Date().toISOString() };
   }

@@ -70,11 +70,13 @@ export async function subscribeNotifications(
 export async function sendDeviceTestNotifications(
   fcmToken: string,
   type?: "kickoff30" | "kickoff10" | "finalScore" | "qualification",
+  adminSecret = "",
 ) {
   const response = await fetch(apiUrl("notification/test/device"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...(adminSecret ? { "x-admin-secret": adminSecret } : {}),
     },
     body: JSON.stringify({ token: fcmToken, type }),
   });

@@ -16,6 +16,9 @@ services:
       - key: FRONTEND_URL
         sync: false
 
+      - key: ADMIN_SECRET
+        sync: false
+
       - key: NEWS_API_URL
         value: "https://api.currentsapi.services/v1/"
 

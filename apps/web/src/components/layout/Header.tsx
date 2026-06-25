@@ -15,7 +15,6 @@ const navItems = [
   { href: "/teams", label: "Teams" },
   { href: "/news", label: "News" },
   { href: "/history", label: "History" },
-  { href: "/admin", label: "Admin" },
 ];
 
 export function Header() {

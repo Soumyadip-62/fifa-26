@@ -1,8 +1,17 @@
 import { apiUrl } from "./config";
 
-async function postAdminAction(path: string) {
+function adminHeaders(adminSecret: string) {
+  return adminSecret
+    ? {
+        "x-admin-secret": adminSecret,
+      }
+    : undefined;
+}
+
+async function postAdminAction(path: string, adminSecret: string) {
   const response = await fetch(apiUrl(path), {
     method: "POST",
+    headers: adminHeaders(adminSecret),
   });
 
   if (!response.ok) {
@@ -12,10 +21,10 @@ async function postAdminAction(path: string) {
   return response.json();
 }
 
-export function syncMatchesDb() {
-  return postAdminAction("matches/sync");
+export function syncMatchesDb(adminSecret: string) {
+  return postAdminAction("matches/sync", adminSecret);
 }
 
-export function syncQualifiedTeamsDb() {
-  return postAdminAction("points-table/qualified-teams/sync");
+export function syncQualifiedTeamsDb(adminSecret: string) {
+  return postAdminAction("points-table/qualified-teams/sync", adminSecret);
 }

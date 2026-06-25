@@ -1,5 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Headers, Post } from '@nestjs/common';
 import { PointsTableService } from './points-table.service';
+import { assertAdminSecret } from '../common/admin-auth';
 
 @Controller('points-table')
 export class PointsTableController {
@@ -16,7 +17,10 @@ export class PointsTableController {
   }
 
   @Post('qualified-teams/sync')
-  async syncQualifiedTeams() {
+  async syncQualifiedTeams(
+    @Headers() headers: Record<string, string | string[] | undefined>,
+  ) {
+    assertAdminSecret(headers);
     return this.pointsTableService.syncQualifiedTeams();
   }
 }
