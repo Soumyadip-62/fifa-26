@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
 import { MotionReveal } from "@/components/common/MotionReveal";
@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getQualifierMatches } from "@/lib/api/matches";
+import { getQualifiedTeams } from "@/lib/api/standings";
 import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import { cn } from "@/lib/utils/cn";
 import { useQuery } from "@tanstack/react-query";
@@ -99,16 +100,32 @@ function getSlotLabel(slot: string | undefined): string {
   return slot;
 }
 
+function getSlotKey(slot: string | undefined) {
+  if (!slot || !/^[123][A-L]$/.test(slot)) return null;
+  return slot;
+}
+
 /* ── Compact match slot for bracket ── */
 function Slot({
   match,
+  qualifiedBySlot,
   highlight,
 }: {
   match: QM | undefined;
+  qualifiedBySlot?: Record<string, string>;
   highlight?: "final" | "bronze";
 }) {
   const h = match?.homeTeamSlot ?? match?.eventName?.split(" vs ")[0] ?? "TBD";
   const a = match?.awayTeamSlot ?? match?.eventName?.split(" vs ")[1] ?? "TBD";
+  const homeSlotKey = getSlotKey(h);
+  const awaySlotKey = getSlotKey(a);
+  const homeLabel = homeSlotKey
+    ? (qualifiedBySlot?.[homeSlotKey] ?? getSlotLabel(h))
+    : getSlotLabel(h);
+  const awayLabel = awaySlotKey
+    ? (qualifiedBySlot?.[awaySlotKey] ?? getSlotLabel(a))
+    : getSlotLabel(a);
+
   return (
     <div
       className={cn(
@@ -121,13 +138,13 @@ function Slot({
     >
       <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 px-2 py-1">
         <span className="truncate text-[10px] font-semibold text-zinc-700 dark:text-zinc-350">
-          {code(h)}
+          {code(homeLabel)}
         </span>
         <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
       </div>
       <div className="flex items-center justify-between px-2 py-1">
         <span className="truncate text-[10px] font-semibold text-zinc-700 dark:text-zinc-350">
-          {code(a)}
+          {code(awayLabel)}
         </span>
         <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
       </div>
@@ -191,10 +208,31 @@ export function QualifierMatchesPage() {
     queryKey: ["qualifier-matches"],
     queryFn: getQualifierMatches,
   });
+  const { data: qualifiedTeams = [] } = useQuery({
+    queryKey: ["qualified-teams"],
+    queryFn: getQualifiedTeams,
+  });
 
   const ms = matches as QM[];
   const finalM = find(ms, FINAL);
   const thirdM = find(ms, THIRD);
+  const qualifiedBySlot = useMemo(() => {
+    const slots: Record<string, string> = {};
+
+    for (const team of qualifiedTeams) {
+      const groupLetter = team.group?.replace("Group ", "");
+      if (
+        team.stage === "ROUND_OF_32" &&
+        groupLetter &&
+        team.position &&
+        team.position <= 3
+      ) {
+        slots[`${team.position}${groupLetter}`] = team.teamName;
+      }
+    }
+
+    return slots;
+  }, [qualifiedTeams]);
 
   // Filter list matches based on search and selected stage
   const filteredMatches = ms.filter((match) => {
@@ -303,7 +341,7 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -330,7 +368,7 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -357,7 +395,7 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -373,7 +411,7 @@ export function QualifierMatchesPage() {
                     style={{ gridColumn: 8, gridRow: `1/${ROWS + 1}` }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -390,7 +428,7 @@ export function QualifierMatchesPage() {
                   style={{ gridColumn: 10, gridRow: `1/${ROWS + 1}` }}
                   className="flex flex-col items-center justify-center gap-2"
                 >
-                  <Slot match={finalM} highlight="final" />
+                  <Slot match={finalM} qualifiedBySlot={qualifiedBySlot} highlight="final" />
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 via-amber-300 to-yellow-500 shadow-[0_0_24px_rgba(251,191,36,0.3)]">
                     <Trophy className="h-6 w-6 text-yellow-900" />
                   </div>
@@ -401,7 +439,7 @@ export function QualifierMatchesPage() {
                     <span className="text-[7px] font-bold uppercase tracking-widest text-teal-400/60">
                       Bronze Winner
                     </span>
-                    <Slot match={thirdM} highlight="bronze" />
+                    <Slot match={thirdM} qualifiedBySlot={qualifiedBySlot} highlight="bronze" />
                   </div>
                 </div>
 
@@ -420,7 +458,7 @@ export function QualifierMatchesPage() {
                     style={{ gridColumn: 12, gridRow: `1/${ROWS + 1}` }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -439,7 +477,7 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -466,7 +504,7 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 
@@ -493,7 +531,7 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={find(ms, n)} />
+                    <Slot match={find(ms, n)} qualifiedBySlot={qualifiedBySlot} />
                   </div>
                 ))}
 

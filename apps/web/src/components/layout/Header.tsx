@@ -6,6 +6,7 @@ import { images } from "@/assets";
 import { cn } from "@/lib/utils/cn";
 import { usePathname } from "next/navigation";
 import { DynamicIsland } from "./DynamicIsland";
+import { ProfileDrawer } from "./ProfileDrawer";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -14,6 +15,7 @@ const navItems = [
   { href: "/teams", label: "Teams" },
   { href: "/news", label: "News" },
   { href: "/history", label: "History" },
+  { href: "/admin", label: "Admin" },
 ];
 
 export function Header() {
@@ -76,6 +78,7 @@ export function Header() {
               })}
             </ul>
           </nav>
+          <ProfileDrawer />
         </div>
       </div>
     </header>

@@ -80,6 +80,9 @@ export class MatchEntity {
     away: number | null;
   };
 
+  @Column('jsonb', { nullable: true })
+  goals: any[] | null;
+
   @Column({ nullable: true })
   timestampUtc: string;
 
