@@ -24,6 +24,8 @@ type MatchScore = {
   away: number | null;
 };
 
+type MatchGoal = Record<string, unknown>;
+
 export type GroupStageMatch = {
   id: string;
   matchNumber: number;
@@ -47,6 +49,7 @@ export type GroupStageMatch = {
   homeTeamBadgeUrl?: string | null;
   awayTeamBadgeUrl?: string | null;
   score?: MatchScore;
+  goals?: MatchGoal[] | null;
   timestampUtc?: string | null;
   dateUtc?: string | null;
   timeUtc?: string | null;
@@ -213,6 +216,7 @@ function mapFootballDataMatchToGroupStage(
       home: typeof scoreHome === 'number' ? scoreHome : null,
       away: typeof scoreAway === 'number' ? scoreAway : null,
     },
+    goals: Array.isArray(apiMatch.goals) ? apiMatch.goals : localMatch?.goals || null,
     timestampUtc: utcDate,
     dateUtc,
     timeUtc,
@@ -452,6 +456,7 @@ export class MatchesService {
             home: m.score?.fullTime?.home ?? null,
             away: m.score?.fullTime?.away ?? null,
           },
+          goals: Array.isArray(m.goals) ? m.goals : localMatch?.goals || null,
           timestampUtc: utcDate,
           dateUtc,
           timeUtc,

@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { MatchesService } from './matches.service';
 
 @Controller('matches')
@@ -13,6 +13,12 @@ export class MatchesController {
   @Get('qualifier-matches')
   getQualifierMatches() {
     return this.matchesService.findAllQualifierMatches();
+  }
+
+  @Post('sync')
+  async syncMatches() {
+    await this.matchesService.syncMatchesToDb();
+    return { ok: true, syncedAt: new Date().toISOString() };
   }
 
   @Get(':matchId')

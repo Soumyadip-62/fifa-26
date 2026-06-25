@@ -20,6 +20,15 @@ export type MatchScore = {
   away: number | null;
 };
 
+export type MatchGoal = {
+  name: string;
+  team?: "home" | "away";
+  minute?: number | string | null;
+  type?: string | null;
+  penalty?: boolean;
+  ownGoal?: boolean;
+};
+
 export type Match = {
   id: string;
   matchNumber?: number;
@@ -39,5 +48,6 @@ export type Match = {
   homeTeam: MatchTeam;
   awayTeam: MatchTeam;
   score: MatchScore;
+  goals?: MatchGoal[];
   youtubeVideoId?: string;
 };

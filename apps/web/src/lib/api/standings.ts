@@ -109,3 +109,11 @@ export async function getStandings(): Promise<StandingsResponse> {
   }
   return response.json();
 }
+
+export async function getQualifiedTeams(): Promise<QualifiedTeam[]> {
+  const response = await fetch(apiUrl("/points-table/qualified-teams"));
+  if (!response.ok) {
+    throw new Error("Failed to fetch qualified teams");
+  }
+  return response.json();
+}
