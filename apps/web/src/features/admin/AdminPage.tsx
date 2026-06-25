@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { BellRing, Database, RefreshCw, Smartphone } from "lucide-react";
+import { BellRing, Database, KeyRound, RefreshCw, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { syncMatchesDb, syncQualifiedTeamsDb } from "@/lib/api/admin";
 import { sendDeviceTestNotifications } from "@/lib/api/notification";
@@ -29,12 +30,24 @@ const testTypes = [
   { key: "qualification", label: "Qualification" },
 ] as const;
 
+const ADMIN_SECRET_STORAGE_KEY = "fifa26:admin-secret";
+
 export function AdminPage() {
   const [matchesSync, setMatchesSync] = useState<ActionState>(initialState);
   const [qualifiedSync, setQualifiedSync] = useState<ActionState>(initialState);
   const [notificationTest, setNotificationTest] =
     useState<ActionState>(initialState);
   const [deviceToken, setDeviceToken] = useState<string | null>(null);
+  const [adminSecret, setAdminSecret] = useState(() =>
+    typeof window === "undefined"
+      ? ""
+      : window.localStorage.getItem(ADMIN_SECRET_STORAGE_KEY) ?? "",
+  );
+
+  const updateAdminSecret = (value: string) => {
+    setAdminSecret(value);
+    window.localStorage.setItem(ADMIN_SECRET_STORAGE_KEY, value);
+  };
 
   const runAction = async (
     setState: (state: ActionState) => void,
@@ -58,12 +71,12 @@ export function AdminPage() {
   const syncEverything = async () => {
     await runAction(
       setMatchesSync,
-      syncMatchesDb,
+      () => syncMatchesDb(adminSecret),
       "Matches DB sync completed.",
     );
     await runAction(
       setQualifiedSync,
-      syncQualifiedTeamsDb,
+      () => syncQualifiedTeamsDb(adminSecret),
       "Qualified teams sync completed.",
     );
   };
@@ -79,7 +92,7 @@ export function AdminPage() {
       }
 
       setDeviceToken(token);
-      const result = await sendDeviceTestNotifications(token, type);
+      const result = await sendDeviceTestNotifications(token, type, adminSecret);
       setNotificationTest({
         loading: false,
         message: `Sent ${result.sent}/${result.total} test notification(s) to this device only.`,
@@ -105,6 +118,31 @@ export function AdminPage() {
         description="Sync tournament data and test this device's notifications."
       />
 
+      <Card className="rounded-[28px] border border-black/5 bg-white/80 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/50">
+        <CardContent className="grid gap-3 p-5 sm:p-6">
+          <div className="flex items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
+              <KeyRound size={18} />
+            </span>
+            <div>
+              <h2 className="font-heading text-lg font-black text-zinc-950 dark:text-white">
+                Admin Secret
+              </h2>
+              <p className="text-xs font-semibold text-zinc-500">
+                Required when the API has ADMIN_SECRET configured.
+              </p>
+            </div>
+          </div>
+          <Input
+            className="h-11 rounded-full text-xs"
+            onChange={(event) => updateAdminSecret(event.target.value)}
+            placeholder="Enter admin secret"
+            type="password"
+            value={adminSecret}
+          />
+        </CardContent>
+      </Card>
+
       <section className="grid gap-5 lg:grid-cols-2">
         <Card className="rounded-[28px] border border-black/5 bg-white/80 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/50">
           <CardContent className="grid gap-5 p-5 sm:p-6">
@@ -129,7 +167,7 @@ export function AdminPage() {
                 onClick={() =>
                   runAction(
                     setMatchesSync,
-                    syncMatchesDb,
+                    () => syncMatchesDb(adminSecret),
                     "Matches DB sync completed.",
                   )
                 }
@@ -143,7 +181,7 @@ export function AdminPage() {
                 onClick={() =>
                   runAction(
                     setQualifiedSync,
-                    syncQualifiedTeamsDb,
+                    () => syncQualifiedTeamsDb(adminSecret),
                     "Qualified teams sync completed.",
                   )
                 }
