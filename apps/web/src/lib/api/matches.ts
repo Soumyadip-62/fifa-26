@@ -135,6 +135,24 @@ function normalizeMatch(match: ApiMatch): Match {
   };
 }
 
+function getMatchTime(match: Match) {
+  const parsed = Date.parse(match.date);
+
+  return Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
+}
+
+function sortMatchesByDate(matches: Match[]) {
+  return [...matches].sort((a, b) => {
+    const dateDiff = getMatchTime(a) - getMatchTime(b);
+
+    if (dateDiff !== 0) {
+      return dateDiff;
+    }
+
+    return (a.matchNumber ?? 0) - (b.matchNumber ?? 0);
+  });
+}
+
 export async function getMatches(): Promise<Match[]> {
   try {
     const response = await fetch(apiUrl("/matches"));
@@ -142,9 +160,9 @@ export async function getMatches(): Promise<Match[]> {
       throw new Error("Failed to fetch matches");
     }
     const data = (await response.json()) as Match[];
-    return data.map(normalizeMatch);
+    return sortMatchesByDate(data.map(normalizeMatch));
   } catch {
-    return mockMatches;
+    return sortMatchesByDate(mockMatches);
   }
 }
 
@@ -168,7 +186,7 @@ export async function getQualifierMatches(): Promise<Match[]> {
       throw new Error("Failed to fetch qualifier matches");
     }
     const data = (await response.json()) as Match[];
-    return data.map(normalizeMatch);
+    return sortMatchesByDate(data.map(normalizeMatch));
   } catch {
     return [];
   }
@@ -188,14 +206,16 @@ export async function searchMatchesByTeam(team: string): Promise<Match[]> {
       throw new Error("Failed to search matches");
     }
     const data = (await response.json()) as Match[];
-    return data.map(normalizeMatch);
+    return sortMatchesByDate(data.map(normalizeMatch));
   } catch {
     const normalizedQuery = query.toLowerCase();
 
-    return mockMatches.filter(
-      (match) =>
-        match.homeTeam.name.toLowerCase().includes(normalizedQuery) ||
-        match.awayTeam.name.toLowerCase().includes(normalizedQuery),
+    return sortMatchesByDate(
+      mockMatches.filter(
+        (match) =>
+          match.homeTeam.name.toLowerCase().includes(normalizedQuery) ||
+          match.awayTeam.name.toLowerCase().includes(normalizedQuery),
+      ),
     );
   }
 }
