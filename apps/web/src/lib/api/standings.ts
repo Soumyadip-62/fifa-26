@@ -8,6 +8,23 @@ export type StandingsTeam = {
   crest: string;
   sportsdb_team_id?: string | null;
   sportsdbTeamId?: string | null;
+  qualification?: TeamQualification;
+};
+
+export type QualificationStage =
+  | "ROUND_OF_32"
+  | "ROUND_OF_16"
+  | "QUARTER_FINALS"
+  | "SEMI_FINALS"
+  | "FINAL"
+  | "WINNER";
+
+export type TeamQualification = {
+  stages: QualificationStage[];
+  latestStage: QualificationStage | null;
+  group: string | null;
+  qualifiedAt: string | null;
+  lastSyncedAt: string | null;
 };
 
 export type StandingsTableEntry = {
@@ -22,6 +39,28 @@ export type StandingsTableEntry = {
   goalsFor: number;
   goalsAgainst: number;
   goalDifference: number;
+  qualification?: TeamQualification;
+};
+
+export type QualifiedTeam = {
+  id: string;
+  competitionCode: string;
+  season: string;
+  teamKey: string;
+  footballDataTeamId: number | null;
+  sportsdbTeamId: string | null;
+  teamName: string;
+  shortName: string | null;
+  tla: string | null;
+  crest: string | null;
+  stage: QualificationStage;
+  group: string | null;
+  position: number | null;
+  points: number | null;
+  source: string | null;
+  qualifiedAt: string;
+  lastSyncedAt: string;
+  metadata: Record<string, unknown> | null;
 };
 
 export type StandingsGroup = {
@@ -56,6 +95,11 @@ export type StandingsResponse = {
     winner: string | null;
   };
   standings: StandingsGroup[];
+  qualificationSummary?: {
+    season: string;
+    qualifiedTeams: QualifiedTeam[];
+    lastSyncedAt: string | null;
+  };
 };
 
 export async function getStandings(): Promise<StandingsResponse> {

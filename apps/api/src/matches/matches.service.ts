@@ -65,6 +65,29 @@ type GroupStageSchedule = {
   matches: GroupStageMatch[];
 };
 
+function getMatchTimestamp(match: GroupStageMatch) {
+  const timestamp = match.timestampUtc || match.date;
+  const parsed = Date.parse(
+    timestamp && /[zZ]|[+-]\d{2}:?\d{2}$/.test(timestamp)
+      ? timestamp
+      : `${timestamp}Z`,
+  );
+
+  return Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
+}
+
+function sortMatchesByKickoff(matches: GroupStageMatch[]) {
+  return [...matches].sort((a, b) => {
+    const kickoffDiff = getMatchTimestamp(a) - getMatchTimestamp(b);
+
+    if (kickoffDiff !== 0) {
+      return kickoffDiff;
+    }
+
+    return (a.matchNumber || 0) - (b.matchNumber || 0);
+  });
+}
+
 function mapApiStatus(status: string): string {
   switch (status.toUpperCase()) {
     case 'FINISHED':
@@ -103,6 +126,15 @@ function mapApiStage(stage: string): string {
   }
 }
 
+function getUtcParts(utcDate: string | null | undefined) {
+  const normalizedUtcDate = utcDate || '';
+
+  return {
+    dateUtc: normalizedUtcDate.split('T')[0] || null,
+    timeUtc: normalizedUtcDate.split('T')[1]?.substring(0, 5) || null,
+  };
+}
+
 function mapFootballDataMatchToGroupStage(
   apiMatch: any,
   localMatches: GroupStageMatch[],
@@ -138,8 +170,7 @@ function mapFootballDataMatchToGroupStage(
   });
 
   const utcDate = apiMatch.utcDate || '';
-  const dateStr = utcDate.split('T')[0] || '';
-  const timeStr = utcDate.split('T')[1]?.substring(0, 5) || '';
+  const { dateUtc, timeUtc } = getUtcParts(utcDate);
 
   let group = apiMatch.group || '';
   if (group.startsWith('GROUP_')) {
@@ -155,9 +186,9 @@ function mapFootballDataMatchToGroupStage(
     stage: mapApiStage(apiMatch.stage || ''),
     group,
     matchday: apiMatch.matchday || 1,
-    date: dateStr,
-    time: timeStr,
-    timezone: 'UTC',
+    date: localMatch?.date || dateUtc || '',
+    time: localMatch?.time || timeUtc || '',
+    timezone: localMatch?.timezone || 'UTC',
     homeTeam: apiMatch.homeTeam?.name || 'TBD',
     awayTeam: apiMatch.awayTeam?.name || 'TBD',
     venue: localMatch
@@ -183,8 +214,8 @@ function mapFootballDataMatchToGroupStage(
       away: typeof scoreAway === 'number' ? scoreAway : null,
     },
     timestampUtc: utcDate,
-    dateUtc: dateStr,
-    timeUtc: timeStr,
+    dateUtc,
+    timeUtc,
     statusCode: apiMatch.status,
     isPostponed: apiMatch.status === 'POSTPONED',
     thumbnailUrl: localMatch ? localMatch.thumbnailUrl : null,
@@ -241,10 +272,12 @@ export class MatchesService {
 
     try {
       const dbMatches = await this.matchRepository.find({
-        order: { matchNumber: 'ASC' },
+        order: { timestampUtc: 'ASC', matchNumber: 'ASC' },
       });
-      this.fetchedMatches = dbMatches as GroupStageMatch[];
-      return dbMatches as any;
+      this.fetchedMatches = sortMatchesByKickoff(
+        dbMatches as GroupStageMatch[],
+      );
+      return this.fetchedMatches;
     } catch (error) {
       console.error(
         'Error fetching matches from football-data.org API, falling back to local data:',
@@ -252,7 +285,7 @@ export class MatchesService {
       );
       return this.fetchedMatches.length > 0
         ? this.fetchedMatches
-        : this.matches;
+        : sortMatchesByKickoff(this.matches);
     }
   }
 
@@ -376,6 +409,8 @@ export class MatchesService {
               lm.homeTeam === homeTeamData?.name &&
               lm.awayTeam === awayTeamData?.name,
           );
+        const utcDate = m.utcDate || localMatch?.timestampUtc || null;
+        const { dateUtc, timeUtc } = getUtcParts(utcDate);
 
         return {
           id: String(m.id),
@@ -383,9 +418,9 @@ export class MatchesService {
           stage: m.stage || 'UNKNOWN',
           group: m.group || null,
           matchday: m.matchday || null,
-          date: m.utcDate ? m.utcDate.split('T')[0] : '',
-          time: m.utcDate ? m.utcDate.split('T')[1].substring(0, 5) : '',
-          timezone: 'UTC',
+          date: localMatch?.date || dateUtc || '',
+          time: localMatch?.time || timeUtc || '',
+          timezone: localMatch?.timezone || 'UTC',
           homeTeam: homeTeamData?.name || m.homeTeam?.name || 'TBD',
           awayTeam: awayTeamData?.name || m.awayTeam?.name || 'TBD',
           venue: localMatch?.venue || {
@@ -417,9 +452,9 @@ export class MatchesService {
             home: m.score?.fullTime?.home ?? null,
             away: m.score?.fullTime?.away ?? null,
           },
-          timestampUtc: m.utcDate || null,
-          dateUtc: m.utcDate ? m.utcDate.split('T')[0] : null,
-          timeUtc: m.utcDate ? m.utcDate.split('T')[1].substring(0, 5) : null,
+          timestampUtc: utcDate,
+          dateUtc,
+          timeUtc,
           statusCode: m.status || null,
           isPostponed: false,
           thumbnailUrl: null,
