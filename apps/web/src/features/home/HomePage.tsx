@@ -86,8 +86,8 @@ export function HomePage() {
               archives on a production-ready dashboard.
             </p>
             <div className="flex flex-wrap justify-start gap-3 mt-2">
-              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-3 sm:py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all max-h-[32px] sm:max-h-[40px]")} href="/matches">
-                View Matches
+              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-3 sm:py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all max-h-[32px] sm:max-h-[40px]")} href="/matches/knockout-matches">
+                View Knockout Matches
               </Link>
               <Link
                 className={cn(buttonVariants({
