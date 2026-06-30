@@ -295,6 +295,25 @@ function normalizeGoals(match: ApiMatch) {
   return goals.length > 0 ? goals : undefined;
 }
 
+function normalizeScore(score: Match["score"] | undefined): Match["score"] {
+  const fullTime = score?.fullTime ?? score;
+
+  return {
+    home: fullTime?.home ?? null,
+    away: fullTime?.away ?? null,
+    halfTime: score?.halfTime,
+    fullTime: score?.fullTime ?? {
+      home: fullTime?.home ?? null,
+      away: fullTime?.away ?? null,
+    },
+    regularTime: score?.regularTime ?? fullTime,
+    extraTime: score?.extraTime,
+    penalties: score?.penalties,
+    winner: score?.winner,
+    duration: score?.duration,
+  };
+}
+
 function normalizeMatch(match: ApiMatch): Match {
   const venue =
     typeof match.venue === "object" ? match.venue.stadium : match.venue;
@@ -321,7 +340,7 @@ function normalizeMatch(match: ApiMatch): Match {
     venueImageUrl: match.venueImageUrl ?? images.stadiums.default,
     city,
     status: toStatus(match.status),
-    score: match.score ?? { home: null, away: null },
+    score: normalizeScore(match.score),
     goals: normalizeGoals(match),
     youtubeVideoId: match.youtubeVideoId,
   };
@@ -347,7 +366,7 @@ function sortMatchesByDate(matches: Match[]) {
 
 export async function getMatches(): Promise<Match[]> {
   try {
-    const response = await fetch(apiUrl("/matches"));
+    const response = await fetch(apiUrl("/matches"), { cache: "no-store" });
     if (!response.ok) {
       throw new Error("Failed to fetch matches");
     }

@@ -7,16 +7,14 @@ import type { Match } from "@/types/match";
 import { MatchStatusBadge } from "./MatchStatusBadge";
 import VsIcon from "../Icons/VsIcon";
 import { TeamLogoImage } from "./TeamLogoImage";
+import { formatMatchScore } from "@/lib/matches/score";
 
 export type MatchCardProps = {
   match: Match;
 };
 
 export function MatchCard({ match }: MatchCardProps) {
-  const score =
-    match.score.home === null || match.score.away === null
-      ? "vs"
-      : `${match.score.home} - ${match.score.away}`;
+  const score = formatMatchScore(match, { includeTeams: true });
   const meta = [
     match.matchNumber ? `Match ${match.matchNumber}` : null,
     match.group ? `Group ${match.group}` : null,
@@ -78,4 +76,3 @@ export function MatchCard({ match }: MatchCardProps) {
     </div>
   );
 }
-

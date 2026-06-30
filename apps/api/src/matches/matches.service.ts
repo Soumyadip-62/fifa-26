@@ -22,6 +22,28 @@ type MatchLeague = {
 type MatchScore = {
   home: number | null;
   away: number | null;
+  halfTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  fullTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  regularTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  extraTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  penalties?: {
+    home: number | null;
+    away: number | null;
+  };
+  winner?: string | null;
+  duration?: string | null;
 };
 
 type MatchGoal = Record<string, unknown>;
@@ -138,6 +160,31 @@ function getUtcParts(utcDate: string | null | undefined) {
   };
 }
 
+function normalizeScorePair(score: any) {
+  return {
+    home: typeof score?.home === 'number' ? score.home : null,
+    away: typeof score?.away === 'number' ? score.away : null,
+  };
+}
+
+function mapApiScore(score: any): MatchScore {
+  const fullTime = normalizeScorePair(score?.fullTime);
+
+  return {
+    home: fullTime.home,
+    away: fullTime.away,
+    halfTime: normalizeScorePair(score?.halfTime),
+    fullTime,
+    regularTime: score?.regularTime
+      ? normalizeScorePair(score.regularTime)
+      : fullTime,
+    extraTime: normalizeScorePair(score?.extraTime),
+    penalties: normalizeScorePair(score?.penalties),
+    winner: score?.winner || null,
+    duration: score?.duration || null,
+  };
+}
+
 function mapFootballDataMatchToGroupStage(
   apiMatch: any,
   localMatches: GroupStageMatch[],
@@ -180,9 +227,6 @@ function mapFootballDataMatchToGroupStage(
     group = group.replace('GROUP_', '');
   }
 
-  const scoreHome = apiMatch.score?.fullTime?.home;
-  const scoreAway = apiMatch.score?.fullTime?.away;
-
   return {
     id: apiMatch.id.toString(),
     matchNumber: localMatch ? localMatch.matchNumber : index + 1,
@@ -212,10 +256,7 @@ function mapFootballDataMatchToGroupStage(
       localMatch?.homeTeamBadgeUrl || apiMatch.homeTeam?.crest || null,
     awayTeamBadgeUrl:
       localMatch?.awayTeamBadgeUrl || apiMatch.awayTeam?.crest || null,
-    score: {
-      home: typeof scoreHome === 'number' ? scoreHome : null,
-      away: typeof scoreAway === 'number' ? scoreAway : null,
-    },
+    score: mapApiScore(apiMatch.score),
     goals: Array.isArray(apiMatch.goals) ? apiMatch.goals : localMatch?.goals || null,
     timestampUtc: utcDate,
     dateUtc,
@@ -317,17 +358,6 @@ export class MatchesService {
   @Cron(CronExpression.EVERY_10_MINUTES)
   async syncMatchesToDb() {
     console.log('Syncing matches to database...');
-    const existingMatches = await this.matchRepository.find({
-      select: {
-        id: true,
-        isNotified: true,
-        status: true,
-      },
-    });
-    const existingStatusMap = new Map<string, string>();
-    existingMatches.forEach((m) => {
-      existingStatusMap.set(m.id, m.status);
-    });
 
     try {
       const apiKey = process.env.FOOTBALL_DATA_API_KEY;
@@ -402,19 +432,41 @@ export class MatchesService {
             t.name_normalised === awayShort,
         );
 
-        const localMatch =
-          this.matches.find(
+        let localMatch =
+          homeTeamData?.name && awayTeamData?.name
+            ? this.matches.find(
+                (lm) =>
+                  lm.homeTeam === homeTeamData.name &&
+                  lm.awayTeam === awayTeamData.name,
+              )
+            : undefined;
+
+        if (!localMatch && m.utcDate) {
+          localMatch =
+            this.qualifierMatches.find(
+              (lm) => `${lm.timestampUtc}Z` === m.utcDate,
+            ) ||
+            this.matches.find(
+              (lm) => `${lm.timestampUtc}Z` === m.utcDate,
+            );
+        }
+
+        if (!localMatch && homeTeamData?.name && awayTeamData?.name) {
+          localMatch = this.qualifierMatches.find(
             (lm) =>
-              lm.homeTeam === homeTeamData?.name &&
-              lm.awayTeam === awayTeamData?.name,
-          ) ||
-          this.qualifierMatches.find(
-            (lm) =>
-              lm.homeTeam === homeTeamData?.name &&
-              lm.awayTeam === awayTeamData?.name,
+              lm.homeTeam === homeTeamData.name &&
+              lm.awayTeam === awayTeamData.name,
           );
+        }
         const utcDate = m.utcDate || localMatch?.timestampUtc || null;
         const { dateUtc, timeUtc } = getUtcParts(utcDate);
+
+        const finalHomeName = homeTeamData?.name || m.homeTeam?.name;
+        const finalAwayName = awayTeamData?.name || m.awayTeam?.name;
+        const isHomeValid = finalHomeName && !finalHomeName.includes('TBD') && !finalHomeName.includes('To be determined');
+        const isAwayValid = finalAwayName && !finalAwayName.includes('TBD') && !finalAwayName.includes('To be determined');
+        const finalEventName = isHomeValid && isAwayValid ? `${finalHomeName} vs ${finalAwayName}` : (localMatch?.eventName || 'TBD vs TBD');
+        const finalEventAlternateName = isHomeValid && isAwayValid ? `${finalAwayName} @ ${finalHomeName}` : (localMatch?.eventAlternateName || 'TBD @ TBD');
 
         return {
           id: String(m.id),
@@ -443,8 +495,8 @@ export class MatchesService {
               'https://r2.thesportsdb.com/images/media/league/badge/e7er5g1696521789.png',
             sport: 'Soccer',
           },
-          eventName: `${homeTeamData?.name || m.homeTeam?.name || 'TBD'} vs ${awayTeamData?.name || m.awayTeam?.name || 'TBD'}`,
-          eventAlternateName: `${awayTeamData?.name || m.awayTeam?.name || 'TBD'} @ ${homeTeamData?.name || m.homeTeam?.name || 'TBD'}`,
+          eventName: finalEventName,
+          eventAlternateName: finalEventAlternateName,
           sportsDbEventId: null,
           sportsDbHomeTeamId: homeTeamData?.sportsdb_team_id || null,
           sportsDbAwayTeamId: awayTeamData?.sportsdb_team_id || null,
@@ -452,10 +504,7 @@ export class MatchesService {
             homeTeamData?.image_url || m.homeTeam?.crest || null,
           awayTeamBadgeUrl:
             awayTeamData?.image_url || m.awayTeam?.crest || null,
-          score: {
-            home: m.score?.fullTime?.home ?? null,
-            away: m.score?.fullTime?.away ?? null,
-          },
+          score: mapApiScore(m.score),
           goals: Array.isArray(m.goals) ? m.goals : localMatch?.goals || null,
           timestampUtc: utcDate,
           dateUtc,
@@ -475,13 +524,7 @@ export class MatchesService {
       // Efficiently upsert matches based on the 'id' primary key.
       // This avoids the race condition of clearing the table and is much better for database performance (MVCC bloat).
       
-      const matchesToUpsert = mappedMatches.filter(m => {
-        // If the match is already known to be finished in our DB, skip the update to optimize syncing
-        if (existingStatusMap.get(m.id) === 'finished') {
-          return false;
-        }
-        return true;
-      });
+      const matchesToUpsert = mappedMatches;
 
       await this.matchRepository.upsert(matchesToUpsert, ['id']);
     } catch (error) {

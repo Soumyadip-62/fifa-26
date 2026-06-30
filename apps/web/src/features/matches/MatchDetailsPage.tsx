@@ -19,6 +19,7 @@ import { VenueDetailsDrawer } from "@/components/matches/VenueDetailsDrawer";
 import { searchVenueByName } from "@/lib/api/venues";
 import { images } from "@/assets";
 import type { MatchGoal } from "@/types/match";
+import { formatMatchScore } from "@/lib/matches/score";
 
 export type MatchDetailsPageProps = {
   matchId: string;
@@ -118,10 +119,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     );
   }
 
-  const score =
-    match.score.home === null || match.score.away === null
-      ? "Not started"
-      : `${match.score.home} - ${match.score.away}`;
+  const score = formatMatchScore(match, { pendingLabel: "Not started" });
   const homeGoals = match.goals?.filter((goal) => goal.team === "home") ?? [];
   const awayGoals = match.goals?.filter((goal) => goal.team === "away") ?? [];
 

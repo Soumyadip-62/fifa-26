@@ -78,6 +78,28 @@ export class MatchEntity {
   score: {
     home: number | null;
     away: number | null;
+    halfTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    fullTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    regularTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    extraTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    penalties?: {
+      home: number | null;
+      away: number | null;
+    };
+    winner?: string | null;
+    duration?: string | null;
   };
 
   @Column('jsonb', { nullable: true })
@@ -121,4 +143,10 @@ export class MatchEntity {
 
   @Column({ default: false })
   isNotified: boolean;
+
+  @Column({ nullable: true })
+  lastScoreNotified: string;
+
+  @Column('timestamptz', { nullable: true })
+  lastScoreNotifiedAt: Date | null;
 }

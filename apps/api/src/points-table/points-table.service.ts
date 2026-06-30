@@ -240,7 +240,10 @@ export class PointsTableService {
       }
     }
 
-    if (completedGroups.length === groupStandings.length && groupStandings.length > 0) {
+    if (
+      completedGroups.length === groupStandings.length &&
+      groupStandings.length > 0
+    ) {
       const thirdPlaceTeams = completedGroups
         .map((standing) => {
           const entry = standing.table?.[2];
@@ -310,7 +313,9 @@ export class PointsTableService {
     syncedAt: Date,
     records: Map<string, QualifiedTeamRecord>,
   ) {
-    const matches = Array.isArray(matchesData?.matches) ? matchesData.matches : [];
+    const matches = Array.isArray(matchesData?.matches)
+      ? matchesData.matches
+      : [];
 
     for (const match of matches) {
       const participantStage = KNOCKOUT_STAGE_TO_QUALIFICATION[match.stage];
@@ -482,7 +487,7 @@ export class PointsTableService {
     }
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  @Cron(CronExpression.EVERY_2_HOURS)
   async syncQualifiedTeamsCron() {
     await this.syncQualifiedTeams();
   }

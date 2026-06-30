@@ -5,6 +5,7 @@ import { FirebaseService } from 'src/firebase/firebase.service';
 import { SubscribedTokens } from './entities/notification.entity';
 import { MatchEntity } from '../matches/entities/matches.entity';
 import { Repository } from 'typeorm';
+import { TeamEntity } from '../teams/entitites/teams.entity';
 
 export type NotificationPreferences = {
   favoriteTeams?: string[];
@@ -19,50 +20,6 @@ type TestNotificationType =
   | 'kickoff10'
   | 'finalScore'
   | 'qualification';
-
-const TEAM_FLAGS: Record<string, string> = {
-  'Argentina': '🇦🇷',
-  'Australia': '🇦🇺',
-  'Austria': '🇦🇹',
-  'Belgium': '🇧🇪',
-  'Brazil': '🇧🇷',
-  'Cameroon': '🇨🇲',
-  'Canada': '🇨🇦',
-  'Chile': '🇨🇱',
-  'Colombia': '🇨🇴',
-  'Costa Rica': '🇨🇷',
-  'Croatia': '🇭🇷',
-  'Denmark': '🇩🇰',
-  'Ecuador': '🇪🇨',
-  'Egypt': '🇪🇬',
-  'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-  'France': '🇫🇷',
-  'Germany': '🇩🇪',
-  'Ghana': '🇬🇭',
-  'Iran': '🇮🇷',
-  'Italy': '🇮🇹',
-  'Japan': '🇯🇵',
-  'Mexico': '🇲🇽',
-  'Morocco': '🇲🇦',
-  'Netherlands': '🇳🇱',
-  'Nigeria': '🇳🇬',
-  'Peru': '🇵🇪',
-  'Poland': '🇵🇱',
-  'Portugal': '🇵🇹',
-  'Qatar': '🇶🇦',
-  'Saudi Arabia': '🇸🇦',
-  'Senegal': '🇸🇳',
-  'Serbia': '🇷🇸',
-  'South Korea': '🇰🇷',
-  'Spain': '🇪🇸',
-  'Sweden': '🇸🇪',
-  'Switzerland': '🇨🇭',
-  'Tunisia': '🇹🇳',
-  'United States': '🇺🇸',
-  'USA': '🇺🇸',
-  'Uruguay': '🇺🇾',
-  'Wales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿'
-};
 
 const TEST_NOTIFICATIONS: Record<
   TestNotificationType,
@@ -85,11 +42,6 @@ const TEST_NOTIFICATIONS: Record<
     body: '🇺🇸 United States qualified for the Round of 32.',
   },
 };
-
-function getFlag(teamName: string): string {
-  if (!teamName) return '';
-  return TEAM_FLAGS[teamName] || '';
-}
 
 function normalizeTeamName(value: string) {
   return value
@@ -136,6 +88,26 @@ function tokenWantsMatch(
   );
 }
 
+function tokenWantsScoreUpdate(
+  preferences: NotificationPreferences | null | undefined,
+  homeTeam: string,
+  awayTeam: string,
+) {
+  const normalized = normalizePreferences(preferences);
+
+  if (!normalized.finalScore) return false;
+  if (normalized.favoriteTeams.length === 0) return true;
+
+  const teams = new Set([
+    normalizeTeamName(homeTeam || ''),
+    normalizeTeamName(awayTeam || ''),
+  ]);
+
+  return normalized.favoriteTeams.some((team) =>
+    teams.has(normalizeTeamName(team)),
+  );
+}
+
 function parseMatchDate(timestampUtc: string | null | undefined) {
   if (!timestampUtc) return null;
 
@@ -156,6 +128,51 @@ function getDateKey(date: Date, timeZone: string) {
   }).format(date);
 }
 
+function getScoreKey(match: MatchEntity) {
+  const fullTime = match.score?.regularTime || match.score?.fullTime || match.score;
+  const home = fullTime?.home;
+  const away = fullTime?.away;
+
+  if (typeof home !== 'number' || typeof away !== 'number') {
+    return null;
+  }
+
+  const penalties = match.score?.penalties;
+  if (
+    typeof penalties?.home === 'number' &&
+    typeof penalties.away === 'number'
+  ) {
+    return `${home}(${penalties.home})-${away}(${penalties.away})`;
+  }
+
+  const extraTime = match.score?.extraTime;
+  if (
+    typeof extraTime?.home === 'number' &&
+    typeof extraTime.away === 'number' &&
+    (extraTime.home > 0 || extraTime.away > 0)
+  ) {
+    return `${home}(${extraTime.home})-${away}(${extraTime.away})`;
+  }
+
+  return `${home}-${away}`;
+}
+
+function isScoreUpdateCandidate(match: MatchEntity) {
+  const scoreKey = getScoreKey(match);
+  const status = (match.status || '').toLowerCase();
+  const statusCode = (match.statusCode || '').toUpperCase();
+
+  return (
+    Boolean(scoreKey) &&
+    (status === 'live' ||
+      status === 'finished' ||
+      statusCode === 'IN_PLAY' ||
+      statusCode === 'PAUSED' ||
+      statusCode === 'FINISHED' ||
+      statusCode === 'AWARDED')
+  );
+}
+
 @Injectable()
 export class NotificationService {
   private readonly logger = new Logger(NotificationService.name);
@@ -167,7 +184,43 @@ export class NotificationService {
     private readonly tokenRepo: Repository<SubscribedTokens>,
     @InjectRepository(MatchEntity)
     private readonly matchRepo: Repository<MatchEntity>,
+    @InjectRepository(TeamEntity)
+    private readonly teamRepo: Repository<TeamEntity>,
   ) {}
+
+  private async buildTeamFlagMap() {
+    const teams = await this.teamRepo.find();
+    const map = new Map<string, string>();
+
+    for (const team of teams) {
+      const flag = team.flag_icon || team.flag_unicode || '';
+      if (!flag) continue;
+
+      if (team.name) {
+        map.set(normalizeTeamName(team.name), flag);
+      }
+      if (team.name_normalised) {
+        map.set(normalizeTeamName(team.name_normalised), flag);
+      }
+      if (team.fifa_code) {
+        map.set(normalizeTeamName(team.fifa_code), flag);
+      }
+    }
+
+    return map;
+  }
+
+  private getFlag(flagMap: Map<string, string>, teamName: string) {
+    if (!teamName) return '';
+
+    return flagMap.get(normalizeTeamName(teamName)) || '';
+  }
+
+  private getTeamDisplay(flagMap: Map<string, string>, teamName: string) {
+    const flag = this.getFlag(flagMap, teamName);
+
+    return flag ? `${flag} ${teamName}` : teamName;
+  }
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   sendNotifications() {
@@ -201,21 +254,22 @@ export class NotificationService {
     // 3. Fetch all subscribed tokens
     const tokens = await this.tokenRepo.find();
     if (tokens.length === 0) return;
+    const flagMap = await this.buildTeamFlagMap();
 
     // 4. Send notifications
     for (const match of matchesToNotify) {
-      const matchDate = match.timestampUtc ? new Date(match.timestampUtc) : new Date();
+      const matchDate = match.timestampUtc
+        ? new Date(match.timestampUtc)
+        : new Date();
       const localTimeStr = matchDate.toLocaleTimeString('en-US', {
         timeZone: 'Asia/Kolkata',
         hour: '2-digit',
         minute: '2-digit',
       });
       const title = `🚨 Match Kickoff in 30 Mins!`;
-      const homeFlag = getFlag(match.homeTeam);
-      const awayFlag = getFlag(match.awayTeam);
-      const homeDisplay = homeFlag ? `${homeFlag} ${match.homeTeam}` : match.homeTeam;
-      const awayDisplay = awayFlag ? `${awayFlag} ${match.awayTeam}` : match.awayTeam;
-      
+      const homeDisplay = this.getTeamDisplay(flagMap, match.homeTeam);
+      const awayDisplay = this.getTeamDisplay(flagMap, match.awayTeam);
+
       const body = `${homeDisplay} vs ${awayDisplay} ⚽\n⏰ ${localTimeStr} IST`;
 
       this.logger.log(
@@ -238,6 +292,63 @@ export class NotificationService {
 
       // Mark as notified in DB
       match.isNotified = true;
+      await this.matchRepo.save(match);
+    }
+  }
+
+  @Cron(CronExpression.EVERY_5_MINUTES)
+  async sendScoreUpdateNotifications() {
+    this.logger.log('Checking for score updates...');
+
+    const matches = (await this.matchRepo.find()).filter(isScoreUpdateCandidate);
+    if (matches.length === 0) return;
+
+    const tokens = await this.tokenRepo.find();
+    const flagMap = await this.buildTeamFlagMap();
+
+    for (const match of matches) {
+      const scoreKey = getScoreKey(match);
+      if (!scoreKey) continue;
+
+      if (!match.lastScoreNotified) {
+        match.lastScoreNotified = scoreKey;
+        match.lastScoreNotifiedAt = new Date();
+        await this.matchRepo.save(match);
+        continue;
+      }
+
+      if (match.lastScoreNotified === scoreKey) {
+        continue;
+      }
+
+      const targetTokens = tokens.filter((token) =>
+        tokenWantsScoreUpdate(token.preferences, match.homeTeam, match.awayTeam),
+      );
+      const homeDisplay = this.getTeamDisplay(flagMap, match.homeTeam);
+      const awayDisplay = this.getTeamDisplay(flagMap, match.awayTeam);
+      const title =
+        match.status?.toLowerCase() === 'finished'
+          ? '🏁 Final Score'
+          : '⚽ Score Update';
+      const body = `${homeDisplay} ${scoreKey} ${awayDisplay}`;
+
+      if (targetTokens.length > 0) {
+        const results = await Promise.allSettled(
+          targetTokens.map((token) =>
+            this.firebase.send(token.token, title, body),
+          ),
+        );
+        this.logger.log(
+          `Score notification sent for ${body}: ${
+            results.filter((result) => result.status === 'fulfilled').length
+          }/${targetTokens.length}`,
+        );
+      } else {
+        this.logger.log(`No matching score preferences for ${body}.`);
+      }
+
+      match.lastScoreNotified = scoreKey;
+      match.lastScoreNotifiedAt = new Date();
       await this.matchRepo.save(match);
     }
   }
@@ -267,6 +378,7 @@ export class NotificationService {
     }
 
     let sent = 0;
+    const flagMap = await this.buildTeamFlagMap();
 
     for (const match of matches) {
       const matchDate = parseMatchDate(match.timestampUtc) || new Date();
@@ -275,10 +387,8 @@ export class NotificationService {
         hour: '2-digit',
         minute: '2-digit',
       });
-      const homeFlag = getFlag(match.homeTeam);
-      const awayFlag = getFlag(match.awayTeam);
-      const homeDisplay = homeFlag ? `${homeFlag} ${match.homeTeam}` : match.homeTeam;
-      const awayDisplay = awayFlag ? `${awayFlag} ${match.awayTeam}` : match.awayTeam;
+      const homeDisplay = this.getTeamDisplay(flagMap, match.homeTeam);
+      const awayDisplay = this.getTeamDisplay(flagMap, match.awayTeam);
       const title = '[TEST] Today Match Alert';
       const body = `${homeDisplay} vs ${awayDisplay} ⚽\n⏰ ${localTimeStr} IST`;
 
@@ -287,7 +397,9 @@ export class NotificationService {
       );
 
       const results = await Promise.allSettled(
-        targetTokens.map((token) => this.firebase.send(token.token, title, body)),
+        targetTokens.map((token) =>
+          this.firebase.send(token.token, title, body),
+        ),
       );
       sent += results.filter((result) => result.status === 'fulfilled').length;
     }
