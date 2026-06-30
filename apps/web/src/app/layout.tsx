@@ -3,6 +3,7 @@ import { Orbitron, Poppins } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { absoluteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
 
 const orbitron = Orbitron({
@@ -18,14 +19,25 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Worldcup Companion",
-  description: "Football schedules, teams, news, and history.",
+  metadataBase: new URL(absoluteUrl("/")),
+  title: {
+    default: "Worldcup Companion | FIFA World Cup 2026 Schedule, Scores & Bracket",
+    template: "%s | Worldcup Companion",
+  },
+  description:
+    "Follow FIFA World Cup 2026 fixtures, live scores, points tables, teams, knockout brackets, news, and tournament history.",
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
   openGraph: {
-    title: "Worldcup Companion",
-    description: "Football schedules, teams, news, and history.",
+    title: "Worldcup Companion | FIFA World Cup 2026 Schedule, Scores & Bracket",
+    description:
+      "Follow FIFA World Cup 2026 fixtures, live scores, points tables, teams, knockout brackets, news, and tournament history.",
+    url: absoluteUrl("/"),
+    siteName: "Worldcup Companion",
     images: [
       {
-        url: "/assets/images/banners/world-cup26.webp",
+        url: absoluteUrl("/assets/images/banners/world-cup26.webp"),
         width: 1200,
         height: 630,
         alt: "Worldcup Companion Banner",
@@ -35,9 +47,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Worldcup Companion",
-    description: "Football schedules, teams, news, and history.",
-    images: ["/assets/images/banners/world-cup26.webp"],
+    title: "Worldcup Companion | FIFA World Cup 2026 Schedule, Scores & Bracket",
+    description:
+      "Follow FIFA World Cup 2026 fixtures, live scores, points tables, teams, knockout brackets, news, and tournament history.",
+    images: [absoluteUrl("/assets/images/banners/world-cup26.webp")],
   },
 };
 
