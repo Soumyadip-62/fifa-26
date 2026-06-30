@@ -129,7 +129,8 @@ function getDateKey(date: Date, timeZone: string) {
 }
 
 function getScoreKey(match: MatchEntity) {
-  const fullTime = match.score?.regularTime || match.score?.fullTime || match.score;
+  const fullTime =
+    match.score?.regularTime || match.score?.fullTime || match.score;
   const home = fullTime?.home;
   const away = fullTime?.away;
 
@@ -157,20 +158,25 @@ function getScoreKey(match: MatchEntity) {
   return `${home}-${away}`;
 }
 
-function isScoreUpdateCandidate(match: MatchEntity) {
+function isCompletedScoreCandidate(match: MatchEntity) {
   const scoreKey = getScoreKey(match);
   const status = (match.status || '').toLowerCase();
   const statusCode = (match.statusCode || '').toUpperCase();
 
   return (
     Boolean(scoreKey) &&
-    (status === 'live' ||
-      status === 'finished' ||
-      statusCode === 'IN_PLAY' ||
-      statusCode === 'PAUSED' ||
+    (status === 'finished' ||
+      status === 'completed' ||
       statusCode === 'FINISHED' ||
       statusCode === 'AWARDED')
   );
+}
+
+function getMatchTimestamp(match: MatchEntity) {
+  const timestamp = match.timestampUtc || match.date;
+  const parsed = timestamp ? Date.parse(timestamp) : Number.NaN;
+
+  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 @Injectable()
@@ -222,10 +228,10 @@ export class NotificationService {
     return flag ? `${flag} ${teamName}` : teamName;
   }
 
-  @Cron(CronExpression.EVERY_5_MINUTES)
-  sendNotifications() {
-    this.logger.log('Keeping the server alive.....');
-  }
+  // @Cron(CronExpression.EVERY_5_MINUTES)
+  // sendNotifications() {
+  //   this.logger.log('Keeping the server alive.....');
+  // }
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   async sendMatchNotification() {
@@ -298,59 +304,60 @@ export class NotificationService {
 
   @Cron(CronExpression.EVERY_5_MINUTES)
   async sendScoreUpdateNotifications() {
-    this.logger.log('Checking for score updates...');
+    this.logger.log('Checking latest completed match score...');
 
-    const matches = (await this.matchRepo.find()).filter(isScoreUpdateCandidate);
-    if (matches.length === 0) return;
+    const latestCompletedMatch = (await this.matchRepo.find())
+      .filter(isCompletedScoreCandidate)
+      .sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a))[0];
+
+    if (!latestCompletedMatch) return;
+
+    const scoreKey = getScoreKey(latestCompletedMatch);
+    if (!scoreKey) return;
+
+    if (latestCompletedMatch.lastScoreNotified === scoreKey) {
+      return;
+    }
 
     const tokens = await this.tokenRepo.find();
     const flagMap = await this.buildTeamFlagMap();
 
-    for (const match of matches) {
-      const scoreKey = getScoreKey(match);
-      if (!scoreKey) continue;
+    const targetTokens = tokens.filter((token) =>
+      tokenWantsScoreUpdate(
+        token.preferences,
+        latestCompletedMatch.homeTeam,
+        latestCompletedMatch.awayTeam,
+      ),
+    );
+    const homeDisplay = this.getTeamDisplay(
+      flagMap,
+      latestCompletedMatch.homeTeam,
+    );
+    const awayDisplay = this.getTeamDisplay(
+      flagMap,
+      latestCompletedMatch.awayTeam,
+    );
+    const title = '🏁 Final Score';
+    const body = `${homeDisplay} ${scoreKey} ${awayDisplay}`;
 
-      if (!match.lastScoreNotified) {
-        match.lastScoreNotified = scoreKey;
-        match.lastScoreNotifiedAt = new Date();
-        await this.matchRepo.save(match);
-        continue;
-      }
-
-      if (match.lastScoreNotified === scoreKey) {
-        continue;
-      }
-
-      const targetTokens = tokens.filter((token) =>
-        tokenWantsScoreUpdate(token.preferences, match.homeTeam, match.awayTeam),
+    if (targetTokens.length > 0) {
+      const results = await Promise.allSettled(
+        targetTokens.map((token) =>
+          this.firebase.send(token.token, title, body),
+        ),
       );
-      const homeDisplay = this.getTeamDisplay(flagMap, match.homeTeam);
-      const awayDisplay = this.getTeamDisplay(flagMap, match.awayTeam);
-      const title =
-        match.status?.toLowerCase() === 'finished'
-          ? '🏁 Final Score'
-          : '⚽ Score Update';
-      const body = `${homeDisplay} ${scoreKey} ${awayDisplay}`;
-
-      if (targetTokens.length > 0) {
-        const results = await Promise.allSettled(
-          targetTokens.map((token) =>
-            this.firebase.send(token.token, title, body),
-          ),
-        );
-        this.logger.log(
-          `Score notification sent for ${body}: ${
-            results.filter((result) => result.status === 'fulfilled').length
-          }/${targetTokens.length}`,
-        );
-      } else {
-        this.logger.log(`No matching score preferences for ${body}.`);
-      }
-
-      match.lastScoreNotified = scoreKey;
-      match.lastScoreNotifiedAt = new Date();
-      await this.matchRepo.save(match);
+      this.logger.log(
+        `Final score notification sent for ${body}: ${
+          results.filter((result) => result.status === 'fulfilled').length
+        }/${targetTokens.length}`,
+      );
+    } else {
+      this.logger.log(`No matching score preferences for ${body}.`);
     }
+
+    latestCompletedMatch.lastScoreNotified = scoreKey;
+    latestCompletedMatch.lastScoreNotifiedAt = new Date();
+    await this.matchRepo.save(latestCompletedMatch);
   }
 
   async sendTodayMatchNotificationsForTesting() {
@@ -439,7 +446,10 @@ export class NotificationService {
     return this.firebase.send(token, '⚽ FIFA TEST', 'Backend works');
   }
 
-  async sendDeviceTestNotifications(token: string, type?: TestNotificationType) {
+  async sendDeviceTestNotifications(
+    token: string,
+    type?: TestNotificationType,
+  ) {
     if (!token) {
       return { sent: 0, token: false };
     }
