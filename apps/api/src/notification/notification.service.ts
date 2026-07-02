@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FirebaseService } from 'src/firebase/firebase.service';
 import { SubscribedTokens } from './entities/notification.entity';
 import { MatchEntity } from '../matches/entities/matches.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { TeamEntity } from '../teams/entitites/teams.entity';
 
 export type NotificationPreferences = {
@@ -20,6 +20,18 @@ type TestNotificationType =
   | 'kickoff10'
   | 'finalScore'
   | 'qualification';
+
+type FirebaseErrorLike = {
+  code?: string;
+  errorInfo?: {
+    code?: string;
+  };
+  message?: string;
+  cause?: FirebaseErrorLike;
+  response?: {
+    text?: string;
+  };
+};
 
 const TEST_NOTIFICATIONS: Record<
   TestNotificationType,
@@ -179,6 +191,26 @@ function getMatchTimestamp(match: MatchEntity) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+function getFirebaseErrorCode(error: unknown): string | undefined {
+  const firebaseError = error as FirebaseErrorLike | undefined;
+
+  return firebaseError?.code || firebaseError?.errorInfo?.code;
+}
+
+function isStaleFirebaseTokenError(error: unknown): boolean {
+  const firebaseError = error as FirebaseErrorLike | undefined;
+  const code = getFirebaseErrorCode(error);
+  const message = firebaseError?.message || '';
+  const responseText = firebaseError?.response?.text || '';
+
+  return (
+    code === 'messaging/registration-token-not-registered' ||
+    code === 'messaging/invalid-registration-token' ||
+    message.includes('NotRegistered') ||
+    responseText.includes('"errorCode": "UNREGISTERED"')
+  );
+}
+
 @Injectable()
 export class NotificationService {
   private readonly logger = new Logger(NotificationService.name);
@@ -228,6 +260,94 @@ export class NotificationService {
     return flag ? `${flag} ${teamName}` : teamName;
   }
 
+  private getUniqueTokenRows(tokens: SubscribedTokens[]) {
+    const seenTokens = new Set<string>();
+    const uniqueTokens: SubscribedTokens[] = [];
+    const duplicateTokenIds: string[] = [];
+
+    for (const token of tokens) {
+      const tokenValue = token.token?.trim();
+
+      if (!tokenValue) {
+        duplicateTokenIds.push(token.id);
+        continue;
+      }
+
+      if (seenTokens.has(tokenValue)) {
+        duplicateTokenIds.push(token.id);
+        continue;
+      }
+
+      seenTokens.add(tokenValue);
+      uniqueTokens.push({ ...token, token: tokenValue });
+    }
+
+    return { uniqueTokens, duplicateTokenIds };
+  }
+
+  private async sendToSubscribedTokens(
+    tokens: SubscribedTokens[],
+    title: string,
+    body: string,
+  ) {
+    const { uniqueTokens, duplicateTokenIds } = this.getUniqueTokenRows(tokens);
+
+    if (duplicateTokenIds.length > 0) {
+      await this.tokenRepo.delete({ id: In(duplicateTokenIds) });
+      this.logger.warn(
+        `Removed ${duplicateTokenIds.length} duplicate Firebase registration token row(s).`,
+      );
+    }
+
+    const results = await Promise.allSettled(
+      uniqueTokens.map((token) => this.firebase.send(token.token, title, body)),
+    );
+    const staleTokenIds = uniqueTokens
+      .filter((_, index) => {
+        const result = results[index];
+
+        return (
+          result.status === 'rejected' &&
+          isStaleFirebaseTokenError(result.reason)
+        );
+      })
+      .map((token) => token.id);
+    const failedResults = results.filter(
+      (result) => result.status === 'rejected',
+    );
+    const nonStaleFailures = failedResults.filter(
+      (result) => !isStaleFirebaseTokenError(result.reason),
+    );
+
+    if (staleTokenIds.length > 0) {
+      await this.tokenRepo.delete({ id: In(staleTokenIds) });
+      this.logger.warn(
+        `Removed ${staleTokenIds.length} stale Firebase registration token(s).`,
+      );
+    }
+
+    if (nonStaleFailures.length > 0) {
+      const codes = [
+        ...new Set(
+          nonStaleFailures
+            .map((result) => getFirebaseErrorCode(result.reason))
+            .filter(Boolean),
+        ),
+      ];
+
+      this.logger.warn(
+        `Firebase notification failed for ${nonStaleFailures.length} token(s): ${codes.join(', ') || 'unknown error'}`,
+      );
+    }
+
+    return {
+      sent: results.filter((result) => result.status === 'fulfilled').length,
+      total: uniqueTokens.length,
+      removed: staleTokenIds.length,
+      removedTokenIds: staleTokenIds,
+    };
+  }
+
   // @Cron(CronExpression.EVERY_5_MINUTES)
   // sendNotifications() {
   //   this.logger.log('Keeping the server alive.....');
@@ -258,7 +378,7 @@ export class NotificationService {
     }
 
     // 3. Fetch all subscribed tokens
-    const tokens = await this.tokenRepo.find();
+    let tokens = await this.tokenRepo.find();
     if (tokens.length === 0) return;
     const flagMap = await this.buildTeamFlagMap();
 
@@ -291,10 +411,15 @@ export class NotificationService {
         continue;
       }
 
-      const promises = targetTokens.map((t) =>
-        this.firebase.send(t.token, title, body),
+      const results = await this.sendToSubscribedTokens(
+        targetTokens,
+        title,
+        body,
       );
-      await Promise.allSettled(promises);
+      if (results.removedTokenIds.length > 0) {
+        const removedIds = new Set(results.removedTokenIds);
+        tokens = tokens.filter((token) => !removedIds.has(token.id));
+      }
 
       // Mark as notified in DB
       match.isNotified = true;
@@ -341,15 +466,13 @@ export class NotificationService {
     const body = `${homeDisplay} ${scoreKey} ${awayDisplay}`;
 
     if (targetTokens.length > 0) {
-      const results = await Promise.allSettled(
-        targetTokens.map((token) =>
-          this.firebase.send(token.token, title, body),
-        ),
+      const results = await this.sendToSubscribedTokens(
+        targetTokens,
+        title,
+        body,
       );
       this.logger.log(
-        `Final score notification sent for ${body}: ${
-          results.filter((result) => result.status === 'fulfilled').length
-        }/${targetTokens.length}`,
+        `Final score notification sent for ${body}: ${results.sent}/${targetTokens.length}`,
       );
     } else {
       this.logger.log(`No matching score preferences for ${body}.`);
@@ -363,7 +486,7 @@ export class NotificationService {
   async sendTodayMatchNotificationsForTesting() {
     this.logger.log('Sending test notifications for today matches...');
 
-    const tokens = await this.tokenRepo.find();
+    let tokens = await this.tokenRepo.find();
     if (tokens.length === 0) {
       this.logger.warn('No subscribed tokens found for today match test.');
       return { sent: 0, matches: 0, tokens: 0 };
@@ -403,12 +526,16 @@ export class NotificationService {
         tokenWantsMatch(token.preferences, match.homeTeam, match.awayTeam),
       );
 
-      const results = await Promise.allSettled(
-        targetTokens.map((token) =>
-          this.firebase.send(token.token, title, body),
-        ),
+      const results = await this.sendToSubscribedTokens(
+        targetTokens,
+        title,
+        body,
       );
-      sent += results.filter((result) => result.status === 'fulfilled').length;
+      sent += results.sent;
+      if (results.removedTokenIds.length > 0) {
+        const removedIds = new Set(results.removedTokenIds);
+        tokens = tokens.filter((token) => !removedIds.has(token.id));
+      }
     }
 
     return {
@@ -422,22 +549,39 @@ export class NotificationService {
   async subcribe(token: string, preferences?: NotificationPreferences | null) {
     if (!token) return false;
 
+    const tokenValue = token.trim();
+    if (!tokenValue) return false;
+
     const normalizedPreferences = normalizePreferences(preferences);
 
     // Check if we already saved this token
-    const existing = await this.tokenRepo.findOne({ where: { token } });
+    const matchingTokens = await this.tokenRepo.find({
+      where: { token: tokenValue },
+    });
+    const existing = matchingTokens[0];
 
     if (existing) {
       existing.preferences = normalizedPreferences;
       await this.tokenRepo.save(existing);
+
+      const duplicateTokenIds = matchingTokens
+        .slice(1)
+        .map((duplicateToken) => duplicateToken.id);
+
+      if (duplicateTokenIds.length > 0) {
+        await this.tokenRepo.delete({ id: In(duplicateTokenIds) });
+        this.logger.warn(
+          `Removed ${duplicateTokenIds.length} duplicate subscription row(s) for one FCM token.`,
+        );
+      }
     } else {
       const newToken = this.tokenRepo.create({
         id: Date.now().toString() + Math.random().toString(36).substring(7),
-        token,
+        token: tokenValue,
         preferences: normalizedPreferences,
       });
       await this.tokenRepo.save(newToken);
-      this.logger.log(`New FCM Token subscribed: ${token}`);
+      this.logger.log(`New FCM Token subscribed: ${tokenValue}`);
     }
 
     return true;

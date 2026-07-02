@@ -21,22 +21,16 @@ export class FirebaseService {
   }
 
   async send(token: string, title: string, body: string) {
-    try {
-      const res = await getMessaging().send({
-        token,
-        notification: {
-          title,
-          body,
-        },
-      });
+    const res = await getMessaging().send({
+      token,
+      notification: {
+        title,
+        body,
+      },
+    });
 
-      console.log(res);
+    console.log(res);
 
-      return res;
-    } catch (e) {
-      console.error(e);
-
-      throw e;
-    }
+    return res;
   }
 }
