@@ -1,6 +1,15 @@
 export const images = {
   banners: {
     worldCup2026: "/assets/images/banners/world-cup26.webp",
+    worldCup2026Alt2: "/assets/images/banners/world-cup26-banner-2.png",
+    worldCup2026Alt3: "/assets/images/banners/world-cup26-banner-3.png",
+    worldCup2026Alt4: "/assets/images/banners/world-cup26-banner-4.png",
+    worldCup2026Rotation: [
+      "/assets/images/banners/world-cup26.webp",
+      "/assets/images/banners/world-cup26-banner-2.png",
+      "/assets/images/banners/world-cup26-banner-3.png",
+      "/assets/images/banners/world-cup26-banner-4.png",
+    ],
     worldCupTrophy: "/assets/images/banners/fifa-world-cup-trophy.png",
     r32Stadium: "/assets/images/banners/r32-stadium.png",
     r16Stadium: "/assets/images/banners/r16-stadium.png",
