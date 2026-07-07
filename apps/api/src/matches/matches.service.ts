@@ -59,6 +59,8 @@ export type GroupStageMatch = {
   timezone: string;
   homeTeam: string;
   awayTeam: string;
+  homeTeamSlot?: string | null;
+  awayTeamSlot?: string | null;
   venue: MatchVenue;
   status: string;
   season?: string | null;
@@ -90,6 +92,11 @@ type GroupStageSchedule = {
   matches: GroupStageMatch[];
 };
 
+const FOOTBALL_DATA_MATCH_NUMBER_OVERRIDES: Record<string, number> = {
+  '537425': 79,
+  '537378': 92,
+};
+
 function getMatchTimestamp(match: GroupStageMatch) {
   const timestamp = match.timestampUtc || match.date;
   const parsed = Date.parse(
@@ -99,6 +106,24 @@ function getMatchTimestamp(match: GroupStageMatch) {
   );
 
   return Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
+}
+
+function getTimestampMs(value: string | null | undefined) {
+  if (!value) {
+    return null;
+  }
+
+  const timestamp = /[zZ]|[+-]\d{2}:?\d{2}$/.test(value) ? value : `${value}Z`;
+  const parsed = Date.parse(timestamp);
+
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function hasSameKickoff(match: GroupStageMatch, utcDate: string | null | undefined) {
+  const matchTime = getTimestampMs(match.timestampUtc || match.date);
+  const apiTime = getTimestampMs(utcDate);
+
+  return matchTime !== null && apiTime !== null && matchTime === apiTime;
 }
 
 function sortMatchesByKickoff(matches: GroupStageMatch[]) {
@@ -252,6 +277,8 @@ function mapFootballDataMatchToGroupStage(
     sportsDbEventId: localMatch ? localMatch.sportsDbEventId : null,
     sportsDbHomeTeamId: localMatch ? localMatch.sportsDbHomeTeamId : null,
     sportsDbAwayTeamId: localMatch ? localMatch.sportsDbAwayTeamId : null,
+    homeTeamSlot: localMatch?.homeTeamSlot || null,
+    awayTeamSlot: localMatch?.awayTeamSlot || null,
     homeTeamBadgeUrl:
       localMatch?.homeTeamBadgeUrl || apiMatch.homeTeam?.crest || null,
     awayTeamBadgeUrl:
@@ -443,12 +470,8 @@ export class MatchesService {
 
         if (!localMatch && m.utcDate) {
           localMatch =
-            this.qualifierMatches.find(
-              (lm) => `${lm.timestampUtc}Z` === m.utcDate,
-            ) ||
-            this.matches.find(
-              (lm) => `${lm.timestampUtc}Z` === m.utcDate,
-            );
+            this.qualifierMatches.find((lm) => hasSameKickoff(lm, m.utcDate)) ||
+            this.matches.find((lm) => hasSameKickoff(lm, m.utcDate));
         }
 
         if (!localMatch && homeTeamData?.name && awayTeamData?.name) {
@@ -467,10 +490,18 @@ export class MatchesService {
         const isAwayValid = finalAwayName && !finalAwayName.includes('TBD') && !finalAwayName.includes('To be determined');
         const finalEventName = isHomeValid && isAwayValid ? `${finalHomeName} vs ${finalAwayName}` : (localMatch?.eventName || 'TBD vs TBD');
         const finalEventAlternateName = isHomeValid && isAwayValid ? `${finalAwayName} @ ${finalHomeName}` : (localMatch?.eventAlternateName || 'TBD @ TBD');
+        const officialMatchNumber =
+          localMatch?.matchNumber ||
+          FOOTBALL_DATA_MATCH_NUMBER_OVERRIDES[String(m.id)] ||
+          m.matchday ||
+          0;
+        const officialQualifierMatch = this.qualifierMatches.find(
+          (lm) => lm.matchNumber === officialMatchNumber,
+        );
 
         return {
           id: String(m.id),
-          matchNumber: localMatch?.matchNumber || m.matchday || 0,
+          matchNumber: officialMatchNumber,
           stage: m.stage || 'UNKNOWN',
           group: m.group || null,
           matchday: m.matchday || null,
@@ -500,6 +531,10 @@ export class MatchesService {
           sportsDbEventId: null,
           sportsDbHomeTeamId: homeTeamData?.sportsdb_team_id || null,
           sportsDbAwayTeamId: awayTeamData?.sportsdb_team_id || null,
+          homeTeamSlot:
+            localMatch?.homeTeamSlot || officialQualifierMatch?.homeTeamSlot || null,
+          awayTeamSlot:
+            localMatch?.awayTeamSlot || officialQualifierMatch?.awayTeamSlot || null,
           homeTeamBadgeUrl:
             homeTeamData?.image_url || m.homeTeam?.crest || null,
           awayTeamBadgeUrl:

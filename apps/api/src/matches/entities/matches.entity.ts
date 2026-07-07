@@ -32,6 +32,12 @@ export class MatchEntity {
   @Column({ nullable: true })
   awayTeam: string;
 
+  @Column({ nullable: true })
+  homeTeamSlot: string;
+
+  @Column({ nullable: true })
+  awayTeamSlot: string;
+
   @Column('jsonb', { nullable: true })
   venue: {
     city: string | null;

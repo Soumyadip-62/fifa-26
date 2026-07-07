@@ -13,6 +13,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getMatches } from "@/lib/api/matches";
+import {
+  getQualifiedTeams,
+  getStandings,
+  type QualifiedTeam,
+  type StandingsResponse,
+} from "@/lib/api/standings";
 import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import { cn } from "@/lib/utils/cn";
 import { formatMatchScore } from "@/lib/matches/score";
@@ -89,6 +95,7 @@ const OFFICIAL_MATCH_NUMBER_BY_KICKOFF: Record<string, number> = {
   "2026-06-30T21:00:00Z": 77,
   "2026-06-30T17:00:00Z": 78,
   "2026-07-01T01:00:00Z": 79,
+  "2026-07-01T02:00:00Z": 79,
   "2026-07-01T16:00:00Z": 80,
   "2026-07-02T00:00:00Z": 81,
   "2026-07-01T20:00:00Z": 82,
@@ -102,6 +109,7 @@ const OFFICIAL_MATCH_NUMBER_BY_KICKOFF: Record<string, number> = {
   "2026-07-04T17:00:00Z": 90,
   "2026-07-05T20:00:00Z": 91,
   "2026-07-06T00:00:00Z": 92,
+  "2026-07-06T01:00:00Z": 92,
   "2026-07-06T19:00:00Z": 93,
   "2026-07-07T00:00:00Z": 94,
   "2026-07-07T16:00:00Z": 95,
@@ -114,6 +122,49 @@ const OFFICIAL_MATCH_NUMBER_BY_KICKOFF: Record<string, number> = {
   "2026-07-15T19:00:00Z": 102,
   "2026-07-18T21:00:00Z": 103,
   "2026-07-19T19:00:00Z": 104,
+};
+
+const OFFICIAL_MATCH_NUMBER_BY_PROVIDER_ID: Record<string, number> = {
+  "537425": 79,
+  "537378": 92,
+};
+
+const OFFICIAL_KNOCKOUT_SLOT_BY_MATCH_NUMBER: Record<
+  number,
+  { stage: string; homeTeamSlot: string; awayTeamSlot: string }
+> = {
+  73: { stage: "Round of 32", homeTeamSlot: "2A", awayTeamSlot: "2B" },
+  74: { stage: "Round of 32", homeTeamSlot: "1E", awayTeamSlot: "3A/B/C/D/F" },
+  75: { stage: "Round of 32", homeTeamSlot: "1F", awayTeamSlot: "2C" },
+  76: { stage: "Round of 32", homeTeamSlot: "1C", awayTeamSlot: "2F" },
+  77: { stage: "Round of 32", homeTeamSlot: "1I", awayTeamSlot: "3C/D/F/G/H" },
+  78: { stage: "Round of 32", homeTeamSlot: "2E", awayTeamSlot: "2I" },
+  79: { stage: "Round of 32", homeTeamSlot: "1A", awayTeamSlot: "3C/E/F/H/I" },
+  80: { stage: "Round of 32", homeTeamSlot: "1L", awayTeamSlot: "3E/H/I/J/K" },
+  81: { stage: "Round of 32", homeTeamSlot: "1D", awayTeamSlot: "3B/E/F/I/J" },
+  82: { stage: "Round of 32", homeTeamSlot: "1G", awayTeamSlot: "3A/E/H/I/J" },
+  83: { stage: "Round of 32", homeTeamSlot: "2K", awayTeamSlot: "2L" },
+  84: { stage: "Round of 32", homeTeamSlot: "1H", awayTeamSlot: "2J" },
+  85: { stage: "Round of 32", homeTeamSlot: "1B", awayTeamSlot: "3E/F/G/I/J" },
+  86: { stage: "Round of 32", homeTeamSlot: "1J", awayTeamSlot: "2H" },
+  87: { stage: "Round of 32", homeTeamSlot: "1K", awayTeamSlot: "3D/E/I/J/L" },
+  88: { stage: "Round of 32", homeTeamSlot: "2D", awayTeamSlot: "2G" },
+  89: { stage: "Round of 16", homeTeamSlot: "W74", awayTeamSlot: "W77" },
+  90: { stage: "Round of 16", homeTeamSlot: "W73", awayTeamSlot: "W75" },
+  91: { stage: "Round of 16", homeTeamSlot: "W76", awayTeamSlot: "W78" },
+  92: { stage: "Round of 16", homeTeamSlot: "W79", awayTeamSlot: "W80" },
+  93: { stage: "Round of 16", homeTeamSlot: "W83", awayTeamSlot: "W84" },
+  94: { stage: "Round of 16", homeTeamSlot: "W81", awayTeamSlot: "W82" },
+  95: { stage: "Round of 16", homeTeamSlot: "W86", awayTeamSlot: "W88" },
+  96: { stage: "Round of 16", homeTeamSlot: "W85", awayTeamSlot: "W87" },
+  97: { stage: "Quarter-final", homeTeamSlot: "W89", awayTeamSlot: "W90" },
+  98: { stage: "Quarter-final", homeTeamSlot: "W93", awayTeamSlot: "W94" },
+  99: { stage: "Quarter-final", homeTeamSlot: "W91", awayTeamSlot: "W92" },
+  100: { stage: "Quarter-final", homeTeamSlot: "W95", awayTeamSlot: "W96" },
+  101: { stage: "Semi-final", homeTeamSlot: "W97", awayTeamSlot: "W98" },
+  102: { stage: "Semi-final", homeTeamSlot: "W99", awayTeamSlot: "W100" },
+  103: { stage: "Match for third place", homeTeamSlot: "L101", awayTeamSlot: "L102" },
+  104: { stage: "Final", homeTeamSlot: "W101", awayTeamSlot: "W102" },
 };
 
 // Real photo of golden trophy/celebration generated via image generator
@@ -172,18 +223,45 @@ function getWinnerSide(match: QM | undefined): "home" | "away" | null {
   return null;
 }
 
-function getTeamNameForSide(match: QM, side: "home" | "away") {
+function getQualifiedSlotLabel(
+  slot: string | undefined,
+  qualifiedSlotMap?: Map<string, string>,
+) {
+  if (!slot || !qualifiedSlotMap) return null;
+
+  return qualifiedSlotMap.get(slot) ?? null;
+}
+
+function getTeamNameForSide(
+  match: QM,
+  side: "home" | "away",
+  qualifiedSlotMap?: Map<string, string>,
+) {
   const team = side === "home" ? match.homeTeam : match.awayTeam;
   const fallback = side === "home" ? getHomeLabel(match) : getAwayLabel(match);
 
-  return isPlaceholderTeam(team) ? getSlotLabel(fallback) : team.name;
+  if (!isPlaceholderTeam(team)) {
+    return team.name;
+  }
+
+  return getQualifiedSlotLabel(fallback, qualifiedSlotMap) ?? getSlotLabel(fallback);
 }
 
 function getResolvedSlotLabel(
   slot: string | undefined,
   matchByNumber?: Map<number, QM>,
+  qualifiedSlotMap?: Map<string, string>,
 ) {
-  if (!slot || !matchByNumber) {
+  if (!slot) {
+    return getSlotLabel(slot);
+  }
+
+  const qualifiedSlotLabel = getQualifiedSlotLabel(slot, qualifiedSlotMap);
+  if (qualifiedSlotLabel) {
+    return qualifiedSlotLabel;
+  }
+
+  if (!matchByNumber) {
     return getSlotLabel(slot);
   }
 
@@ -201,7 +279,7 @@ function getResolvedSlotLabel(
   const resolvedSide =
     slotMatch[1] === "W" ? winnerSide : winnerSide === "home" ? "away" : "home";
 
-  return getTeamNameForSide(sourceMatch, resolvedSide);
+  return getTeamNameForSide(sourceMatch, resolvedSide, qualifiedSlotMap);
 }
 
 function getStageLabel(stage: string | undefined) {
@@ -268,6 +346,13 @@ function normalizeKickoff(value: string | undefined) {
 }
 
 function getOfficialMatchNumber(match: Match) {
+  const officialProviderMatchNumber =
+    OFFICIAL_MATCH_NUMBER_BY_PROVIDER_ID[match.id];
+
+  if (officialProviderMatchNumber) {
+    return officialProviderMatchNumber;
+  }
+
   const normalizedKickoff = normalizeKickoff(match.timestampUtc ?? match.date);
   const officialMatchNumber = normalizedKickoff
     ? OFFICIAL_MATCH_NUMBER_BY_KICKOFF[normalizedKickoff]
@@ -278,29 +363,36 @@ function getOfficialMatchNumber(match: Match) {
 
 function getHomeLabel(match: QM | undefined) {
   if (!match) return "TBD";
-  return (
-    match.homeTeamSlot ??
-    splitEventName(match.eventName).home ??
-    match.homeTeam.name ??
-    "TBD"
-  );
+
+  if (!isPlaceholderTeam(match.homeTeam)) {
+    return match.homeTeam.name;
+  }
+
+  return match.homeTeamSlot ?? splitEventName(match.eventName).home ?? "TBD";
 }
 
 function getAwayLabel(match: QM | undefined) {
   if (!match) return "TBD";
-  return (
-    match.awayTeamSlot ??
-    splitEventName(match.eventName).away ??
-    match.awayTeam.name ??
-    "TBD"
-  );
+
+  if (!isPlaceholderTeam(match.awayTeam)) {
+    return match.awayTeam.name;
+  }
+
+  return match.awayTeamSlot ?? splitEventName(match.eventName).away ?? "TBD";
 }
 
 function toKnockoutMatch(match: Match): QM {
+  const matchNumber = getOfficialMatchNumber(match);
+  const officialSlot = matchNumber
+    ? OFFICIAL_KNOCKOUT_SLOT_BY_MATCH_NUMBER[matchNumber]
+    : undefined;
+
   return {
     ...match,
-    matchNumber: getOfficialMatchNumber(match),
-    stage: getStageLabel(match.stage) ?? match.stage,
+    matchNumber,
+    stage: getStageLabel(match.stage) ?? officialSlot?.stage ?? match.stage,
+    homeTeamSlot: match.homeTeamSlot ?? officialSlot?.homeTeamSlot,
+    awayTeamSlot: match.awayTeamSlot ?? officialSlot?.awayTeamSlot,
   };
 }
 
@@ -319,6 +411,43 @@ function sortByKickoff(a: QM, b: QM) {
   }
 
   return (a.matchNumber ?? 0) - (b.matchNumber ?? 0);
+}
+
+function normalizeQualifiedGroup(group: string | null | undefined) {
+  const normalized = group?.trim().toUpperCase().replace(/^GROUP\s+/, "");
+
+  return normalized?.match(/^[A-L]$/) ? normalized : null;
+}
+
+function buildQualifiedSlotMap(
+  qualifiedTeams: QualifiedTeam[],
+  standings?: StandingsResponse,
+) {
+  const slotMap = new Map<string, string>();
+
+  for (const standing of standings?.standings ?? []) {
+    const group = normalizeQualifiedGroup(standing.group);
+    if (!group) continue;
+
+    for (const entry of standing.table ?? []) {
+      if (!entry.position || !entry.team?.name) continue;
+
+      slotMap.set(`${entry.position}${group}`, entry.team.name);
+    }
+  }
+
+  for (const team of qualifiedTeams) {
+    if (team.stage !== "ROUND_OF_32" || !team.position) continue;
+
+    const group = normalizeQualifiedGroup(team.group);
+    if (!group) continue;
+
+    if (!slotMap.has(`${team.position}${group}`)) {
+      slotMap.set(`${team.position}${group}`, team.teamName);
+    }
+  }
+
+  return slotMap;
 }
 
 function isPlaceholderTeam(team: MatchTeam | undefined) {
@@ -432,15 +561,17 @@ function Slot({
   match,
   highlight,
   matchByNumber,
+  qualifiedSlotMap,
 }: {
   match: QM | undefined;
   highlight?: "final" | "bronze";
   matchByNumber?: Map<number, QM>;
+  qualifiedSlotMap?: Map<string, string>;
 }) {
   const h = getHomeLabel(match);
   const a = getAwayLabel(match);
-  const homeLabel = getResolvedSlotLabel(h, matchByNumber);
-  const awayLabel = getResolvedSlotLabel(a, matchByNumber);
+  const homeLabel = getResolvedSlotLabel(h, matchByNumber, qualifiedSlotMap);
+  const awayLabel = getResolvedSlotLabel(a, matchByNumber, qualifiedSlotMap);
 
   return (
     <div
@@ -530,6 +661,18 @@ export function QualifierMatchesPage() {
     refetchInterval: 60_000,
   });
 
+  const { data: qualifiedTeams = [] } = useQuery({
+    queryKey: ["qualified-teams"],
+    queryFn: getQualifiedTeams,
+    staleTime: 60_000,
+  });
+
+  const { data: standings } = useQuery({
+    queryKey: ["standings"],
+    queryFn: getStandings,
+    staleTime: 60_000,
+  });
+
   const matches = useMemo(
     () =>
       allMatches
@@ -551,6 +694,10 @@ export function QualifierMatchesPage() {
 
     return byNumber;
   }, [ms]);
+  const qualifiedSlotMap = useMemo(
+    () => buildQualifiedSlotMap(qualifiedTeams, standings),
+    [qualifiedTeams, standings],
+  );
   const getBracketMatch = (matchNumber: number) =>
     matchByNumber.get(matchNumber);
   const finalM = getBracketMatch(FINAL);
@@ -663,7 +810,11 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -690,7 +841,11 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -717,7 +872,11 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -733,7 +892,11 @@ export function QualifierMatchesPage() {
                     style={{ gridColumn: 8, gridRow: `1/${ROWS + 1}` }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -750,7 +913,12 @@ export function QualifierMatchesPage() {
                   style={{ gridColumn: 10, gridRow: `1/${ROWS + 1}` }}
                   className="flex flex-col items-center justify-center gap-2"
                 >
-                  <Slot match={finalM} highlight="final" matchByNumber={matchByNumber} />
+                  <Slot
+                    match={finalM}
+                    highlight="final"
+                    matchByNumber={matchByNumber}
+                    qualifiedSlotMap={qualifiedSlotMap}
+                  />
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 via-amber-300 to-yellow-500 shadow-[0_0_24px_rgba(251,191,36,0.3)]">
                     <Trophy className="h-6 w-6 text-yellow-900" />
                   </div>
@@ -761,7 +929,12 @@ export function QualifierMatchesPage() {
                     <span className="text-[7px] font-bold uppercase tracking-widest text-teal-400/60">
                       Bronze Winner
                     </span>
-                    <Slot match={thirdM} highlight="bronze" matchByNumber={matchByNumber} />
+                    <Slot
+                      match={thirdM}
+                      highlight="bronze"
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 </div>
 
@@ -780,7 +953,11 @@ export function QualifierMatchesPage() {
                     style={{ gridColumn: 12, gridRow: `1/${ROWS + 1}` }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -799,7 +976,11 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -826,7 +1007,11 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
@@ -853,7 +1038,11 @@ export function QualifierMatchesPage() {
                     }}
                     className="flex items-center px-0.5"
                   >
-                    <Slot match={getBracketMatch(n)} matchByNumber={matchByNumber} />
+                    <Slot
+                      match={getBracketMatch(n)}
+                      matchByNumber={matchByNumber}
+                      qualifiedSlotMap={qualifiedSlotMap}
+                    />
                   </div>
                 ))}
 
