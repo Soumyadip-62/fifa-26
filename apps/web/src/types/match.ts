@@ -57,6 +57,8 @@ export type Match = {
   tournament: string;
   stage?: string;
   group?: string;
+  homeTeamSlot?: string;
+  awayTeamSlot?: string;
   date: string;
   dateUtc?: string;
   time?: string;
