@@ -349,11 +349,11 @@ export class NotificationService {
   }
 
   // @Cron(CronExpression.EVERY_5_MINUTES)
-  // sendNotifications() {
-  //   this.logger.log('Keeping the server alive.....');
-  // }
+  sendNotifications() {
+    this.logger.log('Keeping the server alive.....');
+  }
 
-  @Cron(CronExpression.EVERY_5_MINUTES)
+  // @Cron(CronExpression.EVERY_5_MINUTES)
   async sendMatchNotification() {
     this.logger.log('Checking for matches starting in 30 minutes...');
 
@@ -427,7 +427,7 @@ export class NotificationService {
     }
   }
 
-  @Cron(CronExpression.EVERY_5_MINUTES)
+  // @Cron(CronExpression.EVERY_5_MINUTES)
   async sendScoreUpdateNotifications() {
     this.logger.log('Checking latest completed match score...');
 

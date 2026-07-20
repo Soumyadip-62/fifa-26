@@ -382,7 +382,7 @@ export class MatchesService {
     return match;
   }
 
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  // @Cron(CronExpression.EVERY_10_MINUTES)
   async syncMatchesToDb() {
     console.log('Syncing matches to database...');
 

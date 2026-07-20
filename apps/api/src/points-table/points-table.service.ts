@@ -487,7 +487,7 @@ export class PointsTableService {
     }
   }
 
-  @Cron(CronExpression.EVERY_2_HOURS)
+  // @Cron(CronExpression.EVERY_2_HOURS)
   async syncQualifiedTeamsCron() {
     await this.syncQualifiedTeams();
   }
