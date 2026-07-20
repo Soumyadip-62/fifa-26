@@ -277,7 +277,7 @@ export class MatchesService {
     return match;
   }
 
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  // @Cron(CronExpression.EVERY_10_MINUTES)
   async syncMatchesToDb() {
     try {
       const apiKey = process.env.FOOTBALL_DATA_API_KEY;
