@@ -18,6 +18,37 @@ export type MatchTeam = {
 export type MatchScore = {
   home: number | null;
   away: number | null;
+  halfTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  fullTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  regularTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  extraTime?: {
+    home: number | null;
+    away: number | null;
+  };
+  penalties?: {
+    home: number | null;
+    away: number | null;
+  };
+  winner?: string | null;
+  duration?: string | null;
+};
+
+export type MatchGoal = {
+  name: string;
+  team?: "home" | "away";
+  minute?: number | string | null;
+  type?: string | null;
+  penalty?: boolean;
+  ownGoal?: boolean;
 };
 
 export type Match = {
@@ -26,6 +57,8 @@ export type Match = {
   tournament: string;
   stage?: string;
   group?: string;
+  homeTeamSlot?: string;
+  awayTeamSlot?: string;
   date: string;
   dateUtc?: string;
   time?: string;
@@ -39,4 +72,6 @@ export type Match = {
   homeTeam: MatchTeam;
   awayTeam: MatchTeam;
   score: MatchScore;
+  goals?: MatchGoal[];
+  youtubeVideoId?: string;
 };

@@ -4,11 +4,217 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FirebaseService } from 'src/firebase/firebase.service';
 import { SubscribedTokens } from './entities/notification.entity';
 import { MatchEntity } from '../matches/entities/matches.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
+import { TeamEntity } from '../teams/entitites/teams.entity';
+
+export type NotificationPreferences = {
+  favoriteTeams?: string[];
+  kickoff30?: boolean;
+  kickoff10?: boolean;
+  finalScore?: boolean;
+  qualification?: boolean;
+};
+
+type TestNotificationType =
+  | 'kickoff30'
+  | 'kickoff10'
+  | 'finalScore'
+  | 'qualification';
+
+type FirebaseErrorLike = {
+  code?: string;
+  errorInfo?: {
+    code?: string;
+  };
+  message?: string;
+  cause?: FirebaseErrorLike;
+  response?: {
+    text?: string;
+  };
+};
+
+const TEST_NOTIFICATIONS: Record<
+  TestNotificationType,
+  { title: string; body: string }
+> = {
+  kickoff30: {
+    title: '[TEST] Kickoff in 30 minutes',
+    body: '🇦🇷 Argentina vs 🇧🇷 Brazil ⚽\n⏰ 08:30 PM IST',
+  },
+  kickoff10: {
+    title: '[TEST] Kickoff in 10 minutes',
+    body: 'Lineups ready. Match starts soon.',
+  },
+  finalScore: {
+    title: '[TEST] Final score',
+    body: '🇪🇸 Spain 3 - 2 Portugal 🇵🇹\nFull time',
+  },
+  qualification: {
+    title: '[TEST] Qualification alert',
+    body: '🇺🇸 United States qualified for the Round of 32.',
+  },
+};
+
+function normalizeTeamName(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function normalizePreferences(
+  preferences?: NotificationPreferences | null,
+): Required<NotificationPreferences> {
+  return {
+    favoriteTeams: Array.isArray(preferences?.favoriteTeams)
+      ? preferences.favoriteTeams
+          .map((team) => team.trim())
+          .filter(Boolean)
+          .slice(0, 24)
+      : [],
+    kickoff30: preferences?.kickoff30 !== false,
+    kickoff10: preferences?.kickoff10 === true,
+    finalScore: preferences?.finalScore === true,
+    qualification: preferences?.qualification === true,
+  };
+}
+
+function tokenWantsMatch(
+  preferences: NotificationPreferences | null | undefined,
+  homeTeam: string,
+  awayTeam: string,
+) {
+  const normalized = normalizePreferences(preferences);
+
+  if (!normalized.kickoff30) return false;
+  if (normalized.favoriteTeams.length === 0) return true;
+
+  const teams = new Set([
+    normalizeTeamName(homeTeam || ''),
+    normalizeTeamName(awayTeam || ''),
+  ]);
+
+  return normalized.favoriteTeams.some((team) =>
+    teams.has(normalizeTeamName(team)),
+  );
+}
+
+function tokenWantsScoreUpdate(
+  preferences: NotificationPreferences | null | undefined,
+  homeTeam: string,
+  awayTeam: string,
+) {
+  const normalized = normalizePreferences(preferences);
+
+  if (!normalized.finalScore) return false;
+  if (normalized.favoriteTeams.length === 0) return true;
+
+  const teams = new Set([
+    normalizeTeamName(homeTeam || ''),
+    normalizeTeamName(awayTeam || ''),
+  ]);
+
+  return normalized.favoriteTeams.some((team) =>
+    teams.has(normalizeTeamName(team)),
+  );
+}
+
+function parseMatchDate(timestampUtc: string | null | undefined) {
+  if (!timestampUtc) return null;
+
+  const timestamp = /[zZ]|[+-]\d{2}:?\d{2}$/.test(timestampUtc)
+    ? timestampUtc
+    : `${timestampUtc}Z`;
+  const date = new Date(timestamp);
+
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function getDateKey(date: Date, timeZone: string) {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+}
+
+function getScoreKey(match: MatchEntity) {
+  const fullTime =
+    match.score?.regularTime || match.score?.fullTime || match.score;
+  const home = fullTime?.home;
+  const away = fullTime?.away;
+
+  if (typeof home !== 'number' || typeof away !== 'number') {
+    return null;
+  }
+
+  const penalties = match.score?.penalties;
+  if (
+    typeof penalties?.home === 'number' &&
+    typeof penalties.away === 'number'
+  ) {
+    return `${home}(${penalties.home})-${away}(${penalties.away})`;
+  }
+
+  const extraTime = match.score?.extraTime;
+  if (
+    typeof extraTime?.home === 'number' &&
+    typeof extraTime.away === 'number' &&
+    (extraTime.home > 0 || extraTime.away > 0)
+  ) {
+    return `${home}(${extraTime.home})-${away}(${extraTime.away})`;
+  }
+
+  return `${home}-${away}`;
+}
+
+function isCompletedScoreCandidate(match: MatchEntity) {
+  const scoreKey = getScoreKey(match);
+  const status = (match.status || '').toLowerCase();
+  const statusCode = (match.statusCode || '').toUpperCase();
+
+  return (
+    Boolean(scoreKey) &&
+    (status === 'finished' ||
+      status === 'completed' ||
+      statusCode === 'FINISHED' ||
+      statusCode === 'AWARDED')
+  );
+}
+
+function getMatchTimestamp(match: MatchEntity) {
+  const timestamp = match.timestampUtc || match.date;
+  const parsed = timestamp ? Date.parse(timestamp) : Number.NaN;
+
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function getFirebaseErrorCode(error: unknown): string | undefined {
+  const firebaseError = error as FirebaseErrorLike | undefined;
+
+  return firebaseError?.code || firebaseError?.errorInfo?.code;
+}
+
+function isStaleFirebaseTokenError(error: unknown): boolean {
+  const firebaseError = error as FirebaseErrorLike | undefined;
+  const code = getFirebaseErrorCode(error);
+  const message = firebaseError?.message || '';
+  const responseText = firebaseError?.response?.text || '';
+
+  return (
+    code === 'messaging/registration-token-not-registered' ||
+    code === 'messaging/invalid-registration-token' ||
+    message.includes('NotRegistered') ||
+    responseText.includes('"errorCode": "UNREGISTERED"')
+  );
+}
 
 @Injectable()
 export class NotificationService {
   private readonly logger = new Logger(NotificationService.name);
+  private readonly testNotificationTimeZone = 'Asia/Kolkata';
 
   constructor(
     private readonly firebase: FirebaseService,
@@ -16,7 +222,131 @@ export class NotificationService {
     private readonly tokenRepo: Repository<SubscribedTokens>,
     @InjectRepository(MatchEntity)
     private readonly matchRepo: Repository<MatchEntity>,
+    @InjectRepository(TeamEntity)
+    private readonly teamRepo: Repository<TeamEntity>,
   ) {}
+
+  private async buildTeamFlagMap() {
+    const teams = await this.teamRepo.find();
+    const map = new Map<string, string>();
+
+    for (const team of teams) {
+      const flag = team.flag_icon || team.flag_unicode || '';
+      if (!flag) continue;
+
+      if (team.name) {
+        map.set(normalizeTeamName(team.name), flag);
+      }
+      if (team.name_normalised) {
+        map.set(normalizeTeamName(team.name_normalised), flag);
+      }
+      if (team.fifa_code) {
+        map.set(normalizeTeamName(team.fifa_code), flag);
+      }
+    }
+
+    return map;
+  }
+
+  private getFlag(flagMap: Map<string, string>, teamName: string) {
+    if (!teamName) return '';
+
+    return flagMap.get(normalizeTeamName(teamName)) || '';
+  }
+
+  private getTeamDisplay(flagMap: Map<string, string>, teamName: string) {
+    const flag = this.getFlag(flagMap, teamName);
+
+    return flag ? `${flag} ${teamName}` : teamName;
+  }
+
+  private getUniqueTokenRows(tokens: SubscribedTokens[]) {
+    const seenTokens = new Set<string>();
+    const uniqueTokens: SubscribedTokens[] = [];
+    const duplicateTokenIds: string[] = [];
+
+    for (const token of tokens) {
+      const tokenValue = token.token?.trim();
+
+      if (!tokenValue) {
+        duplicateTokenIds.push(token.id);
+        continue;
+      }
+
+      if (seenTokens.has(tokenValue)) {
+        duplicateTokenIds.push(token.id);
+        continue;
+      }
+
+      seenTokens.add(tokenValue);
+      uniqueTokens.push({ ...token, token: tokenValue });
+    }
+
+    return { uniqueTokens, duplicateTokenIds };
+  }
+
+  private async sendToSubscribedTokens(
+    tokens: SubscribedTokens[],
+    title: string,
+    body: string,
+  ) {
+    const { uniqueTokens, duplicateTokenIds } = this.getUniqueTokenRows(tokens);
+
+    if (duplicateTokenIds.length > 0) {
+      await this.tokenRepo.delete({ id: In(duplicateTokenIds) });
+      this.logger.warn(
+        `Removed ${duplicateTokenIds.length} duplicate Firebase registration token row(s).`,
+      );
+    }
+
+    const results = await Promise.allSettled(
+      uniqueTokens.map((token) => this.firebase.send(token.token, title, body)),
+    );
+    const staleTokenIds = uniqueTokens
+      .filter((_, index) => {
+        const result = results[index];
+
+        return (
+          result.status === 'rejected' &&
+          isStaleFirebaseTokenError(result.reason)
+        );
+      })
+      .map((token) => token.id);
+    const failedResults = results.filter(
+      (result) => result.status === 'rejected',
+    );
+    const nonStaleFailures = failedResults.filter(
+      (result) => !isStaleFirebaseTokenError(result.reason),
+    );
+
+    if (staleTokenIds.length > 0) {
+      await this.tokenRepo.delete({ id: In(staleTokenIds) });
+      this.logger.warn(
+        `Removed ${staleTokenIds.length} stale Firebase registration token(s).`,
+      );
+    }
+
+    if (nonStaleFailures.length > 0) {
+      const codes = [
+        ...new Set(
+          nonStaleFailures
+            .map((result) => getFirebaseErrorCode(result.reason))
+            .filter(Boolean),
+        ),
+      ];
+
+      this.logger.warn(
+        `Firebase notification failed for ${nonStaleFailures.length} token(s): ${codes.join(', ') || 'unknown error'}`,
+      );
+    }
+
+    return {
+      sent: results.filter((result) => result.status === 'fulfilled').length,
+      total: uniqueTokens.length,
+      removed: staleTokenIds.length,
+      removedTokenIds: staleTokenIds,
+    };
+  }
 
   // @Cron(CronExpression.EVERY_5_MINUTES)
   sendNotifications() {
@@ -32,14 +362,15 @@ export class NotificationService {
 
     const nowMs = Date.now();
     const thirtyMinsMs = 30 * 60 * 1000;
-    const twentyFiveMinsMs = 25 * 60 * 1000;
-
-    // 2. Find matches starting between 25 and 30 minutes from now (so we only notify once per match)
+    // 2. Find matches starting within 30 minutes from now that haven't been notified yet
     const matchesToNotify = upcomingMatches.filter((m) => {
       if (!m.timestampUtc) return false;
+      if (m.isNotified) return false; // Skip if already notified
       const matchTime = new Date(m.timestampUtc).getTime();
       const diff = matchTime - nowMs;
-      return diff > twentyFiveMinsMs && diff <= thirtyMinsMs;
+      // Notify if the match is starting within the next 30 minutes, or if it already started but wasn't notified yet
+      // To prevent notifying for super old matches if the server was down, we only notify if it's within the last hour or next 30 minutes
+      return diff > -3600000 && diff <= thirtyMinsMs;
     });
 
     if (matchesToNotify.length === 0) {
@@ -47,48 +378,248 @@ export class NotificationService {
     }
 
     // 3. Fetch all subscribed tokens
-    const tokens = await this.tokenRepo.find();
+    let tokens = await this.tokenRepo.find();
     if (tokens.length === 0) return;
+    const flagMap = await this.buildTeamFlagMap();
 
     // 4. Send notifications
     for (const match of matchesToNotify) {
-      const matchDate = match.timestampUtc ? new Date(match.timestampUtc) : new Date();
+      const matchDate = match.timestampUtc
+        ? new Date(match.timestampUtc)
+        : new Date();
       const localTimeStr = matchDate.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
         hour: '2-digit',
         minute: '2-digit',
       });
-      const title = `Next Match Starts at ${localTimeStr}! ⚽`;
-      const body = `${match.homeTeam} vs ${match.awayTeam}`;
+      const title = `🚨 Match Kickoff in 30 Mins!`;
+      const homeDisplay = this.getTeamDisplay(flagMap, match.homeTeam);
+      const awayDisplay = this.getTeamDisplay(flagMap, match.awayTeam);
+
+      const body = `${homeDisplay} vs ${awayDisplay} ⚽\n⏰ ${localTimeStr} IST`;
 
       this.logger.log(
         `Sending notification for: ${body} to ${tokens.length} users.`,
       );
 
-      const promises = tokens.map((t) =>
-        this.firebase.send(t.token, title, body),
+      const targetTokens = tokens.filter((token) =>
+        tokenWantsMatch(token.preferences, match.homeTeam, match.awayTeam),
       );
-      await Promise.allSettled(promises);
+
+      if (targetTokens.length === 0) {
+        this.logger.log(`No matching notification preferences for ${body}.`);
+        continue;
+      }
+
+      const results = await this.sendToSubscribedTokens(
+        targetTokens,
+        title,
+        body,
+      );
+      if (results.removedTokenIds.length > 0) {
+        const removedIds = new Set(results.removedTokenIds);
+        tokens = tokens.filter((token) => !removedIds.has(token.id));
+      }
+
+      // Mark as notified in DB
+      match.isNotified = true;
+      await this.matchRepo.save(match);
     }
   }
 
-  async subcribe(token: string) {
+  // @Cron(CronExpression.EVERY_5_MINUTES)
+  async sendScoreUpdateNotifications() {
+    this.logger.log('Checking latest completed match score...');
+
+    const latestCompletedMatch = (await this.matchRepo.find())
+      .filter(isCompletedScoreCandidate)
+      .sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a))[0];
+
+    if (!latestCompletedMatch) return;
+
+    const scoreKey = getScoreKey(latestCompletedMatch);
+    if (!scoreKey) return;
+
+    if (latestCompletedMatch.lastScoreNotified === scoreKey) {
+      return;
+    }
+
+    const tokens = await this.tokenRepo.find();
+    const flagMap = await this.buildTeamFlagMap();
+
+    const targetTokens = tokens.filter((token) =>
+      tokenWantsScoreUpdate(
+        token.preferences,
+        latestCompletedMatch.homeTeam,
+        latestCompletedMatch.awayTeam,
+      ),
+    );
+    const homeDisplay = this.getTeamDisplay(
+      flagMap,
+      latestCompletedMatch.homeTeam,
+    );
+    const awayDisplay = this.getTeamDisplay(
+      flagMap,
+      latestCompletedMatch.awayTeam,
+    );
+    const title = '🏁 Final Score';
+    const body = `${homeDisplay} ${scoreKey} ${awayDisplay}`;
+
+    if (targetTokens.length > 0) {
+      const results = await this.sendToSubscribedTokens(
+        targetTokens,
+        title,
+        body,
+      );
+      this.logger.log(
+        `Final score notification sent for ${body}: ${results.sent}/${targetTokens.length}`,
+      );
+    } else {
+      this.logger.log(`No matching score preferences for ${body}.`);
+    }
+
+    latestCompletedMatch.lastScoreNotified = scoreKey;
+    latestCompletedMatch.lastScoreNotifiedAt = new Date();
+    await this.matchRepo.save(latestCompletedMatch);
+  }
+
+  async sendTodayMatchNotificationsForTesting() {
+    this.logger.log('Sending test notifications for today matches...');
+
+    let tokens = await this.tokenRepo.find();
+    if (tokens.length === 0) {
+      this.logger.warn('No subscribed tokens found for today match test.');
+      return { sent: 0, matches: 0, tokens: 0 };
+    }
+
+    const todayKey = getDateKey(new Date(), this.testNotificationTimeZone);
+    const matches = (await this.matchRepo.find()).filter((match) => {
+      const matchDate = parseMatchDate(match.timestampUtc);
+
+      return (
+        matchDate &&
+        getDateKey(matchDate, this.testNotificationTimeZone) === todayKey
+      );
+    });
+
+    if (matches.length === 0) {
+      this.logger.warn(`No matches found for today (${todayKey}).`);
+      return { sent: 0, matches: 0, tokens: tokens.length, today: todayKey };
+    }
+
+    let sent = 0;
+    const flagMap = await this.buildTeamFlagMap();
+
+    for (const match of matches) {
+      const matchDate = parseMatchDate(match.timestampUtc) || new Date();
+      const localTimeStr = matchDate.toLocaleTimeString('en-US', {
+        timeZone: this.testNotificationTimeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      const homeDisplay = this.getTeamDisplay(flagMap, match.homeTeam);
+      const awayDisplay = this.getTeamDisplay(flagMap, match.awayTeam);
+      const title = '[TEST] Today Match Alert';
+      const body = `${homeDisplay} vs ${awayDisplay} ⚽\n⏰ ${localTimeStr} IST`;
+
+      const targetTokens = tokens.filter((token) =>
+        tokenWantsMatch(token.preferences, match.homeTeam, match.awayTeam),
+      );
+
+      const results = await this.sendToSubscribedTokens(
+        targetTokens,
+        title,
+        body,
+      );
+      sent += results.sent;
+      if (results.removedTokenIds.length > 0) {
+        const removedIds = new Set(results.removedTokenIds);
+        tokens = tokens.filter((token) => !removedIds.has(token.id));
+      }
+    }
+
+    return {
+      sent,
+      matches: matches.length,
+      tokens: tokens.length,
+      today: todayKey,
+    };
+  }
+
+  async subcribe(token: string, preferences?: NotificationPreferences | null) {
     if (!token) return false;
 
-    // Check if we already saved this token
-    const existing = await this.tokenRepo.findOne({ where: { token } });
+    const tokenValue = token.trim();
+    if (!tokenValue) return false;
 
-    if (!existing) {
+    const normalizedPreferences = normalizePreferences(preferences);
+
+    // Check if we already saved this token
+    const matchingTokens = await this.tokenRepo.find({
+      where: { token: tokenValue },
+    });
+    const existing = matchingTokens[0];
+
+    if (existing) {
+      existing.preferences = normalizedPreferences;
+      await this.tokenRepo.save(existing);
+
+      const duplicateTokenIds = matchingTokens
+        .slice(1)
+        .map((duplicateToken) => duplicateToken.id);
+
+      if (duplicateTokenIds.length > 0) {
+        await this.tokenRepo.delete({ id: In(duplicateTokenIds) });
+        this.logger.warn(
+          `Removed ${duplicateTokenIds.length} duplicate subscription row(s) for one FCM token.`,
+        );
+      }
+    } else {
       const newToken = this.tokenRepo.create({
         id: Date.now().toString() + Math.random().toString(36).substring(7),
-        token,
+        token: tokenValue,
+        preferences: normalizedPreferences,
       });
       await this.tokenRepo.save(newToken);
-      this.logger.log(`New FCM Token subscribed: ${token}`);
+      this.logger.log(`New FCM Token subscribed: ${tokenValue}`);
     }
 
     return true;
   }
   async sendTest(token: string) {
     return this.firebase.send(token, '⚽ FIFA TEST', 'Backend works');
+  }
+
+  async sendDeviceTestNotifications(
+    token: string,
+    type?: TestNotificationType,
+  ) {
+    if (!token) {
+      return { sent: 0, token: false };
+    }
+
+    const entries = type
+      ? [[type, TEST_NOTIFICATIONS[type]] as const]
+      : (Object.entries(TEST_NOTIFICATIONS) as [
+          TestNotificationType,
+          { title: string; body: string },
+        ][]);
+
+    const results = await Promise.allSettled(
+      entries.map(([notificationType, notification]) =>
+        this.firebase.send(
+          token,
+          notification.title,
+          `${notification.body}\nType: ${notificationType}`,
+        ),
+      ),
+    );
+
+    return {
+      sent: results.filter((result) => result.status === 'fulfilled').length,
+      total: entries.length,
+      token: true,
+      types: entries.map(([notificationType]) => notificationType),
+    };
   }
 }

@@ -32,6 +32,12 @@ export class MatchEntity {
   @Column({ nullable: true })
   awayTeam: string;
 
+  @Column({ nullable: true })
+  homeTeamSlot: string;
+
+  @Column({ nullable: true })
+  awayTeamSlot: string;
+
   @Column('jsonb', { nullable: true })
   venue: {
     city: string | null;
@@ -78,7 +84,32 @@ export class MatchEntity {
   score: {
     home: number | null;
     away: number | null;
+    halfTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    fullTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    regularTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    extraTime?: {
+      home: number | null;
+      away: number | null;
+    };
+    penalties?: {
+      home: number | null;
+      away: number | null;
+    };
+    winner?: string | null;
+    duration?: string | null;
   };
+
+  @Column('jsonb', { nullable: true })
+  goals: any[] | null;
 
   @Column({ nullable: true })
   timestampUtc: string;
@@ -115,4 +146,13 @@ export class MatchEntity {
 
   @Column({ nullable: true })
   footballDataorgAwayTeamId: number;
+
+  @Column({ default: false })
+  isNotified: boolean;
+
+  @Column({ nullable: true })
+  lastScoreNotified: string;
+
+  @Column('timestamptz', { nullable: true })
+  lastScoreNotifiedAt: Date | null;
 }

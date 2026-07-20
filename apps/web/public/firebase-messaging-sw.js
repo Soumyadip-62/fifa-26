@@ -18,8 +18,15 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  self.registration.showNotification(payload.notification.title, {
-    body: payload.notification.body,
+  if (payload.notification) {
+    return;
+  }
+
+  const title = payload.data?.title || "FIFA 2026";
+  const body = payload.data?.body;
+
+  self.registration.showNotification(title, {
+    body,
   });
 });
 

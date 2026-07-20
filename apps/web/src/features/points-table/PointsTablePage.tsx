@@ -15,13 +15,52 @@ import { FlagIcon } from "@/components/common/FlagIcon";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { MotionReveal } from "@/components/common/MotionReveal";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ErrorState } from "@/components/common/ErrorState";
-import { getStandings } from "@/lib/api/standings";
+import { getStandings, type StandingsTableEntry } from "@/lib/api/standings";
 import { getMatches } from "@/lib/api/matches";
 import { FormattedDateTime } from "@/components/common/FormattedDateTime";
+
+function getQualificationBadge(entry: StandingsTableEntry) {
+  const latestStage = entry.qualification?.latestStage;
+
+  if (latestStage) {
+    const stageLabel = latestStage
+      .replace("ROUND_OF_", "R")
+      .replaceAll("_", " ");
+
+    return {
+      label: `Qualified ${stageLabel}`,
+      className:
+        "border-emerald-500/20 bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-300",
+    };
+  }
+
+  if (entry.playedGames >= 3) {
+    return {
+      label: "Eliminated",
+      className:
+        "border-red-500/20 bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-300",
+    };
+  }
+
+  if (entry.position === 3) {
+    return {
+      label: "Can qualify",
+      className:
+        "border-amber-500/20 bg-amber-100 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300",
+    };
+  }
+
+  return {
+    label: "In contention",
+    className:
+      "border-zinc-300 bg-zinc-100 text-zinc-600 dark:border-white/10 dark:bg-zinc-800/40 dark:text-zinc-300",
+  };
+}
 
 export function PointsTablePage() {
   const [selectedGroup, setSelectedGroup] = useState<string>("All");
@@ -212,6 +251,7 @@ export function PointsTablePage() {
                       {groupData.table.map((entry) => {
                         const isQualifying = entry.position <= 2;
                         const isPotential = entry.position === 3;
+                        const qualificationBadge = getQualificationBadge(entry);
 
                         return (
                           <tr
@@ -238,7 +278,7 @@ export function PointsTablePage() {
                                 {entry.position}
                               </span>
                             </td>
-                            <td className="py-3">
+                            <td className="py-3 inline-flex items-center gap-1">
                               <Link
                                 href={`/teams/${entry.team.sportsdbTeamId}?group=${groupData.group}`}
                                 className="inline-flex items-center gap-2 font-bold text-neutral-800 dark:text-neutral-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition"
@@ -253,6 +293,12 @@ export function PointsTablePage() {
                                   {entry.team.name}
                                 </span>
                               </Link>
+                              <Badge
+                                variant="outline"
+                                className={`mt-1 max-w-[150px] truncate px-2 py-0 text-[9px] ${qualificationBadge.className}`}
+                              >
+                                {qualificationBadge.label}
+                              </Badge>
                             </td>
                             <td className="py-3 text-center text-neutral-600 dark:text-neutral-400">
                               {entry.playedGames}
@@ -314,6 +360,7 @@ export function PointsTablePage() {
                       {filteredStandings[0]?.table.map((entry) => {
                         const isQualifying = entry.position <= 2;
                         const isPotential = entry.position === 3;
+                        const qualificationBadge = getQualificationBadge(entry);
 
                         return (
                           <tr
@@ -353,6 +400,12 @@ export function PointsTablePage() {
                                 </div>
                                 <span>{entry.team.name}</span>
                               </Link>
+                              <Badge
+                                variant="outline"
+                                className={`mt-1 px-2 py-0 text-[9px] ${qualificationBadge.className}`}
+                              >
+                                {qualificationBadge.label}
+                              </Badge>
                             </td>
                             <td className="py-3.5 text-center font-semibold text-zinc-550 dark:text-zinc-400">
                               {entry.playedGames}
@@ -398,11 +451,15 @@ export function PointsTablePage() {
                 <div className="flex flex-wrap gap-4 border-t border-black/5 bg-zinc-100/50 p-4 text-[10px] text-zinc-450 dark:border-white/5 dark:bg-zinc-800/10">
                   <div className="flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    <span className="font-semibold text-zinc-500 dark:text-zinc-400">Top 2: Qualified (Round of 32)</span>
+                    <span className="font-semibold text-zinc-500 dark:text-zinc-400">
+                      Qualified: DB confirmed
+                    </span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-amber-500" />
-                    <span className="font-semibold text-zinc-500 dark:text-zinc-400">3rd Place: Potential Qualification</span>
+                    <span className="font-semibold text-zinc-500 dark:text-zinc-400">
+                      Can qualify: still alive
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -513,4 +570,3 @@ export function PointsTablePage() {
     </div>
   );
 }
-

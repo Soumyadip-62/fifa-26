@@ -18,10 +18,48 @@ import { MatchTeamPlayersSection } from "./MatchTeamPlayersSection";
 import { VenueDetailsDrawer } from "@/components/matches/VenueDetailsDrawer";
 import { searchVenueByName } from "@/lib/api/venues";
 import { images } from "@/assets";
+import type { MatchGoal } from "@/types/match";
+import { formatMatchScore } from "@/lib/matches/score";
 
 export type MatchDetailsPageProps = {
   matchId: string;
 };
+
+function GoalScorerList({
+  goals,
+  align,
+}: {
+  goals: MatchGoal[];
+  align: "left" | "right";
+}) {
+  if (goals.length === 0) {
+    return null;
+  }
+
+  return (
+    <ul
+      className={`mt-2 grid gap-1 text-[11px] font-bold text-zinc-200 ${
+        align === "right" ? "md:justify-items-end" : "md:justify-items-start"
+      }`}
+    >
+      {goals.map((goal, index) => (
+        <li
+          className="rounded-full border border-white/10 bg-black/45 px-2.5 py-1 leading-none shadow-sm backdrop-blur-md"
+          key={`${goal.name}-${goal.minute ?? "goal"}-${index}`}
+        >
+          {goal.name}
+          {goal.minute ? (
+            <span className="ml-1 text-primary">{goal.minute}&apos;</span>
+          ) : null}
+          {goal.penalty ? (
+            <span className="ml-1 text-zinc-400">pen</span>
+          ) : null}
+          {goal.ownGoal ? <span className="ml-1 text-zinc-400">OG</span> : null}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
   const {
@@ -81,10 +119,9 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
     );
   }
 
-  const score =
-    match.score.home === null || match.score.away === null
-      ? "Not started"
-      : `${match.score.home} - ${match.score.away}`;
+  const score = formatMatchScore(match, { pendingLabel: "Not started" });
+  const homeGoals = match.goals?.filter((goal) => goal.team === "home") ?? [];
+  const awayGoals = match.goals?.filter((goal) => goal.team === "away") ?? [];
 
   return isPending ? (
     "Loading..."
@@ -136,6 +173,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
                   <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
                     {match.homeTeam.shortCode}
                   </span>
+                  <GoalScorerList goals={homeGoals} align="right" />
                 </div>
               </div>
 
@@ -165,6 +203,7 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
                   <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
                     {match.awayTeam.shortCode}
                   </span>
+                  <GoalScorerList goals={awayGoals} align="left" />
                 </div>
               </div>
             </div>
@@ -226,6 +265,8 @@ export function MatchDetailsPage({ matchId }: MatchDetailsPageProps) {
       </section>
 
       <MotionReveal className="grid gap-4">
+
+
         <Card className="rounded-[28px] border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md shadow-xs dark:border-white/10">
           <CardContent className="grid gap-4 p-5 sm:p-6">
             <SectionHeader

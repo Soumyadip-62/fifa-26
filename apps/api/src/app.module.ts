@@ -16,10 +16,12 @@ import { TeamEntity } from './teams/entitites/teams.entity';
 import { MatchEntity } from './matches/entities/matches.entity';
 import { HistoricalMatchEntity } from './history/entities/history.entity';
 import { TournamentEntity } from './history/entities/tournament.entity';
+import { QualifiedTeamEntity } from './points-table/entities/qualified-team.entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { NotificationService } from './notification/notification.service';
 import { NotificationModule } from './notification/notification.module';
 import { FirebaseModule } from './firebase/firebase.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { FirebaseModule } from './firebase/firebase.module';
         MatchEntity,
         HistoricalMatchEntity,
         TournamentEntity,
+        QualifiedTeamEntity,
       ],
       autoLoadEntities: true,
       synchronize: true,
@@ -53,6 +56,7 @@ import { FirebaseModule } from './firebase/firebase.module';
     PointsTableModule,
     NotificationModule,
     FirebaseModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,6 +6,7 @@ import { images } from "@/assets";
 import { cn } from "@/lib/utils/cn";
 import { usePathname } from "next/navigation";
 import { DynamicIsland } from "./DynamicIsland";
+import { ProfileDrawer } from "./ProfileDrawer";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -76,6 +77,7 @@ export function Header() {
               })}
             </ul>
           </nav>
+          <ProfileDrawer />
         </div>
       </div>
     </header>

@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "nest start --watch",
-    "build": "nest build",
+    "build": "echo \"Starting nest build...\" && nest build && echo \"Build finished. Listing dist:\" && ls -la dist",
     "check-types": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

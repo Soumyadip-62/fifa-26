@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { images } from "@/assets";
@@ -17,6 +18,10 @@ import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DynamicIsland } from "@/components/layout/DynamicIsland";
+
+const HOME_BANNER_STORAGE_KEY = "fifa26-home-banner-index";
+const HOME_BANNER_ROTATION_MS = 12_000;
+const HOME_BANNER_IMAGES = images.banners.worldCup2026Rotation;
 
 // Lazy load below-the-fold sections
 const BroadcastHub = dynamic(
@@ -41,6 +46,8 @@ const PlatformSections = dynamic(
 );
 
 export function HomePage() {
+  const [bannerIndex, setBannerIndex] = useState(0);
+
   const { data: matches = [], isPending: isMatchesPending } = useQuery({
     queryKey: ["matches"],
     queryFn: getMatches,
@@ -58,6 +65,58 @@ export function HomePage() {
 
   const isMainDataPending =
     isMatchesPending || isTeamsPending || isArticlesPending;
+  const bannerImage =
+    HOME_BANNER_IMAGES[bannerIndex] ?? images.banners.worldCup2026;
+
+  useEffect(() => {
+    const imageCount = HOME_BANNER_IMAGES.length;
+
+    if (imageCount <= 1) {
+      return;
+    }
+
+    setBannerIndex((currentIndex) => {
+      let nextIndex = (currentIndex + 1) % imageCount;
+
+      try {
+        const savedIndex = Number(
+          window.localStorage.getItem(HOME_BANNER_STORAGE_KEY),
+        );
+
+        if (Number.isInteger(savedIndex)) {
+          nextIndex = (savedIndex + 1) % imageCount;
+        }
+
+        window.localStorage.setItem(
+          HOME_BANNER_STORAGE_KEY,
+          String(nextIndex),
+        );
+      } catch {
+        // Ignore blocked storage and still rotate in-memory for this visit.
+      }
+
+      return nextIndex;
+    });
+
+    const intervalId = window.setInterval(() => {
+      setBannerIndex((currentIndex) => {
+        const nextIndex = (currentIndex + 1) % imageCount;
+
+        try {
+          window.localStorage.setItem(
+            HOME_BANNER_STORAGE_KEY,
+            String(nextIndex),
+          );
+        } catch {
+          // Ignore blocked storage and still rotate in-memory for this visit.
+        }
+
+        return nextIndex;
+      });
+    }, HOME_BANNER_ROTATION_MS);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:gap-10 lg:px-8 lg:py-10">
@@ -65,7 +124,8 @@ export function HomePage() {
       <MotionReveal>
         <section className="relative flex min-h-[360px] items-center justify-start overflow-hidden rounded-[32px] bg-black p-6 text-left text-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10 sm:min-h-[400px] sm:p-8 lg:p-12">
           <Image
-            src={images.banners.worldCup2026}
+            key={bannerImage}
+            src={bannerImage}
             alt="FIFA 26 tournament banner"
             fill
             priority
@@ -86,8 +146,8 @@ export function HomePage() {
               archives on a production-ready dashboard.
             </p>
             <div className="flex flex-wrap justify-start gap-3 mt-2">
-              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-3 sm:py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all max-h-[32px] sm:max-h-[40px]")} href="/matches">
-                View Matches
+              <Link className={cn(buttonVariants(), "rounded-full bg-primary hover:bg-primary/95 text-white dark:text-zinc-950 font-bold px-6 py-3 sm:py-5 text-xs tracking-wide shadow-md hover:shadow-lg transition-all max-h-[32px] sm:max-h-[40px]")} href="/matches/knockout-matches">
+                View Knockout Matches
               </Link>
               <Link
                 className={cn(buttonVariants({
