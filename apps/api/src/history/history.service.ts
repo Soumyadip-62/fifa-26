@@ -86,7 +86,13 @@ export class HistoryService {
   }
 
   getAllFinals() {
-    return this.finals;
+    const worldCupByYearPath = join(
+      process.cwd(),
+      'fifa-data',
+      'worldcup-by-year',
+    );
+    const history = this.readWorldCupHistory(worldCupByYearPath);
+    return this.getFinalMatches(history);
   }
   getMatchesByYear(year: number) {
     return;
