@@ -6,9 +6,9 @@ export const images = {
     worldCup2026Alt4: "/assets/images/banners/world-cup26-banner-4.png",
     worldCup2026Rotation: [
       "/assets/images/banners/world-cup26.webp",
-      "/assets/images/banners/world-cup26-banner-2.png",
-      "/assets/images/banners/world-cup26-banner-3.png",
-      "/assets/images/banners/world-cup26-banner-4.png",
+      "/assets/images/banners/spain_banner.webp",
+      "/assets/images/banners/spain_banner_1.webp",
+      "/assets/images/banners/spain_banner_2.webp",
     ],
     worldCupTrophy: "/assets/images/banners/fifa-world-cup-trophy.png",
     r32Stadium: "/assets/images/banners/r32-stadium.png",
