@@ -61,6 +61,7 @@ const yearToHostMap: Record<number, string> = {
 };
 
 const customSummaries: Record<number, string> = {
+  2026: "Spain won their second World Cup title after defeating Argentina 1-0 in extra time with a goal by Ferran Torres in the 106th minute at MetLife Stadium.",
   2022: "Argentina won their third world title after a dramatic final against France.",
   2018: "France lifted the trophy for the second time with a young, balanced squad.",
   2014: "Germany won the final in Rio through Mario Gotze's extra-time goal.",

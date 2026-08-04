@@ -2,6 +2,20 @@ import type { TournamentHistory } from "@/types/history";
 
 export const mockTournamentHistory: TournamentHistory[] = [
   {
+    id: "2026-canada-mexico-united-states",
+    year: 2026,
+    host: "Canada / Mexico / United States",
+    winner: "Spain",
+    runnerUp: "Argentina",
+    thirdPlace: "France",
+    finalScore: "1-0 after extra time",
+    summary: "Spain won their second World Cup title after defeating Argentina 1-0 in extra time with a goal by Ferran Torres in the 106th minute at MetLife Stadium.",
+    winnerGoals: [
+      { name: "Ferran Torres", minute: 106 },
+    ],
+    runnerUpGoals: [],
+  },
+  {
     id: "2022-qatar",
     year: 2022,
     host: "Qatar",
