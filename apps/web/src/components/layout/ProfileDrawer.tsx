@@ -1,18 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePreferences, updatePreferences } from "@/lib/preferences";
 import * as React from "react";
-import {
-  Bell,
-  Heart,
-  Settings,
-  X,
-  Plus,
-  Trash2,
-} from "lucide-react";
+import { Bell, Heart, Settings, X, Plus, Trash2 } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -24,13 +20,13 @@ import { cn } from "@/lib/utils/cn";
 import { getTeams } from "@/lib/api/teams";
 import {
   defaultNotificationPreferences,
-  readNotificationPreferences,
-  saveNotificationPreferences,
   type NotificationPreferences,
 } from "@/lib/api/notification";
 import { images } from "@/assets";
 import type { Team } from "@/types/team";
 import { useQuery } from "@tanstack/react-query";
+
+const emptyTeams: Team[] = [];
 
 function getTeamSearchText(team: Team) {
   return [
@@ -46,6 +42,8 @@ function getTeamSearchText(team: Team) {
 }
 
 export function ProfileDrawer() {
+  const preferences = usePreferences();
+  const [open, setOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const [teamInput, setTeamInput] = React.useState("");
   const [isTeamAutocompleteOpen, setIsTeamAutocompleteOpen] =
@@ -54,9 +52,10 @@ export function ProfileDrawer() {
     React.useState(0);
   const [notificationPreferences, setNotificationPreferences] =
     React.useState<NotificationPreferences>(defaultNotificationPreferences);
-  const { data: teams = [] } = useQuery({
+  const { data: teams = emptyTeams } = useQuery({
     queryKey: ["teams"],
     queryFn: getTeams,
+    enabled: open,
   });
 
   const favoriteTeamSuggestions = React.useMemo(() => {
@@ -77,20 +76,37 @@ export function ProfileDrawer() {
 
   // Avoid hydration mismatch
   React.useEffect(() => {
-    setNotificationPreferences(readNotificationPreferences());
+    setNotificationPreferences({
+      favoriteTeams: preferences.teamIds.map(
+        (id) => teams.find((t) => t.id === id)?.name ?? id,
+      ),
+      kickoff30: preferences.notifications.kickoff30,
+      kickoff10: preferences.notifications.kickoff10,
+      finalScore: preferences.notifications.finalScore,
+      qualification: false,
+    });
     setMounted(true);
-  }, []);
+  }, [preferences, teams]);
 
   if (!mounted) return null;
 
   const updateNotificationPreferences = (
     updater: (value: NotificationPreferences) => NotificationPreferences,
   ) => {
-    setNotificationPreferences((current) => {
-      const next = updater(current);
-      saveNotificationPreferences(next);
-      return next;
-    });
+    const next = updater(notificationPreferences);
+    updatePreferences((p) => ({
+      ...p,
+      teamIds: next.favoriteTeams.flatMap((name) => {
+        const team = teams.find((t) => t.name === name || t.id === name);
+        return team ? [team.id] : [];
+      }),
+      notifications: {
+        ...p.notifications,
+        kickoff30: next.kickoff30,
+        kickoff10: next.kickoff10,
+        finalScore: next.finalScore,
+      },
+    }));
   };
 
   const addFavoriteTeam = () => {
@@ -195,20 +211,20 @@ export function ProfileDrawer() {
         className="flex w-full items-center justify-between gap-4 p-4 text-left"
       >
         <div>
-          <p className="text-xs font-bold text-zinc-900 dark:text-zinc-100">
+          <p className="text-xs font-bold text-foreground dark:text-foreground">
             {label}
           </p>
-          <p className="text-[10px] text-zinc-500">{description}</p>
+          <p className="text-[10px] text-muted-foreground">{description}</p>
         </div>
         <span
           className={cn(
             "h-6 w-10 rounded-full p-1 transition-colors",
-            enabled ? "bg-primary" : "bg-zinc-300 dark:bg-zinc-800",
+            enabled ? "bg-primary" : "bg-zinc-300 dark:bg-secondary",
           )}
         >
           <span
             className={cn(
-              "block size-4 rounded-full bg-white shadow-sm transition-transform",
+              "block size-4 rounded-full bg-card shadow-none transition-transform",
               enabled && "translate-x-4",
             )}
           />
@@ -218,28 +234,33 @@ export function ProfileDrawer() {
   };
 
   return (
-    <Drawer direction="right">
+    <Drawer direction="right" open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button
+          aria-label="Open profile settings"
           variant="ghost"
-          className="relative h-10 w-10 rounded-full p-0 overflow-hidden border border-black/5 dark:border-white/10 hover:border-primary transition-all duration-300"
+          className="relative h-10 w-10 rounded-full p-0 overflow-hidden border border-border dark:border-border hover:border-primary transition-all duration-300"
         >
-          <div className="flex h-full w-full items-center justify-center bg-zinc-100 dark:bg-zinc-800/60 text-zinc-750 dark:text-zinc-300">
+          <div className="flex h-full w-full items-center justify-center bg-secondary dark:bg-secondary text-muted-foreground dark:text-secondary-foreground">
             <Settings size={20} />
           </div>
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="inset-y-0 left-auto right-0 mt-0 h-full max-h-none w-[min(100vw,28rem)] max-w-none rounded-l-2xl rounded-r-none rounded-t-none border-l border-black/5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-lg dark:border-white/10 shadow-2xl">
+      <DrawerContent className="inset-y-0 left-auto right-0 mt-0 h-full max-h-none w-[min(100vw,28rem)] max-w-none rounded-l-2xl rounded-r-none rounded-t-none border-l border-border bg-card dark:bg-card backdrop-blur-lg dark:border-border shadow-2xl">
         <DrawerHeader className="relative pb-0">
+          <DrawerDescription className="sr-only">
+            Manage your favourite teams and match notification preferences.
+          </DrawerDescription>
           <div className="flex items-center justify-between">
-            <DrawerTitle className="text-xl font-black font-heading text-zinc-950 dark:text-white">
+            <DrawerTitle className="text-xl font-black font-heading text-foreground dark:text-white">
               Settings
             </DrawerTitle>
             <DrawerClose asChild>
               <Button
+                aria-label="Close settings"
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 rounded-full border border-black/5 dark:border-white/10 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                className="h-8 w-8 p-0 rounded-full border border-border dark:border-border text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white"
               >
                 <X size={16} />
               </Button>
@@ -260,21 +281,21 @@ export function ProfileDrawer() {
               {notificationPreferences.favoriteTeams.map((team) => (
                 <div
                   key={team}
-                  className="px-3.5 py-1.5 rounded-full border border-black/5 dark:border-white/10 bg-zinc-100/60 dark:bg-zinc-800/40 text-xs font-semibold flex items-center gap-2 shadow-xs"
+                  className="px-3.5 py-1.5 rounded-full border border-border dark:border-border bg-secondary dark:bg-secondary text-xs font-semibold flex items-center gap-2 shadow-none"
                 >
                   <div className="size-1.5 rounded-full bg-primary" />
                   {team}
                   <button
                     type="button"
                     onClick={() => removeFavoriteTeam(team)}
-                    className="text-zinc-400 hover:text-destructive"
+                    className="text-muted-foreground hover:text-destructive"
                   >
                     <Trash2 size={12} />
                   </button>
                 </div>
               ))}
               {notificationPreferences.favoriteTeams.length === 0 && (
-                <p className="text-[10px] font-semibold text-zinc-500">
+                <p className="text-[10px] font-semibold text-muted-foreground">
                   No favorites. Empty list = all teams.
                 </p>
               )}
@@ -303,8 +324,11 @@ export function ProfileDrawer() {
                 {isTeamAutocompleteOpen &&
                 teamInput.trim() &&
                 favoriteTeamSuggestions.length > 0 ? (
-                  <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 overflow-hidden rounded-[18px] border border-black/5 bg-white/95 shadow-xl backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/95">
-                    <ul className="max-h-72 overflow-y-auto py-1" role="listbox">
+                  <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 overflow-hidden rounded-[18px] border border-border bg-card shadow-xl backdrop-blur-md dark:border-border dark:bg-card">
+                    <ul
+                      className="max-h-72 overflow-y-auto py-1"
+                      role="listbox"
+                    >
                       {favoriteTeamSuggestions.map((team, index) => {
                         const imageUrl =
                           team.logoUrl ||
@@ -326,11 +350,11 @@ export function ProfileDrawer() {
                               className={cn(
                                 "flex w-full items-center gap-3 px-3 py-2.5 text-left transition",
                                 index === activeTeamSuggestionIndex
-                                  ? "bg-primary/10 text-zinc-950 dark:text-white"
-                                  : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800/70",
+                                  ? "bg-primary/10 text-foreground dark:text-white"
+                                  : "text-muted-foreground hover:bg-secondary dark:text-secondary-foreground dark:hover:bg-secondary",
                               )}
                             >
-                              <span className="relative size-8 shrink-0 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+                              <span className="relative size-8 shrink-0 overflow-hidden rounded-full bg-secondary dark:bg-secondary">
                                 <Image
                                   src={imageUrl}
                                   alt={`${team.name} logo`}
@@ -343,7 +367,7 @@ export function ProfileDrawer() {
                                 <span className="block truncate text-xs font-black">
                                   {team.name}
                                 </span>
-                                <span className="block truncate text-[9px] font-bold uppercase tracking-wider text-zinc-500">
+                                <span className="block truncate text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
                                   {team.fifa_code ||
                                     team.shortCode ||
                                     team.country}
@@ -374,7 +398,15 @@ export function ProfileDrawer() {
               <Bell size={14} />
               Notifications
             </h4>
-            <div className="divide-y divide-black/5 dark:divide-white/5 rounded-[20px] border border-black/5 dark:border-white/10 bg-zinc-100/50 dark:bg-zinc-800/10">
+            <Link
+              href="/settings/notifications"
+              className="text-xs font-bold text-primary"
+            >
+              {preferences.notifications.enabled
+                ? "Manage browser notifications"
+                : "Enable browser notifications"}
+            </Link>
+            <div className="divide-y divide-border dark:divide-border rounded-lg border border-border dark:border-border bg-secondary dark:bg-secondary">
               <PreferenceToggle
                 label="30 min kickoff"
                 description="Match reminder before kickoff"
@@ -382,22 +414,16 @@ export function ProfileDrawer() {
               />
               <PreferenceToggle
                 label="10 min kickoff"
-                description="Ready for later cron"
+                description="Match reminder before kickoff"
                 prefKey="kickoff10"
               />
               <PreferenceToggle
                 label="Final score"
-                description="Ready for full-time updates"
+                description="Full-time results"
                 prefKey="finalScore"
-              />
-              <PreferenceToggle
-                label="Qualification"
-                description="Qualified team alerts"
-                prefKey="qualification"
               />
             </div>
           </section>
-
         </div>
       </DrawerContent>
     </Drawer>

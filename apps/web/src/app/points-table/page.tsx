@@ -1,13 +1,15 @@
-import { PointsTablePage } from "@/features/points-table/PointsTablePage";
-import { createPageMetadata } from "@/lib/seo/metadata";
-
-export const metadata = createPageMetadata({
-  title: "FIFA World Cup 2026 Points Table & Group Standings",
-  description:
-    "See FIFA World Cup 2026 group standings, points table, wins, draws, losses, goal difference, and qualification positions.",
-  path: "/points-table",
-});
-
-export default function PointsTable() {
-  return <PointsTablePage />;
-};
+import { SectionHeader } from "@/components/common/SectionHeader";
+import { StandingsTable } from "@/components/football/StandingsTable";
+import { getCompetitionData } from "@/lib/api/football";
+export default async function Page() {
+  const d = await getCompetitionData("world-cup");
+  return (
+    <div className="page-shell">
+      <SectionHeader
+        title="World Cup group standings"
+        description="Calculated from saved group-stage results."
+      />
+      <StandingsTable rows={d.standings} teams={d.teams} />
+    </div>
+  );
+}

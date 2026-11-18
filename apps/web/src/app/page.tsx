@@ -2,9 +2,9 @@ import { HomePage } from "@/features/home/HomePage";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createPageMetadata({
-  title: "FIFA World Cup 2026 Schedule, Scores, Teams & Bracket",
+  title: "Football Companion - Live Scores, Fixtures and Stats",
   description:
-    "Track FIFA World Cup 2026 fixtures, live scores, teams, points tables, knockout brackets, news, and tournament history in one dashboard.",
+    "Follow the World Cup, Champions League, Premier League, La Liga and Bundesliga in one football dashboard.",
   path: "/",
 });
 

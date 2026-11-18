@@ -58,7 +58,7 @@ function getQualificationBadge(entry: StandingsTableEntry) {
   return {
     label: "In contention",
     className:
-      "border-zinc-300 bg-zinc-100 text-zinc-600 dark:border-white/10 dark:bg-zinc-800/40 dark:text-zinc-300",
+      "border-border bg-secondary text-muted-foreground dark:border-border dark:bg-secondary dark:text-secondary-foreground",
   };
 }
 
@@ -129,14 +129,14 @@ export function PointsTablePage() {
 
   if (isError) {
     return (
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <ErrorState message="Failed to load tournament standings. Please try again later." />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+    <div className="page-shell">
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <SectionHeader
@@ -146,7 +146,7 @@ export function PointsTablePage() {
         />
         <Link
           href="/matches/knockout-matches"
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-xs font-bold text-white dark:text-zinc-950 shadow-sm hover:opacity-90 transition-all"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground dark:text-foreground shadow-none hover:opacity-90 transition-all"
         >
           <Sparkles className="h-4 w-4" /> Knockout Stage
         </Link>
@@ -154,16 +154,16 @@ export function PointsTablePage() {
 
       {/* Filters & Search */}
       <MotionReveal>
-        <div className="flex flex-col gap-4 rounded-[28px] border border-black/5 bg-zinc-200/25 p-4 shadow-sm dark:border-white/5 dark:bg-zinc-900/10 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-4 rounded-lg border border-border bg-secondary p-4 shadow-none dark:border-border dark:bg-card sm:p-5 lg:flex-row lg:items-center lg:justify-between">
           {/* Quick Tabs - iOS Segmented Control style */}
-          <div className="flex flex-wrap gap-1 bg-zinc-200/50 dark:bg-zinc-800/40 p-2 rounded-[20px] sm:rounded-full border border-black/5 dark:border-white/5 max-w-full overflow-x-auto">
+          <div className="flex flex-wrap gap-1 bg-secondary dark:bg-secondary p-2 rounded-lg sm:rounded-full border border-border dark:border-border max-w-full overflow-x-auto">
             <Button
               variant="ghost"
               onClick={() => handleGroupSelect("All")}
               className={`h-8.5 px-4 rounded-full text-xs font-bold transition-all ${
                 selectedGroup === "All"
-                  ? "bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white"
-                  : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200"
+                  ? "bg-card text-black shadow-none dark:bg-zinc-700 dark:text-white"
+                  : "text-muted-foreground hover:text-foreground dark:hover:text-secondary-foreground"
               }`}
             >
               <Grid className="mr-1.5 h-3.5 w-3.5" /> All Groups
@@ -175,8 +175,8 @@ export function PointsTablePage() {
                 onClick={() => handleGroupSelect(g)}
                 className={`h-8.5 px-4 rounded-full text-xs font-bold transition-all ${
                   selectedGroup === g
-                    ? "bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white"
-                    : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200"
+                    ? "bg-card text-black shadow-none dark:bg-zinc-700 dark:text-white"
+                    : "text-muted-foreground hover:text-foreground dark:hover:text-secondary-foreground"
                 }`}
               >
                 {g.replace("Group ", "")}
@@ -186,12 +186,12 @@ export function PointsTablePage() {
 
           {/* Search bar */}
           <div className="relative w-full lg:max-w-xs">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-zinc-400 dark:text-zinc-500" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
             <Input
               placeholder="Search team..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-4 h-9 rounded-full bg-white/90 dark:bg-zinc-900/60 border-black/5 dark:border-white/5 text-xs font-semibold"
+              className="pl-9 pr-4 h-9 rounded-full bg-card dark:bg-card border-border dark:border-border text-xs font-semibold"
             />
           </div>
         </div>
@@ -202,7 +202,7 @@ export function PointsTablePage() {
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="flex flex-col items-center gap-3">
             <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-            <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400">
+            <p className="text-xs font-bold text-muted-foreground dark:text-muted-foreground">
               Calculating standings...
             </p>
           </div>
@@ -221,14 +221,14 @@ export function PointsTablePage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredStandings.map((groupData) => (
             <MotionReveal key={groupData.group}>
-              <Card className="overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm hover:scale-[1.01] transition-all">
-                <div className="flex items-center justify-between border-b border-black/5 bg-zinc-100/50 px-4 py-3 dark:border-white/5 dark:bg-zinc-800/10">
-                  <h3 className="font-heading text-xs font-black tracking-normal text-zinc-900 dark:text-zinc-300">
+              <Card className="overflow-hidden border border-border bg-card dark:bg-card backdrop-blur-md rounded-lg shadow-none hover:scale-[1.01] transition-all">
+                <div className="flex items-center justify-between border-b border-border bg-secondary px-4 py-3 dark:border-border dark:bg-secondary">
+                  <h3 className="font-heading text-xs font-black tracking-normal text-foreground dark:text-secondary-foreground">
                     {groupData.group}
                   </h3>
                   <button
                     onClick={() => handleGroupSelect(groupData.group)}
-                    className="inline-flex items-center text-[10px] font-bold text-zinc-500 hover:text-primary transition"
+                    className="inline-flex items-center text-[10px] font-bold text-muted-foreground hover:text-primary transition"
                   >
                     Details <ArrowRight className="ml-1 h-3 w-3" />
                   </button>
@@ -236,7 +236,7 @@ export function PointsTablePage() {
                 <CardContent className="p-0">
                   <table className="w-full text-left text-[11px] border-collapse">
                     <thead>
-                      <tr className="border-b border-black/5 bg-zinc-100/30 font-bold text-zinc-400 dark:border-white/5 dark:bg-zinc-800/5">
+                      <tr className="border-b border-border bg-secondary font-bold text-muted-foreground dark:border-border dark:bg-secondary">
                         <th className="py-2 pl-4 w-10 text-center">Pos</th>
                         <th className="py-2">Team</th>
                         <th className="py-2 text-center w-10">P</th>
@@ -256,7 +256,7 @@ export function PointsTablePage() {
                         return (
                           <tr
                             key={entry.team.id}
-                            className="group/row border-b border-neutral-100/50 last:border-0 hover:bg-neutral-50/80 dark:border-white/5 dark:hover:bg-white/5 transition-colors"
+                            className="group/row border-b border-neutral-100/50 last:border-0 hover:bg-secondary dark:border-border dark:hover:bg-white/5 transition-colors"
                           >
                             <td className="py-3 text-center pl-4 font-semibold relative">
                               {/* Position Left Border Indicator */}
@@ -272,7 +272,7 @@ export function PointsTablePage() {
                                     ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
                                     : isPotential
                                       ? "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
-                                      : "text-neutral-500"
+                                      : "text-muted-foreground"
                                 }`}
                               >
                                 {entry.position}
@@ -281,9 +281,9 @@ export function PointsTablePage() {
                             <td className="py-3 inline-flex items-center gap-1">
                               <Link
                                 href={`/teams/${entry.team.sportsdbTeamId}?group=${groupData.group}`}
-                                className="inline-flex items-center gap-2 font-bold text-neutral-800 dark:text-neutral-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition"
+                                className="inline-flex items-center gap-2 font-bold text-neutral-800 dark:text-secondary-foreground hover:text-emerald-600 dark:hover:text-emerald-400 transition"
                               >
-                                <div className="size-5 shrink-0 overflow-hidden rounded-md border border-neutral-100 bg-neutral-50 dark:border-white/10 dark:bg-neutral-900">
+                                <div className="size-5 shrink-0 overflow-hidden rounded-md border border-neutral-100 bg-secondary dark:border-border dark:bg-card">
                                   <FlagIcon
                                     country={entry.team.name}
                                     className="h-full w-full object-cover scale-110"
@@ -300,7 +300,7 @@ export function PointsTablePage() {
                                 {qualificationBadge.label}
                               </Badge>
                             </td>
-                            <td className="py-3 text-center text-neutral-600 dark:text-neutral-400">
+                            <td className="py-3 text-center text-muted-foreground dark:text-muted-foreground">
                               {entry.playedGames}
                             </td>
                             <td
@@ -309,13 +309,13 @@ export function PointsTablePage() {
                                   ? "text-emerald-600 dark:text-emerald-400"
                                   : entry.goalDifference < 0
                                     ? "text-red-500"
-                                    : "text-neutral-500"
+                                    : "text-muted-foreground"
                               }`}
                             >
                               {entry.goalDifference > 0 ? "+" : ""}
                               {entry.goalDifference}
                             </td>
-                            <td className="py-3 text-center pr-4 font-extrabold text-neutral-950 dark:text-white">
+                            <td className="py-3 text-center pr-4 font-extrabold text-foreground dark:text-white">
                               {entry.points}
                             </td>
                           </tr>
@@ -333,15 +333,15 @@ export function PointsTablePage() {
         <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
           {/* Detailed Table */}
           <MotionReveal className="grid gap-4">
-            <h3 className="font-heading text-base font-black text-zinc-950 dark:text-white flex items-center gap-2">
+            <h3 className="font-heading text-base font-black text-foreground dark:text-white flex items-center gap-2">
               <Award className="h-4 w-4 text-primary" /> Standings Table
             </h3>
-            <Card className="overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm">
+            <Card className="overflow-hidden border border-border bg-card dark:bg-card backdrop-blur-md rounded-lg shadow-none">
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs border-collapse min-w-[550px]">
                     <thead>
-                      <tr className="border-b border-black/5 bg-zinc-100/50 font-bold text-zinc-400 dark:border-white/5 dark:bg-zinc-800/10">
+                      <tr className="border-b border-border bg-secondary font-bold text-muted-foreground dark:border-border dark:bg-secondary">
                         <th className="py-3 pl-4 w-12 text-center">Pos</th>
                         <th className="py-3">Team</th>
                         <th className="py-3 text-center w-10">P</th>
@@ -365,7 +365,7 @@ export function PointsTablePage() {
                         return (
                           <tr
                             key={entry.team.id}
-                            className="group border-b border-black/5 last:border-0 hover:bg-zinc-50/50 dark:hover:bg-zinc-800/10 transition-colors"
+                            className="group border-b border-border last:border-0 hover:bg-secondary dark:hover:bg-secondary transition-colors"
                           >
                             <td className="py-3.5 text-center pl-4 font-bold relative">
                               {/* Position Left Border Indicator */}
@@ -381,7 +381,7 @@ export function PointsTablePage() {
                                     ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
                                     : isPotential
                                       ? "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
-                                      : "bg-zinc-100 text-zinc-650 dark:bg-zinc-800/40 dark:text-zinc-400"
+                                      : "bg-secondary text-zinc-650 dark:bg-secondary dark:text-muted-foreground"
                                 }`}
                               >
                                 {entry.position}
@@ -390,9 +390,9 @@ export function PointsTablePage() {
                             <td className="py-3.5">
                               <Link
                                 href={`/teams/${entry.team.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                                className="inline-flex items-center gap-2.5 font-bold text-zinc-900 dark:text-zinc-100 hover:text-primary transition"
+                                className="inline-flex items-center gap-2.5 font-bold text-foreground dark:text-foreground hover:text-primary transition"
                               >
-                                <div className="size-5.5 shrink-0 overflow-hidden rounded-md border border-black/5 bg-zinc-100 dark:border-white/10 dark:bg-zinc-800/20">
+                                <div className="size-5.5 shrink-0 overflow-hidden rounded-md border border-border bg-secondary dark:border-border dark:bg-secondary">
                                   <FlagIcon
                                     country={entry.team.name}
                                     className="h-full w-full object-cover scale-110"
@@ -407,22 +407,22 @@ export function PointsTablePage() {
                                 {qualificationBadge.label}
                               </Badge>
                             </td>
-                            <td className="py-3.5 text-center font-semibold text-zinc-550 dark:text-zinc-400">
+                            <td className="py-3.5 text-center font-semibold text-muted-foreground dark:text-muted-foreground">
                               {entry.playedGames}
                             </td>
-                            <td className="py-3.5 text-center text-zinc-550 dark:text-zinc-400">
+                            <td className="py-3.5 text-center text-muted-foreground dark:text-muted-foreground">
                               {entry.won}
                             </td>
-                            <td className="py-3.5 text-center text-zinc-550 dark:text-zinc-400">
+                            <td className="py-3.5 text-center text-muted-foreground dark:text-muted-foreground">
                               {entry.draw}
                             </td>
-                            <td className="py-3.5 text-center text-zinc-550 dark:text-zinc-400">
+                            <td className="py-3.5 text-center text-muted-foreground dark:text-muted-foreground">
                               {entry.lost}
                             </td>
-                            <td className="py-3.5 text-center text-zinc-550 dark:text-zinc-400">
+                            <td className="py-3.5 text-center text-muted-foreground dark:text-muted-foreground">
                               {entry.goalsFor}
                             </td>
-                            <td className="py-3.5 text-center text-zinc-550 dark:text-zinc-400">
+                            <td className="py-3.5 text-center text-muted-foreground dark:text-muted-foreground">
                               {entry.goalsAgainst}
                             </td>
                             <td
@@ -431,13 +431,13 @@ export function PointsTablePage() {
                                   ? "text-emerald-500"
                                   : entry.goalDifference < 0
                                     ? "text-red-500"
-                                    : "text-zinc-400"
+                                    : "text-muted-foreground"
                               }`}
                             >
                               {entry.goalDifference > 0 ? "+" : ""}
                               {entry.goalDifference}
                             </td>
-                            <td className="py-3.5 text-center pr-4 font-black text-sm text-zinc-950 dark:text-white">
+                            <td className="py-3.5 text-center pr-4 font-black text-sm text-foreground dark:text-white">
                               {entry.points}
                             </td>
                           </tr>
@@ -448,16 +448,16 @@ export function PointsTablePage() {
                 </div>
 
                 {/* Qualification Key Legend */}
-                <div className="flex flex-wrap gap-4 border-t border-black/5 bg-zinc-100/50 p-4 text-[10px] text-zinc-450 dark:border-white/5 dark:bg-zinc-800/10">
+                <div className="flex flex-wrap gap-4 border-t border-border bg-secondary p-4 text-[10px] text-zinc-450 dark:border-border dark:bg-secondary">
                   <div className="flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    <span className="font-semibold text-zinc-500 dark:text-zinc-400">
+                    <span className="font-semibold text-muted-foreground dark:text-muted-foreground">
                       Qualified: DB confirmed
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-amber-500" />
-                    <span className="font-semibold text-zinc-500 dark:text-zinc-400">
+                    <span className="font-semibold text-muted-foreground dark:text-muted-foreground">
                       Can qualify: still alive
                     </span>
                   </div>
@@ -468,7 +468,7 @@ export function PointsTablePage() {
 
           {/* Group Fixtures */}
           <MotionReveal className="grid gap-4">
-            <h3 className="font-heading text-base font-black text-zinc-950 dark:text-white flex items-center gap-2">
+            <h3 className="font-heading text-base font-black text-foreground dark:text-white flex items-center gap-2">
               <Trophy className="h-4 w-4 text-primary" /> Group Fixtures
             </h3>
             {isLoadingMatches ? (
@@ -476,8 +476,8 @@ export function PointsTablePage() {
                 <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
               </div>
             ) : groupMatches.length === 0 ? (
-              <Card className="border-dashed py-8 rounded-[24px]">
-                <CardContent className="text-center text-zinc-500 dark:text-zinc-400">
+              <Card className="border-dashed py-8 rounded-lg">
+                <CardContent className="text-center text-muted-foreground dark:text-muted-foreground">
                   No fixtures scheduled for this group.
                 </CardContent>
               </Card>
@@ -493,10 +493,10 @@ export function PointsTablePage() {
                     <Link
                       key={match.id}
                       href={`/matches/${match.id}`}
-                      className="group/match block border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[24px] p-4 shadow-sm hover:scale-[1.01] transition duration-300"
+                      className="group/match block border border-border bg-card dark:bg-card backdrop-blur-md rounded-lg p-4 shadow-none hover:scale-[1.01] transition duration-300"
                     >
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-[9px] font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-wider">
+                        <span className="text-[9px] font-bold text-zinc-450 dark:text-muted-foreground uppercase tracking-wider">
                           {match.matchNumber
                             ? `Match ${match.matchNumber}`
                             : ""}
@@ -504,7 +504,7 @@ export function PointsTablePage() {
                         <span
                           className={`inline-flex rounded-full px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider ${
                             isFinished
-                              ? "bg-zinc-100 text-zinc-650 dark:bg-zinc-800/40 dark:text-zinc-400"
+                              ? "bg-secondary text-zinc-650 dark:bg-secondary dark:text-muted-foreground"
                               : isLive
                                 ? "bg-red-100 text-red-700 animate-pulse dark:bg-red-500/10 dark:text-red-450"
                                 : "bg-primary/10 text-primary"
@@ -516,10 +516,10 @@ export function PointsTablePage() {
                       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
                         {/* Home Team */}
                         <div className="flex items-center justify-end gap-2.5 min-w-0">
-                          <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate group-hover/match:text-primary transition">
+                          <span className="text-xs font-bold text-foreground dark:text-foreground truncate group-hover/match:text-primary transition">
                             {match.homeTeam.name}
                           </span>
-                          <div className="size-5 shrink-0 overflow-hidden rounded-md border border-black/5 bg-zinc-100 dark:border-white/10 dark:bg-zinc-800/20">
+                          <div className="size-5 shrink-0 overflow-hidden rounded-md border border-border bg-secondary dark:border-border dark:bg-secondary">
                             <FlagIcon
                               country={match.homeTeam.name}
                               className="h-full w-full object-cover scale-110"
@@ -528,13 +528,13 @@ export function PointsTablePage() {
                         </div>
 
                         {/* Score/VS Box */}
-                        <div className="rounded-full bg-zinc-150/80 dark:bg-zinc-800/40 px-3 py-0.5 font-heading text-xs font-black min-w-12 text-center group-hover/match:scale-105 transition duration-300 border border-black/5 dark:border-white/5">
+                        <div className="rounded-full bg-zinc-150/80 dark:bg-secondary px-3 py-0.5 font-heading text-xs font-black min-w-12 text-center group-hover/match:scale-105 transition duration-300 border border-border dark:border-border">
                           {hasScore ? (
-                            <span className="text-xs font-black tracking-widest text-zinc-900 dark:text-white">
+                            <span className="text-xs font-black tracking-widest text-foreground dark:text-white">
                               {match.score.home}-{match.score.away}
                             </span>
                           ) : (
-                            <span className="text-[9px] font-bold text-zinc-450 dark:text-zinc-500">
+                            <span className="text-[9px] font-bold text-zinc-450 dark:text-muted-foreground">
                               VS
                             </span>
                           )}
@@ -542,18 +542,18 @@ export function PointsTablePage() {
 
                         {/* Away Team */}
                         <div className="flex items-center justify-start gap-2.5 min-w-0">
-                          <div className="size-5 shrink-0 overflow-hidden rounded-md border border-black/5 bg-zinc-100 dark:border-white/10 dark:bg-zinc-800/20">
+                          <div className="size-5 shrink-0 overflow-hidden rounded-md border border-border bg-secondary dark:border-border dark:bg-secondary">
                             <FlagIcon
                               country={match.awayTeam.name}
                               className="h-full w-full object-cover scale-110"
                             />
                           </div>
-                          <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate group-hover/match:text-primary transition">
+                          <span className="text-xs font-bold text-foreground dark:text-foreground truncate group-hover/match:text-primary transition">
                             {match.awayTeam.name}
                           </span>
                         </div>
                       </div>
-                      <div className="mt-3 border-t border-black/5 dark:border-white/5 pt-2 flex items-center justify-between text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
+                      <div className="mt-3 border-t border-border dark:border-border pt-2 flex items-center justify-between text-[10px] font-semibold text-muted-foreground dark:text-muted-foreground">
                         <span>
                           <FormattedDateTime date={match.date} />
                         </span>

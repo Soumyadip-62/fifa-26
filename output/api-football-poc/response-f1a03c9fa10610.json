@@ -1,0 +1,33 @@
+{
+  "fetchedAt": "2026-11-16T14:23:16.018Z",
+  "summary": {
+    "resource": "/status",
+    "status": 200,
+    "errors": {
+      "access": "Your account is suspended, check on https://dashboard.api-football.com."
+    },
+    "results": 0,
+    "headers": {
+      "date": "Mon, 16 Nov 2026 14:23:16 GMT",
+      "x-ratelimit-requests-limit": "100",
+      "x-ratelimit-requests-remaining": "99",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9"
+    },
+    "account": {},
+    "structure": null
+  },
+  "body": {
+    "get": "status",
+    "parameters": [],
+    "errors": {
+      "access": "Your account is suspended, check on https://dashboard.api-football.com."
+    },
+    "results": 0,
+    "paging": {
+      "current": 1,
+      "total": 1
+    },
+    "response": {}
+  }
+}

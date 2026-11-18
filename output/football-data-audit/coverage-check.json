@@ -1,0 +1,76 @@
+[
+  {
+    "id": 564746,
+    "status": 200,
+    "competition": "PD",
+    "authenticatedClient": true,
+    "headers": {
+      "date": "Mon, 16 Nov 2026 12:38:59 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "x-api-version": "v4",
+      "x-cache-status": "BYPASS",
+      "x-requests-available-minute": "9",
+      "x-requestcounter-reset": "60",
+      "retry-after": null
+    },
+    "fields": {
+      "goals": "absent",
+      "penalties": "absent",
+      "bookings": "absent",
+      "substitutions": "absent"
+    },
+    "teams": {
+      "homeTeam": {
+        "lineup": "absent",
+        "bench": "absent",
+        "statistics": "absent",
+        "coach": "absent",
+        "formation": "absent"
+      },
+      "awayTeam": {
+        "lineup": "absent",
+        "bench": "absent",
+        "statistics": "absent",
+        "coach": "absent",
+        "formation": "absent"
+      }
+    }
+  },
+  {
+    "id": 560639,
+    "status": 200,
+    "competition": "PL",
+    "authenticatedClient": true,
+    "headers": {
+      "date": "Mon, 16 Nov 2026 12:39:07 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "x-api-version": "v4",
+      "x-cache-status": "BYPASS",
+      "x-requests-available-minute": "9",
+      "x-requestcounter-reset": "52",
+      "retry-after": null
+    },
+    "fields": {
+      "goals": "absent",
+      "penalties": "absent",
+      "bookings": "absent",
+      "substitutions": "absent"
+    },
+    "teams": {
+      "homeTeam": {
+        "lineup": "absent",
+        "bench": "absent",
+        "statistics": "absent",
+        "coach": "absent",
+        "formation": "absent"
+      },
+      "awayTeam": {
+        "lineup": "absent",
+        "bench": "absent",
+        "statistics": "absent",
+        "coach": "absent",
+        "formation": "absent"
+      }
+    }
+  }
+]

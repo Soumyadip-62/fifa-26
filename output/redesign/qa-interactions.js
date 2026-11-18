@@ -1,0 +1,35 @@
+async (page) => {
+ const checks={}; const team={"id":"a6e4c9ef-3c39-5ff6-8d23-37faf57967cd","name":"Arsenal FC","competitionIds":["premier-league","ucl"]}, player={"id":"fa82c0c8-94f4-5c28-8910-c9a6976a8c2e","name":"Kepa Arrizabalaga"}, match={"id":"560639","kickoff":"2026-11-08T16:30:00.000Z"};
+ await page.setViewportSize({width:1440,height:1000});
+ await page.goto('http://localhost:14000/teams'); await page.locator('.directory-card').first().waitFor();
+ if(await page.locator('.directory-card').count()!==24)throw new Error('Team pagination is not bounded');
+ await page.getByRole('button',{name:'Next teams page',exact:true}).click();await page.getByText(/^Page 2 of /).waitFor();
+ await page.getByRole('textbox',{name:'Search teams',exact:true}).fill('Arsenal');await page.waitForFunction(()=>document.querySelectorAll('.directory-card').length===1);
+ if(!(await page.getByRole('button',{name:'Previous teams page',exact:true}).isDisabled()))throw new Error('Team filter did not reset page');checks.teamFiltersAndPagination=true;
+ await page.goto('http://localhost:14000/players');await page.locator('.directory-card').first().waitFor();
+ if(await page.locator('.directory-card').count()!==24)throw new Error('Player pagination is not bounded');
+ await page.getByRole('button',{name:'Next players page',exact:true}).click();await page.getByText(/^Page 2 of /).waitFor();
+ await page.getByRole('textbox',{name:'Search players',exact:true}).fill(player.name);await page.waitForFunction(()=>document.querySelectorAll('.directory-card').length===1);
+ await page.getByRole('combobox',{name:'Player position',exact:true}).selectOption('Defender');await page.getByRole('heading',{name:'No players found',exact:true}).waitFor();checks.playerFiltersAndPagination=true;
+ await page.goto('http://localhost:14000/favourites');await page.getByRole('heading',{name:'Your favourites',exact:true}).waitFor();
+ await page.getByRole('button',{name:'Discover',exact:true}).click();await page.getByRole('textbox',{name:'Search favourites',exact:true}).fill('Arsenal');
+ await page.getByRole('button',{name:'Save '+team.name,exact:true}).click();
+ const categories=page.getByRole('navigation',{name:'Favourite categories'});
+ await categories.getByRole('button',{name:/^Players/}).click();await page.getByRole('textbox',{name:'Search favourites',exact:true}).fill(player.name);await page.getByRole('button',{name:'Save '+player.name,exact:true}).click();
+ await categories.getByRole('button',{name:/^Competitions/}).click();await page.getByRole('button',{name:'Save Premier League',exact:true}).click();
+ await categories.getByRole('button',{name:/^Matches/}).click();await page.getByRole('button',{name:'Save favourite',exact:true}).first().click();
+ await page.reload();await page.getByRole('button',{name:'Remove '+team.name,exact:true}).waitFor();
+ checks.savedCounts=await page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('football:preferences:v1'));return [p.teamIds.length,p.playerIds.length,p.competitionIds.length,p.matchIds.length]});
+ if(checks.savedCounts.some(n=>n!==1))throw new Error('Favourite categories did not persist');
+ await page.getByRole('button',{name:'Remove '+team.name,exact:true}).click();await categories.getByRole('button',{name:/^Players/}).click();await page.getByRole('button',{name:'Remove '+player.name,exact:true}).click();await categories.getByRole('button',{name:/^Competitions/}).click();await page.getByRole('button',{name:'Remove Premier League',exact:true}).click();await categories.getByRole('button',{name:/^Matches/}).click();await page.getByRole('button',{name:'Remove favourite',exact:true}).first().click();
+ checks.savedItemsPersistence=true;
+ await page.goto('http://localhost:14000/settings/notifications');await page.getByRole('checkbox',{name:'10 minutes before kickoff',exact:true}).check();await page.reload();await page.waitForFunction(()=>[...document.querySelectorAll('input[type=checkbox]')].some(el=>el.getAttribute('aria-label')==='10 minutes before kickoff'&&el.checked));await page.getByRole('checkbox',{name:'10 minutes before kickoff',exact:true}).uncheck();checks.preferencePersistence=true;
+ await page.goto('http://localhost:14000/search');await page.getByRole('textbox',{name:'Search football',exact:true}).fill('Arsenal');await page.getByRole('heading',{name:'Teams',exact:true}).waitFor();checks.backendSearch=true;
+ await page.setViewportSize({width:360,height:844});await page.locator('.mobile-menu summary').click();await page.getByRole('navigation',{name:'All football pages'}).getByRole('link',{name:'Teams',exact:true}).waitFor();await page.locator('.mobile-menu summary').press('Escape');if(await page.locator('.mobile-menu').getAttribute('open')!==null)throw new Error('Mobile navigation did not close');checks.mobileNavigation=true;
+ await page.goto('http://localhost:14000/matches/'+match.id);await page.getByRole('navigation',{name:'Match centre sections'}).waitFor();const tabs=page.getByRole('navigation',{name:'Match centre sections'});for(const name of ['Lineups','Stats','Events','News','Highlights','Overview']){await tabs.getByRole('button',{name,exact:true}).click();if(await tabs.getByRole('button',{name,exact:true}).getAttribute('aria-pressed')!=='true')throw new Error('Match tab failed: '+name);}checks.matchTabs=true;
+ await page.goto('http://localhost:14000/teams/'+team.id);await page.getByRole('navigation',{name:'Team profile sections'}).waitFor();const teamTabs=page.getByRole('navigation',{name:'Team profile sections'});for(const name of ['Matches','Squad','Stats','News','Overview']){await teamTabs.getByRole('button',{name,exact:true}).click();if(await teamTabs.getByRole('button',{name,exact:true}).getAttribute('aria-pressed')!=='true')throw new Error('Team tab failed: '+name);}checks.teamTabs=true;
+ await page.goto('http://localhost:14000/statistics');await page.locator('.statistics-row').first().waitFor({timeout:45000});checks.statisticsLoaded=true;
+ await page.goto('http://localhost:14000/history');await page.getByRole('region',{name:'Tournament history timeline'}).waitFor({timeout:45000});checks.historyLoaded=true;
+ await page.goto('http://localhost:14000/matches/knockout-matches');await page.getByRole('heading',{name:'Knockout stage',exact:true}).waitFor();checks.knockoutHeading=true;
+ return checks;
+}

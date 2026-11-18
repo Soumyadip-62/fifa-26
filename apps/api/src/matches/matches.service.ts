@@ -1,10 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import {
+  Injectable,
+  NotFoundException,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { MatchEntity } from './entities/matches.entity';
 import { Repository } from 'typeorm';
+import { FootballDataClient } from '../football-data/football-data.client';
 
 type MatchVenue = {
   city: string;
@@ -119,7 +123,10 @@ function getTimestampMs(value: string | null | undefined) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-function hasSameKickoff(match: GroupStageMatch, utcDate: string | null | undefined) {
+function hasSameKickoff(
+  match: GroupStageMatch,
+  utcDate: string | null | undefined,
+) {
   const matchTime = getTimestampMs(match.timestampUtc || match.date);
   const apiTime = getTimestampMs(utcDate);
 
@@ -284,7 +291,9 @@ function mapFootballDataMatchToGroupStage(
     awayTeamBadgeUrl:
       localMatch?.awayTeamBadgeUrl || apiMatch.awayTeam?.crest || null,
     score: mapApiScore(apiMatch.score),
-    goals: Array.isArray(apiMatch.goals) ? apiMatch.goals : localMatch?.goals || null,
+    goals: Array.isArray(apiMatch.goals)
+      ? apiMatch.goals
+      : localMatch?.goals || null,
     timestampUtc: utcDate,
     dateUtc,
     timeUtc,
@@ -310,7 +319,7 @@ export class MatchesService {
   @InjectRepository(MatchEntity)
   private readonly matchRepository: Repository<MatchEntity>;
 
-  constructor() {
+  constructor(private readonly footballData: FootballDataClient) {
     const schedulePath = join(
       process.cwd(),
       'fifa-data',
@@ -349,20 +358,19 @@ export class MatchesService {
       this.fetchedMatches = sortMatchesByKickoff(
         dbMatches as GroupStageMatch[],
       );
+      this.lastFetchedTime = now;
       return this.fetchedMatches;
-    } catch (error) {
-      console.error(
-        'Error fetching matches from football-data.org API, falling back to local data:',
-        error,
+    } catch {
+      throw new ServiceUnavailableException(
+        'Stored fixtures are temporarily unavailable.',
       );
-      return this.fetchedMatches.length > 0
-        ? this.fetchedMatches
-        : sortMatchesByKickoff(this.matches);
     }
   }
 
-  findAllQualifierMatches() {
-    return this.qualifierMatches;
+  async findAllQualifierMatches() {
+    return (await this.findAll()).filter(
+      (match) => match.stage?.toUpperCase().replaceAll(' ', '_') !== 'GROUP_STAGE',
+    );
   }
 
   async findOne(matchId: string) {
@@ -372,7 +380,7 @@ export class MatchesService {
 
     const match = this.fetchedMatches.find(
       ({ id, matchNumber }) =>
-        id === matchId || matchNumber.toString() === matchId,
+        id === matchId || matchNumber?.toString() === matchId,
     );
 
     if (!match) {
@@ -387,21 +395,9 @@ export class MatchesService {
     console.log('Syncing matches to database...');
 
     try {
-      const apiKey = process.env.FOOTBALL_DATA_API_KEY;
-      const response = await fetch(
-        'https://api.football-data.org/v4/competitions/WC/matches?season=2026',
-        {
-          headers: {
-            'X-Auth-Token': apiKey || '',
-          },
-        },
+      const data = await this.footballData.get<any>(
+        '/competitions/WC/matches?season=2026',
       );
-
-      if (!response.ok) {
-        throw new Error(`Football-data.org API error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
       const apiMatches = data.matches || [];
 
       const teamsDataPath = join(process.cwd(), 'fifa-data', 'teams-data.json');
@@ -486,10 +482,22 @@ export class MatchesService {
 
         const finalHomeName = homeTeamData?.name || m.homeTeam?.name;
         const finalAwayName = awayTeamData?.name || m.awayTeam?.name;
-        const isHomeValid = finalHomeName && !finalHomeName.includes('TBD') && !finalHomeName.includes('To be determined');
-        const isAwayValid = finalAwayName && !finalAwayName.includes('TBD') && !finalAwayName.includes('To be determined');
-        const finalEventName = isHomeValid && isAwayValid ? `${finalHomeName} vs ${finalAwayName}` : (localMatch?.eventName || 'TBD vs TBD');
-        const finalEventAlternateName = isHomeValid && isAwayValid ? `${finalAwayName} @ ${finalHomeName}` : (localMatch?.eventAlternateName || 'TBD @ TBD');
+        const isHomeValid =
+          finalHomeName &&
+          !finalHomeName.includes('TBD') &&
+          !finalHomeName.includes('To be determined');
+        const isAwayValid =
+          finalAwayName &&
+          !finalAwayName.includes('TBD') &&
+          !finalAwayName.includes('To be determined');
+        const finalEventName =
+          isHomeValid && isAwayValid
+            ? `${finalHomeName} vs ${finalAwayName}`
+            : localMatch?.eventName || 'TBD vs TBD';
+        const finalEventAlternateName =
+          isHomeValid && isAwayValid
+            ? `${finalAwayName} @ ${finalHomeName}`
+            : localMatch?.eventAlternateName || 'TBD @ TBD';
         const officialMatchNumber =
           localMatch?.matchNumber ||
           FOOTBALL_DATA_MATCH_NUMBER_OVERRIDES[String(m.id)] ||
@@ -532,9 +540,13 @@ export class MatchesService {
           sportsDbHomeTeamId: homeTeamData?.sportsdb_team_id || null,
           sportsDbAwayTeamId: awayTeamData?.sportsdb_team_id || null,
           homeTeamSlot:
-            localMatch?.homeTeamSlot || officialQualifierMatch?.homeTeamSlot || null,
+            localMatch?.homeTeamSlot ||
+            officialQualifierMatch?.homeTeamSlot ||
+            null,
           awayTeamSlot:
-            localMatch?.awayTeamSlot || officialQualifierMatch?.awayTeamSlot || null,
+            localMatch?.awayTeamSlot ||
+            officialQualifierMatch?.awayTeamSlot ||
+            null,
           homeTeamBadgeUrl:
             homeTeamData?.image_url || m.homeTeam?.crest || null,
           awayTeamBadgeUrl:
@@ -558,7 +570,7 @@ export class MatchesService {
 
       // Efficiently upsert matches based on the 'id' primary key.
       // This avoids the race condition of clearing the table and is much better for database performance (MVCC bloat).
-      
+
       const matchesToUpsert = mappedMatches;
 
       await this.matchRepository.upsert(matchesToUpsert, ['id']);

@@ -1,0 +1,593 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Football Companion home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]:
+            - strong [ref=e9]: Football
+            - generic [ref=e10]: Companion
+        - link "Search football" [ref=e11] [cursor=pointer]:
+          - /url: /search
+        - link "Notification settings" [ref=e15] [cursor=pointer]:
+          - /url: /settings/notifications
+        - group [ref=e19]:
+          - generic "Browse football pages" [ref=e20] [cursor=pointer]
+        - button "Open profile settings" [ref=e22] [cursor=pointer]
+    - main [ref=e27]:
+      - generic [ref=e28]:
+        - navigation "Breadcrumb" [ref=e29]:
+          - link "Home" [ref=e30] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e33]: Standings
+        - generic [ref=e34]:
+          - link "Standings" [ref=e35] [cursor=pointer]:
+            - /url: /standings
+          - link "Stadiums" [ref=e39] [cursor=pointer]:
+            - /url: /stadiums
+          - link "History" [ref=e43] [cursor=pointer]:
+            - /url: /history
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - paragraph [ref=e50]: Tables
+          - heading "Standings" [level=1] [ref=e51]
+          - paragraph [ref=e52]: Form, qualification positions and complete competition records.
+        - navigation "Standings competitions" [ref=e53]:
+          - link "World Cup" [ref=e54] [cursor=pointer]:
+            - /url: /standings?competition=world-cup
+          - link "Premier League" [ref=e55] [cursor=pointer]:
+            - /url: /standings?competition=premier-league
+          - link "La Liga" [ref=e56] [cursor=pointer]:
+            - /url: /standings?competition=la-liga
+          - link "UCL" [ref=e57] [cursor=pointer]:
+            - /url: /standings?competition=ucl
+          - link "Bundesliga" [ref=e58] [cursor=pointer]:
+            - /url: /standings?competition=bundesliga
+        - generic [ref=e59]:
+          - paragraph [ref=e60]: Premier League · 2026/27
+          - table [ref=e63]:
+            - rowgroup [ref=e64]:
+              - row [ref=e65]:
+                - columnheader "Pos" [ref=e66]
+                - columnheader "Team" [ref=e67]
+                - columnheader "P" [ref=e68]
+                - columnheader "W" [ref=e69]
+                - columnheader "D" [ref=e70]
+                - columnheader "L" [ref=e71]
+                - columnheader "GF" [ref=e72]
+                - columnheader "GA" [ref=e73]
+                - columnheader "GD" [ref=e74]
+                - columnheader "Pts" [ref=e75]
+                - columnheader "Form" [ref=e76]
+            - rowgroup [ref=e77]:
+              - row [ref=e78]:
+                - cell "1" [ref=e79]
+                - cell [ref=e81]:
+                  - link "Arsenal FC logo Arsenal FC Arsenal" [ref=e82] [cursor=pointer]:
+                    - /url: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd
+                    - generic [ref=e83]:
+                      - img "Arsenal FC logo" [ref=e85]
+                      - generic [ref=e86]:
+                        - strong [ref=e87]: Arsenal FC
+                        - generic [ref=e88]: Arsenal
+                - cell "10" [ref=e89]
+                - cell "9" [ref=e90]
+                - cell "0" [ref=e91]
+                - cell "1" [ref=e92]
+                - cell "15" [ref=e93]
+                - cell "5" [ref=e94]
+                - cell "+10" [ref=e95]
+                - cell "27" [ref=e96]
+                - cell "W W W W W" [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: W
+                    - generic [ref=e100]: W
+                    - generic [ref=e101]: W
+                    - generic [ref=e102]: W
+                    - generic [ref=e103]: W
+              - row [ref=e104]:
+                - cell "2" [ref=e105]
+                - cell [ref=e107]:
+                  - link "Brighton & Hove Albion FC logo Brighton & Hove Albion FC Brighton Hove" [ref=e108] [cursor=pointer]:
+                    - /url: /teams/fe540bf8-f12e-5378-89e1-c529cc76ef3e
+                    - generic [ref=e109]:
+                      - img "Brighton & Hove Albion FC logo" [ref=e111]
+                      - generic [ref=e112]:
+                        - strong [ref=e113]: Brighton & Hove Albion FC
+                        - generic [ref=e114]: Brighton Hove
+                - cell "10" [ref=e115]
+                - cell "7" [ref=e116]
+                - cell "1" [ref=e117]
+                - cell "2" [ref=e118]
+                - cell "26" [ref=e119]
+                - cell "7" [ref=e120]
+                - cell "+19" [ref=e121]
+                - cell "22" [ref=e122]
+                - cell "W W L W W" [ref=e123]:
+                  - generic [ref=e124]:
+                    - generic [ref=e125]: W
+                    - generic [ref=e126]: W
+                    - generic [ref=e127]: L
+                    - generic [ref=e128]: W
+                    - generic [ref=e129]: W
+              - row [ref=e130]:
+                - cell "3" [ref=e131]
+                - cell [ref=e133]:
+                  - link "Manchester City FC logo Manchester City FC Man City" [ref=e134] [cursor=pointer]:
+                    - /url: /teams/d1a8e0eb-60aa-5336-8e17-42a4ef1dd577
+                    - generic [ref=e135]:
+                      - img "Manchester City FC logo" [ref=e137]
+                      - generic [ref=e138]:
+                        - strong [ref=e139]: Manchester City FC
+                        - generic [ref=e140]: Man City
+                - cell "10" [ref=e141]
+                - cell "7" [ref=e142]
+                - cell "0" [ref=e143]
+                - cell "3" [ref=e144]
+                - cell "21" [ref=e145]
+                - cell "13" [ref=e146]
+                - cell "+8" [ref=e147]
+                - cell "21" [ref=e148]
+                - cell "W W L L L" [ref=e149]:
+                  - generic [ref=e150]:
+                    - generic [ref=e151]: W
+                    - generic [ref=e152]: W
+                    - generic [ref=e153]: L
+                    - generic [ref=e154]: L
+                    - generic [ref=e155]: L
+              - row [ref=e156]:
+                - cell "4" [ref=e157]
+                - cell [ref=e159]:
+                  - link "Liverpool FC logo Liverpool FC Liverpool" [ref=e160] [cursor=pointer]:
+                    - /url: /teams/34438ad6-e100-5184-89bc-408b90046b6b
+                    - generic [ref=e161]:
+                      - img "Liverpool FC logo" [ref=e163]
+                      - generic [ref=e164]:
+                        - strong [ref=e165]: Liverpool FC
+                        - generic [ref=e166]: Liverpool
+                - cell "10" [ref=e167]
+                - cell "5" [ref=e168]
+                - cell "3" [ref=e169]
+                - cell "2" [ref=e170]
+                - cell "14" [ref=e171]
+                - cell "10" [ref=e172]
+                - cell "+4" [ref=e173]
+                - cell "18" [ref=e174]
+                - cell "L W W L W" [ref=e175]:
+                  - generic [ref=e176]:
+                    - generic [ref=e177]: L
+                    - generic [ref=e178]: W
+                    - generic [ref=e179]: W
+                    - generic [ref=e180]: L
+                    - generic [ref=e181]: W
+              - row [ref=e182]:
+                - cell "5" [ref=e183]
+                - cell [ref=e184]:
+                  - link "Chelsea FC logo Chelsea FC Chelsea" [ref=e185] [cursor=pointer]:
+                    - /url: /teams/e36354c8-bca1-5b78-86ad-3b24c099fea9
+                    - generic [ref=e186]:
+                      - img "Chelsea FC logo" [ref=e188]
+                      - generic [ref=e189]:
+                        - strong [ref=e190]: Chelsea FC
+                        - generic [ref=e191]: Chelsea
+                - cell "10" [ref=e192]
+                - cell "5" [ref=e193]
+                - cell "1" [ref=e194]
+                - cell "4" [ref=e195]
+                - cell "19" [ref=e196]
+                - cell "16" [ref=e197]
+                - cell "+3" [ref=e198]
+                - cell "16" [ref=e199]
+                - cell "W W L W L" [ref=e200]:
+                  - generic [ref=e201]:
+                    - generic [ref=e202]: W
+                    - generic [ref=e203]: W
+                    - generic [ref=e204]: L
+                    - generic [ref=e205]: W
+                    - generic [ref=e206]: L
+              - row [ref=e207]:
+                - cell "6" [ref=e208]
+                - cell [ref=e209]:
+                  - link "Everton FC logo Everton FC Everton" [ref=e210] [cursor=pointer]:
+                    - /url: /teams/1bc7bc7c-fe0b-5d62-8126-a25f27fc6852
+                    - generic [ref=e211]:
+                      - img "Everton FC logo" [ref=e213]
+                      - generic [ref=e214]:
+                        - strong [ref=e215]: Everton FC
+                        - generic [ref=e216]: Everton
+                - cell "10" [ref=e217]
+                - cell "4" [ref=e218]
+                - cell "4" [ref=e219]
+                - cell "2" [ref=e220]
+                - cell "12" [ref=e221]
+                - cell "10" [ref=e222]
+                - cell "+2" [ref=e223]
+                - cell "16" [ref=e224]
+                - cell "D L L W W" [ref=e225]:
+                  - generic [ref=e226]:
+                    - generic [ref=e227]: D
+                    - generic [ref=e228]: L
+                    - generic [ref=e229]: L
+                    - generic [ref=e230]: W
+                    - generic [ref=e231]: W
+              - row [ref=e232]:
+                - cell "7" [ref=e233]
+                - cell [ref=e234]:
+                  - link "AFC Bournemouth logo AFC Bournemouth Bournemouth" [ref=e235] [cursor=pointer]:
+                    - /url: /teams/3c60b51a-9d25-51f3-858f-c1a7f0e34930
+                    - generic [ref=e236]:
+                      - img "AFC Bournemouth logo" [ref=e238]
+                      - generic [ref=e239]:
+                        - strong [ref=e240]: AFC Bournemouth
+                        - generic [ref=e241]: Bournemouth
+                - cell "10" [ref=e242]
+                - cell "4" [ref=e243]
+                - cell "3" [ref=e244]
+                - cell "3" [ref=e245]
+                - cell "16" [ref=e246]
+                - cell "14" [ref=e247]
+                - cell "+2" [ref=e248]
+                - cell "15" [ref=e249]
+                - cell "L W W W W" [ref=e250]:
+                  - generic [ref=e251]:
+                    - generic [ref=e252]: L
+                    - generic [ref=e253]: W
+                    - generic [ref=e254]: W
+                    - generic [ref=e255]: W
+                    - generic [ref=e256]: W
+              - row [ref=e257]:
+                - cell "8" [ref=e258]
+                - cell [ref=e259]:
+                  - link "Brentford FC logo Brentford FC Brentford" [ref=e260] [cursor=pointer]:
+                    - /url: /teams/a5cc801e-902b-5cea-8f7e-468e905a9f36
+                    - generic [ref=e261]:
+                      - img "Brentford FC logo" [ref=e263]
+                      - generic [ref=e264]:
+                        - strong [ref=e265]: Brentford FC
+                        - generic [ref=e266]: Brentford
+                - cell "10" [ref=e267]
+                - cell "3" [ref=e268]
+                - cell "5" [ref=e269]
+                - cell "2" [ref=e270]
+                - cell "16" [ref=e271]
+                - cell "11" [ref=e272]
+                - cell "+5" [ref=e273]
+                - cell "14" [ref=e274]
+                - cell "D L D W L" [ref=e275]:
+                  - generic [ref=e276]:
+                    - generic [ref=e277]: D
+                    - generic [ref=e278]: L
+                    - generic [ref=e279]: D
+                    - generic [ref=e280]: W
+                    - generic [ref=e281]: L
+              - row [ref=e282]:
+                - cell "9" [ref=e283]
+                - cell [ref=e284]:
+                  - link "Leeds United FC logo Leeds United FC Leeds United" [ref=e285] [cursor=pointer]:
+                    - /url: /teams/43854fdb-3200-5190-841e-74b1215e3534
+                    - generic [ref=e286]:
+                      - img "Leeds United FC logo" [ref=e288]
+                      - generic [ref=e289]:
+                        - strong [ref=e290]: Leeds United FC
+                        - generic [ref=e291]: Leeds United
+                - cell "10" [ref=e292]
+                - cell "3" [ref=e293]
+                - cell "5" [ref=e294]
+                - cell "2" [ref=e295]
+                - cell "10" [ref=e296]
+                - cell "8" [ref=e297]
+                - cell "+2" [ref=e298]
+                - cell "14" [ref=e299]
+                - cell "L D D L W" [ref=e300]:
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: L
+                    - generic [ref=e303]: D
+                    - generic [ref=e304]: D
+                    - generic [ref=e305]: L
+                    - generic [ref=e306]: W
+              - row [ref=e307]:
+                - cell "10" [ref=e308]
+                - cell [ref=e309]:
+                  - link "Aston Villa FC logo Aston Villa FC Aston Villa" [ref=e310] [cursor=pointer]:
+                    - /url: /teams/d85ae87e-efa9-537b-88d4-18ede6ea5a43
+                    - generic [ref=e311]:
+                      - img "Aston Villa FC logo" [ref=e313]
+                      - generic [ref=e314]:
+                        - strong [ref=e315]: Aston Villa FC
+                        - generic [ref=e316]: Aston Villa
+                - cell "10" [ref=e317]
+                - cell "3" [ref=e318]
+                - cell "4" [ref=e319]
+                - cell "3" [ref=e320]
+                - cell "14" [ref=e321]
+                - cell "17" [ref=e322]
+                - cell "-3" [ref=e323]
+                - cell "13" [ref=e324]
+                - cell "D W W D D" [ref=e325]:
+                  - generic [ref=e326]:
+                    - generic [ref=e327]: D
+                    - generic [ref=e328]: W
+                    - generic [ref=e329]: W
+                    - generic [ref=e330]: D
+                    - generic [ref=e331]: D
+              - row [ref=e332]:
+                - cell "11" [ref=e333]
+                - cell [ref=e334]:
+                  - link "Tottenham Hotspur FC logo Tottenham Hotspur FC Tottenham" [ref=e335] [cursor=pointer]:
+                    - /url: /teams/7e190346-9376-532c-86e0-162cc99f4ab2
+                    - generic [ref=e336]:
+                      - img "Tottenham Hotspur FC logo" [ref=e338]
+                      - generic [ref=e339]:
+                        - strong [ref=e340]: Tottenham Hotspur FC
+                        - generic [ref=e341]: Tottenham
+                - cell "10" [ref=e342]
+                - cell "3" [ref=e343]
+                - cell "3" [ref=e344]
+                - cell "4" [ref=e345]
+                - cell "10" [ref=e346]
+                - cell "11" [ref=e347]
+                - cell "-1" [ref=e348]
+                - cell "12" [ref=e349]
+                - cell "D W W W L" [ref=e350]:
+                  - generic [ref=e351]:
+                    - generic [ref=e352]: D
+                    - generic [ref=e353]: W
+                    - generic [ref=e354]: W
+                    - generic [ref=e355]: W
+                    - generic [ref=e356]: L
+              - row [ref=e357]:
+                - cell "12" [ref=e358]
+                - cell [ref=e359]:
+                  - link "Newcastle United FC logo Newcastle United FC Newcastle" [ref=e360] [cursor=pointer]:
+                    - /url: /teams/651bffd8-c4a5-5105-835b-89854a896625
+                    - generic [ref=e361]:
+                      - img "Newcastle United FC logo" [ref=e363]
+                      - generic [ref=e364]:
+                        - strong [ref=e365]: Newcastle United FC
+                        - generic [ref=e366]: Newcastle
+                - cell "10" [ref=e367]
+                - cell "3" [ref=e368]
+                - cell "3" [ref=e369]
+                - cell "4" [ref=e370]
+                - cell "13" [ref=e371]
+                - cell "16" [ref=e372]
+                - cell "-3" [ref=e373]
+                - cell "12" [ref=e374]
+                - cell "L L W L D" [ref=e375]:
+                  - generic [ref=e376]:
+                    - generic [ref=e377]: L
+                    - generic [ref=e378]: L
+                    - generic [ref=e379]: W
+                    - generic [ref=e380]: L
+                    - generic [ref=e381]: D
+              - row [ref=e382]:
+                - cell "13" [ref=e383]
+                - cell [ref=e384]:
+                  - link "Hull City AFC logo Hull City AFC Hull City" [ref=e385] [cursor=pointer]:
+                    - /url: /teams/a8d5d3a1-2571-5a19-8f13-9c5ebc147c4b
+                    - generic [ref=e386]:
+                      - img "Hull City AFC logo" [ref=e388]
+                      - generic [ref=e389]:
+                        - strong [ref=e390]: Hull City AFC
+                        - generic [ref=e391]: Hull City
+                - cell "10" [ref=e392]
+                - cell "2" [ref=e393]
+                - cell "5" [ref=e394]
+                - cell "3" [ref=e395]
+                - cell "11" [ref=e396]
+                - cell "11" [ref=e397]
+                - cell "0" [ref=e398]
+                - cell "11" [ref=e399]
+                - cell "D L D D L" [ref=e400]:
+                  - generic [ref=e401]:
+                    - generic [ref=e402]: D
+                    - generic [ref=e403]: L
+                    - generic [ref=e404]: D
+                    - generic [ref=e405]: D
+                    - generic [ref=e406]: L
+              - row [ref=e407]:
+                - cell "14" [ref=e408]
+                - cell [ref=e409]:
+                  - link "Ipswich Town FC logo Ipswich Town FC Ipswich Town" [ref=e410] [cursor=pointer]:
+                    - /url: /teams/9626f24f-4166-55be-85bd-4e5e9769c882
+                    - generic [ref=e411]:
+                      - img "Ipswich Town FC logo" [ref=e413]
+                      - generic [ref=e414]:
+                        - strong [ref=e415]: Ipswich Town FC
+                        - generic [ref=e416]: Ipswich Town
+                - cell "10" [ref=e417]
+                - cell "3" [ref=e418]
+                - cell "2" [ref=e419]
+                - cell "5" [ref=e420]
+                - cell "15" [ref=e421]
+                - cell "20" [ref=e422]
+                - cell "-5" [ref=e423]
+                - cell "11" [ref=e424]
+                - cell "W L D D L" [ref=e425]:
+                  - generic [ref=e426]:
+                    - generic [ref=e427]: W
+                    - generic [ref=e428]: L
+                    - generic [ref=e429]: D
+                    - generic [ref=e430]: D
+                    - generic [ref=e431]: L
+              - row [ref=e432]:
+                - cell "15" [ref=e433]
+                - cell [ref=e434]:
+                  - link "Fulham FC logo Fulham FC Fulham" [ref=e435] [cursor=pointer]:
+                    - /url: /teams/47de68fd-8ae0-5806-8cf2-2afc2bb51931
+                    - generic [ref=e436]:
+                      - img "Fulham FC logo" [ref=e438]
+                      - generic [ref=e439]:
+                        - strong [ref=e440]: Fulham FC
+                        - generic [ref=e441]: Fulham
+                - cell "10" [ref=e442]
+                - cell "2" [ref=e443]
+                - cell "4" [ref=e444]
+                - cell "4" [ref=e445]
+                - cell "10" [ref=e446]
+                - cell "12" [ref=e447]
+                - cell "-2" [ref=e448]
+                - cell "10" [ref=e449]
+                - cell "L W W D D" [ref=e450]:
+                  - generic [ref=e451]:
+                    - generic [ref=e452]: L
+                    - generic [ref=e453]: W
+                    - generic [ref=e454]: W
+                    - generic [ref=e455]: D
+                    - generic [ref=e456]: D
+              - row [ref=e457]:
+                - cell "16" [ref=e458]
+                - cell [ref=e459]:
+                  - link "Nottingham Forest FC logo Nottingham Forest FC Nottingham" [ref=e460] [cursor=pointer]:
+                    - /url: /teams/6cbdfd84-7496-578a-8200-4ea8a6333482
+                    - generic [ref=e461]:
+                      - img "Nottingham Forest FC logo" [ref=e463]
+                      - generic [ref=e464]:
+                        - strong [ref=e465]: Nottingham Forest FC
+                        - generic [ref=e466]: Nottingham
+                - cell "10" [ref=e467]
+                - cell "2" [ref=e468]
+                - cell "3" [ref=e469]
+                - cell "5" [ref=e470]
+                - cell "9" [ref=e471]
+                - cell "13" [ref=e472]
+                - cell "-4" [ref=e473]
+                - cell "9" [ref=e474]
+                - cell "L L D L W" [ref=e475]:
+                  - generic [ref=e476]:
+                    - generic [ref=e477]: L
+                    - generic [ref=e478]: L
+                    - generic [ref=e479]: D
+                    - generic [ref=e480]: L
+                    - generic [ref=e481]: W
+              - row [ref=e482]:
+                - cell "17" [ref=e483]
+                - cell [ref=e484]:
+                  - link "Coventry City FC logo Coventry City FC Coventry City" [ref=e485] [cursor=pointer]:
+                    - /url: /teams/10203933-9def-5413-885f-5beacbdac0ef
+                    - generic [ref=e486]:
+                      - img "Coventry City FC logo" [ref=e488]
+                      - generic [ref=e489]:
+                        - strong [ref=e490]: Coventry City FC
+                        - generic [ref=e491]: Coventry City
+                - cell "10" [ref=e492]
+                - cell "3" [ref=e493]
+                - cell "0" [ref=e494]
+                - cell "7" [ref=e495]
+                - cell "10" [ref=e496]
+                - cell "19" [ref=e497]
+                - cell "-9" [ref=e498]
+                - cell "9" [ref=e499]
+                - cell "W L L W L" [ref=e500]:
+                  - generic [ref=e501]:
+                    - generic [ref=e502]: W
+                    - generic [ref=e503]: L
+                    - generic [ref=e504]: L
+                    - generic [ref=e505]: W
+                    - generic [ref=e506]: L
+              - row [ref=e507]:
+                - cell "18" [ref=e508]
+                - cell [ref=e509]:
+                  - link "Manchester United FC logo Manchester United FC Man United" [ref=e510] [cursor=pointer]:
+                    - /url: /teams/3f57d495-c88e-538b-8ae0-b99948c19aab
+                    - generic [ref=e511]:
+                      - img "Manchester United FC logo" [ref=e513]
+                      - generic [ref=e514]:
+                        - strong [ref=e515]: Manchester United FC
+                        - generic [ref=e516]: Man United
+                - cell "10" [ref=e517]
+                - cell "1" [ref=e518]
+                - cell "5" [ref=e519]
+                - cell "4" [ref=e520]
+                - cell "14" [ref=e521]
+                - cell "19" [ref=e522]
+                - cell "-5" [ref=e523]
+                - cell "8" [ref=e524]
+                - cell "D D L L D" [ref=e525]:
+                  - generic [ref=e526]:
+                    - generic [ref=e527]: D
+                    - generic [ref=e528]: D
+                    - generic [ref=e529]: L
+                    - generic [ref=e530]: L
+                    - generic [ref=e531]: D
+              - row [ref=e532]:
+                - cell "19" [ref=e533]
+                - cell [ref=e534]:
+                  - link "Sunderland AFC logo Sunderland AFC Sunderland" [ref=e535] [cursor=pointer]:
+                    - /url: /teams/ac22e9bc-f90e-5d84-8ed2-7afccac9f7ed
+                    - generic [ref=e536]:
+                      - img "Sunderland AFC logo" [ref=e538]
+                      - generic [ref=e539]:
+                        - strong [ref=e540]: Sunderland AFC
+                        - generic [ref=e541]: Sunderland
+                - cell "10" [ref=e542]
+                - cell "2" [ref=e543]
+                - cell "2" [ref=e544]
+                - cell "6" [ref=e545]
+                - cell "8" [ref=e546]
+                - cell "17" [ref=e547]
+                - cell "-9" [ref=e548]
+                - cell "8" [ref=e549]
+                - cell "L L D L W" [ref=e550]:
+                  - generic [ref=e551]:
+                    - generic [ref=e552]: L
+                    - generic [ref=e553]: L
+                    - generic [ref=e554]: D
+                    - generic [ref=e555]: L
+                    - generic [ref=e556]: W
+              - row [ref=e557]:
+                - cell "20" [ref=e558]
+                - cell [ref=e559]:
+                  - link "Crystal Palace FC logo Crystal Palace FC Crystal Palace" [ref=e560] [cursor=pointer]:
+                    - /url: /teams/fbda40d4-3701-5d4f-8bdd-90e745a3d42d
+                    - generic [ref=e561]:
+                      - img "Crystal Palace FC logo" [ref=e563]
+                      - generic [ref=e564]:
+                        - strong [ref=e565]: Crystal Palace FC
+                        - generic [ref=e566]: Crystal Palace
+                - cell "10" [ref=e567]
+                - cell "2" [ref=e568]
+                - cell "1" [ref=e569]
+                - cell "7" [ref=e570]
+                - cell "10" [ref=e571]
+                - cell "24" [ref=e572]
+                - cell "-14" [ref=e573]
+                - cell "7" [ref=e574]
+                - cell "W L L L L" [ref=e575]:
+                  - generic [ref=e576]:
+                    - generic [ref=e577]: W
+                    - generic [ref=e578]: L
+                    - generic [ref=e579]: L
+                    - generic [ref=e580]: L
+                    - generic [ref=e581]: L
+    - navigation "Mobile navigation" [ref=e583]:
+      - link "Home" [ref=e584] [cursor=pointer]:
+        - /url: /
+      - link "Matches" [ref=e588] [cursor=pointer]:
+        - /url: /matches
+      - link "Competitions" [ref=e591] [cursor=pointer]:
+        - /url: /competitions
+      - link "News" [ref=e598] [cursor=pointer]:
+        - /url: /news
+      - link "Saved" [ref=e602] [cursor=pointer]:
+        - /url: /favourites
+    - contentinfo [ref=e605]:
+      - generic [ref=e606]:
+        - generic [ref=e607]:
+          - link "Football Companion" [ref=e608] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e609]: Five competitions. One matchday home.
+        - navigation "Footer navigation" [ref=e610]:
+          - link "Live matches" [ref=e611] [cursor=pointer]:
+            - /url: /live
+          - link "Standings" [ref=e612] [cursor=pointer]:
+            - /url: /standings
+          - link "Stadiums" [ref=e613] [cursor=pointer]:
+            - /url: /stadiums
+          - link "History" [ref=e614] [cursor=pointer]:
+            - /url: /history
+        - generic [ref=e615]: Made for your matchday.
+  - button "Open Next.js Dev Tools" [ref=e621] [cursor=pointer]
+  - alert [ref=e625]

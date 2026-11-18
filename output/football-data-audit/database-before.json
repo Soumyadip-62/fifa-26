@@ -1,0 +1,899 @@
+{
+  "fixture": {
+    "id": 564746,
+    "competitionId": "la-liga",
+    "season": 2026,
+    "kickoff": "2026-11-08T20:00:00.000Z",
+    "status": "FINISHED",
+    "score": {
+      "winner": "AWAY_TEAM",
+      "duration": "REGULAR",
+      "fullTime": {
+        "away": 2,
+        "home": 1
+      },
+      "halfTime": {
+        "away": 1,
+        "home": 1
+      }
+    },
+    "payload": {
+      "id": 564746,
+      "area": {
+        "id": 2224,
+        "code": "ESP",
+        "flag": "https://crests.football-data.org/760.svg",
+        "name": "Spain"
+      },
+      "odds": {
+        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+      },
+      "group": null,
+      "score": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "away": 2,
+          "home": 1
+        },
+        "halfTime": {
+          "away": 1,
+          "home": 1
+        }
+      },
+      "stage": "REGULAR_SEASON",
+      "season": {
+        "id": 2518,
+        "winner": null,
+        "endDate": "2027-05-30",
+        "startDate": "2026-08-16",
+        "currentMatchday": 13
+      },
+      "status": "FINISHED",
+      "utcDate": "2026-11-08T20:00:00Z",
+      "awayTeam": {
+        "id": 81,
+        "tla": "FCB",
+        "name": "FC Barcelona",
+        "crest": "https://crests.football-data.org/81.png",
+        "shortName": "Barça"
+      },
+      "homeTeam": {
+        "id": 78,
+        "tla": "ATL",
+        "name": "Club Atlético de Madrid",
+        "crest": "https://crests.football-data.org/78.png",
+        "shortName": "Atleti"
+      },
+      "matchday": 12,
+      "referees": [
+        {
+          "id": 80747,
+          "name": "Javier Alberola Rojas",
+          "type": "REFEREE",
+          "nationality": null
+        }
+      ],
+      "competition": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "type": "LEAGUE",
+        "emblem": "https://crests.football-data.org/laliga.png"
+      },
+      "lastUpdated": "2026-11-16T00:20:29Z"
+    },
+    "observedAt": "2026-11-16T12:05:35.061Z"
+  },
+  "cache": {
+    "key": "match:564746",
+    "payload": {
+      "id": 564746,
+      "area": {
+        "id": 2224,
+        "code": "ESP",
+        "flag": "https://crests.football-data.org/760.svg",
+        "name": "Spain"
+      },
+      "odds": {
+        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+      },
+      "group": null,
+      "score": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "away": 2,
+          "home": 1
+        },
+        "halfTime": {
+          "away": 1,
+          "home": 1
+        }
+      },
+      "stage": "REGULAR_SEASON",
+      "venue": null,
+      "season": {
+        "id": 2518,
+        "winner": null,
+        "endDate": "2027-05-30",
+        "startDate": "2026-08-16",
+        "currentMatchday": 13
+      },
+      "status": "FINISHED",
+      "utcDate": "2026-11-08T20:00:00Z",
+      "awayTeam": {
+        "id": 81,
+        "tla": "FCB",
+        "name": "FC Barcelona",
+        "crest": "https://crests.football-data.org/81.png",
+        "shortName": "Barça"
+      },
+      "homeTeam": {
+        "id": 78,
+        "tla": "ATL",
+        "name": "Club Atlético de Madrid",
+        "crest": "https://crests.football-data.org/78.png",
+        "shortName": "Atleti"
+      },
+      "matchday": 12,
+      "referees": [
+        {
+          "id": 80747,
+          "name": "Javier Alberola Rojas",
+          "type": "REFEREE",
+          "nationality": null
+        }
+      ],
+      "competition": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "type": "LEAGUE",
+        "emblem": "https://crests.football-data.org/laliga.png"
+      },
+      "lastUpdated": "2026-11-16T00:20:29Z"
+    },
+    "fetchedAt": "2026-11-16T12:00:38.950Z",
+    "expiresAt": "2026-11-16T12:01:38.950Z"
+  },
+  "competition": {
+    "id": "la-liga",
+    "metadata": {
+      "id": 2014,
+      "area": {
+        "id": 2224,
+        "code": "ESP",
+        "flag": "https://crests.football-data.org/760.svg",
+        "name": "Spain"
+      },
+      "code": "PD",
+      "name": "Primera Division",
+      "type": "LEAGUE",
+      "emblem": "https://crests.football-data.org/laliga.png",
+      "seasons": [
+        {
+          "id": 2518,
+          "winner": null,
+          "endDate": "2027-05-30",
+          "startDate": "2026-08-16",
+          "currentMatchday": 13
+        },
+        {
+          "id": 2429,
+          "winner": null,
+          "endDate": "2026-05-24",
+          "startDate": "2025-08-17",
+          "currentMatchday": 38
+        },
+        {
+          "id": 2292,
+          "winner": null,
+          "endDate": "2025-05-25",
+          "startDate": "2024-08-18",
+          "currentMatchday": 38
+        },
+        {
+          "id": 1577,
+          "winner": null,
+          "endDate": "2024-05-26",
+          "startDate": "2023-08-13",
+          "currentMatchday": 38
+        },
+        {
+          "id": 1504,
+          "winner": null,
+          "endDate": "2023-06-04",
+          "startDate": "2022-08-14",
+          "currentMatchday": 38
+        },
+        {
+          "id": 380,
+          "winner": null,
+          "endDate": "2022-05-22",
+          "startDate": "2021-08-13",
+          "currentMatchday": 38
+        },
+        {
+          "id": 635,
+          "winner": {
+            "id": 78,
+            "tla": "ATL",
+            "name": "Club Atlético de Madrid",
+            "crest": "https://crests.football-data.org/78.png",
+            "venue": "Estadio Wanda Metropolitano",
+            "address": "Paseo Virgen del Puerto, 67 Madrid 28005",
+            "founded": 1903,
+            "website": "http://www.clubatleticodemadrid.com",
+            "shortName": "Atleti",
+            "clubColors": "Red / White / Blue",
+            "lastUpdated": "2026-07-04T11:58:34Z"
+          },
+          "endDate": "2021-05-23",
+          "startDate": "2020-09-12",
+          "currentMatchday": 38
+        },
+        {
+          "id": 519,
+          "winner": {
+            "id": 86,
+            "tla": "RMA",
+            "name": "Real Madrid CF",
+            "crest": "https://crests.football-data.org/86.png",
+            "venue": "Estadio Santiago Bernabéu",
+            "address": "Avenida Concha Espina, 1 Madrid 28036",
+            "founded": 1902,
+            "website": "http://www.realmadrid.com",
+            "shortName": "Real Madrid",
+            "clubColors": "White / Purple",
+            "lastUpdated": "2022-02-19T08:59:31Z"
+          },
+          "endDate": "2020-07-19",
+          "startDate": "2019-08-16",
+          "currentMatchday": 38
+        },
+        {
+          "id": 281,
+          "winner": {
+            "id": 81,
+            "tla": "FCB",
+            "name": "FC Barcelona",
+            "crest": "https://crests.football-data.org/81.png",
+            "venue": "Camp Nou",
+            "address": "Avenida Arístides Maillol s/n Barcelona 08028",
+            "founded": 1899,
+            "website": "http://www.fcbarcelona.com",
+            "shortName": "Barça",
+            "clubColors": "Red / Navy Blue / Orange",
+            "lastUpdated": "2024-07-29T17:09:22Z"
+          },
+          "endDate": "2019-05-19",
+          "startDate": "2018-08-17",
+          "currentMatchday": 38
+        },
+        {
+          "id": 16,
+          "winner": {
+            "id": 81,
+            "tla": "FCB",
+            "name": "FC Barcelona",
+            "crest": "https://crests.football-data.org/81.png",
+            "venue": "Camp Nou",
+            "address": "Avenida Arístides Maillol s/n Barcelona 08028",
+            "founded": 1899,
+            "website": "http://www.fcbarcelona.com",
+            "shortName": "Barça",
+            "clubColors": "Red / Navy Blue / Orange",
+            "lastUpdated": "2024-07-29T17:09:22Z"
+          },
+          "endDate": "2018-05-20",
+          "startDate": "2017-08-18",
+          "currentMatchday": 38
+        },
+        {
+          "id": 364,
+          "winner": null,
+          "endDate": "2017-05-21",
+          "startDate": "2016-08-19",
+          "currentMatchday": null
+        },
+        {
+          "id": 365,
+          "winner": null,
+          "endDate": "2016-05-15",
+          "startDate": "2015-08-22",
+          "currentMatchday": null
+        },
+        {
+          "id": 366,
+          "winner": null,
+          "endDate": "2015-05-23",
+          "startDate": "2014-08-24",
+          "currentMatchday": null
+        },
+        {
+          "id": 367,
+          "winner": null,
+          "endDate": "2014-05-18",
+          "startDate": "2013-08-17",
+          "currentMatchday": null
+        },
+        {
+          "id": 368,
+          "winner": null,
+          "endDate": "2013-06-01",
+          "startDate": "2012-08-18",
+          "currentMatchday": null
+        },
+        {
+          "id": 369,
+          "winner": null,
+          "endDate": "2012-05-13",
+          "startDate": "2011-08-27",
+          "currentMatchday": null
+        },
+        {
+          "id": 370,
+          "winner": null,
+          "endDate": "2011-05-21",
+          "startDate": "2010-08-28",
+          "currentMatchday": null
+        },
+        {
+          "id": 381,
+          "winner": null,
+          "endDate": "2010-05-16",
+          "startDate": "2009-08-29",
+          "currentMatchday": null
+        },
+        {
+          "id": 382,
+          "winner": null,
+          "endDate": "2009-05-31",
+          "startDate": "2008-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 383,
+          "winner": null,
+          "endDate": "2008-05-18",
+          "startDate": "2007-08-25",
+          "currentMatchday": null
+        },
+        {
+          "id": 384,
+          "winner": null,
+          "endDate": "2007-06-17",
+          "startDate": "2006-08-26",
+          "currentMatchday": null
+        },
+        {
+          "id": 385,
+          "winner": null,
+          "endDate": "2006-05-20",
+          "startDate": "2005-08-27",
+          "currentMatchday": null
+        },
+        {
+          "id": 371,
+          "winner": null,
+          "endDate": "2005-05-29",
+          "startDate": "2004-08-28",
+          "currentMatchday": null
+        },
+        {
+          "id": 372,
+          "winner": null,
+          "endDate": "2004-05-23",
+          "startDate": "2003-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 386,
+          "winner": null,
+          "endDate": "2003-06-22",
+          "startDate": "2002-08-31",
+          "currentMatchday": null
+        },
+        {
+          "id": 1041,
+          "winner": null,
+          "endDate": "2002-05-09",
+          "startDate": "2001-08-23",
+          "currentMatchday": null
+        },
+        {
+          "id": 373,
+          "winner": null,
+          "endDate": "2001-06-17",
+          "startDate": "2000-09-09",
+          "currentMatchday": null
+        },
+        {
+          "id": 374,
+          "winner": null,
+          "endDate": "2000-05-20",
+          "startDate": "1999-08-21",
+          "currentMatchday": null
+        },
+        {
+          "id": 375,
+          "winner": null,
+          "endDate": "1999-06-20",
+          "startDate": "1998-08-29",
+          "currentMatchday": null
+        },
+        {
+          "id": 376,
+          "winner": null,
+          "endDate": "1998-05-16",
+          "startDate": "1997-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 378,
+          "winner": null,
+          "endDate": "1996-05-26",
+          "startDate": "1995-09-02",
+          "currentMatchday": null
+        },
+        {
+          "id": 379,
+          "winner": null,
+          "endDate": "1995-06-18",
+          "startDate": "1994-09-03",
+          "currentMatchday": null
+        },
+        {
+          "id": 387,
+          "winner": null,
+          "endDate": "1994-05-15",
+          "startDate": "1993-09-05",
+          "currentMatchday": null
+        },
+        {
+          "id": 1042,
+          "winner": null,
+          "endDate": "1993-06-18",
+          "startDate": "1992-09-03",
+          "currentMatchday": null
+        },
+        {
+          "id": 1043,
+          "winner": null,
+          "endDate": "1992-06-05",
+          "startDate": "1991-08-29",
+          "currentMatchday": null
+        },
+        {
+          "id": 1065,
+          "winner": null,
+          "endDate": "1991-06-07",
+          "startDate": "1990-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 1064,
+          "winner": null,
+          "endDate": "1990-05-04",
+          "startDate": "1989-08-31",
+          "currentMatchday": null
+        },
+        {
+          "id": 1044,
+          "winner": null,
+          "endDate": "1989-06-23",
+          "startDate": "1988-09-01",
+          "currentMatchday": null
+        },
+        {
+          "id": 1045,
+          "winner": null,
+          "endDate": "1988-05-20",
+          "startDate": "1987-08-27",
+          "currentMatchday": null
+        },
+        {
+          "id": 1429,
+          "winner": null,
+          "endDate": "1987-06-21",
+          "startDate": "1986-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 1047,
+          "winner": null,
+          "endDate": "1986-04-18",
+          "startDate": "1985-08-29",
+          "currentMatchday": null
+        },
+        {
+          "id": 1048,
+          "winner": null,
+          "endDate": "1985-04-19",
+          "startDate": "1984-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 1049,
+          "winner": null,
+          "endDate": "1984-04-27",
+          "startDate": "1983-09-01",
+          "currentMatchday": null
+        },
+        {
+          "id": 1050,
+          "winner": null,
+          "endDate": "1983-04-29",
+          "startDate": "1982-09-02",
+          "currentMatchday": null
+        },
+        {
+          "id": 1046,
+          "winner": null,
+          "endDate": "1982-04-23",
+          "startDate": "1981-09-17",
+          "currentMatchday": null
+        },
+        {
+          "id": 1051,
+          "winner": null,
+          "endDate": "1981-04-24",
+          "startDate": "1980-09-04",
+          "currentMatchday": null
+        },
+        {
+          "id": 1052,
+          "winner": null,
+          "endDate": "1980-05-16",
+          "startDate": "1979-09-06",
+          "currentMatchday": null
+        },
+        {
+          "id": 1053,
+          "winner": null,
+          "endDate": "1979-06-01",
+          "startDate": "1978-08-31",
+          "currentMatchday": null
+        },
+        {
+          "id": 1054,
+          "winner": null,
+          "endDate": "1978-05-05",
+          "startDate": "1977-09-01",
+          "currentMatchday": null
+        },
+        {
+          "id": 1055,
+          "winner": null,
+          "endDate": "1977-06-06",
+          "startDate": "1976-09-02",
+          "currentMatchday": null
+        },
+        {
+          "id": 1056,
+          "winner": null,
+          "endDate": "1976-05-14",
+          "startDate": "1975-09-04",
+          "currentMatchday": null
+        },
+        {
+          "id": 1057,
+          "winner": null,
+          "endDate": "1975-05-23",
+          "startDate": "1974-09-05",
+          "currentMatchday": null
+        },
+        {
+          "id": 1058,
+          "winner": null,
+          "endDate": "1974-05-18",
+          "startDate": "1973-08-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 1059,
+          "winner": null,
+          "endDate": "1973-05-18",
+          "startDate": "1972-08-31",
+          "currentMatchday": null
+        },
+        {
+          "id": 1060,
+          "winner": null,
+          "endDate": "1972-05-12",
+          "startDate": "1971-09-02",
+          "currentMatchday": null
+        },
+        {
+          "id": 1061,
+          "winner": null,
+          "endDate": "1971-04-16",
+          "startDate": "1970-09-10",
+          "currentMatchday": null
+        },
+        {
+          "id": 1062,
+          "winner": null,
+          "endDate": "1970-04-17",
+          "startDate": "1969-09-11",
+          "currentMatchday": null
+        },
+        {
+          "id": 1063,
+          "winner": null,
+          "endDate": "1969-04-18",
+          "startDate": "1968-09-12",
+          "currentMatchday": null
+        },
+        {
+          "id": 1428,
+          "winner": null,
+          "endDate": "1968-04-28",
+          "startDate": "1967-09-09",
+          "currentMatchday": null
+        },
+        {
+          "id": 1066,
+          "winner": null,
+          "endDate": "1967-04-21",
+          "startDate": "1966-09-08",
+          "currentMatchday": null
+        },
+        {
+          "id": 1067,
+          "winner": null,
+          "endDate": "1966-04-01",
+          "startDate": "1965-09-02",
+          "currentMatchday": null
+        },
+        {
+          "id": 1068,
+          "winner": null,
+          "endDate": "1965-04-16",
+          "startDate": "1964-09-11",
+          "currentMatchday": null
+        },
+        {
+          "id": 1069,
+          "winner": null,
+          "endDate": "1964-04-24",
+          "startDate": "1963-09-13",
+          "currentMatchday": null
+        },
+        {
+          "id": 1070,
+          "winner": null,
+          "endDate": "1963-04-19",
+          "startDate": "1962-09-14",
+          "currentMatchday": null
+        },
+        {
+          "id": 1071,
+          "winner": null,
+          "endDate": "1962-03-30",
+          "startDate": "1961-08-31",
+          "currentMatchday": null
+        },
+        {
+          "id": 1072,
+          "winner": null,
+          "endDate": "1961-04-28",
+          "startDate": "1960-09-09",
+          "currentMatchday": null
+        },
+        {
+          "id": 1073,
+          "winner": null,
+          "endDate": "1960-04-15",
+          "startDate": "1959-09-11",
+          "currentMatchday": null
+        },
+        {
+          "id": 1074,
+          "winner": null,
+          "endDate": "1959-04-17",
+          "startDate": "1958-09-12",
+          "currentMatchday": null
+        },
+        {
+          "id": 1075,
+          "winner": null,
+          "endDate": "1958-05-02",
+          "startDate": "1957-09-13",
+          "currentMatchday": null
+        },
+        {
+          "id": 1076,
+          "winner": null,
+          "endDate": "1957-04-19",
+          "startDate": "1956-09-07",
+          "currentMatchday": null
+        },
+        {
+          "id": 1077,
+          "winner": null,
+          "endDate": "1956-04-20",
+          "startDate": "1955-09-09",
+          "currentMatchday": null
+        },
+        {
+          "id": 1078,
+          "winner": null,
+          "endDate": "1955-04-08",
+          "startDate": "1954-09-10",
+          "currentMatchday": null
+        },
+        {
+          "id": 1079,
+          "winner": null,
+          "endDate": "1954-04-23",
+          "startDate": "1953-09-11",
+          "currentMatchday": null
+        },
+        {
+          "id": 1080,
+          "winner": null,
+          "endDate": "1953-05-01",
+          "startDate": "1952-09-12",
+          "currentMatchday": null
+        },
+        {
+          "id": 1081,
+          "winner": null,
+          "endDate": "1952-04-11",
+          "startDate": "1951-09-07",
+          "currentMatchday": null
+        },
+        {
+          "id": 1082,
+          "winner": null,
+          "endDate": "1951-04-20",
+          "startDate": "1950-09-08",
+          "currentMatchday": null
+        },
+        {
+          "id": 1083,
+          "winner": null,
+          "endDate": "1950-04-21",
+          "startDate": "1949-09-02",
+          "currentMatchday": null
+        },
+        {
+          "id": 1084,
+          "winner": null,
+          "endDate": "1949-04-15",
+          "startDate": "1948-09-10",
+          "currentMatchday": null
+        },
+        {
+          "id": 1085,
+          "winner": null,
+          "endDate": "1948-04-09",
+          "startDate": "1947-09-19",
+          "currentMatchday": null
+        },
+        {
+          "id": 1086,
+          "winner": null,
+          "endDate": "1947-04-21",
+          "startDate": "1946-09-20",
+          "currentMatchday": null
+        },
+        {
+          "id": 1087,
+          "winner": null,
+          "endDate": "1946-03-29",
+          "startDate": "1945-09-21",
+          "currentMatchday": null
+        },
+        {
+          "id": 1088,
+          "winner": null,
+          "endDate": "1945-05-18",
+          "startDate": "1944-09-22",
+          "currentMatchday": null
+        },
+        {
+          "id": 1089,
+          "winner": null,
+          "endDate": "1944-04-07",
+          "startDate": "1943-09-24",
+          "currentMatchday": null
+        },
+        {
+          "id": 1090,
+          "winner": null,
+          "endDate": "1943-04-02",
+          "startDate": "1942-09-25",
+          "currentMatchday": null
+        },
+        {
+          "id": 1091,
+          "winner": null,
+          "endDate": "1942-04-03",
+          "startDate": "1941-09-26",
+          "currentMatchday": null
+        },
+        {
+          "id": 1092,
+          "winner": null,
+          "endDate": "1941-03-28",
+          "startDate": "1940-09-27",
+          "currentMatchday": null
+        },
+        {
+          "id": 1093,
+          "winner": null,
+          "endDate": "1940-04-26",
+          "startDate": "1939-12-01",
+          "currentMatchday": null
+        },
+        {
+          "id": 1094,
+          "winner": null,
+          "endDate": "1936-04-17",
+          "startDate": "1935-11-08",
+          "currentMatchday": null
+        },
+        {
+          "id": 1095,
+          "winner": null,
+          "endDate": "1935-04-26",
+          "startDate": "1934-11-30",
+          "currentMatchday": null
+        },
+        {
+          "id": 1096,
+          "winner": null,
+          "endDate": "1934-03-02",
+          "startDate": "1933-11-03",
+          "currentMatchday": null
+        },
+        {
+          "id": 1097,
+          "winner": null,
+          "endDate": "1933-03-26",
+          "startDate": "1932-11-25",
+          "currentMatchday": null
+        },
+        {
+          "id": 1098,
+          "winner": null,
+          "endDate": "1932-04-01",
+          "startDate": "1931-11-20",
+          "currentMatchday": null
+        },
+        {
+          "id": 1099,
+          "winner": null,
+          "endDate": "1931-04-03",
+          "startDate": "1930-12-05",
+          "currentMatchday": null
+        },
+        {
+          "id": 1100,
+          "winner": null,
+          "endDate": "1930-03-28",
+          "startDate": "1929-11-29",
+          "currentMatchday": null
+        },
+        {
+          "id": 1101,
+          "winner": null,
+          "endDate": "1929-06-28",
+          "startDate": "1928-02-08",
+          "currentMatchday": null
+        }
+      ],
+      "lastUpdated": "2026-10-31T12:51:21Z",
+      "currentSeason": {
+        "id": 2518,
+        "winner": null,
+        "endDate": "2027-05-30",
+        "startDate": "2026-08-16",
+        "currentMatchday": 13
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "match": {
+    "id": "564746",
+    "competitionId": "la-liga",
+    "season": "2026",
+    "homeTeamId": "080b8b89-b81f-5706-8897-6ee60d7a9a74",
+    "awayTeamId": "a33be76b-aa24-57ed-86c6-e853ac6cb631",
+    "stadiumId": "",
+    "kickoff": "2026-11-08T20:00:00.000Z",
+    "status": "finished",
+    "stage": "REGULAR_SEASON",
+    "matchday": "Matchday 12",
+    "homeScore": 1,
+    "awayScore": 2,
+    "group": null,
+    "homeLabel": "Club Atlético de Madrid",
+    "awayLabel": "FC Barcelona",
+    "referee": "Javier Alberola Rojas"
+  },
+  "competition": {
+    "id": "la-liga",
+    "name": "La Liga",
+    "shortName": "La Liga",
+    "region": "Spain",
+    "season": "2026/27",
+    "format": "League",
+    "accent": "violet",
+    "hasBracket": false,
+    "emblem": "https://crests.football-data.org/laliga.png",
+    "currentMatchday": 13
+  },
+  "homeTeam": {
+    "id": "080b8b89-b81f-5706-8897-6ee60d7a9a74",
+    "name": "Club Atlético de Madrid",
+    "shortName": "Atleti",
+    "logoUrl": "https://crests.football-data.org/78.png",
+    "coach": "Diego Simeone"
+  },
+  "awayTeam": {
+    "id": "a33be76b-aa24-57ed-86c6-e853ac6cb631",
+    "name": "FC Barcelona",
+    "shortName": "Barça",
+    "logoUrl": "https://crests.football-data.org/81.png",
+    "coach": "Hansi Flick"
+  },
+  "stadium": {
+    "name": "Venue to be confirmed",
+    "imageUrl": "/assets/images/stadiums/default-stadium.svg"
+  },
+  "events": [],
+  "lineups": [],
+  "stats": [],
+  "relatedNews": [
+    {
+      "id": "40573fff-5e97-5769-9d11-9e6dedb64786",
+      "slug": "40573fff-5e97-5769-9d11-9e6dedb64786",
+      "title": "Lamine Yamal picks up injury in Barcelona win vs Atletico, set to miss Spain game",
+      "excerpt": "Lamine Yamal will miss Spain's Nations League game against the Czech Republic after reporting discomfort in his right knee following Barcelona's 2-1 win at Atletico Madrid on Sunday night.",
+      "body": "",
+      "competitionId": "la-liga",
+      "category": "News",
+      "publishedAt": "2026-11-09T12:38:37.000Z",
+      "imageUrl": "https://staticg.sportskeeda.com/editor/2026/11/30b00-17942277364666-1920.jpg",
+      "sourceUrl": "https://www.sportskeeda.com/football/news-lamine-yamal-picks-injury-barcelona-win-vs-atletico-set-miss-spain-game",
+      "sourceName": "www.sportskeeda.com"
+    },
+    {
+      "id": "c925ec40-893f-5959-a812-8a2793bf1c3d",
+      "slug": "c925ec40-893f-5959-a812-8a2793bf1c3d",
+      "title": "Alex Baena explains what teams must do to make difference vs Barcelona as Atletico star claims giving 100% isn't enough",
+      "excerpt": "Atletico Madrid star Alex Baena has claimed that giving 100 per cent is not enough to beat Barcelona. The midfielder spoke to AS after Sunday's game against the Catalans at the Metropolitano.",
+      "body": "",
+      "competitionId": "la-liga",
+      "category": "News",
+      "publishedAt": "2026-11-09T11:46:25.000Z",
+      "imageUrl": "https://staticg.sportskeeda.com/editor/2026/11/fe821-17942245772249-1920.jpg",
+      "sourceUrl": "https://www.sportskeeda.com/football/news-alex-baena-explains-teams-must-make-difference-vs-barcelona-atletico-star-claims-giving-100-enough",
+      "sourceName": "www.sportskeeda.com"
+    },
+    {
+      "id": "9027e7a4-9875-5e73-9d2f-e6e5a16fa9ec",
+      "slug": "9027e7a4-9875-5e73-9d2f-e6e5a16fa9ec",
+      "title": "Convincing Barcelona comeback win answers doubts over Flick's approach",
+      "excerpt": "MADRID, Nov 8 - After two damaging defeats in late October undermined confidence in Hansi Flick's approach, a convincing second-half performance from Barcelona and a 2-1 win against Atletico Madrid helped to quell the doubts. Read more at straitstimes.com.",
+      "body": "",
+      "competitionId": "la-liga",
+      "category": "News",
+      "publishedAt": "2026-11-08T23:58:46.000Z",
+      "imageUrl": "https://cassette.sphdigital.com.sg/image/straitstimes/120c573f71b9294b9b28d75bdff31e21c63f0c896d1b233ca98cd77ed3dffbf3?w=1200",
+      "sourceUrl": "https://www.straitstimes.com/sport/football/convincing-barcelona-comeback-win-answers-doubts-over-flicks-approach",
+      "sourceName": "www.straitstimes.com"
+    },
+    {
+      "id": "aa40a07e-1b85-570b-b3ce-f16c5cba6d6f",
+      "slug": "aa40a07e-1b85-570b-b3ce-f16c5cba6d6f",
+      "title": "Lopez double fires Barcelona to top of La Liga",
+      "excerpt": "Fermin Lopez struck twice to help Barcelona come from behind to beat Atletico Madrid 2-1 and move three points clear at...",
+      "body": "",
+      "competitionId": "la-liga",
+      "category": "News",
+      "publishedAt": "2026-11-08T23:20:37.000Z",
+      "imageUrl": "https://newsstatic.rthk.hk/images/mfile_1877063_1_M_20261109071326.jpg",
+      "sourceUrl": "https://news.rthk.hk/rthk/en/component/k2/1877063-20261109.htm",
+      "sourceName": "news.rthk.hk"
+    },
+    {
+      "id": "f0e2a129-c0ca-5ed9-939e-ff6498f0f51c",
+      "slug": "f0e2a129-c0ca-5ed9-939e-ff6498f0f51c",
+      "title": "Fermin Lopez scores brace as Barcelona come from behind to beat Atletico Madrid 2-1",
+      "excerpt": "",
+      "body": "",
+      "competitionId": "la-liga",
+      "category": "News",
+      "publishedAt": "2026-11-08T22:37:57.000Z",
+      "imageUrl": "/assets/images/blogs/default-news.svg",
+      "sourceUrl": "https://www.aa.com.tr/en/sports/fermin-lopez-scores-brace-as-barcelona-come-from-behind-to-beat-atletico-madrid-2-1/4116382",
+      "sourceName": "www.aa.com.tr"
+    },
+    {
+      "id": "ae1712a0-31c7-55d5-8259-dc33d834ee3e",
+      "slug": "ae1712a0-31c7-55d5-8259-dc33d834ee3e",
+      "title": "\"I can no longer defend this\" - Fans call out Barcelona star despite their 2-1 win over Atletico Madrid in LaLiga clash",
+      "excerpt": "Fans have taken to X (formerly Twitter) to react to Barcelona star Anthony Gordon's performance in their 2-1 win over Atletico Madrid in LaLiga.",
+      "body": "",
+      "competitionId": "la-liga",
+      "category": "News",
+      "publishedAt": "2026-11-08T22:18:16.000Z",
+      "imageUrl": "https://staticg.sportskeeda.com/editor/2026/11/5b48f-17941760033435-1920.jpg",
+      "sourceUrl": "https://www.sportskeeda.com/football/news-i-can-longer-defend-this-fans-call-barcelona-star-despite-2-1-win-atletico-madrid-laliga-clash",
+      "sourceName": "www.sportskeeda.com"
+    }
+  ],
+  "videoUrl": null,
+  "freshness": {
+    "fetchedAt": "2026-11-16T12:36:44.270Z",
+    "stale": false
+  },
+  "availability": {
+    "events": {
+      "state": "unavailable"
+    },
+    "lineups": {
+      "state": "unavailable"
+    },
+    "statistics": {
+      "state": "unavailable"
+    }
+  }
+}

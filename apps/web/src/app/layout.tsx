@@ -1,40 +1,30 @@
 import type { Metadata } from "next";
-import { Orbitron, Poppins } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { absoluteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
-
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  variable: "--font-orbitron",
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  weight: ["400", "500", "600", "700"],
-});
+import "./design-system.css";
+import "@/features/home/home-dashboard.css";
+import "@/features/matches/match-centre.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl("/")),
   title: {
-    default: "Worldcup Companion | FIFA World Cup 2026 Schedule, Scores & Bracket",
-    template: "%s | Worldcup Companion",
+    default: "Football Companion | Scores, Fixtures and Stats",
+    template: "%s | Football Companion",
   },
   description:
-    "Follow FIFA World Cup 2026 fixtures, live scores, points tables, teams, knockout brackets, news, and tournament history.",
+    "Follow major football competitions, live scores, fixtures, tables, teams, players and news.",
   alternates: {
     canonical: absoluteUrl("/"),
   },
   openGraph: {
-    title: "Worldcup Companion | FIFA World Cup 2026 Schedule, Scores & Bracket",
+    title: "Football Companion | Scores, Fixtures and Stats",
     description:
-      "Follow FIFA World Cup 2026 fixtures, live scores, points tables, teams, knockout brackets, news, and tournament history.",
+      "Follow major football competitions, live scores, fixtures, tables, teams, players and news.",
     url: absoluteUrl("/"),
-    siteName: "Worldcup Companion",
+    siteName: "Football Companion",
     images: [
       {
         url: absoluteUrl("/assets/images/banners/world-cup26.webp"),
@@ -47,15 +37,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Worldcup Companion | FIFA World Cup 2026 Schedule, Scores & Bracket",
+    title: "Football Companion | Scores, Fixtures and Stats",
     description:
-      "Follow FIFA World Cup 2026 fixtures, live scores, points tables, teams, knockout brackets, news, and tournament history.",
+      "Follow major football competitions, live scores, fixtures, tables, teams, players and news.",
     images: [absoluteUrl("/assets/images/banners/world-cup26.webp")],
   },
 };
 
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { PushNotificationListener } from "@/components/providers/PushNotificationListener";
 import { MatchProvider } from "Context/MatchContext";
 
 export default function RootLayout({
@@ -65,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${orbitron.variable}`}>
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -73,7 +62,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <MatchProvider>
-            <PushNotificationListener />
             <AppShell>{children}</AppShell>
           </MatchProvider>
           <Analytics />

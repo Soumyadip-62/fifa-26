@@ -1,3 +1,5 @@
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { TeamEntity } from './entitites/teams.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TeamsService } from './teams.service';
 
@@ -6,7 +8,13 @@ describe('TeamsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TeamsService],
+      providers: [
+        TeamsService,
+        {
+          provide: getRepositoryToken(TeamEntity),
+          useValue: { find: jest.fn().mockResolvedValue([]) },
+        },
+      ],
     }).compile();
 
     service = module.get<TeamsService>(TeamsService);

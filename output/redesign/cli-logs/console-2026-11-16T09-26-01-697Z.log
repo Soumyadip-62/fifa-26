@@ -1,0 +1,732 @@
+[     630ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[     713ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[     858ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:10000/matches:1
+[     876ms] Error: Matches are temporarily unavailable.
+    at getMatches (http://localhost:14000/_next/static/chunks/apps_web_0r8giam._.js:2650:15)
+[     908ms] [ERROR] %o
+
+%s TypeError: fetch failed
+    at resolveErrorDev (http://localhost:14000/_next/static/chunks/0_q4_next_dist_compiled_react-server-dom-turbopack_03rjpmv._.js:1919:105)
+    at processFullStringRow (http://localhost:14000/_next/static/chunks/0_q4_next_dist_compiled_react-server-dom-turbopack_03rjpmv._.js:2434:29)
+    at processFullBinaryRow (http://localhost:14000/_next/static/chunks/0_q4_next_dist_compiled_react-server-dom-turbopack_03rjpmv._.js:2393:9)
+    at processBinaryChunk (http://localhost:14000/_next/static/chunks/0_q4_next_dist_compiled_react-server-dom-turbopack_03rjpmv._.js:2502:221)
+    at progress (http://localhost:14000/_next/static/chunks/0_q4_next_dist_compiled_react-server-dom-turbopack_03rjpmv._.js:2689:13) The above error occurred in the <CompetitionsPage> component. It was handled by the <ErrorBoundaryHandler> error boundary. @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_client_0ckeaqf._.js:1999
+[    1229ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[    1229ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions, path: /competitions} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[    1230ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[    1232ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91053ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91175ms] [LOG] [Fast Refresh] done in 224ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91259ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91284ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91388ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91388ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91388ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   91390ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   98755ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   98776ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   98854ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   98854ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions, path: /competitions} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   98854ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[   98854ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102167ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102303ms] [LOG] [Fast Refresh] done in 236ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102408ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102420ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102535ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102535ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/premier-league} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102535ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/premier-league color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/premier-league, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102535ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  102929ms] [WARNING] Image with src "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/541a/live/e9fcbc60-e0f5-11f1-97b9-9110abfffc70.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  108785ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  108811ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  108935ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  108935ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/la-liga} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  108935ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/la-liga color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/la-liga, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  108936ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  109057ms] [WARNING] Image with src "https://staticg.sportskeeda.com/editor/2026/11/e05be-17946804563996-1920.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  138338ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  138369ms] [LOG] [Fast Refresh] done in 67ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  138479ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  139532ms] [LOG] [Fast Refresh] done in 1157ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  139645ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  139945ms] [LOG] [Fast Refresh] done in 412ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  140048ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  141590ms] [LOG] [Fast Refresh] done in 1483ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  142763ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  142941ms] [LOG] [Fast Refresh] done in 281ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  143060ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  143155ms] [LOG] [Fast Refresh] done in 197ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  143276ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  143341ms] [LOG] [Fast Refresh] done in 171ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197144ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197214ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197303ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197323ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197425ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197425ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/ucl} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197426ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/ucl color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/ucl, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  197426ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  212475ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  212490ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  212578ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  212578ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/bundesliga} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  212578ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/bundesliga color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/bundesliga, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  212578ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  228943ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  228959ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  229041ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  229042ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/world-cup} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  229042ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/world-cup color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/world-cup, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  229042ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  234965ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235091ms] [LOG] [Fast Refresh] done in 227ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235187ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235197ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235270ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235270ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches, path: /matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235270ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  235271ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  323918ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  324031ms] [LOG] [Fast Refresh] done in 59ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  324566ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  324779ms] [LOG] [Fast Refresh] done in 169ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  325265ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  325266ms] [LOG] [Fast Refresh] done in 113ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  326178ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  326420ms] [LOG] [Fast Refresh] done in 90ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  333582ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  333598ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  333686ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  333686ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/[matchId], path: /matches/560639} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  333686ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/560639 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/560639, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/[matchId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  333687ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  341820ms] [WARNING] Image with src "/assets/images/stadiums/default-stadium.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  342093ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  342117ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  342203ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  342204ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /live, path: /live} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  342204ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/live color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/live, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /live} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  342204ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344306ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344309ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344357ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344375ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344454ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344455ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams, path: /teams} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344455ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  344458ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  347061ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  347072ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  347140ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  347141ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams/[teamId], path: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  347141ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams/[teamId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  347141ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  447384ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  447503ms] [LOG] [Fast Refresh] done in 133ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  453239ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  453253ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  453341ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  453341ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players, path: /players} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  453342ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  453342ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  456864ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  456882ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  456955ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  456955ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players/[playerId], path: /players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  456955ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players/[playerId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  456955ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  461173ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  461189ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  461263ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  461263ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /standings, path: /standings} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  461263ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/standings color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/standings, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /standings} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  461263ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475119ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475125ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475188ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475199ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475280ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475280ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /statistics, path: /statistics} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475281ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/statistics color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/statistics, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /statistics} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  475281ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  563756ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  563757ms] [LOG] [Fast Refresh] done in 106ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  564258ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  564401ms] [LOG] [Fast Refresh] done in 254ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  564506ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  564643ms] [LOG] [Fast Refresh] done in 238ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  564756ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  564879ms] [LOG] [Fast Refresh] done in 230ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  565455ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  565456ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  565891ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  565987ms] [LOG] [Fast Refresh] done in 160ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594265ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594339ms] [LOG] [Fast Refresh] done in 182ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594408ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594423ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594496ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594497ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /news, path: /news} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594497ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/news color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/news, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /news} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  594498ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  599912ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  599923ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  599992ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  599992ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /stadiums, path: /stadiums} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  599993ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/stadiums color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/stadiums, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /stadiums} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  599993ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  603390ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  603400ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  603472ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  603473ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /stadiums/[stadiumId], path: /stadiums/5d891504-7816-5110-8986-57d8139c3ef1} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  603473ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/stadiums/5d891504-7816-5110-8986-57d8139c3ef1 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/stadiums/5d891504-7816-5110-8986-57d8139c3ef1, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /stadiums/[stadiumId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  603473ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606453ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606489ms] [LOG] [Fast Refresh] done in 148ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606551ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606573ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606674ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606675ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /favourites, path: /favourites} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606675ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/favourites color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/favourites, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /favourites} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  606675ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651663ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651664ms] [LOG] [Fast Refresh] done in 112ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651736ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651747ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651844ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651844ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /search, path: /search} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651844ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/search color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/search, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /search} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  651844ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655195ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://localhost:14000/search:26
+[  655494ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655498ms] [LOG] [Fast Refresh] done in 106ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655567ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655585ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655656ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655656ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /settings/notifications, path: /settings/notifications} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655656ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/settings/notifications color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/settings/notifications, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /settings/notifications} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  655659ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658292ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658299ms] [LOG] [Fast Refresh] done in 121ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658378ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658404ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658536ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658536ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /history, path: /history} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658536ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/history color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/history, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /history} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658537ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658748ms] [WARNING] You have Reduced Motion enabled on your device. Animations may not appear as expected.. For more information and steps for solving, visit https://motion.dev/troubleshooting/reduced-motion-disabled @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658821ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658838ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658932ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658933ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /points-table, path: /points-table} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658933ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/points-table color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/points-table, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /points-table} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  658933ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  754178ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  754219ms] [LOG] [Fast Refresh] done in 58ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  754324ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  754389ms] [LOG] [Fast Refresh] done in 166ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  754824ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  754880ms] [LOG] [Fast Refresh] done in 114ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  755276ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  755437ms] [LOG] [Fast Refresh] done in 187ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  755892ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  755974ms] [LOG] [Fast Refresh] done in 132ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  756360ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  756483ms] [LOG] [Fast Refresh] done in 179ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763112ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763372ms] [LOG] [Fast Refresh] done in 361ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763465ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763478ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763573ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763573ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/knockout-matches, path: /matches/knockout-matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763573ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/knockout-matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/knockout-matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/knockout-matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  763573ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  822532ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  823841ms] [LOG] [Fast Refresh] done in 1421ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  823874ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:14000/admin:1
+[  823910ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  823923ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  823994ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="admin/" loading={null}>
+          <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/admin" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+                  <SegmentViewNode type="page" pagePath="admin/page...">
+                    <SegmentTrieNode>
+                    <Page>
+                      <AdminPage>
+                        <div className="page-shell">
+                          <SectionHeader>
+                          ...
+                            <CardContent className="grid gap-3...">
+                              <div className="grid gap-3...">
+                                <div>
+                                <Input className="h-11 round..." onChange={function onChange} placeholder="Enter admi..." ...>
+                                  <input
+                                    className="flex w-full border border-input bg-background px-3 py-2 text-foreground..."
+                                    type="password"
+                                    onChange={function onChange}
+                                    placeholder="Enter admin secret"
+                                    value=""
+-                                   style={{caret-color:"transparent"}}
+                                  >
+                          <FootballOperations secret="">
+                            <section className="grid gap-4...">
+                              <h2>
+                              <div className="flex flex-...">
+                                <select>
+                                <input
+                                  aria-label="Starting season year"
+                                  type="number"
+                                  min="1800"
+                                  max="2200"
+                                  placeholder="Current season"
+                                  value=""
+                                  onChange={function onChange}
+                                  className="rounded-lg border bg-card p-3 dark:bg-card"
+-                                 style={{caret-color:"transparent"}}
+                                >
+                                ...
+                          ...
+                  ...
+                ...
+      ...
+ @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:3273
+[  824070ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824070ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /admin, path: /admin} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824070ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/admin color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/admin, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /admin} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824070ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824801ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824819ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824910ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824910ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /news/[slug], path: /news/f8256f9c-8cbd-5177-9db5-eab29011b562} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824910ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/news/f8256f9c-8cbd-5177-9db5-eab29011b562 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/news/f8256f9c-8cbd-5177-9db5-eab29011b562, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /news/[slug]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  824910ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  825515ms] [WARNING] Image with src "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/541a/live/e9fcbc60-e0f5-11f1-97b9-9110abfffc70.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  825844ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826470ms] [LOG] [Fast Refresh] done in 727ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826479ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:14000/page-does-not-exist:1
+[  826521ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826543ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826642ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826642ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /page-does-not-exist, path: /page-does-not-exist} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826643ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/page-does-not-exist color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/page-does-not-exist, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /page-does-not-exist} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  826643ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  950549ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  950596ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:14000/page-does-not-exist?_rsc=60c5r:1
+[  950816ms] [LOG] [Fast Refresh] done in 76ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  950929ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:14000/page-does-not-exist?_rsc=60c5r:1
+[  951002ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951053ms] [LOG] [Fast Refresh] done in 153ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951155ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951241ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:14000/page-does-not-exist:1
+[  951313ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951352ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951505ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951506ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /page-does-not-exist, path: /page-does-not-exist} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951507ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/page-does-not-exist color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/page-does-not-exist, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /page-does-not-exist} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  951509ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  959862ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960008ms] [LOG] [Fast Refresh] done in 250ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960110ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960127ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960232ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960232ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/premier-league} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960232ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/premier-league color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/premier-league, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  960232ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  961812ms] [WARNING] Image with src "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/541a/live/e9fcbc60-e0f5-11f1-97b9-9110abfffc70.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  977522ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  977538ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  977638ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  977638ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /competitions/[competitionId], path: /competitions/ucl} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  977638ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/competitions/ucl color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/competitions/ucl, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /competitions/[competitionId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  977638ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999628ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999749ms] [LOG] [Fast Refresh] done in 235ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999855ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999869ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999939ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999939ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches, path: /matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999939ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[  999939ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1002907ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003071ms] [LOG] [Fast Refresh] done in 265ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003151ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003165ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003244ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003244ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/[matchId], path: /matches/560639} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003244ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/560639 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/560639, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/[matchId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1003245ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011091ms] [WARNING] Image with src "/assets/images/stadiums/default-stadium.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011383ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011479ms] [LOG] [Fast Refresh] done in 207ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011558ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011570ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011657ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011657ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams, path: /teams} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011658ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1011659ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016196ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016340ms] [LOG] [Fast Refresh] done in 251ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016431ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016449ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016548ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016548ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players, path: /players} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016549ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1016549ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019626ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019771ms] [LOG] [Fast Refresh] done in 252ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019851ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019864ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019939ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019939ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players/[playerId], path: /players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019940ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players/[playerId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1019940ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024471ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024586ms] [LOG] [Fast Refresh] done in 224ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024642ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024660ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024730ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024730ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /settings/notifications, path: /settings/notifications} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024730ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/settings/notifications color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/settings/notifications, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /settings/notifications} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1024730ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1026685ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:14000/admin:1
+[ 1026708ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1026730ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1026880ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1026880ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /admin, path: /admin} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1026880ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/admin color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/admin, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /admin} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1026881ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1070084ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1070142ms] [LOG] [Fast Refresh] done in 116ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1070648ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1070776ms] [LOG] [Fast Refresh] done in 193ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1177658ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1177671ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1177757ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1177757ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams, path: /teams} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1177758ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1177758ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1181831ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1181843ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1181909ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1181909ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players, path: /players} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1181909ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1181909ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1185538ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1185626ms] [LOG] [Fast Refresh] done in 76ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1185732ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1185780ms] [LOG] [Fast Refresh] done in 149ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1185898ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1185946ms] [LOG] [Fast Refresh] done in 158ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186066ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186109ms] [LOG] [Fast Refresh] done in 155ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186112ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186295ms] [LOG] [Fast Refresh] done in 3ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186628ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186647ms] [LOG] [Fast Refresh] done in 122ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186814ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1186864ms] [LOG] [Fast Refresh] done in 151ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1191743ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1191854ms] [LOG] [Fast Refresh] done in 220ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1191923ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1191943ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1192011ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1192011ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /favourites, path: /favourites} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1192012ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/favourites color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/favourites, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /favourites} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1192012ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1198991ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1199001ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1199063ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1199063ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /favourites, path: /favourites} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1199063ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/favourites color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/favourites, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /favourites} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1199063ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1204980ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1204998ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1205074ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1205074ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /settings/notifications, path: /settings/notifications} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1205075ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/settings/notifications color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/settings/notifications, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /settings/notifications} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1205080ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1210281ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1210305ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1210388ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1210388ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /settings/notifications, path: /settings/notifications} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1210389ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/settings/notifications color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/settings/notifications, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /settings/notifications} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1210389ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1213829ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1213953ms] [LOG] [Fast Refresh] done in 225ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1214023ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1214034ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1214104ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1214104ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /search, path: /search} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1214105ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/search color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/search, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /search} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1214105ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1219243ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://localhost:14000/search:26
+[ 1229178ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1229193ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1229277ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1229277ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/[matchId], path: /matches/560639} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1229278ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/560639 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/560639, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/[matchId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1229278ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243147ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243297ms] [LOG] [Fast Refresh] done in 256ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243365ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243380ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243461ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243461ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams/[teamId], path: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243461ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams/[teamId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1243462ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1262133ms] [WARNING] Image with src "https://crests.football-data.org/57.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1262613ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1262817ms] [LOG] [Fast Refresh] done in 311ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1263090ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1263109ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1263222ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1263223ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /statistics, path: /statistics} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1263223ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/statistics color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/statistics, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /statistics} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1263224ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1269628ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1269701ms] [LOG] [Fast Refresh] done in 60ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1269811ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1269816ms] [LOG] [Fast Refresh] done in 105ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1270357ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1270407ms] [LOG] [Fast Refresh] done in 153ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1270957ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271123ms] [LOG] [Fast Refresh] done in 271ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271186ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271201ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271304ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271304ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /history, path: /history} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271304ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/history color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/history, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /history} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271304ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1271578ms] [WARNING] You have Reduced Motion enabled on your device. Animations may not appear as expected.. For more information and steps for solving, visit https://motion.dev/troubleshooting/reduced-motion-disabled @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272188ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272353ms] [LOG] [Fast Refresh] done in 269ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272459ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272474ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272593ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272594ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/knockout-matches, path: /matches/knockout-matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272594ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/knockout-matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/knockout-matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/knockout-matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1272594ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1514019ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1514033ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1514126ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1514126ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams, path: /teams} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1514126ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1514126ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1517688ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1517701ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1517788ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1517788ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players, path: /players} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1517788ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1517789ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1519316ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1519336ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1519411ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1519411ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /favourites, path: /favourites} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1519411ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/favourites color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/favourites, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /favourites} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1519411ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1521120ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1521152ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1521264ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1521265ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /favourites, path: /favourites} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1521265ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/favourites color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/favourites, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /favourites} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1521265ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523290ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523340ms] [LOG] [Fast Refresh] done in 159ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523403ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523427ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523515ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523515ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /settings/notifications, path: /settings/notifications} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523515ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/settings/notifications color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/settings/notifications, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /settings/notifications} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1523515ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1525003ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1525035ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1525167ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1525167ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /settings/notifications, path: /settings/notifications} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1525168ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/settings/notifications color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/settings/notifications, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /settings/notifications} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1525170ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1526683ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1526711ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1526857ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1526858ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /search, path: /search} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1526858ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/search color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/search, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /search} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1526858ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1527649ms] [INFO] Autofocus processing was blocked because a document already has a focused element. @ http://localhost:14000/search:26
+[ 1529799ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1529825ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1529933ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1529933ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/[matchId], path: /matches/560639} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1529934ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/560639 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/560639, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/[matchId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1529935ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1534634ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1534654ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1534738ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1534738ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams/[teamId], path: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1534739ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams/[teamId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1534739ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1538759ms] [WARNING] Image with src "https://crests.football-data.org/57.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1539218ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1539230ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1539303ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1539303ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /statistics, path: /statistics} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1539303ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/statistics color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/statistics, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /statistics} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1539304ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1542511ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1542528ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1542655ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1542655ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /history, path: /history} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1542656ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/history color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/history, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /history} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1542658ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543039ms] [WARNING] You have Reduced Motion enabled on your device. Animations may not appear as expected.. For more information and steps for solving, visit https://motion.dev/troubleshooting/reduced-motion-disabled @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543581ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543594ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543679ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543679ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/knockout-matches, path: /matches/knockout-matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543679ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/knockout-matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/knockout-matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/knockout-matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1543679ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1566075ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1566090ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1566181ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1566181ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches/knockout-matches, path: /matches/knockout-matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1566182ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches/knockout-matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches/knockout-matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches/knockout-matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1566182ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569401ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:14000/admin:1
+[ 1569440ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569457ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569532ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="admin/" loading={null}>
+          <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/admin" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+                  <SegmentViewNode type="page" pagePath="admin/page...">
+                    <SegmentTrieNode>
+                    <Page>
+                      <AdminPage>
+                        <div className="page-shell">
+                          <SectionHeader>
+                          ...
+                            <CardContent className="grid gap-3...">
+                              <div className="grid gap-3...">
+                                <div>
+                                <Input className="h-11 round..." onChange={function onChange} placeholder="Enter admi..." ...>
+                                  <input
+                                    className="flex w-full border border-input bg-background px-3 py-2 text-foreground..."
+                                    type="password"
+                                    onChange={function onChange}
+                                    placeholder="Enter admin secret"
+                                    value=""
+-                                   style={{caret-color:"transparent"}}
+                                  >
+                          <FootballOperations secret="">
+                            <section className="grid gap-4...">
+                              <h2>
+                              <div className="flex flex-...">
+                                <select>
+                                <input
+                                  aria-label="Starting season year"
+                                  type="number"
+                                  min="1800"
+                                  max="2200"
+                                  placeholder="Current season"
+                                  value=""
+                                  onChange={function onChange}
+                                  className="rounded-lg border bg-card p-3 dark:bg-card"
+-                                 style={{caret-color:"transparent"}}
+                                >
+                                ...
+                          ...
+                  ...
+                ...
+      ...
+ @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:3273
+[ 1569595ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569595ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /admin, path: /admin} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569595ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/admin color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/admin, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /admin} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569595ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569893ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1569917ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570026ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570026ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /news/[slug], path: /news/f8256f9c-8cbd-5177-9db5-eab29011b562} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570026ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/news/f8256f9c-8cbd-5177-9db5-eab29011b562 color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/news/f8256f9c-8cbd-5177-9db5-eab29011b562, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /news/[slug]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570026ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570097ms] [WARNING] Image with src "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/541a/live/e9fcbc60-e0f5-11f1-97b9-9110abfffc70.jpg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570392ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:14000/page-does-not-exist:1
+[ 1570429ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570449ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570526ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570526ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /page-does-not-exist, path: /page-does-not-exist} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570526ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/page-does-not-exist color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/page-does-not-exist, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /page-does-not-exist} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1570526ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1600099ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1600113ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1600193ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1600194ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /matches, path: /matches} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1600194ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/matches color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/matches, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /matches} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1600194ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1603516ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1603530ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1603612ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1603612ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams/[teamId], path: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1603613ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams/[teamId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1603613ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1607980ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608186ms] [LOG] [Fast Refresh] done in 313ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608244ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608262ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608345ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608345ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /players/[playerId], path: /players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608345ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/players/fa82c0c8-94f4-5c28-8910-c9a6976a8c2e, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /players/[playerId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1608345ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1644326ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1644341ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1644428ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1644428ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams/[teamId], path: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1644429ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams/[teamId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1644429ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1701442ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1701459ms] [LOG] [HMR] connected @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1701558ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1701558ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /teams/[teamId], path: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd} @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1701558ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd color: rgb(120, 120, 120) color: inherit {o: http://localhost:14000/teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, dp: /teams/[teamId]} /_vercel/insights/view @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 1701561ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432

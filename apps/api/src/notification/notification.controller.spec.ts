@@ -1,3 +1,4 @@
+import { NotificationService } from './notification.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationController } from './notification.controller';
 
@@ -7,6 +8,7 @@ describe('NotificationController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [NotificationController],
+      providers: [{ provide: NotificationService, useValue: {} }],
     }).compile();
 
     controller = module.get<NotificationController>(NotificationController);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { useMatchContext } from "Context/MatchContext";
 import { cn } from "@/lib/utils/cn";
@@ -33,11 +34,13 @@ export function DynamicIsland({
           inlineMobile ? "flex-1" : "w-[110px] sm:w-[120px]",
         )}
       >
-        <div className="h-10 w-10 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-zinc-800 to-zinc-950 flex shrink-0 items-center justify-center border border-white/10 shadow-inner overflow-hidden relative">
+        <div className="h-10 w-10 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-zinc-800 to-zinc-950 flex shrink-0 items-center justify-center border border-border shadow-inner overflow-hidden relative">
           {match.homeTeam.logoUrl || match.homeTeam.flagUrl ? (
-            <img
-              src={match.homeTeam.logoUrl || match.homeTeam.flagUrl}
+            <Image
+              src={(match.homeTeam.logoUrl || match.homeTeam.flagUrl)!}
               alt={`${match.homeTeam.name} logo`}
+              width={28}
+              height={28}
               className="h-6 w-6 sm:h-7 sm:w-7 object-contain"
             />
           ) : (
@@ -60,7 +63,7 @@ export function DynamicIsland({
           {match.stage && (
             <span
               className={cn(
-                "text-[10px] text-zinc-400 font-bold",
+                "text-[10px] text-muted-foreground font-bold",
                 inlineMobile ? "line-clamp-2 leading-tight mt-0.5" : "truncate",
               )}
             >
@@ -115,7 +118,7 @@ export function DynamicIsland({
           {match.stage && (
             <span
               className={cn(
-                "text-[10px] text-zinc-400 font-bold",
+                "text-[10px] text-muted-foreground font-bold",
                 inlineMobile ? "line-clamp-2 leading-tight mt-0.5" : "truncate",
               )}
             >
@@ -123,11 +126,13 @@ export function DynamicIsland({
             </span>
           )}
         </div>
-        <div className="h-10 w-10 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-zinc-800 to-zinc-950 flex shrink-0 items-center justify-center border border-white/10 shadow-inner overflow-hidden relative">
+        <div className="h-10 w-10 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-zinc-800 to-zinc-950 flex shrink-0 items-center justify-center border border-border shadow-inner overflow-hidden relative">
           {match.awayTeam.logoUrl || match.awayTeam.flagUrl ? (
-            <img
-              src={match.awayTeam.logoUrl || match.awayTeam.flagUrl}
+            <Image
+              src={(match.awayTeam.logoUrl || match.awayTeam.flagUrl)!}
               alt={`${match.awayTeam.name} logo`}
+              width={28}
+              height={28}
               className="h-6 w-6 sm:h-7 sm:w-7 object-contain"
             />
           ) : (
@@ -140,7 +145,7 @@ export function DynamicIsland({
 
   if (inlineMobile) {
     return (
-      <div className="md:hidden w-full bg-black/80 backdrop-blur-3xl text-white rounded-[20px] shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-white/10 p-2 sm:p-3">
+      <div className="md:hidden w-full bg-black/80 backdrop-blur-3xl text-white rounded-lg shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-border p-2 sm:p-3">
         {renderExpandedContent()}
       </div>
     );
@@ -153,7 +158,7 @@ export function DynamicIsland({
         onClick={() => setIsExpanded(!isExpanded)}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
-        className="absolute top-0 cursor-pointer bg-black/80 backdrop-blur-3xl text-white rounded-[20px] flex items-center justify-between shadow-lg overflow-hidden border border-white/10 select-none"
+        className="absolute top-0 cursor-pointer bg-black/80 backdrop-blur-3xl text-white rounded-lg flex items-center justify-between shadow-lg overflow-hidden border border-border select-none"
         style={{
           width: isExpanded ? "min(380px, 92vw)" : "180px",
           height: isExpanded ? "80px" : "32px",

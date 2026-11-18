@@ -22,9 +22,13 @@ import { NotificationService } from './notification/notification.service';
 import { NotificationModule } from './notification/notification.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { HealthModule } from './health/health.module';
+import { TournamentsModule } from './tournaments/tournaments.module';
+import { FootballModule } from './football/football.module';
 
 @Module({
   imports: [
+    FootballModule,
+    TournamentsModule,
     MatchesModule,
     SearchModule,
     NewsModule,

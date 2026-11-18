@@ -6,10 +6,6 @@ function hasScorePair(
   return typeof pair?.home === "number" && typeof pair.away === "number";
 }
 
-function teamCode(teamName: string, shortCode?: string) {
-  return (shortCode || teamName).slice(0, 3).toUpperCase();
-}
-
 export function formatMatchScore(
   match: Match,
   options: { includeTeams?: boolean; pendingLabel?: string } = {},

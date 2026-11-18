@@ -1,4 +1,3 @@
-import { mockMatches } from "@/data/mock/matches";
 import { images } from "@/assets";
 import { apiUrl } from "@/lib/api/config";
 import type { Match, MatchGoal, MatchStatus, MatchTeam } from "@/types/match";
@@ -183,11 +182,15 @@ function inferGoalTeam(
     return fallbackTeam;
   }
 
-  if (normalizedGoalTeam === normalizeNameForCompare(readTeamName(match.homeTeam))) {
+  if (
+    normalizedGoalTeam === normalizeNameForCompare(readTeamName(match.homeTeam))
+  ) {
     return "home";
   }
 
-  if (normalizedGoalTeam === normalizeNameForCompare(readTeamName(match.awayTeam))) {
+  if (
+    normalizedGoalTeam === normalizeNameForCompare(readTeamName(match.awayTeam))
+  ) {
     return "away";
   }
 
@@ -373,7 +376,7 @@ export async function getMatches(): Promise<Match[]> {
     const data = (await response.json()) as Match[];
     return sortMatchesByDate(data.map(normalizeMatch));
   } catch {
-    return sortMatchesByDate(mockMatches);
+    throw new Error("Matches are temporarily unavailable.");
   }
 }
 
@@ -386,7 +389,7 @@ export async function getMatchById(matchId: string): Promise<Match> {
     const data = (await response.json()) as Match;
     return data && normalizeMatch(data);
   } catch {
-    return mockMatches.find((match) => match.id === matchId)!;
+    throw new Error("Match is unavailable or does not exist.");
   }
 }
 
@@ -419,14 +422,6 @@ export async function searchMatchesByTeam(team: string): Promise<Match[]> {
     const data = (await response.json()) as Match[];
     return sortMatchesByDate(data.map(normalizeMatch));
   } catch {
-    const normalizedQuery = query.toLowerCase();
-
-    return sortMatchesByDate(
-      mockMatches.filter(
-        (match) =>
-          match.homeTeam.name.toLowerCase().includes(normalizedQuery) ||
-          match.awayTeam.name.toLowerCase().includes(normalizedQuery),
-      ),
-    );
+    throw new Error("Match search is temporarily unavailable.");
   }
 }

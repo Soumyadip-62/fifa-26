@@ -22,7 +22,7 @@ export function TeamList({ teams }: TeamListProps) {
 
     return Object.entries(grouped).map(([group, teams]) => (
       <div key={group} className="col-span-1 grid gap-3">
-        <h3 className="font-heading text-xs font-black uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-1">
+        <h3 className="font-heading text-xs font-black uppercase tracking-wider text-muted-foreground dark:text-muted-foreground mb-1">
           Group {group}
         </h3>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2 items-baseline">

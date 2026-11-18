@@ -11,6 +11,8 @@ export async function registerPush() {
 
   isRegistering = true;
   try {
+    if (!process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY)
+      throw new Error("Firebase VAPID key is not configured.");
     const messaging = await getFirebaseMessaging();
     if (!messaging) throw new Error("Messaging unsupported");
 
@@ -26,7 +28,6 @@ export async function registerPush() {
       vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
     });
 
-    console.log("Successfully got token:", token);
     cachedToken = token;
     return token;
   } catch (err) {

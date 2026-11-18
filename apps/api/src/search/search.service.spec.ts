@@ -44,25 +44,25 @@ describe('SearchService', () => {
     expect(service).toBeDefined();
   });
 
-  it('searches matches by home team', () => {
-    expect(service.searchMatchesByTeam('mex')).toEqual([
+  it('searches matches by home team', async () => {
+    expect(await service.searchMatchesByTeam('mex')).toEqual([
       expect.objectContaining({ id: 'wc2026-ga-01' }),
     ]);
   });
 
-  it('searches matches by away team', () => {
-    expect(service.searchMatchesByTeam('morocco')).toEqual([
+  it('searches matches by away team', async () => {
+    expect(await service.searchMatchesByTeam('morocco')).toEqual([
       expect.objectContaining({ id: 'wc2026-gc-01' }),
     ]);
   });
 
-  it('normalizes ampersands while searching', () => {
-    expect(service.searchMatchesByTeam('bosnia and herzegovina')).toEqual([
-      expect.objectContaining({ id: 'wc2026-gb-01' }),
-    ]);
+  it('normalizes ampersands while searching', async () => {
+    expect(await service.searchMatchesByTeam('bosnia and herzegovina')).toEqual(
+      [expect.objectContaining({ id: 'wc2026-gb-01' })],
+    );
   });
 
-  it('returns no matches for an empty query', () => {
-    expect(service.searchMatchesByTeam('')).toEqual([]);
+  it('returns no matches for an empty query', async () => {
+    expect(await service.searchMatchesByTeam('')).toEqual([]);
   });
 });

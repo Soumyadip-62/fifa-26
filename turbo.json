@@ -1,21 +1,58 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "globalEnv": [
+    "NEXT_PUBLIC_BACKEND_URL",
+    "NEXT_PUBLIC_FIREBASE_VAPID_KEY",
+    "NEXT_PUBLIC_FIREBASE_API_KEY",
+    "NEXT_PUBLIC_FIREBASE_APP_ID",
+    "NEXT_PUBLIC_MESSAGINGID",
+    "NEXT_PUBLIC_MEASUREMENT_ID"
+  ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": [
+        "^lint"
+      ]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": [
+        "^check-types"
+      ]
     },
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "api#dev": {
+      "passThroughEnv": [
+        "DATABASE_URL",
+        "FOOTBALL_DATA_API_KEY",
+        "FOOTBALL_DATA_REQUESTS_PER_MINUTE",
+        "FOOTBALL_SCHEDULER",
+        "FOOTBALL_SCHEDULER_SECRET",
+        "FOOTBALL_PUSH_ENABLED",
+        "FRONTEND_URL"
+      ],
+      "cache": false,
+      "persistent": true
     }
-  }
+  },
+  "globalDependencies": [
+    "packages/football-contracts/index.d.ts"
+  ]
 }

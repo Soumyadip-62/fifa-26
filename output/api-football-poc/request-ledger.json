@@ -1,0 +1,17 @@
+[
+  {
+    "at": "2026-11-16T14:23:14.904Z",
+    "host": "v3.football.api-sports.io",
+    "resource": "/status",
+    "attempted": true,
+    "status": 200,
+    "headers": {
+      "date": "Mon, 16 Nov 2026 14:23:16 GMT",
+      "x-ratelimit-requests-limit": "100",
+      "x-ratelimit-requests-remaining": "99",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9"
+    },
+    "file": "response-f1a03c9fa10610.json"
+  }
+]

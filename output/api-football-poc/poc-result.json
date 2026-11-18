@@ -1,0 +1,47 @@
+{
+  "status": "blocked",
+  "blocker": "API-Football account suspended",
+  "credentialConfigured": true,
+  "authenticationMode": "direct API-Sports",
+  "host": "v3.football.api-sports.io",
+  "resource": "/status",
+  "httpStatus": 200,
+  "providerErrors": {
+    "access": "Your account is suspended, check on https://dashboard.api-football.com."
+  },
+  "providerResults": 0,
+  "requestsAttempted": 1,
+  "responseQuota": {
+    "dailyLimit": 100,
+    "dailyRemaining": 99,
+    "perMinuteLimit": 10,
+    "perMinuteRemaining": 9
+  },
+  "quotaNote": "Returned headers are recorded as observed; account plan details were not returned and cannot be verified. No paid plan was purchased.",
+  "proofOfConceptPassed": false,
+  "fixtureIdsIdentified": [],
+  "matchDataRetrieved": {
+    "events": false,
+    "statistics": false,
+    "lineups": false,
+    "substitutes": false,
+    "playerStatistics": false
+  },
+  "coverageVerified": false,
+  "historicalSeasonAccessVerified": false,
+  "currentSeasonAccessVerified": false,
+  "completedMatchTests": "not run: upstream account-level access denied",
+  "upcomingAndLiveMatchTests": "not run: upstream account-level access denied",
+  "mappingAndAggregationImplementation": "not started: user explicitly requires successful proof of concept before implementation",
+  "applicationFilesChanged": [],
+  "databaseMigrations": [],
+  "databaseChanges": false,
+  "deploymentPerformed": false,
+  "artifactFilesAdded": [
+    "output/api-football-poc/probe-request.cjs",
+    "output/api-football-poc/request-ledger.json",
+    "output/api-football-poc/response-f1a03c9fa10610.json",
+    "output/api-football-poc/poc-result.json"
+  ],
+  "nextAction": "Account owner must resolve the API-Football dashboard suspension. Then revalidate account access with a new status request before league/season coverage and fixture matching. Keep the unsuccessful response and request ledger as evidence; do not treat the cached suspension response as a new verification."
+}

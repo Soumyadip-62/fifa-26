@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { BellRing, Database, KeyRound, RefreshCw, Smartphone } from "lucide-react";
+import { FootballOperations } from "./FootballOperations";
+import {
+  BellRing,
+  Database,
+  KeyRound,
+  RefreshCw,
+  Smartphone,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -41,7 +48,7 @@ export function AdminPage() {
   const [adminSecret, setAdminSecret] = useState(() =>
     typeof window === "undefined"
       ? ""
-      : window.localStorage.getItem(ADMIN_SECRET_STORAGE_KEY) ?? "",
+      : (window.localStorage.getItem(ADMIN_SECRET_STORAGE_KEY) ?? ""),
   );
 
   const updateAdminSecret = (value: string) => {
@@ -81,7 +88,9 @@ export function AdminPage() {
     );
   };
 
-  const sendNotificationTest = async (type?: (typeof testTypes)[number]["key"]) => {
+  const sendNotificationTest = async (
+    type?: (typeof testTypes)[number]["key"],
+  ) => {
     setNotificationTest({ loading: true, message: "", error: "" });
 
     try {
@@ -92,7 +101,11 @@ export function AdminPage() {
       }
 
       setDeviceToken(token);
-      const result = await sendDeviceTestNotifications(token, type, adminSecret);
+      const result = await sendDeviceTestNotifications(
+        token,
+        type,
+        adminSecret,
+      );
       setNotificationTest({
         loading: false,
         message: `Sent ${result.sent}/${result.total} test notification(s) to this device only.`,
@@ -111,25 +124,25 @@ export function AdminPage() {
   };
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+    <div className="page-shell">
       <SectionHeader
         eyebrow="Admin"
         title="Operations"
         description="Sync tournament data and test this device's notifications."
       />
 
-      <Card className="rounded-[28px] border border-black/5 bg-white/80 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/50">
+      <Card className="rounded-lg border border-border bg-card shadow-none backdrop-blur-md dark:border-border dark:bg-card">
         <CardContent className="grid gap-3 p-5 sm:p-6">
           <div className="flex items-center gap-3">
             <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
               <KeyRound size={18} />
             </span>
             <div>
-              <h2 className="font-heading text-lg font-black text-zinc-950 dark:text-white">
+              <h2 className="font-heading text-lg font-black text-foreground dark:text-white">
                 Admin Secret
               </h2>
-              <p className="text-xs font-semibold text-zinc-500">
-                Required when the API has ADMIN_SECRET configured.
+              <p className="text-xs font-semibold text-muted-foreground">
+                Required for all administrative operations.
               </p>
             </div>
           </div>
@@ -143,18 +156,19 @@ export function AdminPage() {
         </CardContent>
       </Card>
 
+      <FootballOperations secret={adminSecret} />
       <section className="grid gap-5 lg:grid-cols-2">
-        <Card className="rounded-[28px] border border-black/5 bg-white/80 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/50">
+        <Card className="rounded-lg border border-border bg-card shadow-none backdrop-blur-md dark:border-border dark:bg-card">
           <CardContent className="grid gap-5 p-5 sm:p-6">
             <div className="flex items-center gap-3">
               <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
                 <Database size={18} />
               </span>
               <div>
-                <h2 className="font-heading text-lg font-black text-zinc-950 dark:text-white">
+                <h2 className="font-heading text-lg font-black text-foreground dark:text-white">
                   Database Sync
                 </h2>
-                <p className="text-xs font-semibold text-zinc-500">
+                <p className="text-xs font-semibold text-muted-foreground">
                   Refresh matches and qualification data.
                 </p>
               </div>
@@ -205,17 +219,17 @@ export function AdminPage() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-[28px] border border-black/5 bg-white/80 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/50">
+        <Card className="rounded-lg border border-border bg-card shadow-none backdrop-blur-md dark:border-border dark:bg-card">
           <CardContent className="grid gap-5 p-5 sm:p-6">
             <div className="flex items-center gap-3">
               <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
                 <Smartphone size={18} />
               </span>
               <div>
-                <h2 className="font-heading text-lg font-black text-zinc-950 dark:text-white">
+                <h2 className="font-heading text-lg font-black text-foreground dark:text-white">
                   Device Notifications
                 </h2>
-                <p className="text-xs font-semibold text-zinc-500">
+                <p className="text-xs font-semibold text-muted-foreground">
                   Sends only to this browser device token.
                 </p>
               </div>
@@ -237,7 +251,7 @@ export function AdminPage() {
             </div>
 
             {deviceToken ? (
-              <p className="truncate rounded-2xl border border-black/5 bg-zinc-100/60 px-3 py-2 text-[10px] font-semibold text-zinc-500 dark:border-white/10 dark:bg-zinc-800/30">
+              <p className="truncate rounded-2xl border border-border bg-secondary px-3 py-2 text-[10px] font-semibold text-muted-foreground dark:border-border dark:bg-secondary">
                 Device token: {deviceToken}
               </p>
             ) : null}
@@ -259,7 +273,9 @@ function StatusLine({ state }: { state: ActionState }) {
   }
 
   if (state.message) {
-    return <p className="text-xs font-bold text-emerald-500">{state.message}</p>;
+    return (
+      <p className="text-xs font-bold text-emerald-500">{state.message}</p>
+    );
   }
 
   return null;

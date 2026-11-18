@@ -105,7 +105,7 @@ function getCountryCode(country: string | null | undefined) {
         if (regionName && normalize(regionName) === normalizedCountry) {
           return code.toLowerCase();
         }
-      } catch (e) {
+      } catch {
         // Ignore invalid codes
       }
     }
