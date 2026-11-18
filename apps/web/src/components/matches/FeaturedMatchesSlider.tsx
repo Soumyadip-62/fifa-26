@@ -147,10 +147,10 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
         />
 
         {slides.length > 1 && (
-          <div className="flex shrink-0 items-center gap-1.5 bg-zinc-200/50 p-1 rounded-full dark:bg-zinc-800/50 border border-black/5 dark:border-white/5">
+          <div className="flex shrink-0 items-center gap-1.5 bg-secondary p-1 rounded-full dark:bg-secondary border border-border dark:border-border">
             <button
               aria-label="Previous day"
-              className="flex size-8 items-center justify-center rounded-full bg-white dark:bg-zinc-700 text-zinc-700 dark:text-white shadow-sm transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-20"
+              className="flex size-8 items-center justify-center rounded-full bg-card dark:bg-zinc-700 text-muted-foreground dark:text-white shadow-none transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-20"
               disabled={activeIndex === 0}
               onClick={() => scrollTo(activeIndex - 1)}
               type="button"
@@ -159,7 +159,7 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
             </button>
             <button
               aria-label="Next day"
-              className="flex size-8 items-center justify-center rounded-full bg-white dark:bg-zinc-700 text-zinc-700 dark:text-white shadow-sm transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-20"
+              className="flex size-8 items-center justify-center rounded-full bg-card dark:bg-zinc-700 text-muted-foreground dark:text-white shadow-none transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-20"
               disabled={activeIndex === slides.length - 1}
               onClick={() => scrollTo(activeIndex + 1)}
               type="button"
@@ -184,12 +184,12 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
                 className={`inline-flex items-center rounded-full px-3 py-0.5 text-[10px] font-bold tracking-wide ${
                   slide.tag === "today"
                     ? "bg-primary/10 text-primary"
-                    : "bg-zinc-200/60 dark:bg-zinc-800/40 text-zinc-500 dark:text-zinc-400 border border-black/5 dark:border-white/5"
+                    : "bg-secondary dark:bg-secondary text-muted-foreground dark:text-muted-foreground border border-border dark:border-border"
                 }`}
               >
                 {slide.label}
               </span>
-              <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500">
+              <span className="text-[10px] font-semibold text-muted-foreground dark:text-muted-foreground">
                 {slide.matches.length}{" "}
                 {slide.matches.length === 1 ? "match" : "matches"}
               </span>
@@ -219,7 +219,6 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
           ))}
         </div>
       )}
-
     </MotionReveal>
   );
 }
@@ -229,7 +228,7 @@ export function FeaturedMatchesSlider({ matches }: { matches: Match[] }) {
 /* ------------------------------------------------------------------ */
 
 const ARROW_BTN =
-  "absolute top-1/2 -translate-y-1/2 z-10 hidden md:flex size-9 items-center justify-center rounded-full border border-neutral-200 bg-white/90 text-neutral-600 shadow-lg backdrop-blur transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 disabled:pointer-events-none disabled:opacity-0 dark:border-white/10 dark:bg-neutral-900/90 dark:text-neutral-300 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-950/60 dark:hover:text-emerald-400";
+  "absolute top-1/2 -translate-y-1/2 z-10 hidden md:flex size-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-lg backdrop-blur transition hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 disabled:pointer-events-none disabled:opacity-0 dark:border-border dark:bg-card dark:text-secondary-foreground dark:hover:border-emerald-500/50 dark:hover:bg-emerald-950/60 dark:hover:text-emerald-400";
 
 function MatchRowSlider({ matches }: { matches: Match[] }) {
   const rowRef = useRef<HTMLDivElement>(null);

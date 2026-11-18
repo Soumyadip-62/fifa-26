@@ -1,47 +1,48 @@
-"use client";
-import { EmptyState } from "@/components/common/EmptyState";
-import { ErrorState } from "@/components/common/ErrorState";
-
-import { LoadingState } from "@/components/common/LoadingState";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { NewsList } from "@/components/news/NewsList";
-import { getNewsArticles } from "@/lib/api/news";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { Suspense } from "react";
+import { getFootballData } from "@/lib/api/football";
+import { NewsExplorer } from "./NewsExplorer";
+import { getFootballNewsFeed } from "@/lib/api/news";
+import { ErrorState } from "@/components/common/ErrorState";
+import type { FootballNewsFeed } from "@/lib/api/news";
 
-export function NewsPage() {
-  const {
-    data: articles = [],
-    isError,
-    isSuccess,
-  } = useSuspenseQuery({
-    queryKey: ["news"],
-    queryFn: getNewsArticles,
-  });
-
+export async function NewsPage() {
+  const { competitions, teams } = await getFootballData();
+  let feed: FootballNewsFeed;
+  try {
+    feed = await getFootballNewsFeed();
+  } catch {
+    return (
+      <div className="page-shell">
+        <SectionHeader eyebrow="Newsroom" title="Football news" />
+        <ErrorState
+          title="News unavailable"
+          message="We couldn’t load the latest stories. Please try again later."
+        />
+      </div>
+    );
+  }
   return (
-    <div className="mx-auto max-w-7xl">
-      <Suspense fallback={<LoadingState label="Loading news articles..." />}>
-        {isError ? (
-          <ErrorState message="Failed to load news articles." />
-        ) : (
-          <div className="mx-auto grid w-full gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-            <SectionHeader
-              eyebrow="News"
-              title="News and blogs"
-              description="Editorial content served through the same function shape future backend data will use."
-            />
-            {isSuccess && articles.length ? (
-              <NewsList articles={articles} />
-            ) : (
-              <EmptyState
-                title="No articles found"
-                description="Articles will appear here once data is available."
-              />
-            )}
-          </div>
-        )}
-      </Suspense>
+    <div className="page-shell">
+      <SectionHeader
+        eyebrow="Newsroom"
+        title="Football news"
+        description="Reports, previews and stories from every supported competition."
+      />
+      {feed.stale ? (
+        <p role="status" className="text-sm text-muted-foreground">
+          Showing saved stories while the latest news is unavailable.
+        </p>
+      ) : null}
+      {Object.keys(feed.errors).length ? (
+        <p role="status" className="text-sm text-muted-foreground">
+          {Object.values(feed.errors).join(" ")}
+        </p>
+      ) : null}
+      <NewsExplorer
+        articles={feed.articles}
+        competitions={competitions}
+        teams={teams}
+      />
     </div>
   );
 }

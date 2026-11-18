@@ -3,7 +3,9 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { TabBar } from "./TabBar";
 import { QueryProvider } from "./QueryProvider";
-import { DynamicIsland } from "./DynamicIsland";
+import { PushNotificationListener } from "../providers/PushNotificationListener";
+import { FootballRuntime } from "../football/FootballRuntime";
+import { PageContext } from "./PageContext";
 
 export type AppShellProps = {
   children: ReactNode;
@@ -11,10 +13,18 @@ export type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="app-bg flex min-h-svh flex-col">
+    <div className="companion-app dark app-bg flex min-h-svh flex-col">
       <QueryProvider>
+        <FootballRuntime />
+        <PushNotificationListener />
         <Header />
-        <main className="flex-1 pt-16 pb-24 md:pt-16 lg:pb-0">{children}</main>
+        <main
+          id="main-content"
+          className="app-main min-h-[calc(100svh-4rem)] w-full flex-1 pt-16"
+        >
+          <PageContext />
+          {children}
+        </main>
         <TabBar />
         <Footer />
       </QueryProvider>

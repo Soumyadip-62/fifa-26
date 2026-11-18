@@ -3,7 +3,19 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { ExternalLink, X, Compass, Shield, Award, Calendar, MapPin, Ruler, Weight, Info, User } from "lucide-react";
+import {
+  ExternalLink,
+  X,
+  Compass,
+  Shield,
+  Award,
+  Calendar,
+  MapPin,
+  Ruler,
+  Weight,
+  Info,
+  User,
+} from "lucide-react";
 import { images } from "@/assets";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,7 +24,6 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
@@ -125,27 +136,26 @@ const PlayerDetailsDrawer = ({
   return (
     <Drawer direction="right" open={isOpen} onOpenChange={setIsOpen}>
       {children ? <DrawerTrigger asChild>{children}</DrawerTrigger> : null}
-      <DrawerContent className="inset-y-0 left-auto right-0 mt-0 h-full max-h-none w-[min(100vw,34rem)] max-w-none rounded-l-[32px] rounded-r-none rounded-t-none border-l border-black/5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl shadow-2xl dark:border-white/10">
+      <DrawerContent className="inset-y-0 left-auto right-0 mt-0 h-full max-h-none w-[min(100vw,34rem)] max-w-none rounded-l-[32px] rounded-r-none rounded-t-none border-l border-border bg-card dark:bg-card backdrop-blur-2xl shadow-2xl dark:border-border">
         <div className="scrollbar-hide grid h-full w-full content-start gap-6 overflow-y-auto px-5 py-6 sm:px-8 sm:py-8">
-          
           {/* HEADER DESIGN */}
-          <div className="relative flex items-start justify-between gap-6 border-b border-black/5 pb-4 dark:border-white/5">
+          <div className="relative flex items-start justify-between gap-6 border-b border-border pb-4 dark:border-border">
             <div className="min-w-0">
               <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
                 Squad Member
               </span>
-              <DrawerTitle className="font-heading truncate text-2xl font-black tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
+              <DrawerTitle className="font-heading truncate text-2xl font-black tracking-tight text-foreground dark:text-white sm:text-3xl">
                 {player.name}
               </DrawerTitle>
-              <DrawerDescription className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mt-0.5">
+              <DrawerDescription className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground mt-0.5">
                 {player.position || "Player Profile"}
               </DrawerDescription>
             </div>
-            
+
             <DrawerClose asChild>
               <Button
                 aria-label="Close player details"
-                className="h-9 w-9 p-0 rounded-full border border-black/5 dark:border-white/10 text-zinc-550 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                className="h-9 w-9 p-0 rounded-full border border-border dark:border-border text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white hover:bg-secondary dark:hover:bg-secondary transition-colors"
                 size="sm"
                 variant="ghost"
               >
@@ -156,8 +166,8 @@ const PlayerDetailsDrawer = ({
 
           <div className="grid gap-6 md:grid-cols-[180px_1fr] md:items-start">
             {/* PORTRAIT CARD */}
-            <div className="group relative aspect-[4/5] w-full overflow-hidden rounded-[24px] border border-black/5 bg-zinc-50 p-1 dark:border-white/5 dark:bg-zinc-850/50 shadow-xs">
-              <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-zinc-900">
+            <div className="group relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-border bg-secondary p-1 dark:border-border dark:bg-zinc-850/50 shadow-none">
+              <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-card">
                 <Image
                   src={imageUrl ?? images.placeholders.player}
                   alt={`${player.name} player portrait`}
@@ -172,17 +182,26 @@ const PlayerDetailsDrawer = ({
               {/* BADGES ROW */}
               <div className="flex flex-wrap gap-2">
                 {shirtNumber ? (
-                  <Badge variant="secondary" className="font-bold text-[10px] bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 px-2.5 py-1 rounded-full border-0 shadow-xs">
+                  <Badge
+                    variant="secondary"
+                    className="font-bold text-[10px] bg-secondary text-muted-foreground dark:bg-secondary dark:text-secondary-foreground px-2.5 py-1 rounded-full border-0 shadow-none"
+                  >
                     No. {shirtNumber}
                   </Badge>
                 ) : null}
                 {getTextValue(player.strStatus) ? (
-                  <Badge variant="success" className="font-bold text-[10px] px-2.5 py-1 rounded-full shadow-xs bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-0">
+                  <Badge
+                    variant="success"
+                    className="font-bold text-[10px] px-2.5 py-1 rounded-full shadow-none bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-0"
+                  >
                     {getTextValue(player.strStatus)}
                   </Badge>
                 ) : null}
                 {getTextValue(player.strNationality) ? (
-                  <Badge variant="outline" className="font-bold text-[10px] px-2.5 py-1 rounded-full border-black/5 dark:border-white/10 bg-zinc-50/50 dark:bg-black text-zinc-650 dark:text-zinc-400">
+                  <Badge
+                    variant="outline"
+                    className="font-bold text-[10px] px-2.5 py-1 rounded-full border-border dark:border-border bg-secondary dark:bg-black text-zinc-650 dark:text-muted-foreground"
+                  >
                     {getTextValue(player.strNationality)}
                   </Badge>
                 ) : null}
@@ -192,18 +211,18 @@ const PlayerDetailsDrawer = ({
               {details.length ? (
                 <div className="grid gap-3 sm:grid-cols-1">
                   {details.map((detail) => (
-                    <div 
-                      className="flex items-center gap-3 rounded-[20px] border border-black/5 bg-zinc-50/50 p-3 dark:border-white/5 dark:bg-black shadow-xs"
+                    <div
+                      className="flex items-center gap-3 rounded-lg border border-border bg-secondary p-3 dark:border-border dark:bg-black shadow-none"
                       key={detail.label}
                     >
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-white border border-black/5 dark:bg-zinc-850 dark:border-white/5 shadow-xs">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-card border border-border dark:bg-zinc-850 dark:border-border shadow-none">
                         {getDetailIcon(detail.label)}
                       </div>
                       <div className="min-w-0">
-                        <span className="text-[9px] font-black uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                        <span className="text-[9px] font-black uppercase tracking-wider text-muted-foreground dark:text-muted-foreground block">
                           {detail.label}
                         </span>
-                        <span className="text-xs font-semibold text-zinc-800 dark:text-zinc-200 block truncate">
+                        <span className="text-xs font-semibold text-zinc-800 dark:text-secondary-foreground block truncate">
                           {detail.value}
                         </span>
                       </div>
@@ -216,12 +235,12 @@ const PlayerDetailsDrawer = ({
 
           {/* DESCRIPTION */}
           {description ? (
-            <div className="grid gap-2 border-t border-black/5 pt-5 dark:border-white/5">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+            <div className="grid gap-2 border-t border-border pt-5 dark:border-border">
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
                 Biography
               </h3>
               <ReadMoreText
-                className="text-xs leading-relaxed text-zinc-650 dark:text-zinc-300"
+                className="text-xs leading-relaxed text-zinc-650 dark:text-secondary-foreground"
                 maxLength={360}
                 text={description}
               />
@@ -230,14 +249,14 @@ const PlayerDetailsDrawer = ({
 
           {/* SOCIAL LINKS */}
           {socialLinks.length ? (
-            <div className="grid gap-3 border-t border-black/5 pt-5 dark:border-white/5">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+            <div className="grid gap-3 border-t border-border pt-5 dark:border-border">
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
                 Official Channels
               </h3>
               <div className="flex flex-wrap gap-2">
                 {socialLinks.map((link) => (
                   <a
-                    className="inline-flex items-center gap-1.5 rounded-full border border-black/5 bg-zinc-50/50 px-4 py-2 text-xs font-bold text-zinc-650 transition-all hover:scale-[1.01] hover:border-primary hover:text-primary dark:border-white/5 dark:bg-zinc-850/30 dark:text-zinc-400 dark:hover:border-primary dark:hover:text-primary shadow-xs"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-4 py-2 text-xs font-bold text-zinc-650 transition-all hover:scale-[1.01] hover:border-primary hover:text-primary dark:border-border dark:bg-zinc-850/30 dark:text-muted-foreground dark:hover:border-primary dark:hover:text-primary shadow-none"
                     href={getExternalHref(link.href)}
                     key={link.label}
                     rel="noreferrer"

@@ -1,3 +1,4 @@
+/* global firebase */
 importScripts(
   "https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js",
 );
@@ -32,4 +33,13 @@ messaging.onBackgroundMessage((payload) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("notificationclick", (event) => {
+  const target = event.notification.data?.url;
+  if (!target) return;
+  const url = new URL(target, self.location.origin);
+  if (url.origin !== self.location.origin) return;
+  event.notification.close();
+  event.waitUntil(self.clients.openWindow(url.href));
 });

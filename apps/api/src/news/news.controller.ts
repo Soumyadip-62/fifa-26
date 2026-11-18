@@ -10,6 +10,11 @@ export class NewsController {
     return this.newsService.getLatestNews();
   }
 
+  @Get('competitions/:competitionId')
+  getCompetitionNews(@Param('competitionId') id: string) {
+    return this.newsService.getCompetitionNews(id);
+  }
+
   @Get(':keywords')
   getNewsByKeywords(@Param('keywords') keywords: string) {
     return this.newsService.getNewsByKeywords(keywords);

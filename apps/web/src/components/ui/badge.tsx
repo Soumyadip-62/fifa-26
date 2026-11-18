@@ -7,12 +7,12 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-transparent bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-950",
-        secondary: "border-transparent bg-neutral-100 text-neutral-700 dark:bg-neutral-900 dark:text-neutral-300",
-        outline: "border-neutral-200 text-neutral-700 dark:border-neutral-700 dark:text-neutral-300",
-        success: "border-transparent bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
-        danger: "border-transparent bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300",
-        warning: "border-transparent bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300",
+        default: "border-transparent bg-primary/12 text-primary",
+        secondary: "border-transparent bg-secondary text-secondary-foreground",
+        outline: "border-border text-muted-foreground",
+        success: "border-transparent bg-primary/12 text-primary",
+        danger: "border-transparent bg-destructive/12 text-destructive",
+        warning: "border-transparent bg-amber-500/12 text-amber-300",
       },
     },
     defaultVariants: {
@@ -21,8 +21,11 @@ const badgeVariants = cva(
   },
 );
 
-export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & VariantProps<typeof badgeVariants>;
+export type BadgeProps = React.HTMLAttributes<HTMLSpanElement> &
+  VariantProps<typeof badgeVariants>;
 
 export function Badge({ className, variant, ...props }: BadgeProps) {
-  return <span className={cn(badgeVariants({ variant }), className)} {...props} />;
+  return (
+    <span className={cn(badgeVariants({ variant }), className)} {...props} />
+  );
 }

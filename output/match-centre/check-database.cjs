@@ -1,0 +1,4 @@
+require('../../apps/api/node_modules/dotenv').config({path:'apps/api/.env',quiet:true});
+const {Client}=require('../../apps/api/node_modules/pg');
+async function main(){const db=new Client({connectionString:process.env.DATABASE_URL,ssl:{rejectUnauthorized:false},connectionTimeoutMillis:8000,query_timeout:10000});const t=Date.now();await db.connect();try{console.log(JSON.stringify({ms:Date.now()-t,activity:(await db.query(`SELECT state,wait_event_type,wait_event,count(*)::int FROM pg_stat_activity WHERE datname=current_database() GROUP BY state,wait_event_type,wait_event`)).rows}));console.log(JSON.stringify({jobs:(await db.query(`SELECT name,"lastStartedAt","lastSuccessAt","lastError" FROM football_jobs WHERE name IN ('scores','schedules')`)).rows}));}finally{await db.end()}}
+main().catch(error=>{console.log(error.message);process.exitCode=1});

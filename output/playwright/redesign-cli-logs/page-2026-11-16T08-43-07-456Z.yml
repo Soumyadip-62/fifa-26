@@ -1,0 +1,251 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Football Companion home" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]:
+            - strong [ref=e8]: Football
+            - generic [ref=e9]: Companion
+        - navigation "Primary navigation" [ref=e10]:
+          - link "Home" [ref=e11] [cursor=pointer]:
+            - /url: /
+          - group [ref=e12]:
+            - generic "Competitions" [ref=e13] [cursor=pointer]
+          - link "Matches" [ref=e16] [cursor=pointer]:
+            - /url: /matches
+          - link "Teams" [ref=e17] [cursor=pointer]:
+            - /url: /teams
+          - link "Players" [ref=e18] [cursor=pointer]:
+            - /url: /players
+          - link "Statistics" [ref=e19] [cursor=pointer]:
+            - /url: /statistics
+          - link "News" [ref=e20] [cursor=pointer]:
+            - /url: /news
+        - link "Search football" [ref=e21] [cursor=pointer]:
+          - /url: /search
+        - link "Notification settings" [ref=e25] [cursor=pointer]:
+          - /url: /settings/notifications
+        - button "Open profile settings" [ref=e29]
+    - main [ref=e34]:
+      - generic [ref=e35]:
+        - region "Scores, Fixtures, Stats & More." [ref=e36]:
+          - generic [ref=e37]:
+            - img "Football's biggest stars at the stadium" [ref=e38]
+            - generic [ref=e40]:
+              - paragraph [ref=e41]: Live football, always with you
+              - heading "Scores, Fixtures, Stats & More." [level=1] [ref=e43]: Scores, Fixtures,Stats & More.
+              - paragraph [ref=e44]: From the World Cup to your favourite club. Your whole football world, in one place.
+              - generic [ref=e45]:
+                - link "Live Matches" [ref=e46] [cursor=pointer]:
+                  - /url: /live
+                - link "Match Calendar" [ref=e51] [cursor=pointer]:
+                  - /url: /matches
+            - generic [ref=e55]: THE BEAUTIFUL GAME. EVERY DAY.
+          - generic "Football coverage" [ref=e56]:
+            - generic [ref=e57]:
+              - strong [ref=e60]: "0"
+              - generic [ref=e61]: Live matches
+            - generic [ref=e62]:
+              - strong [ref=e69]: "5"
+              - generic [ref=e70]: Competitions
+            - generic [ref=e71]:
+              - strong [ref=e74]: "128"
+              - generic [ref=e75]: Teams
+            - generic [ref=e76]:
+              - strong [ref=e82]: 2,206
+              - generic [ref=e83]: Players
+        - generic [ref=e84]:
+          - region "Live now" [ref=e85]:
+            - generic [ref=e86]:
+              - heading "Live now" [level=2] [ref=e87]
+              - 'link "View all: Live now" [ref=e94] [cursor=pointer]':
+                - /url: /live
+                - text: View all
+            - paragraph [ref=e100]:
+              - strong [ref=e101]: No matches live right now.
+              - text: Next kick-off is coming up.
+            - article [ref=e102]:
+              - link "FC Bayern München versus 1. FC Köln, Scheduled, 21 Nov, 01:00 am IST" [ref=e103] [cursor=pointer]:
+                - /url: /matches/565859
+                - generic [ref=e104]:
+                  - generic [ref=e105]: Bundesliga
+                  - generic [ref=e112]: Scheduled
+                - generic [ref=e113]:
+                  - generic [ref=e114]:
+                    - img "FC Bayern München logo" [ref=e117]
+                    - generic "FC Bayern München" [ref=e118]: Bayern
+                  - strong [ref=e119]: vs
+                  - generic [ref=e120]:
+                    - img "1. FC Köln logo" [ref=e123]
+                    - generic "1. FC Köln" [ref=e124]
+                - time [ref=e130]: 21 Nov, 01:00 am IST
+              - button "Save favourite" [ref=e135]
+          - region "Your favourites" [ref=e138]:
+            - generic [ref=e139]:
+              - heading "Your favourites" [level=2] [ref=e140]
+              - 'link "Manage: Your favourites" [ref=e143] [cursor=pointer]':
+                - /url: /favourites
+                - text: Manage
+            - paragraph [ref=e147]: Your clubs. Your matchday. Follow a team to get started.
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - link "Arsenal FC logo Arsenal" [ref=e150] [cursor=pointer]:
+                  - /url: /teams/a6e4c9ef-3c39-5ff6-8d23-37faf57967cd
+                  - img "Arsenal FC logo" [ref=e153]
+                  - generic "Arsenal FC" [ref=e154]: Arsenal
+                - button "Follow Arsenal FC" [ref=e155] [cursor=pointer]
+              - generic [ref=e158]:
+                - link "Aston Villa FC logo Aston Villa" [ref=e159] [cursor=pointer]:
+                  - /url: /teams/d85ae87e-efa9-537b-88d4-18ede6ea5a43
+                  - img "Aston Villa FC logo" [ref=e162]
+                  - generic "Aston Villa FC" [ref=e163]: Aston Villa
+                - button "Follow Aston Villa FC" [ref=e164] [cursor=pointer]
+              - generic [ref=e167]:
+                - link "Chelsea FC logo Chelsea" [ref=e168] [cursor=pointer]:
+                  - /url: /teams/e36354c8-bca1-5b78-86ad-3b24c099fea9
+                  - img "Chelsea FC logo" [ref=e171]
+                  - generic "Chelsea FC" [ref=e172]: Chelsea
+                - button "Follow Chelsea FC" [ref=e173] [cursor=pointer]
+            - link "Explore all teams & favourites" [ref=e176] [cursor=pointer]:
+              - /url: /favourites
+              - text: Explore all teams & favourites
+              - generic [aria-hidden] [ref=e177]: →
+          - region "Competitions" [ref=e178]:
+            - generic [ref=e179]:
+              - heading "Competitions" [level=2] [ref=e180]
+              - 'link "View all: Competitions" [ref=e187] [cursor=pointer]':
+                - /url: /competitions
+                - text: View all
+            - generic "Browse competitions" [ref=e191]:
+              - link "FIFA World Cup logo World Cup International" [ref=e192] [cursor=pointer]:
+                - /url: /competitions/world-cup
+                - img "FIFA World Cup logo" [ref=e196]
+                - strong [ref=e197]: World Cup
+                - generic [ref=e198]: International
+              - link "Premier League logo Premier League England" [ref=e201] [cursor=pointer]:
+                - /url: /competitions/premier-league
+                - img "Premier League logo" [ref=e205]
+                - strong [ref=e206]: Premier League
+                - generic [ref=e207]: England
+              - link "La Liga logo La Liga Spain" [ref=e210] [cursor=pointer]:
+                - /url: /competitions/la-liga
+                - img "La Liga logo" [ref=e214]
+                - strong [ref=e215]: La Liga
+                - generic [ref=e216]: Spain
+              - link "UEFA Champions League logo Champions League Europe" [ref=e219] [cursor=pointer]:
+                - /url: /competitions/ucl
+                - img "UEFA Champions League logo" [ref=e223]
+                - strong [ref=e224]: Champions League
+                - generic [ref=e225]: Europe
+              - link "Bundesliga logo Bundesliga Germany" [ref=e228] [cursor=pointer]:
+                - /url: /competitions/bundesliga
+                - img "Bundesliga logo" [ref=e232]
+                - strong [ref=e233]: Bundesliga
+                - generic [ref=e234]: Germany
+          - generic [ref=e237]:
+            - region "Upcoming matches" [ref=e238]:
+              - generic [ref=e239]:
+                - heading "Upcoming matches" [level=2] [ref=e240]
+                - 'link "View all: Upcoming matches" [ref=e243] [cursor=pointer]':
+                  - /url: /matches
+                  - text: View all
+              - generic [ref=e247]:
+                - article [ref=e248]:
+                  - link "FC Bayern München versus 1. FC Köln, Scheduled, 21 Nov, 01:00 am IST" [ref=e249] [cursor=pointer]:
+                    - /url: /matches/565859
+                    - generic [ref=e250]: Bundesliga
+                    - generic [ref=e258]:
+                      - generic [ref=e259]:
+                        - img "FC Bayern München logo" [ref=e262]
+                        - generic "FC Bayern München" [ref=e263]: Bayern
+                      - strong [ref=e264]: vs
+                      - generic [ref=e265]:
+                        - img "1. FC Köln logo" [ref=e268]
+                        - generic "1. FC Köln" [ref=e269]
+                    - time [ref=e275]: 21 Nov, 01:00 am IST
+                  - button "Save favourite" [ref=e277]
+                - article [ref=e280]:
+                  - link "Athletic Club versus RCD Espanyol de Barcelona, Scheduled, 21 Nov, 01:30 am IST" [ref=e281] [cursor=pointer]:
+                    - /url: /matches/564748
+                    - generic [ref=e282]: La Liga
+                    - generic [ref=e290]:
+                      - generic [ref=e291]:
+                        - img "Athletic Club logo" [ref=e294]
+                        - generic "Athletic Club" [ref=e295]: Athletic
+                      - strong [ref=e296]: vs
+                      - generic [ref=e297]:
+                        - img "RCD Espanyol de Barcelona logo" [ref=e300]
+                        - generic "RCD Espanyol de Barcelona" [ref=e301]: Espanyol
+                    - time [ref=e307]: 21 Nov, 01:30 am IST
+                  - button "Save favourite" [ref=e309]
+            - region "Recent results" [ref=e312]:
+              - generic [ref=e313]:
+                - heading "Recent results" [level=2] [ref=e314]
+                - 'link "View all: Recent results" [ref=e316] [cursor=pointer]':
+                  - /url: /matches?status=finished
+                  - text: View all
+              - generic [ref=e320]:
+                - article [ref=e321]:
+                  - link "Club Atlético de Madrid versus FC Barcelona, Full time, 9 Nov, 01:30 am IST" [ref=e322] [cursor=pointer]:
+                    - /url: /matches/564746
+                    - generic [ref=e323]:
+                      - generic [ref=e324]: La Liga
+                      - generic [ref=e331]: Full time
+                    - generic [ref=e332]:
+                      - generic [ref=e333]:
+                        - img "Club Atlético de Madrid logo" [ref=e336]
+                        - generic "Club Atlético de Madrid" [ref=e337]: Atleti
+                      - strong [ref=e338]: 1 – 2
+                      - generic [ref=e339]:
+                        - img "FC Barcelona logo" [ref=e342]
+                        - generic "FC Barcelona" [ref=e343]: Barça
+                    - time [ref=e349]: 9 Nov, 01:30 am IST
+                  - button "Save favourite" [ref=e351]
+                - article [ref=e354]:
+                  - link "TSG 1899 Hoffenheim versus FC Schalke 04, Full time, 9 Nov, 12:00 am IST" [ref=e355] [cursor=pointer]:
+                    - /url: /matches/565856
+                    - generic [ref=e356]:
+                      - generic [ref=e357]: Bundesliga
+                      - generic [ref=e364]: Full time
+                    - generic [ref=e365]:
+                      - generic [ref=e366]:
+                        - img "TSG 1899 Hoffenheim logo" [ref=e369]
+                        - generic "TSG 1899 Hoffenheim" [ref=e370]: Hoffenheim
+                      - strong [ref=e371]: 2 – 1
+                      - generic [ref=e372]:
+                        - img "FC Schalke 04 logo" [ref=e375]
+                        - generic "FC Schalke 04" [ref=e376]: Schalke
+                    - time [ref=e382]: 9 Nov, 12:00 am IST
+                  - button "Save favourite" [ref=e384]
+                - article [ref=e387]:
+                  - link "RC Celta de Vigo versus Levante UD, Full time, 8 Nov, 11:00 pm IST" [ref=e388] [cursor=pointer]:
+                    - /url: /matches/564742
+                    - generic [ref=e389]:
+                      - generic [ref=e390]: La Liga
+                      - generic [ref=e397]: Full time
+                    - generic [ref=e398]:
+                      - generic [ref=e399]:
+                        - img "RC Celta de Vigo logo" [ref=e402]
+                        - generic "RC Celta de Vigo" [ref=e403]: Celta
+                      - strong [ref=e404]: 0 – 0
+                      - generic [ref=e405]:
+                        - img "Levante UD logo" [ref=e408]
+                        - generic "Levante UD" [ref=e409]: Levante
+                    - time [ref=e415]: 8 Nov, 11:00 pm IST
+                  - button "Save favourite" [ref=e417]
+          - complementary "Football rankings and news" [ref=e420]:
+            - region "Top scorers" [ref=e421]:
+              - heading "Top scorers" [level=2] [ref=e423]
+              - status "Loading Top scorers" [ref=e425]
+            - region "Latest news" [ref=e429]:
+              - heading "Latest news" [level=2] [ref=e431]
+              - status "Loading Latest news" [ref=e439]
+        - group [ref=e444]:
+          - generic "Fixture update details" [ref=e445] [cursor=pointer]
+    - contentinfo [ref=e446]:
+      - generic [ref=e447]:
+        - paragraph [ref=e448]: Football Companion
+        - paragraph [ref=e449]: Five competitions. One matchday home.
+  - button "Open Next.js Dev Tools" [ref=e455] [cursor=pointer]
+  - alert [ref=e459]

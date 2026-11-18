@@ -19,9 +19,9 @@ export function MatchStatusBadge({ status }: MatchStatusBadgeProps) {
     <Badge
       variant="secondary"
       className={cn(
-        status === "live" && "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300",
-        status === "finished" && "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300",
-        status === "scheduled" && "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300",
+        status === "live" && "bg-primary/15 text-primary",
+        status === "finished" && "bg-secondary text-secondary-foreground",
+        status === "scheduled" && "bg-violet-500/15 text-violet-200",
         (status === "postponed" || status === "cancelled") && "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300",
       )}
     >

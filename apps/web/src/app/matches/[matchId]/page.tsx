@@ -9,9 +9,9 @@ export async function generateMetadata({ params }: PageProps) {
   const { matchId } = await params;
 
   return createPageMetadata({
-    title: `FIFA World Cup 2026 Match ${matchId} Details, Score & Venue`,
+    title: `Match Centre: ${matchId}`,
     description:
-      "View FIFA World Cup 2026 match details including teams, kickoff time, venue, score, status, and goals.",
+      "View score, lineups, events, statistics and news in the football match centre.",
     path: `/matches/${matchId}`,
   });
 }

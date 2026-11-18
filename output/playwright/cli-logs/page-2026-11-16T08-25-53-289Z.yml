@@ -1,0 +1,34 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - banner [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - link "Football Companion Football Companion" [ref=f1e5] [cursor=pointer]:
+          - /url: /
+          - img "Football Companion" [ref=f1e7]
+          - generic [ref=f1e8]:
+            - strong [ref=f1e9]: Football
+            - generic [ref=f1e10]: Companion
+        - navigation "Primary navigation" [ref=f1e11]:
+          - group [ref=f1e12]:
+            - generic "Competitions" [ref=f1e13] [cursor=pointer]
+          - link "Matches" [ref=f1e16] [cursor=pointer]:
+            - /url: /matches
+          - link "Teams" [ref=f1e17] [cursor=pointer]:
+            - /url: /teams
+          - link "Players" [ref=f1e18] [cursor=pointer]:
+            - /url: /players
+          - link "Stats" [ref=f1e19] [cursor=pointer]:
+            - /url: /statistics
+          - link "News" [ref=f1e20] [cursor=pointer]:
+            - /url: /news
+        - link "Search" [ref=f1e21] [cursor=pointer]:
+          - /url: /search
+        - button [ref=f1e25]
+    - main [ref=f1e30]:
+      - region "Loading football data..." [ref=f1e32]
+    - contentinfo [ref=f1e39]:
+      - generic [ref=f1e40]:
+        - paragraph [ref=f1e41]: Football Companion
+        - paragraph [ref=f1e42]: Five competitions. One matchday home.
+  - button "Open Next.js Dev Tools" [ref=f1e48] [cursor=pointer]
+  - alert [ref=f1e52]

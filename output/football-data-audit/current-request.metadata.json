@@ -1,0 +1,154 @@
+{
+  "mode": "current-request",
+  "observedAt": "2026-11-16T12:36:28.268Z",
+  "endpoint": "https://api.football-data.org/v4/matches/564746",
+  "status": 200,
+  "ms": 653,
+  "requestHeaders": {
+    "x-unfold-lineups": "true"
+  },
+  "responseHeaders": {
+    "content-type": "application/json;charset=UTF-8",
+    "date": "Mon, 16 Nov 2026 12:36:29 GMT",
+    "x-api-version": "v4",
+    "x-requestcounter-reset": "60",
+    "x-requests-available-minute": "9"
+  },
+  "responseHeaderNames": [
+    "access-control-allow-methods",
+    "access-control-allow-origin",
+    "connection",
+    "content-encoding",
+    "content-language",
+    "content-type",
+    "date",
+    "server",
+    "transfer-encoding",
+    "x-api-version",
+    "x-authenticated-client",
+    "x-cache-status",
+    "x-requestcounter-reset",
+    "x-requests-available-minute"
+  ],
+  "fields": {
+    "id": {
+      "state": "number",
+      "value": 564746
+    },
+    "utcDate": {
+      "state": "string",
+      "value": "2026-11-08T20:00:00Z"
+    },
+    "status": {
+      "state": "string",
+      "value": "FINISHED"
+    },
+    "competition.code": {
+      "state": "string",
+      "value": "PD"
+    },
+    "season.startDate": {
+      "state": "string",
+      "value": "2026-08-16"
+    },
+    "homeTeam.lineup": {
+      "state": "absent"
+    },
+    "homeTeam.bench": {
+      "state": "absent"
+    },
+    "homeTeam.statistics": {
+      "state": "absent"
+    },
+    "homeTeam.formation": {
+      "state": "absent"
+    },
+    "homeTeam.coach": {
+      "state": "absent"
+    },
+    "awayTeam.lineup": {
+      "state": "absent"
+    },
+    "awayTeam.bench": {
+      "state": "absent"
+    },
+    "awayTeam.statistics": {
+      "state": "absent"
+    },
+    "awayTeam.formation": {
+      "state": "absent"
+    },
+    "awayTeam.coach": {
+      "state": "absent"
+    },
+    "goals": {
+      "state": "absent"
+    },
+    "penalties": {
+      "state": "absent"
+    },
+    "bookings": {
+      "state": "absent"
+    },
+    "substitutions": {
+      "state": "absent"
+    },
+    "referees": {
+      "state": "array",
+      "count": 1,
+      "sample": [
+        {
+          "id": 80747,
+          "name": "Javier Alberola Rojas",
+          "type": "REFEREE",
+          "nationality": null
+        }
+      ]
+    },
+    "attendance": {
+      "state": "absent"
+    },
+    "venue": {
+      "state": "null"
+    },
+    "score": {
+      "state": "object",
+      "keys": [
+        "winner",
+        "duration",
+        "fullTime",
+        "halfTime"
+      ],
+      "value": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "home": 1,
+          "away": 2
+        },
+        "halfTime": {
+          "home": 1,
+          "away": 1
+        }
+      }
+    }
+  },
+  "topLevelKeys": [
+    "area",
+    "competition",
+    "season",
+    "id",
+    "utcDate",
+    "status",
+    "venue",
+    "matchday",
+    "stage",
+    "group",
+    "lastUpdated",
+    "homeTeam",
+    "awayTeam",
+    "score",
+    "odds",
+    "referees"
+  ]
+}

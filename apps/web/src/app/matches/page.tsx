@@ -2,12 +2,25 @@ import { MatchesPage } from "@/features/matches/MatchesPage";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createPageMetadata({
-  title: "FIFA World Cup 2026 Match Schedule & Results",
+  title: "Football Matches, Live Scores and Results",
   description:
-    "Browse FIFA World Cup 2026 match fixtures, kickoff times, venues, live scores, and completed results.",
+    "Browse fixtures, live scores and results across five major football competitions.",
   path: "/matches",
 });
 
-export default function Page() {
-  return <MatchesPage />;
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    competition?: string | string[];
+    status?: string | string[];
+  }>;
+}) {
+  const { competition, status } = await searchParams;
+  return (
+    <MatchesPage
+      initialCompetition={typeof competition === "string" ? competition : "all"}
+      initialStatus={typeof status === "string" ? status : "all"}
+    />
+  );
 }

@@ -12,14 +12,21 @@ export type TeamLogoImageProps = {
   size?: number;
 };
 
-export function TeamLogoImage({ team, className, size = 120 }: TeamLogoImageProps) {
+export function TeamLogoImage({
+  team,
+  className,
+  size = 120,
+}: TeamLogoImageProps) {
   const [hasLogoError, setHasLogoError] = useState(false);
   const country = team.country ?? team.name;
 
   if (!team.logoUrl || hasLogoError) {
     return (
       <span
-        className={cn("flex shrink-0 items-center justify-center rounded-full bg-white/90 p-3 shadow-sm", className)}
+        className={cn(
+          "flex shrink-0 items-center justify-center rounded-full bg-card p-3 shadow-none",
+          className,
+        )}
         style={{ height: size, width: size }}
       >
         <FlagIcon country={country} className="h-12 w-16" />

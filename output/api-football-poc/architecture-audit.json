@@ -1,0 +1,90 @@
+{
+  "status": "architecture inspected; authenticated proof of concept blocked by missing API-Football credentials",
+  "productionBehaviourChanged": false,
+  "migrations": [],
+  "apiFootballCallsConsumed": 0,
+  "apiFootballFixtureIdsIdentified": [],
+  "actualApiFootballMatchDataRetrieved": false,
+  "architecture": {
+    "primaryClient": {
+      "file": "apps/api/src/football-data/football-data.client.ts",
+      "class": "FootballDataClient",
+      "host": "https://api.football-data.org/v4",
+      "authenticationEnvironmentVariable": "FOOTBALL_DATA_API_KEY",
+      "controls": ["in-process request deduplication", "database-backed shared request budget", "429 cooldown", "15-second upstream timeout", "sanitized access errors"]
+    },
+    "synchronization": {
+      "files": ["apps/api/src/tournaments/tournaments.service.ts", "apps/api/src/football/football.jobs.ts", "apps/api/src/football/scores.ts", "apps/api/src/tournaments/sync.ts"],
+      "schedules": "hourly at minute 5 UTC; startup catch-up",
+      "activeScoresAndStandings": "every five minutes",
+      "schedulerSwitch": "FOOTBALL_SCHEDULER=supabase disables in-process schedule triggers",
+      "concurrency": "PostgreSQL advisory locks; stored observations prevent older fixture overwrites"
+    },
+    "ids": {
+      "clubMatch": "Frontend/internal string match ID equals tournament_fixtures.id, currently the integer football-data.org ID. This is not provider-independent.",
+      "worldCupMatch": "matches.id is a string with legacy IDs and separate matchNumber aliases. Must resolve stored identity rather than assume all numeric URLs are provider IDs.",
+      "teamsAndPlayers": "Deterministic UUIDs from entity kind + provider + external ID via entityId(). Catalog payload.providerIds preserves known provider identifiers.",
+      "apiFootballMapping": "No existing API-Football fixture mapping found in inspected tables/code. Do not reuse football-data.org IDs."
+    },
+    "storage": {
+      "tournament_fixtures": "Integer id, competitionId, season, kickoff, status, score JSONB, raw provider payload JSONB, observedAt.",
+      "matches": "Legacy/World Cup match table including score, venue, referees, goals JSONB and provider team IDs.",
+      "football_catalog": "Teams, players and stadiums; providerKey plus payload/providerIds JSONB.",
+      "tournament_resource_cache": "key, payload JSONB, fetchedAt, expiresAt. Existing cache can be reused with an isolated API-Football namespace.",
+      "schemaCaution": "AppModule currently uses TypeORM synchronize=true. Do not register new entities before deliberately reviewing/applying the mapping migration."
+    },
+    "details": {
+      "endpoint": "GET /football/matches/:id",
+      "controller": "apps/api/src/football/football.controller.ts: FootballController.details",
+      "aggregation": "apps/api/src/football/football.service.ts: FootballService.details",
+      "primaryFetch": "TournamentsService.details -> FootballDataClient.get('/matches/{id}', {unfoldLineups:true}); separate worldCupDetails path.",
+      "primaryDetailsCacheTtlSeconds": 60,
+      "standingsAndScorersCacheTtlSeconds": 300,
+      "failureHandling": "Stored cache returned with freshness.stale=true when upstream refresh fails. Transaction locks prevent duplicate cache refreshes.",
+      "currentParsing": "FootballService.details currently parses football-data.org goals/bookings/substitutions, home/away lineup/bench and statistics inline. Supplemental provider-specific parsing must live outside this service."
+    },
+    "frontend": {
+      "contract": "packages/football-contracts/index.d.ts: MatchDetails, MatchEvent, MatchStat, Lineup, Availability",
+      "serverFetch": "apps/web/src/lib/api/football.ts: server-only request to Nest; Next server component MatchDetailsPage passes details into MatchCentre.",
+      "browserNetwork": "Initial match-details fetch runs on the Next server, so the upstream Nest request is not a browser fetch. Provider requests must remain backend-only.",
+      "compatibility": "Keep events/lineups/stats fields and their existing types. Add structured optional normalized detail/resource metadata; retain names-only starters/substitutes. Existing MatchStat requires two numbers, so expose only valid pairs there and preserve one-sided/null provider values in additive structured rows."
+    }
+  },
+  "proofOfConceptPlan": {
+    "requiredCredential": "API_FOOTBALL_API_KEY in apps/api/.env; direct API-Sports versus RapidAPI authentication host must match the account",
+    "candidates": [
+      {"internalMatchId": "564746", "competition": "la-liga", "season": 2026, "kickoff": "2026-11-08T20:00:00.000Z", "home": "Club Atletico de Madrid", "away": "FC Barcelona"},
+      {"internalMatchId": "560639", "competition": "premier-league", "season": 2026, "kickoff": "2026-11-08T16:30:00.000Z", "home": "Manchester United FC", "away": "Aston Villa FC"}
+    ],
+    "sequence": [
+      "Inspect authenticated subscription/status and remaining daily/minute request budget without saving account details or credentials.",
+      "Discover provider league IDs and season-specific coverage from /leagues; do not assume fixture IDs or feature support.",
+      "Query narrowly scoped /fixtures by discovered league ID, season and kickoff date/range. Compare both teams, home/away order and kickoff time; require one confident candidate, record ambiguous matches for manual review.",
+      "For each confidently identified provider fixture, inspect /fixtures?id, /fixtures/events?fixture, /fixtures/statistics?fixture, /fixtures/lineups?fixture and /fixtures/players?fixture only for features covered by the competition/season.",
+      "Validate HTTP status, errors envelope, result counts, nullable values, lineup player IDs/numbers/positions/grid and substitute coverage. Save sanitized raw responses and selected quota headers.",
+      "Check historical season access separately; historical success alone does not prove current 2026 fixture access.",
+      "Count every attempted provider request and retain returned quota headers. No unbounded retries or paid purchases.",
+      "Implement only after required actual data for both supported competition samples is confirmed."
+    ],
+    "documentedSubscriptionRestriction": "Official October 26, 2026 article states Free Plan season access is Year-4 through Year-2 (2022-2024 in 2026). This account's actual plan and access remain unverified.",
+    "currentLiveFixturesInStoredClubCompetitions": 0
+  },
+  "proposedImplementationAfterProof": {
+    "providerBoundary": "Separate ApiFootball module/client/normalizer/aggregation service. FootballService consumes normalized supplemental data only.",
+    "mapping": "Persistent mapping with unique internalMatchId+provider and provider+externalFixtureId; retain competition, season, both provider team IDs, kickoff, verification evidence and timestamps. Flag ambiguous candidates, never auto-bind them.",
+    "normalization": {
+      "events": ["stable namespaced ID", "internal match ID", "minute", "added time", "type", "detail", "team", "primary player", "secondary player", "comments", "original provider identifiers"],
+      "statistics": ["internal/provider team ID", "statistic type", "number/string/null value", "nullable provider period"],
+      "lineups": ["internal/provider team ID", "formation", "coach", "starting XI", "substitutes", "player identifiers", "shirt number", "position", "nullable grid"],
+      "rawData": "Cache original sanitized provider payload separately from normalization for reprocessing; never return authentication headers or keys."
+    },
+    "aggregation": "Keep primary fixtures/results/standings unchanged. Cache each supplemental resource under a provider namespace, use lifecycle-aware TTLs and cross-process deduplication, separate quota accounting, backoff and stale fallbacks. Track source/fetchedAt/availability by resource. Do not merge duplicate timelines from two providers or convert absent/null statistics to zero.",
+    "testsRequired": ["completed", "upcoming", "live fixture if available", "empty/missing events", "null/missing statistics", "unsupported coverage", "HTTP and envelope errors", "429 quotas", "duplicate events", "ambiguous mapping", "cache hit and stale fallback", "unchanged primary listings and synchronization"]
+  },
+  "references": [
+    "https://www.api-football.com/documentation-v3",
+    "https://www.api-football.com/documentation_v3",
+    "https://www.api-football.com/news/post/how-to-get-all-data-from-a-league-with-api-football",
+    "https://www.api-football.com/news/post/how-to-get-started-with-api-football-the-complete-beginners-guide"
+  ]
+}

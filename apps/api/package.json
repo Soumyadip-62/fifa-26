@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "tournaments:sync": "ts-node -r tsconfig-paths/register src/tournaments/sync.ts",
     "dev": "nest start --watch",
     "build": "echo \"Starting nest build...\" && nest build && echo \"Build finished. Listing dist:\" && ls -la dist",
     "check-types": "tsc --noEmit",
@@ -22,7 +23,11 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:seed": "ts-node -r tsconfig-paths/register src/db/seed.ts",
     "db:update-2026-history": "ts-node -r tsconfig-paths/register src/db/update-2026-history.ts",
-    "db:migrate-supabase": "ts-node -r tsconfig-paths/register src/db/migrate-to-supabase.ts"
+    "db:migrate-supabase": "ts-node -r tsconfig-paths/register src/db/migrate-to-supabase.ts",
+    "football:migrate": "ts-node -r tsconfig-paths/register src/football/migrate.ts",
+    "football:backfill": "ts-node -r tsconfig-paths/register src/football/backfill.ts",
+    "football:scores": "ts-node -r tsconfig-paths/register src/football/scores.ts",
+    "football:sync": "ts-node -r tsconfig-paths/register src/football/scores.ts schedules"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -82,6 +87,9 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    }
   }
 }

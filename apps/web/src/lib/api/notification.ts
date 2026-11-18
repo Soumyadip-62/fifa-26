@@ -1,4 +1,5 @@
 import { apiUrl } from "./config";
+import { readPreferences, updatePreferences, syncDevice } from "../preferences";
 
 export type NotificationPreferences = {
   favoriteTeams: string[];
@@ -16,55 +17,32 @@ export const defaultNotificationPreferences: NotificationPreferences = {
   qualification: true,
 };
 
-const STORAGE_KEY = "fifa26:notification-preferences";
-
 export function readNotificationPreferences(): NotificationPreferences {
-  if (typeof window === "undefined") {
-    return defaultNotificationPreferences;
-  }
-
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaultNotificationPreferences;
-
-    const parsed = JSON.parse(raw) as Partial<NotificationPreferences>;
-
-    return {
-      ...defaultNotificationPreferences,
-      ...parsed,
-      favoriteTeams: Array.isArray(parsed.favoriteTeams)
-        ? parsed.favoriteTeams.filter(Boolean)
-        : [],
-    };
-  } catch {
-    return defaultNotificationPreferences;
-  }
+  const p = readPreferences();
+  return {
+    favoriteTeams: p.teamIds,
+    kickoff30: p.notifications.kickoff30,
+    kickoff10: p.notifications.kickoff10,
+    finalScore: p.notifications.finalScore,
+    qualification: false,
+  };
 }
-
 export function saveNotificationPreferences(
   preferences: NotificationPreferences,
 ) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
-  window.dispatchEvent(new CustomEvent("notification-preferences:change"));
-}
-
-export async function subscribeNotifications(
-  fcmToken: string,
-  preferences = readNotificationPreferences(),
-) {
-  const response = await fetch(apiUrl("notification/subscribe"), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  updatePreferences((p) => ({
+    ...p,
+    teamIds: preferences.favoriteTeams,
+    notifications: {
+      ...p.notifications,
+      kickoff30: preferences.kickoff30,
+      kickoff10: preferences.kickoff10,
+      finalScore: preferences.finalScore,
     },
-    body: JSON.stringify({ fcmToken, preferences }),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to save notification preferences");
-  }
-
-  return response.json();
+  }));
+}
+export async function subscribeNotifications(token: string) {
+  return syncDevice(readPreferences(), token);
 }
 
 export async function sendDeviceTestNotifications(

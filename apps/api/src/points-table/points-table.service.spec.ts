@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PointsTableService } from './points-table.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { QualifiedTeamEntity } from './entities/qualified-team.entity';
+import { FootballDataClient } from '../football-data/football-data.client';
+import { TournamentsService } from '../tournaments/tournaments.service';
 
 describe('PointsTableService', () => {
   let service: PointsTableService;
@@ -8,7 +12,29 @@ describe('PointsTableService', () => {
   beforeEach(async () => {
     originalFetch = global.fetch;
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PointsTableService],
+      providers: [
+        PointsTableService,
+        {
+          provide: getRepositoryToken(QualifiedTeamEntity),
+          useValue: { find: jest.fn(async () => []) },
+        },
+        {
+          provide: FootballDataClient,
+          useValue: {
+            get: jest.fn(async () =>
+              (await global.fetch('http://provider.test')).json(),
+            ),
+          },
+        },
+        {
+          provide: TournamentsService,
+          useValue: {
+            resource: jest.fn(async () =>
+              (await global.fetch('http://provider.test')).json(),
+            ),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<PointsTableService>(PointsTableService);
@@ -20,6 +46,15 @@ describe('PointsTableService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('surfaces official-table failures instead of calculating a table from static JSON', async () => {
+    global.fetch = jest
+      .fn()
+      .mockRejectedValue(new Error('Official table unavailable'));
+    await expect(service.getStandings()).rejects.toThrow(
+      'Official table unavailable',
+    );
   });
 
   it('should enrich standings from football-data.org with sportsdb team IDs', async () => {

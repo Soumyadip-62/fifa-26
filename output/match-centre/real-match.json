@@ -1,0 +1,70 @@
+{
+  "match": {
+    "id": "564746",
+    "competitionId": "la-liga",
+    "season": "2026",
+    "homeTeamId": "080b8b89-b81f-5706-8897-6ee60d7a9a74",
+    "awayTeamId": "a33be76b-aa24-57ed-86c6-e853ac6cb631",
+    "stadiumId": "",
+    "kickoff": "2026-11-08T20:00:00.000Z",
+    "status": "finished",
+    "stage": "REGULAR_SEASON",
+    "matchday": "Matchday 12",
+    "homeScore": 1,
+    "awayScore": 2,
+    "group": null,
+    "homeLabel": "Club Atlético de Madrid",
+    "awayLabel": "FC Barcelona",
+    "referee": "Javier Alberola Rojas"
+  },
+  "competition": {
+    "id": "la-liga",
+    "name": "La Liga",
+    "shortName": "La Liga",
+    "region": "Spain",
+    "season": "2026/27",
+    "format": "League",
+    "accent": "violet",
+    "hasBracket": false,
+    "emblem": "https://crests.football-data.org/laliga.png",
+    "currentMatchday": 13
+  },
+  "homeTeam": {
+    "id": "080b8b89-b81f-5706-8897-6ee60d7a9a74",
+    "name": "Club Atlético de Madrid",
+    "shortName": "Atleti",
+    "logoUrl": "https://crests.football-data.org/78.png",
+    "coach": "Diego Simeone"
+  },
+  "awayTeam": {
+    "id": "a33be76b-aa24-57ed-86c6-e853ac6cb631",
+    "name": "FC Barcelona",
+    "shortName": "Barça",
+    "logoUrl": "https://crests.football-data.org/81.png",
+    "coach": "Hansi Flick"
+  },
+  "stadium": {
+    "name": "Venue to be confirmed",
+    "imageUrl": "/assets/images/stadiums/default-stadium.svg"
+  },
+  "events": [],
+  "lineups": [],
+  "stats": [],
+  "relatedNews": [],
+  "videoUrl": null,
+  "freshness": {
+    "fetchedAt": "2026-11-16T10:23:19.914Z",
+    "stale": false
+  },
+  "availability": {
+    "events": {
+      "state": "unavailable"
+    },
+    "lineups": {
+      "state": "unavailable"
+    },
+    "statistics": {
+      "state": "unavailable"
+    }
+  }
+}

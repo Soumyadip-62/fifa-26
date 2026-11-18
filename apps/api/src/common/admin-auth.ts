@@ -1,10 +1,12 @@
 import { UnauthorizedException } from '@nestjs/common';
 
-export function assertAdminSecret(headers: Record<string, string | string[] | undefined>) {
+export function assertAdminSecret(
+  headers: Record<string, string | string[] | undefined>,
+) {
   const expectedSecret = process.env.ADMIN_SECRET;
 
   if (!expectedSecret) {
-    return;
+    throw new UnauthorizedException('Administrative access is not configured');
   }
 
   const receivedSecret = headers['x-admin-secret'];

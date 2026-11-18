@@ -40,8 +40,8 @@ export function NewsCard({ article }: NewsCardProps) {
       href={`${article.source}`}
       target="_blank"
     >
-      <Card className="h-full overflow-hidden border border-black/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm transition hover:scale-[1.01] hover:shadow-md">
-        <div className="relative h-48 bg-zinc-100 dark:bg-zinc-900 sm:h-56">
+      <Card className="h-full overflow-hidden border border-border bg-card dark:bg-card backdrop-blur-md rounded-lg shadow-none transition hover:scale-[1.01] hover:shadow-md">
+        <div className="relative h-48 bg-secondary dark:bg-card sm:h-56">
           <Image
             src={imageSrc}
             alt={`${article.title} cover`}
@@ -51,18 +51,25 @@ export function NewsCard({ article }: NewsCardProps) {
           />
         </div>
         <CardContent className="grid gap-3.5 p-5">
-          <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold text-zinc-500 dark:text-zinc-400">
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold text-muted-foreground dark:text-muted-foreground">
             {article.tags?.[0] ? (
-              <Badge className="rounded-full bg-zinc-200/50 text-zinc-750 dark:bg-zinc-800 dark:text-zinc-300 border-0" variant="secondary">{article.tags[0]}</Badge>
+              <Badge
+                className="rounded-full bg-secondary text-muted-foreground dark:bg-secondary dark:text-secondary-foreground border-0"
+                variant="secondary"
+              >
+                {article.tags[0]}
+              </Badge>
             ) : null}
-            <span><FormattedDateTime date={article.publishedAt} dateOnly={true} /></span>
+            <span>
+              <FormattedDateTime date={article.publishedAt} dateOnly={true} />
+            </span>
           </div>
-          <h2 className="font-heading text-base font-black leading-normal text-zinc-950 dark:text-white group-hover:text-primary transition duration-200">
+          <h2 className="font-heading text-base font-black leading-normal text-foreground dark:text-white group-hover:text-primary transition duration-200">
             {article.title}
           </h2>
           {article.excerpt ? (
             <ReadMoreText
-              className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400"
+              className="text-xs leading-relaxed text-muted-foreground dark:text-muted-foreground"
               maxLength={150}
               text={article.excerpt}
             />
@@ -70,7 +77,11 @@ export function NewsCard({ article }: NewsCardProps) {
           {article.tags?.length ? (
             <div className="flex flex-wrap gap-1.5">
               {article.tags.slice(1).map((tag) => (
-                <Badge className="rounded-full border-black/5 bg-zinc-150/30 text-zinc-500 dark:border-white/5 dark:bg-zinc-850 dark:text-zinc-400" variant="outline" key={tag}>
+                <Badge
+                  className="rounded-full border-border bg-zinc-150/30 text-muted-foreground dark:border-border dark:bg-zinc-850 dark:text-muted-foreground"
+                  variant="outline"
+                  key={tag}
+                >
                   {tag}
                 </Badge>
               ))}

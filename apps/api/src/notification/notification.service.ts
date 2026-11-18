@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FirebaseService } from 'src/firebase/firebase.service';
+import { FirebaseService } from '../firebase/firebase.service';
 import { SubscribedTokens } from './entities/notification.entity';
 import { MatchEntity } from '../matches/entities/matches.entity';
 import { In, Repository } from 'typeorm';

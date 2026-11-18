@@ -1,0 +1,145 @@
+{
+  "status": 200,
+  "articles": [
+    {
+      "id": "1c059689-1d13-5bd9-a58a-70f387713a9c",
+      "title": "\"It didn't sit well with us\" - Atletico Madrid star claims teammates were annoyed by Julian Alvarez's attempts to join Barcelona",
+      "url": "https://www.sportskeeda.com/football/news-it-sit-well-us-atletico-madrid-star-claims-teammates-annoyed-julian-alvarez-s-attempts-join-barcelona",
+      "published": "2026-11-11 04:36:07 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/7e665-17943711202457-1920.jpg"
+    },
+    {
+      "id": "07a369a9-aae9-58e7-8e07-2ae81a56d7d6",
+      "title": "Cristiano Ronaldo and Lionel Messi used as examples as Atletico Madrid teammate reveals when fans should really start worrying about Julian Alvarez",
+      "url": "https://worldsoccertalk.com/news/cristiano-ronaldo-and-lionel-messi-used-as-examples-as-atletico-madrid-teammate-reveals-when-fans-should-really-start-worrying-about-julian-alvarez/",
+      "published": "2026-11-10 17:53:45 +0000",
+      "image": null
+    },
+    {
+      "id": "4e181f00-edfa-5886-be72-1063935dd354",
+      "title": "Julian Alvarez exit comments annoyed Atletico players says Alex Baena",
+      "url": "https://www.straitstimes.com/sport/football/julian-alvarez-exit-comments-annoyed-atletico-players-says-alex-baena",
+      "published": "2026-11-10 09:43:44 +0000",
+      "image": "https://cassette.sphdigital.com.sg/image/straitstimes/dda5e12ae39e2bcf4284945c40f89fdb5f1fe5c87317dc9bb5e70033a712115a?w=1200"
+    },
+    {
+      "id": "745f4211-1d64-52f5-a3dd-18bae455e9a3",
+      "title": "Julian Alvarez exit comments annoyed Atletico players says Alex Baena",
+      "url": "https://www.channelnewsasia.com/sport/julian-alvarez-exit-comments-annoyed-atletico-players-says-alex-baena-6538921",
+      "published": "2026-11-10 09:42:50 +0000",
+      "image": "https://dam.mediacorp.sg/image/upload/s--mNUwOGu2--/c_fill,g_auto,h_676,w_1200/fl_relative,g_south_east,l_mediacorp:cna:watermark:2024-04:reuters_1,w_0.1/f_auto,q_auto/v1/one-cms/core/2026-11-10T094250Z_1_LYNXNPEMA90TB_RTROPTP_3_SOCCER-SPAIN-ATM-BAR.JPG?itok=2k26_brD"
+    },
+    {
+      "id": "40573fff-5e97-5769-9d11-9e6dedb64786",
+      "title": "Lamine Yamal picks up injury in Barcelona win vs Atletico, set to miss Spain game",
+      "url": "https://www.sportskeeda.com/football/news-lamine-yamal-picks-injury-barcelona-win-vs-atletico-set-miss-spain-game",
+      "published": "2026-11-09 12:38:37 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/30b00-17942277364666-1920.jpg"
+    },
+    {
+      "id": "e87efc59-d7e1-5550-8893-21fde17b8884",
+      "title": "Lamine and Oyarzabal to miss Spain's Nations League game v Czech Republic",
+      "url": "https://www.channelnewsasia.com/sport/lamine-and-oyarzabal-miss-spains-nations-league-game-v-czech-republic-6536106",
+      "published": "2026-11-09 12:21:22 +0000",
+      "image": "https://dam.mediacorp.sg/image/upload/s--IXICCOxc--/c_fill,g_auto,h_676,w_1200/fl_relative,g_south_east,l_mediacorp:cna:watermark:2024-04:reuters_1,w_0.1/f_auto,q_auto/v1/one-cms/core/2026-11-09T122122Z_1_LYNXNPEMA8116_RTROPTP_3_SOCCER-UEFANATIONS-ESP-CRO.JPG?itok=Nywla1bq"
+    },
+    {
+      "id": "c925ec40-893f-5959-a812-8a2793bf1c3d",
+      "title": "Alex Baena explains what teams must do to make difference vs Barcelona as Atletico star claims giving 100% isn't enough",
+      "url": "https://www.sportskeeda.com/football/news-alex-baena-explains-teams-must-make-difference-vs-barcelona-atletico-star-claims-giving-100-enough",
+      "published": "2026-11-09 11:46:25 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/fe821-17942245772249-1920.jpg"
+    },
+    {
+      "id": "9027e7a4-9875-5e73-9d2f-e6e5a16fa9ec",
+      "title": "Convincing Barcelona comeback win answers doubts over Flick's approach",
+      "url": "https://www.straitstimes.com/sport/football/convincing-barcelona-comeback-win-answers-doubts-over-flicks-approach",
+      "published": "2026-11-08 23:58:46 +0000",
+      "image": "https://cassette.sphdigital.com.sg/image/straitstimes/120c573f71b9294b9b28d75bdff31e21c63f0c896d1b233ca98cd77ed3dffbf3?w=1200"
+    },
+    {
+      "id": "aa40a07e-1b85-570b-b3ce-f16c5cba6d6f",
+      "title": "Lopez double fires Barcelona to top of La Liga",
+      "url": "https://news.rthk.hk/rthk/en/component/k2/1877063-20261109.htm",
+      "published": "2026-11-08 23:20:37 +0000",
+      "image": "https://newsstatic.rthk.hk/images/mfile_1877063_1_M_20261109071326.jpg"
+    },
+    {
+      "id": "f0e2a129-c0ca-5ed9-939e-ff6498f0f51c",
+      "title": "Fermin Lopez scores brace as Barcelona come from behind to beat Atletico Madrid 2-1",
+      "url": "https://www.aa.com.tr/en/sports/fermin-lopez-scores-brace-as-barcelona-come-from-behind-to-beat-atletico-madrid-2-1/4116382",
+      "published": "2026-11-08 22:37:57 +0000",
+      "image": null
+    },
+    {
+      "id": "ae1712a0-31c7-55d5-8259-dc33d834ee3e",
+      "title": "\"I can no longer defend this\" - Fans call out Barcelona star despite their 2-1 win over Atletico Madrid in LaLiga clash",
+      "url": "https://www.sportskeeda.com/football/news-i-can-longer-defend-this-fans-call-barcelona-star-despite-2-1-win-atletico-madrid-laliga-clash",
+      "published": "2026-11-08 22:18:16 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/5b48f-17941760033435-1920.jpg"
+    },
+    {
+      "id": "3dfa0336-ef07-51d0-b0b1-7b9db8644300",
+      "title": "Fermin double gives LaLiga leaders Barca 2-1 win at Atletico",
+      "url": "https://www.straitstimes.com/sport/football/fermin-double-gives-laliga-leaders-barca-2-1-win-at-atletico",
+      "published": "2026-11-08 22:13:44 +0000",
+      "image": "https://cassette.sphdigital.com.sg/image/straitstimes/223dec0edc932adf5dd0d28ff63700bd34a950059979dd66842be8bcbf2f507d?w=1200"
+    },
+    {
+      "id": "00396b8b-b7c3-5d4f-8218-3c858a3004d9",
+      "title": "Fermin double gives LaLiga leaders Barca 2-1 win at Atletico",
+      "url": "https://www.channelnewsasia.com/sport/fermin-double-gives-laliga-leaders-barca-2-1-win-atletico-6534746",
+      "published": "2026-11-08 22:08:40 +0000",
+      "image": "https://dam.mediacorp.sg/image/upload/s--hJZQFWeg--/c_fill,g_auto,h_676,w_1200/fl_relative,g_south_east,l_mediacorp:cna:watermark:2024-04:reuters_1,w_0.1/f_auto,q_auto/v1/one-cms/core/2026-11-08T220840Z_1_LYNXNPEMA70MT_RTROPTP_3_SOCCER-SPAIN-ATM-BAR.JPG?itok=aV69kt__"
+    },
+    {
+      "id": "d653b39c-3413-579b-885a-7b73d3ff8080",
+      "title": "\"We're gonna regret this\" - Barcelona fans slam Hansi Flick for starting XI decision vs Atletico Madrid",
+      "url": "https://www.sportskeeda.com/football/news-we-re-gonna-regret-this-barcelona-fans-slam-hansi-flick-starting-xi-decision-vs-atletico-madrid",
+      "published": "2026-11-08 19:57:47 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/1434d-17941676978548-1920.jpg"
+    },
+    {
+      "id": "b114e42a-343a-590f-ac84-03cb120bbde2",
+      "title": "Why is Rodri not playing today for Barcelona against Atletico Madrid in 2026-27 La Liga game?",
+      "url": "https://worldsoccertalk.com/news/why-is-rodri-not-playing-today-for-barcelona-against-atletico-madrid-in-2026-27-la-liga-game/",
+      "published": "2026-11-08 18:53:29 +0000",
+      "image": null
+    },
+    {
+      "id": "84026364-5d91-5b0d-9495-d08d17980d7c",
+      "title": "Atletico Madrid vs Barcelona LIVE updates: Minute-by-minute coverage of the 2026 27 La Liga season Matchday 12",
+      "url": "https://worldsoccertalk.com/news/atletico-madrid-vs-barcelona-live-updates-minute-by-minute-coverage-of-the-2026-27-la-liga-season-matchday-12/",
+      "published": "2026-11-08 18:04:15 +0000",
+      "image": null
+    },
+    {
+      "id": "2cd90ecf-69c3-5e02-afc8-ba0fb0c2a3c6",
+      "title": "Atletico Madrid vs Barcelona: Projected lineups for the 2026-27 LaLiga match",
+      "url": "https://worldsoccertalk.com/news/atletico-madrid-vs-barcelona-projected-lineups-for-the-2026-27-laliga-match/",
+      "published": "2026-11-08 14:07:15 +0000",
+      "image": "https://media.worldsoccertalk.com/wp-content/uploads/sites/6/2026/11/08090708/mimir_a1a3019a-1200x740.webp"
+    },
+    {
+      "id": "c4675de8-c73b-55d0-8362-a9b945388217",
+      "title": "How to watch Atletico Madrid vs Barcelona match in the USA: Live stream and TV for 2026-27 LaLiga",
+      "url": "https://worldsoccertalk.com/watch-on-us-tv/how-to-watch-atletico-madrid-vs-barcelona-match-in-the-usa-live-stream-and-tv-for-2026-27-laliga/",
+      "published": "2026-11-08 12:06:59 +0000",
+      "image": "https://media.worldsoccertalk.com/wp-content/uploads/sites/6/2026/11/08070653/mimir_fe683eea-1200x740.webp"
+    },
+    {
+      "id": "33f9ff2c-3fae-52ff-a28f-69c9c3a3fe12",
+      "title": "Atletico Madrid vs Barcelona Prediction and Betting Tips | November 8th 2026",
+      "url": "https://www.sportskeeda.com/football/atletico-madrid-vs-barcelona-prediction-betting-tips-november-8th-2026",
+      "published": "2026-11-06 16:59:55 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/6cb8b-17939809485773-1920.jpg"
+    },
+    {
+      "id": "48e9470f-b42b-5bae-a4e4-371f804cd4bf",
+      "title": "\"I'd like both to lose\" - Real Madrid boss Jose Mourinho makes cheeky claim ahead of Atletico vs. Barcelona",
+      "url": "https://www.sportskeeda.com/football/news-i-d-like-lose-real-madrid-boss-jose-mourinho-makes-cheeky-claim-ahead-atletico-vs-barcelona",
+      "published": "2026-11-06 15:40:40 +0000",
+      "image": "https://staticg.sportskeeda.com/editor/2026/11/e4fcb-17939792299703-1920.jpg"
+    }
+  ]
+}

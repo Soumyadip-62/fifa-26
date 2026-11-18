@@ -1,0 +1,161 @@
+{
+  "fixture": {
+    "id": 564746,
+    "competitionId": "la-liga",
+    "season": 2026,
+    "kickoff": "2026-11-08T20:00:00.000Z",
+    "status": "FINISHED",
+    "score": {
+      "winner": "AWAY_TEAM",
+      "duration": "REGULAR",
+      "fullTime": {
+        "away": 2,
+        "home": 1
+      },
+      "halfTime": {
+        "away": 1,
+        "home": 1
+      }
+    },
+    "payload": {
+      "id": 564746,
+      "area": {
+        "id": 2224,
+        "code": "ESP",
+        "flag": "https://crests.football-data.org/760.svg",
+        "name": "Spain"
+      },
+      "odds": {
+        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+      },
+      "group": null,
+      "score": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "away": 2,
+          "home": 1
+        },
+        "halfTime": {
+          "away": 1,
+          "home": 1
+        }
+      },
+      "stage": "REGULAR_SEASON",
+      "venue": null,
+      "season": {
+        "id": 2518,
+        "winner": null,
+        "endDate": "2027-05-30",
+        "startDate": "2026-08-16",
+        "currentMatchday": 13
+      },
+      "status": "FINISHED",
+      "utcDate": "2026-11-08T20:00:00Z",
+      "awayTeam": {
+        "id": 81,
+        "tla": "FCB",
+        "name": "FC Barcelona",
+        "crest": "https://crests.football-data.org/81.png",
+        "shortName": "Barça"
+      },
+      "homeTeam": {
+        "id": 78,
+        "tla": "ATL",
+        "name": "Club Atlético de Madrid",
+        "crest": "https://crests.football-data.org/78.png",
+        "shortName": "Atleti"
+      },
+      "matchday": 12,
+      "referees": [
+        {
+          "id": 80747,
+          "name": "Javier Alberola Rojas",
+          "type": "REFEREE",
+          "nationality": null
+        }
+      ],
+      "competition": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "type": "LEAGUE",
+        "emblem": "https://crests.football-data.org/laliga.png"
+      },
+      "lastUpdated": "2026-11-16T00:20:29Z"
+    },
+    "observedAt": "2026-11-16T12:36:37.239Z"
+  },
+  "cache": {
+    "key": "match:564746",
+    "payload": {
+      "id": 564746,
+      "area": {
+        "id": 2224,
+        "code": "ESP",
+        "flag": "https://crests.football-data.org/760.svg",
+        "name": "Spain"
+      },
+      "odds": {
+        "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+      },
+      "group": null,
+      "score": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "away": 2,
+          "home": 1
+        },
+        "halfTime": {
+          "away": 1,
+          "home": 1
+        }
+      },
+      "stage": "REGULAR_SEASON",
+      "venue": null,
+      "season": {
+        "id": 2518,
+        "winner": null,
+        "endDate": "2027-05-30",
+        "startDate": "2026-08-16",
+        "currentMatchday": 13
+      },
+      "status": "FINISHED",
+      "utcDate": "2026-11-08T20:00:00Z",
+      "awayTeam": {
+        "id": 81,
+        "tla": "FCB",
+        "name": "FC Barcelona",
+        "crest": "https://crests.football-data.org/81.png",
+        "shortName": "Barça"
+      },
+      "homeTeam": {
+        "id": 78,
+        "tla": "ATL",
+        "name": "Club Atlético de Madrid",
+        "crest": "https://crests.football-data.org/78.png",
+        "shortName": "Atleti"
+      },
+      "matchday": 12,
+      "referees": [
+        {
+          "id": 80747,
+          "name": "Javier Alberola Rojas",
+          "type": "REFEREE",
+          "nationality": null
+        }
+      ],
+      "competition": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "type": "LEAGUE",
+        "emblem": "https://crests.football-data.org/laliga.png"
+      },
+      "lastUpdated": "2026-11-16T00:20:29Z"
+    },
+    "fetchedAt": "2026-11-16T12:36:44.270Z",
+    "expiresAt": "2026-11-16T12:37:44.270Z"
+  }
+}

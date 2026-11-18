@@ -1,0 +1,358 @@
+- generic [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - banner [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - link "Football Companion Football Companion" [ref=f1e5] [cursor=pointer]:
+          - /url: /
+          - img "Football Companion" [ref=f1e7]
+          - generic [ref=f1e8]:
+            - strong [ref=f1e9]: Football
+            - generic [ref=f1e10]: Companion
+        - navigation "Primary navigation" [ref=f1e11]:
+          - group [ref=f1e12]:
+            - generic "Competitions" [ref=f1e13] [cursor=pointer]
+          - link "Matches" [ref=f1e16] [cursor=pointer]:
+            - /url: /matches
+          - link "Teams" [ref=f1e17] [cursor=pointer]:
+            - /url: /teams
+          - link "Players" [ref=f1e18] [cursor=pointer]:
+            - /url: /players
+          - link "Stats" [ref=f1e19] [cursor=pointer]:
+            - /url: /statistics
+          - link "News" [ref=f1e20] [cursor=pointer]:
+            - /url: /news
+        - link "Search" [ref=f1e21] [cursor=pointer]:
+          - /url: /search
+        - button [ref=f1e25]
+    - main [ref=f1e30]:
+      - generic [ref=f1e53]:
+        - group [ref=f1e54]:
+          - generic "Fixture update details" [active] [ref=f1e55] [cursor=pointer]
+          - list [ref=f1e497]:
+            - listitem [ref=f1e498]:
+              - strong [ref=f1e499]: "World Cup:"
+              - text: The last refresh time wasn't recorded.
+            - listitem [ref=f1e500]:
+              - strong [ref=f1e501]: "Premier League:"
+              - text: Last refreshed
+              - time [ref=f1e502]: 16 Nov 2026, 13:46 IST
+              - text: .
+            - listitem [ref=f1e503]:
+              - strong [ref=f1e504]: "La Liga:"
+              - text: Last refreshed
+              - time [ref=f1e505]: 16 Nov 2026, 13:47 IST
+              - text: .
+            - listitem [ref=f1e506]:
+              - strong [ref=f1e507]: "UCL:"
+              - text: Last refreshed
+              - time [ref=f1e508]: 16 Nov 2026, 13:48 IST
+              - text: .
+            - listitem [ref=f1e509]:
+              - strong [ref=f1e510]: "Bundesliga:"
+              - text: Last refreshed
+              - time [ref=f1e511]: 16 Nov 2026, 13:49 IST
+              - text: .
+        - generic [ref=f1e56]:
+          - img "Football stadium and tournament display" [ref=f1e57]
+          - generic [ref=f1e59]:
+            - generic [ref=f1e60]: 0 matches live
+            - heading "Football Companion" [level=1] [ref=f1e67]
+            - paragraph [ref=f1e68]: Every matchday across the World Cup, Champions League and Europe's biggest domestic leagues.
+            - generic [ref=f1e69]:
+              - link "Follow live" [ref=f1e70] [cursor=pointer]:
+                - /url: /live
+              - link "Explore competitions" [ref=f1e71] [cursor=pointer]:
+                - /url: /competitions
+        - generic [ref=f1e73]:
+          - paragraph [ref=f1e74]: Live now
+          - heading "The action as it happens" [level=1] [ref=f1e75]
+        - generic [ref=f1e76]:
+          - generic [ref=f1e77]:
+            - paragraph [ref=f1e78]: Competitions
+            - heading "Your football, one place" [level=1] [ref=f1e79]
+          - generic [ref=f1e80]:
+            - link "World Cup 2026 · International" [ref=f1e81] [cursor=pointer]:
+              - /url: /competitions/world-cup
+              - generic [ref=f1e88]:
+                - strong [ref=f1e89]: World Cup
+                - generic [ref=f1e90]: 2026 · International
+            - link "Premier League 2026/27 · England" [ref=f1e91] [cursor=pointer]:
+              - /url: /competitions/premier-league
+              - generic [ref=f1e98]:
+                - strong [ref=f1e99]: Premier League
+                - generic [ref=f1e100]: 2026/27 · England
+            - link "La Liga 2026/27 · Spain" [ref=f1e101] [cursor=pointer]:
+              - /url: /competitions/la-liga
+              - generic [ref=f1e108]:
+                - strong [ref=f1e109]: La Liga
+                - generic [ref=f1e110]: 2026/27 · Spain
+            - link "UCL 2026/27 · Europe" [ref=f1e111] [cursor=pointer]:
+              - /url: /competitions/ucl
+              - generic [ref=f1e118]:
+                - strong [ref=f1e119]: UCL
+                - generic [ref=f1e120]: 2026/27 · Europe
+            - link "Bundesliga 2026/27 · Germany" [ref=f1e121] [cursor=pointer]:
+              - /url: /competitions/bundesliga
+              - generic [ref=f1e128]:
+                - strong [ref=f1e129]: Bundesliga
+                - generic [ref=f1e130]: 2026/27 · Germany
+        - generic [ref=f1e131]:
+          - generic [ref=f1e132]:
+            - generic [ref=f1e133]:
+              - paragraph [ref=f1e134]: Next up
+              - heading "Upcoming matches" [level=1] [ref=f1e135]
+            - link "All matches" [ref=f1e136] [cursor=pointer]:
+              - /url: /matches
+          - generic [ref=f1e139]:
+            - article [ref=f1e140]:
+              - button "Save favourite" [ref=f1e142]
+              - link "FC Bayern München vs 1. FC Köln" [ref=f1e145] [cursor=pointer]:
+                - /url: /matches/565859
+              - generic [ref=f1e146]:
+                - generic [ref=f1e147]:
+                  - generic [ref=f1e148]: Bundesliga
+                  - generic [ref=f1e156]: upcoming
+                - generic [ref=f1e157]:
+                  - generic [ref=f1e158]:
+                    - img "FC Bayern München logo" [ref=f1e160]
+                    - generic [ref=f1e161]:
+                      - strong [ref=f1e162]: FC Bayern München
+                      - generic [ref=f1e163]: Bayern
+                  - strong [ref=f1e164]: vs
+                  - generic [ref=f1e165]:
+                    - img "1. FC Köln logo" [ref=f1e167]
+                    - generic [ref=f1e168]:
+                      - strong [ref=f1e169]: 1. FC Köln
+                      - generic [ref=f1e170]: 1. FC Köln
+                - generic [ref=f1e171]:
+                  - generic [ref=f1e172]: Nov 21, 01:00 AM
+                  - generic [ref=f1e175]: Matchday 10
+            - article [ref=f1e179]:
+              - button "Save favourite" [ref=f1e181]
+              - link "Athletic Club vs RCD Espanyol de Barcelona" [ref=f1e184] [cursor=pointer]:
+                - /url: /matches/564748
+              - generic [ref=f1e185]:
+                - generic [ref=f1e186]:
+                  - generic [ref=f1e187]: La Liga
+                  - generic [ref=f1e195]: upcoming
+                - generic [ref=f1e196]:
+                  - generic [ref=f1e197]:
+                    - img "Athletic Club logo" [ref=f1e199]
+                    - generic [ref=f1e200]:
+                      - strong [ref=f1e201]: Athletic Club
+                      - generic [ref=f1e202]: Athletic
+                  - strong [ref=f1e203]: vs
+                  - generic [ref=f1e204]:
+                    - img "RCD Espanyol de Barcelona logo" [ref=f1e206]
+                    - generic [ref=f1e207]:
+                      - strong [ref=f1e208]: RCD Espanyol de Barcelona
+                      - generic [ref=f1e209]: Espanyol
+                - generic [ref=f1e210]:
+                  - generic [ref=f1e211]: Nov 21, 01:30 AM
+                  - generic [ref=f1e214]: Matchday 13
+            - article [ref=f1e218]:
+              - button "Save favourite" [ref=f1e220]
+              - link "Manchester City FC vs Fulham FC" [ref=f1e223] [cursor=pointer]:
+                - /url: /matches/560643
+              - generic [ref=f1e224]:
+                - generic [ref=f1e225]:
+                  - generic [ref=f1e226]: Premier League
+                  - generic [ref=f1e234]: upcoming
+                - generic [ref=f1e235]:
+                  - generic [ref=f1e236]:
+                    - img "Manchester City FC logo" [ref=f1e238]
+                    - generic [ref=f1e239]:
+                      - strong [ref=f1e240]: Manchester City FC
+                      - generic [ref=f1e241]: Man City
+                  - strong [ref=f1e242]: vs
+                  - generic [ref=f1e243]:
+                    - img "Fulham FC logo" [ref=f1e245]
+                    - generic [ref=f1e246]:
+                      - strong [ref=f1e247]: Fulham FC
+                      - generic [ref=f1e248]: Fulham
+                - generic [ref=f1e249]:
+                  - generic [ref=f1e250]: Nov 21, 06:00 PM GMT+5:30
+                  - generic [ref=f1e253]: Matchday 11
+            - article [ref=f1e257]:
+              - button "Save favourite" [ref=f1e259]
+              - link "Deportivo Alavés vs RC Deportivo La Coruña" [ref=f1e262] [cursor=pointer]:
+                - /url: /matches/564755
+              - generic [ref=f1e263]:
+                - generic [ref=f1e264]:
+                  - generic [ref=f1e265]: La Liga
+                  - generic [ref=f1e273]: upcoming
+                - generic [ref=f1e274]:
+                  - generic [ref=f1e275]:
+                    - img "Deportivo Alavés logo" [ref=f1e277]
+                    - generic [ref=f1e278]:
+                      - strong [ref=f1e279]: Deportivo Alavés
+                      - generic [ref=f1e280]: Alavés
+                  - strong [ref=f1e281]: vs
+                  - generic [ref=f1e282]:
+                    - img "RC Deportivo La Coruña logo" [ref=f1e284]
+                    - generic [ref=f1e285]:
+                      - strong [ref=f1e286]: RC Deportivo La Coruña
+                      - generic [ref=f1e287]: Deportivo
+                - generic [ref=f1e288]:
+                  - generic [ref=f1e289]: Nov 21, 06:30 PM
+                  - generic [ref=f1e292]: Matchday 13
+        - generic [ref=f1e296]:
+          - generic [ref=f1e297]:
+            - generic [ref=f1e298]:
+              - paragraph [ref=f1e299]: Latest
+              - heading "Football stories" [level=1] [ref=f1e300]
+            - generic [ref=f1e301]:
+              - 'link "bbc.co.uk Billy Vigar: Pitch perimeter rules under review after player''s death 15 Nov 2026 Read at source ↗" [ref=f1e302] [cursor=pointer]':
+                - /url: https://www.bbc.co.uk/sport/football/articles/c5y4jn2zw3yno
+                - generic [ref=f1e304]:
+                  - paragraph [ref=f1e305]: bbc.co.uk
+                  - 'heading "Billy Vigar: Pitch perimeter rules under review after player''s death" [level=3] [ref=f1e306]'
+                  - time [ref=f1e307]: 15 Nov 2026
+                  - generic [ref=f1e308]: Read at source ↗
+              - link "independent.ie ‘A lot of the Premier League games have become hard to watch’ – ex-Arsenal and Celtic striker Charlie Nicholas 15 Nov 2026 Read at source ↗" [ref=f1e309] [cursor=pointer]:
+                - /url: https://www.independent.ie/sport/soccer/a-lot-of-the-premier-league-games-have-become-hard-to-watch-ex-arsenal-and-celtic-striker-charlie-nicholas/a/164527481.html
+                - generic [ref=f1e311]:
+                  - paragraph [ref=f1e312]: independent.ie
+                  - heading "‘A lot of the Premier League games have become hard to watch’ – ex-Arsenal and Celtic striker Charlie Nicholas" [level=3] [ref=f1e313]
+                  - time [ref=f1e314]: 15 Nov 2026
+                  - generic [ref=f1e315]: Read at source ↗
+              - 'link "sportskeeda.com Chelsea failed with approach to sign La Liga winger with release clause, still persistent on transfer: Reports 14 Nov 2026 Read at source ↗" [ref=f1e316] [cursor=pointer]':
+                - /url: https://www.sportskeeda.com/football/rumor-chelsea-failed-approach-sign-la-liga-winger-release-clause-still-persistent-transfer-reports
+                - generic [ref=f1e318]:
+                  - paragraph [ref=f1e319]: sportskeeda.com
+                  - 'heading "Chelsea failed with approach to sign La Liga winger with release clause, still persistent on transfer: Reports" [level=3] [ref=f1e320]'
+                  - time [ref=f1e321]: 14 Nov 2026
+                  - generic [ref=f1e322]: Read at source ↗
+              - link "dailymail.com Football chiefs wrongly announce ex-Premier League referee is dead 14 Nov 2026 Read at source ↗" [ref=f1e323] [cursor=pointer]:
+                - /url: https://www.dailymail.com/sport/football/article-16292787/football-chiefs-Premier-League-referee-dead-alive.html?ns_campaign=1490&ito=1490
+                - generic [ref=f1e325]:
+                  - paragraph [ref=f1e326]: dailymail.com
+                  - heading "Football chiefs wrongly announce ex-Premier League referee is dead" [level=3] [ref=f1e327]
+                  - time [ref=f1e328]: 14 Nov 2026
+                  - generic [ref=f1e329]: Read at source ↗
+              - link "dailymail.com Why Scotland must redefine the role of Ben Gannon-Doak 14 Nov 2026 Read at source ↗" [ref=f1e330] [cursor=pointer]:
+                - /url: https://www.dailymail.com/sport/football/article-16292463/So-pace-potential-not-positive-impact-surely-Scotland-redefine-role-Ben-Gannon-Doak.html?ns_campaign=1490&ito=1490
+                - generic [ref=f1e332]:
+                  - paragraph [ref=f1e333]: dailymail.com
+                  - heading "Why Scotland must redefine the role of Ben Gannon-Doak" [level=3] [ref=f1e334]
+                  - time [ref=f1e335]: 14 Nov 2026
+                  - generic [ref=f1e336]: Read at source ↗
+          - generic [ref=f1e337]:
+            - generic [ref=f1e338]:
+              - paragraph [ref=f1e339]: Form
+              - heading "Top scorers" [level=1] [ref=f1e340]
+            - generic [ref=f1e342]:
+              - paragraph [ref=f1e343]: Premier League · latest imported season
+              - generic [ref=f1e344]:
+                - generic [ref=f1e345]:
+                  - text: 1. Erling Haaland
+                  - generic [ref=f1e346]: Manchester City FC
+                - strong [ref=f1e347]: "9"
+              - generic [ref=f1e348]:
+                - generic [ref=f1e349]:
+                  - text: 2. Alexander Isak
+                  - generic [ref=f1e350]: Liverpool FC
+                - strong [ref=f1e351]: "7"
+              - generic [ref=f1e352]:
+                - generic [ref=f1e353]:
+                  - text: 3. Thierno Barry
+                  - generic [ref=f1e354]: Everton FC
+                - strong [ref=f1e355]: "6"
+              - generic [ref=f1e356]:
+                - generic [ref=f1e357]:
+                  - text: 4. Nicolas Jackson
+                  - generic [ref=f1e358]: Aston Villa FC
+                - strong [ref=f1e359]: "6"
+              - generic [ref=f1e360]:
+                - generic [ref=f1e361]:
+                  - text: 5. Marcus Tavernier
+                  - generic [ref=f1e362]: AFC Bournemouth
+                - strong [ref=f1e363]: "5"
+            - link "All player stats" [ref=f1e364] [cursor=pointer]:
+              - /url: /statistics
+        - generic [ref=f1e368]:
+          - generic [ref=f1e369]:
+            - paragraph [ref=f1e370]: Full time
+            - heading "Recent results" [level=1] [ref=f1e371]
+          - generic [ref=f1e372]:
+            - article [ref=f1e373]:
+              - button "Save favourite" [ref=f1e375]
+              - link "Club Atlético de Madrid vs FC Barcelona" [ref=f1e378] [cursor=pointer]:
+                - /url: /matches/564746
+              - generic [ref=f1e379]:
+                - generic [ref=f1e380]:
+                  - generic [ref=f1e381]: La Liga
+                  - generic [ref=f1e389]: finished
+                - generic [ref=f1e390]:
+                  - generic [ref=f1e391]:
+                    - img "Club Atlético de Madrid logo" [ref=f1e393]
+                    - generic [ref=f1e394]:
+                      - strong [ref=f1e395]: Club Atlético de Madrid
+                      - generic [ref=f1e396]: Atleti
+                  - strong [ref=f1e397]: 1 - 2
+                  - generic [ref=f1e398]:
+                    - img "FC Barcelona logo" [ref=f1e400]
+                    - generic [ref=f1e401]:
+                      - strong [ref=f1e402]: FC Barcelona
+                      - generic [ref=f1e403]: Barça
+                - generic [ref=f1e404]:
+                  - generic [ref=f1e405]: Nov 9, 01:30 AM
+                  - generic [ref=f1e408]: Matchday 12
+            - article [ref=f1e412]:
+              - button "Save favourite" [ref=f1e414]
+              - link "TSG 1899 Hoffenheim vs FC Schalke 04" [ref=f1e417] [cursor=pointer]:
+                - /url: /matches/565856
+              - generic [ref=f1e418]:
+                - generic [ref=f1e419]:
+                  - generic [ref=f1e420]: Bundesliga
+                  - generic [ref=f1e428]: finished
+                - generic [ref=f1e429]:
+                  - generic [ref=f1e430]:
+                    - img "TSG 1899 Hoffenheim logo" [ref=f1e432]
+                    - generic [ref=f1e433]:
+                      - strong [ref=f1e434]: TSG 1899 Hoffenheim
+                      - generic [ref=f1e435]: Hoffenheim
+                  - strong [ref=f1e436]: 2 - 1
+                  - generic [ref=f1e437]:
+                    - img "FC Schalke 04 logo" [ref=f1e439]
+                    - generic [ref=f1e440]:
+                      - strong [ref=f1e441]: FC Schalke 04
+                      - generic [ref=f1e442]: Schalke
+                - generic [ref=f1e443]:
+                  - generic [ref=f1e444]: Nov 9, 12:00 AM
+                  - generic [ref=f1e447]: Matchday 9
+            - article [ref=f1e451]:
+              - button "Save favourite" [ref=f1e453]
+              - link "Villarreal CF vs Getafe CF" [ref=f1e456] [cursor=pointer]:
+                - /url: /matches/564747
+              - generic [ref=f1e457]:
+                - generic [ref=f1e458]:
+                  - generic [ref=f1e459]: La Liga
+                  - generic [ref=f1e467]: finished
+                - generic [ref=f1e468]:
+                  - generic [ref=f1e469]:
+                    - img "Villarreal CF logo" [ref=f1e471]
+                    - generic [ref=f1e472]:
+                      - strong [ref=f1e473]: Villarreal CF
+                      - generic [ref=f1e474]: Villarreal
+                  - strong [ref=f1e475]: 2 - 0
+                  - generic [ref=f1e476]:
+                    - img "Getafe CF logo" [ref=f1e478]
+                    - generic [ref=f1e479]:
+                      - strong [ref=f1e480]: Getafe CF
+                      - generic [ref=f1e481]: Getafe
+                - generic [ref=f1e482]:
+                  - generic [ref=f1e483]: Nov 8, 11:00 PM
+                  - generic [ref=f1e486]: Matchday 12
+        - generic [ref=f1e490]:
+          - generic [ref=f1e491]:
+            - paragraph [ref=f1e492]: Following
+            - heading "Favourite teams" [level=1] [ref=f1e493]
+          - link "Choose your favourite teams." [ref=f1e495] [cursor=pointer]:
+            - /url: /favourites
+    - contentinfo [ref=f1e39]:
+      - generic [ref=f1e40]:
+        - paragraph [ref=f1e41]: Football Companion
+        - paragraph [ref=f1e42]: Five competitions. One matchday home.
+  - button "Open Next.js Dev Tools" [ref=f1e48] [cursor=pointer]
+  - alert [ref=f1e52]

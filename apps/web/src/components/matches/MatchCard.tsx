@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { FormattedDateTime } from "@/components/common/FormattedDateTime";
 import type { Match } from "@/types/match";
 import { MatchStatusBadge } from "./MatchStatusBadge";
-import VsIcon from "../Icons/VsIcon";
 import { TeamLogoImage } from "./TeamLogoImage";
 import { formatMatchScore } from "@/lib/matches/score";
 
@@ -23,14 +22,14 @@ export function MatchCard({ match }: MatchCardProps) {
   return (
     <div className="group relative block h-full">
       <Link
-        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[28px]"
+        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
         href={`/matches/${match.id}`}
       >
         <span className="sr-only">View match details</span>
       </Link>
-      <Card className="relative h-full overflow-hidden border border-black/5 dark:border-white/5 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-md rounded-[28px] shadow-sm transition hover:scale-[1.01] hover:shadow-md">
+      <Card className="relative h-full overflow-hidden border border-border dark:border-border bg-card dark:bg-card backdrop-blur-md rounded-lg shadow-none transition hover:scale-[1.01] hover:shadow-md">
         {match.venueImageUrl ? (
-          <div className="relative h-44 overflow-hidden bg-zinc-900 sm:h-52">
+          <div className="relative h-44 overflow-hidden bg-card sm:h-52">
             <Image
               src={match.venueImageUrl}
               alt={match.venue ? `${match.venue} stadium` : "Stadium"}
@@ -41,7 +40,9 @@ export function MatchCard({ match }: MatchCardProps) {
 
             <div className="absolute inset-0 flex items-center justify-center gap-4 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent px-4">
               <TeamLogoImage team={match.homeTeam} size={72} />
-              <div className="bg-black/60 backdrop-blur-md text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs border border-white/10">VS</div>
+              <div className="bg-black/60 backdrop-blur-md text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs border border-border">
+                VS
+              </div>
               <TeamLogoImage team={match.awayTeam} size={72} />
             </div>
           </div>
@@ -49,27 +50,28 @@ export function MatchCard({ match }: MatchCardProps) {
         <CardContent className="grid gap-4 p-3.5 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <MatchStatusBadge status={match.status} />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
               {meta.length ? meta.join(" · ") : ""}
             </span>
           </div>
           <div className="grid gap-4">
             <TeamBadge compact {...match.homeTeam} />
-            <div className="grid gap-1.5 rounded-md sm:rounded-2xl border border-black/5 bg-zinc-100/80 dark:bg-zinc-800/30 px-3.5 py-2 sm:flex sm:items-center sm:justify-between text-center">
-              <span className="text-[10px] font-semibold text-zinc-500 dark:text-zinc-400">
+            <div className="grid gap-1.5 rounded-md sm:rounded-2xl border border-border bg-secondary dark:bg-secondary px-3.5 py-2 sm:flex sm:items-center sm:justify-between text-center">
+              <span className="text-[10px] font-semibold text-muted-foreground dark:text-muted-foreground">
                 <FormattedDateTime date={match.date} />
               </span>
-              <strong className="text-sm font-black text-zinc-950 dark:text-white">{score}</strong>
+              <strong className="text-sm font-black text-foreground dark:text-white">
+                {score}
+              </strong>
             </div>
             <TeamBadge compact {...match.awayTeam} />
           </div>
-          
+
           <div className="mt-1 flex items-center justify-between gap-2">
-            <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 truncate">
+            <p className="text-[11px] font-medium text-muted-foreground dark:text-muted-foreground truncate">
               {match.venue ? match.venue : "Venue TBD"}
               {match.city ? `, ${match.city}` : ""}
             </p>
-
           </div>
         </CardContent>
       </Card>

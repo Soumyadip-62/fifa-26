@@ -87,13 +87,13 @@ export function FirstMatchCountdown({
   ];
 
   return (
-    <div className="grid w-full max-w-xl gap-4 rounded-[28px] border border-black/5 dark:border-white/10 bg-black/70 dark:bg-zinc-900/60 p-5 shadow-lg backdrop-blur-xl">
+    <div className="grid w-full max-w-xl gap-4 rounded-lg border border-border dark:border-border bg-black/70 dark:bg-card p-5 shadow-lg backdrop-blur-xl">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-[10px] font-bold uppercase tracking-widest text-primary">
           First match countdown
         </p>
         <time
-          className="text-xs font-semibold text-zinc-300 dark:text-zinc-400"
+          className="text-xs font-semibold text-secondary-foreground dark:text-muted-foreground"
           dateTime={activeCountdown.targetIso}
         >
           <FormattedDateTime date={targetIso} />
@@ -105,7 +105,7 @@ export function FirstMatchCountdown({
       <div className="grid grid-cols-4 gap-2">
         {units.map((unit) => (
           <div
-            className="grid min-h-16 place-items-center rounded-[18px] border border-white/5 bg-white/10 px-1 sm:px-2 py-2.5 text-center shadow-xs"
+            className="grid min-h-16 place-items-center rounded-[18px] border border-border bg-white/10 px-1 sm:px-2 py-2.5 text-center shadow-none"
             key={unit.label}
           >
             <span className="font-heading text-lg sm:text-2xl font-black leading-none text-white">
@@ -113,7 +113,7 @@ export function FirstMatchCountdown({
                 ? formatTimeValue(unit.value)
                 : "--"}
             </span>
-            <span className="mt-1 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-zinc-300">
+            <span className="mt-1 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-secondary-foreground">
               {unit.label}
             </span>
           </div>

@@ -1,0 +1,395 @@
+{
+  "inspectedAt": "2026-11-16T14:15:52.810Z",
+  "databaseAccess": "read-only transaction; no Nest bootstrap",
+  "apiFootballConfigured": false,
+  "apiFootballCallsConsumed": 0,
+  "seasons": [
+    {
+      "competitionId": "bundesliga",
+      "season": 2026,
+      "fixtures": 306,
+      "completed": 81,
+      "live": 0
+    },
+    {
+      "competitionId": "la-liga",
+      "season": 2026,
+      "fixtures": 380,
+      "completed": 119,
+      "live": 0
+    },
+    {
+      "competitionId": "premier-league",
+      "season": 2026,
+      "fixtures": 380,
+      "completed": 100,
+      "live": 0
+    },
+    {
+      "competitionId": "ucl",
+      "season": 2026,
+      "fixtures": 144,
+      "completed": 72,
+      "live": 0
+    }
+  ],
+  "completedPocCandidates": [
+    {
+      "id": 564746,
+      "competitionId": "la-liga",
+      "season": 2026,
+      "kickoff": "2026-11-08T20:00:00.000Z",
+      "status": "FINISHED",
+      "homeTeam": {
+        "id": 78,
+        "tla": "ATL",
+        "name": "Club Atlético de Madrid",
+        "crest": "https://crests.football-data.org/78.png",
+        "shortName": "Atleti"
+      },
+      "awayTeam": {
+        "id": 81,
+        "tla": "FCB",
+        "name": "FC Barcelona",
+        "crest": "https://crests.football-data.org/81.png",
+        "shortName": "Barça"
+      },
+      "score": {
+        "winner": "AWAY_TEAM",
+        "duration": "REGULAR",
+        "fullTime": {
+          "away": 2,
+          "home": 1
+        },
+        "halfTime": {
+          "away": 1,
+          "home": 1
+        }
+      }
+    },
+    {
+      "id": 560639,
+      "competitionId": "premier-league",
+      "season": 2026,
+      "kickoff": "2026-11-08T16:30:00.000Z",
+      "status": "FINISHED",
+      "homeTeam": {
+        "id": 66,
+        "tla": "MUN",
+        "name": "Manchester United FC",
+        "crest": "https://crests.football-data.org/66.png",
+        "shortName": "Man United"
+      },
+      "awayTeam": {
+        "id": 58,
+        "tla": "AVL",
+        "name": "Aston Villa FC",
+        "crest": "https://crests.football-data.org/58.png",
+        "shortName": "Aston Villa"
+      },
+      "score": {
+        "winner": "DRAW",
+        "duration": "REGULAR",
+        "fullTime": {
+          "away": 4,
+          "home": 4
+        },
+        "halfTime": {
+          "away": 2,
+          "home": 2
+        }
+      }
+    }
+  ],
+  "catalogProviderKeys": [
+    "footballData",
+    "sportsdb"
+  ],
+  "columns": [
+    {
+      "table_name": "football_catalog",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "football_catalog",
+      "column_name": "kind",
+      "data_type": "text"
+    },
+    {
+      "table_name": "football_catalog",
+      "column_name": "providerKey",
+      "data_type": "text"
+    },
+    {
+      "table_name": "football_catalog",
+      "column_name": "payload",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "football_catalog",
+      "column_name": "updatedAt",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "id",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "matchNumber",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "stage",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "group",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "matchday",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "date",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "time",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "timezone",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "homeTeam",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "awayTeam",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "homeTeamSlot",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "awayTeamSlot",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "venue",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "season",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "league",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "eventName",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "eventAlternateName",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "sportsDbEventId",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "sportsDbHomeTeamId",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "sportsDbAwayTeamId",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "homeTeamBadgeUrl",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "awayTeamBadgeUrl",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "score",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "goals",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "timestampUtc",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "dateUtc",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "timeUtc",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "statusCode",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "isPostponed",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "thumbnailUrl",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "posterUrl",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "videoUrl",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "sourceFilename",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "referees",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "footballDataorgHomeTeamId",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "footballDataorgAwayTeamId",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "isNotified",
+      "data_type": "boolean"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "lastScoreNotified",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "matches",
+      "column_name": "lastScoreNotifiedAt",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "competitionId",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "season",
+      "data_type": "integer"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "kickoff",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "score",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "payload",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "tournament_fixtures",
+      "column_name": "observedAt",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "tournament_resource_cache",
+      "column_name": "key",
+      "data_type": "character varying"
+    },
+    {
+      "table_name": "tournament_resource_cache",
+      "column_name": "payload",
+      "data_type": "jsonb"
+    },
+    {
+      "table_name": "tournament_resource_cache",
+      "column_name": "fetchedAt",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "tournament_resource_cache",
+      "column_name": "expiresAt",
+      "data_type": "timestamp with time zone"
+    }
+  ]
+}

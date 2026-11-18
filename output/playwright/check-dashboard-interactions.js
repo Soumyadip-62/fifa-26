@@ -1,0 +1,33 @@
+async (page) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.getByRole('button', { name: 'Follow Arsenal FC', exact: true }).click();
+  await page.getByRole('button', { name: 'Unfollow Arsenal FC', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Save favourite', exact: true }).first().click();
+  await page.getByRole('button', { name: 'Remove favourite', exact: true }).first().waitFor();
+  await page.reload();
+  await page.getByRole('button', { name: 'Unfollow Arsenal FC', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Remove favourite', exact: true }).first().waitFor();
+  const persistence = { team: true, match: true };
+  await page.getByRole('button', { name: 'Unfollow Arsenal FC', exact: true }).click();
+  await page.getByRole('button', { name: 'Remove favourite', exact: true }).first().click();
+  await page.getByRole('button', { name: 'Open profile settings' }).click();
+  await page.getByRole('heading', { name: 'Settings', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Close settings' }).click();
+  const nav = page.getByRole('navigation', { name: 'Primary navigation' });
+  await nav.getByText('Competitions', { exact: true }).click();
+  const competitionLinks = await nav.locator('details a').count();
+  if (competitionLinks !== 5) throw new Error('Competition navigation is incomplete');
+  await nav.getByText('Competitions', { exact: true }).click();
+  await page.getByRole('link', { name: 'View all: Recent results', exact: true }).click();
+  await page.getByRole('button', { name: 'Finished', exact: true }).waitFor();
+  const resultsFilter = await page.getByRole('button', { name: 'Finished', exact: true }).getAttribute('aria-pressed');
+  if (resultsFilter !== 'true') throw new Error('Results link did not select finished matches');
+  await page.goto('http://localhost:14000/');
+  await page.locator('.dashboard-grid').waitFor();
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileNavigation = await page.getByRole('navigation', { name: 'Mobile navigation' }).getByRole('link').count();
+  await page.locator('.dashboard-competition-list').evaluate(el => { el.scrollLeft = el.scrollWidth; });
+  const lastCompetitionVisible = await page.locator('.competition-bundesliga').evaluate(el => { const r = el.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth; });
+  if (!lastCompetitionVisible) throw new Error('Last competition cannot be browsed on mobile');
+  return { persistence, settingsDrawer: true, competitionLinks, resultsFilter, mobileNavigation, lastCompetitionVisible };
+}

@@ -24,7 +24,11 @@ export function FormattedDateTime({
   }, []);
 
   if (!mounted) {
-    return <Skeleton className={`h-4 ${fallbackWidthClass} bg-neutral-200/50 dark:bg-neutral-800/50 inline-block`} />;
+    return (
+      <Skeleton
+        className={`h-4 ${fallbackWidthClass} bg-secondary dark:bg-secondary inline-block`}
+      />
+    );
   }
 
   return (
