@@ -97,6 +97,8 @@ export class NewsService {
   constructor(private readonly db: DataSource) {}
 
   getMatchNews(fixture: MatchNewsFixture): Promise<NewsFeed> {
+    if (fixture.competitionId === 'world-cup')
+      throw new NotFoundException('News competition not supported.');
     const search = matchNewsSearch(fixture);
     return this.feed(
       search.key,
@@ -108,7 +110,10 @@ export class NewsService {
   }
 
   getCompetitionNews(id: string): Promise<NewsFeed> {
-    if (!Object.prototype.hasOwnProperty.call(NEWS_COMPETITIONS, id))
+    if (
+      id === 'world-cup' ||
+      !Object.prototype.hasOwnProperty.call(NEWS_COMPETITIONS, id)
+    )
       throw new NotFoundException('News competition not supported.');
     const competitionId = id as NewsCompetitionId;
     return this.feed(
@@ -119,7 +124,9 @@ export class NewsService {
   }
 
   async getLatestNews(): Promise<NewsFeed> {
-    const ids = Object.keys(NEWS_COMPETITIONS) as NewsCompetitionId[];
+    const ids = Object.keys(NEWS_COMPETITIONS).filter(
+      (id) => id !== 'world-cup',
+    ) as NewsCompetitionId[];
     const results = await Promise.allSettled(
       ids.map((id) => this.getCompetitionNews(id)),
     );

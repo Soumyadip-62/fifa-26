@@ -3,49 +3,43 @@ import { Suspense } from "react";
 import { ErrorState } from "@/components/common/ErrorState";
 import { LoadingState } from "@/components/common/LoadingState";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { StandingsTable } from "@/components/football/StandingsTable";
 import { getCompetitionData, getFootballData } from "@/lib/api/football";
-import type { CompetitionId } from "@/types/football";
+import {
+  isActiveCompetition,
+  type ActiveCompetitionId,
+} from "@/lib/competitions";
 import { LeagueStandings } from "@/features/competitions/PremierLeagueSections";
 import { footballDataError } from "@/lib/api/premier-league";
 type Props = { searchParams: Promise<{ competition?: string }> };
-async function Table({ id }: { id: CompetitionId }) {
-  if (
-    id === "premier-league" ||
-    id === "la-liga" ||
-    id === "ucl" ||
-    id === "bundesliga"
-  ) {
-    let data;
-    try {
-      data = await getCompetitionData(id);
-    } catch (error) {
-      return (
-        <ErrorState
-          title="Standings unavailable"
-          message={footballDataError(error)}
-        />
-      );
-    }
+async function Table({ id }: { id: ActiveCompetitionId }) {
+  let data;
+  try {
+    data = await getCompetitionData(id);
+  } catch (error) {
     return (
-      <div className="grid gap-4">
-        <p className="text-xs font-bold text-muted-foreground">
-          {data.competition.name} · {data.competition.season}
-        </p>
-        <LeagueStandings data={data} />
-      </div>
+      <ErrorState
+        title="Standings unavailable"
+        message={footballDataError(error)}
+      />
     );
   }
-  const data = await getCompetitionData(id);
-  return <StandingsTable rows={data.standings} teams={data.teams} />;
+  return (
+    <div className="grid gap-4">
+      <p className="text-xs font-bold text-muted-foreground">
+        {data.competition.name} · {data.competition.season}
+      </p>
+      <LeagueStandings data={data} />
+    </div>
+  );
 }
 
 export default async function Page({ searchParams }: Props) {
   const params = await searchParams;
   const all = await getFootballData();
-  const id = all.competitions.some((item) => item.id === params.competition)
-    ? (params.competition as CompetitionId)
-    : "premier-league";
+  const id =
+    params.competition && isActiveCompetition(params.competition)
+      ? params.competition
+      : "premier-league";
   return (
     <div className="page-shell">
       <SectionHeader

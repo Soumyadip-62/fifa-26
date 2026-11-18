@@ -41,8 +41,10 @@ function setup() {
     tournaments as unknown as TournamentsService,
     {} as FootballDataClient,
   );
-  jest.spyOn(jobs, 'refreshWorldCup').mockResolvedValue({ fixtures: 104 });
-  return { jobs, db, tournaments, football };
+  const worldCup = jest
+    .spyOn(jobs, 'refreshWorldCup')
+    .mockResolvedValue({ fixtures: 104 });
+  return { jobs, db, tournaments, football, worldCup };
 }
 
 describe('Backend fixture and official-table synchronization', () => {
@@ -55,12 +57,8 @@ describe('Backend fixture and official-table synchronization', () => {
       2026,
       true,
     );
-    expect(h.tournaments.resource).toHaveBeenCalledWith(
-      'world-cup',
-      'standings',
-      2026,
-      true,
-    );
+    expect(h.worldCup).not.toHaveBeenCalled();
+    expect(h.tournaments.resource).toHaveBeenCalledTimes(1);
     expect(h.football.backfill).toHaveBeenCalled();
     expect(
       h.db.query.mock.calls.some(([sql]) =>
@@ -79,10 +77,81 @@ describe('Backend fixture and official-table synchronization', () => {
       true,
     );
     expect(h.football.backfill).not.toHaveBeenCalled();
+    expect(h.worldCup).not.toHaveBeenCalled();
+  });
+
+  it('skips idle score wakeups without writing job state or calling providers', async () => {
+    const h = setup();
+    h.db.query.mockResolvedValueOnce([
+      {
+        live: false,
+        matchday: false,
+        nextKickoff: new Date(Date.now() + 86400000),
+        lastSuccessAt: new Date(),
+      },
+    ]);
+    await expect(h.jobs.runScheduled('scores')).resolves.toMatchObject({
+      skipped: true,
+      reason: 'no-fixture-today',
+    });
+    expect(h.db.query).toHaveBeenCalledTimes(1);
+    const gateCalls = h.db.query.mock.calls as unknown as [string, unknown[]][];
+    const gateQuery = gateCalls[0]?.[0];
+    expect(gateQuery).toMatch(/^SELECT/);
+    expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
+    expect(h.tournaments.resource).not.toHaveBeenCalled();
+  });
+
+  it('runs scores every five minutes while a match is live', async () => {
+    const h = setup();
+    h.db.query.mockResolvedValueOnce([
+      {
+        live: true,
+        matchday: true,
+        nextKickoff: null,
+        lastSuccessAt: new Date(Date.now() - 5 * 60_000),
+      },
+    ]);
+    const run = jest.spyOn(h.jobs, 'run').mockResolvedValue({ outcomes: [] });
+    await h.jobs.runScheduled('scores');
+    expect(run).toHaveBeenCalledWith('scores');
+  });
+
+  it('runs schedule imports hourly on matchdays and every two hours otherwise', async () => {
+    const h = setup();
+    const run = jest.spyOn(h.jobs, 'run').mockResolvedValue({});
+    h.db.query.mockResolvedValueOnce([
+      {
+        live: false,
+        matchday: true,
+        nextKickoff: null,
+        lastSuccessAt: new Date(Date.now() - 60 * 60_000),
+      },
+    ]);
+    await h.jobs.runScheduled('schedules');
+    expect(run).toHaveBeenCalledWith('schedules');
+    run.mockClear();
+    h.db.query.mockResolvedValueOnce([
+      {
+        live: false,
+        matchday: false,
+        nextKickoff: null,
+        lastSuccessAt: new Date(Date.now() - 60 * 60_000),
+      },
+    ]);
+    await expect(h.jobs.runScheduled('schedules')).resolves.toMatchObject({
+      skipped: true,
+      reason: 'not-due',
+    });
+    expect(run).not.toHaveBeenCalled();
   });
 
   it('continues other tables after one provider fails and records the partial failure', async () => {
     const h = setup();
+    h.tournaments.syncAll.mockResolvedValue([
+      { id: 'premier-league', season: 2026, fixtures: 380, skipped: false },
+      { id: 'la-liga', season: 2026, fixtures: 380, skipped: false },
+    ]);
     h.tournaments.resource.mockRejectedValueOnce(
       new Error('Provider unavailable'),
     );
@@ -90,7 +159,7 @@ describe('Backend fixture and official-table synchronization', () => {
       'Some competition imports failed',
     );
     expect(h.tournaments.resource).toHaveBeenCalledWith(
-      'world-cup',
+      'la-liga',
       'standings',
       2026,
       true,
@@ -101,7 +170,7 @@ describe('Backend fixture and official-table synchronization', () => {
     expect(JSON.parse(String(errorWrite[1][2]))).toMatchObject({
       tables: [
         { competition: 'premier-league', error: 'Provider unavailable' },
-        { competition: 'world-cup' },
+        { competition: 'la-liga' },
       ],
     });
     expect(
@@ -119,15 +188,24 @@ describe('Backend fixture and official-table synchronization', () => {
     );
   });
 
+  it('rejects explicit World Cup imports without provider or database work', async () => {
+    const h = setup();
+    await expect(
+      h.jobs.run('schedules', { competition: 'world-cup' }),
+    ).rejects.toThrow('paused');
+    expect(h.db.query).not.toHaveBeenCalled();
+    expect(h.tournaments.syncAll).not.toHaveBeenCalled();
+    expect(h.worldCup).not.toHaveBeenCalled();
+  });
+
   it('catches up missing schedules but avoids repeat startup imports', async () => {
     const h = setup();
-    const run = jest.spyOn(h.jobs, 'run').mockResolvedValue({});
+    const run = jest.spyOn(h.jobs, 'runScheduled').mockResolvedValue({});
     await h.jobs.catchUp();
     expect(run).toHaveBeenCalledWith('schedules');
     run.mockClear();
-    h.db.query.mockResolvedValue([{ fresh: true }]);
     await h.jobs.catchUp();
-    expect(run).not.toHaveBeenCalled();
+    expect(run).toHaveBeenCalledWith('schedules');
   });
 
   it('leaves external scheduler mode in control of periodic imports', async () => {
@@ -135,7 +213,7 @@ describe('Backend fixture and official-table synchronization', () => {
     process.env.FOOTBALL_SCHEDULER = 'supabase';
     try {
       const h = setup();
-      const run = jest.spyOn(h.jobs, 'run').mockResolvedValue({});
+      const run = jest.spyOn(h.jobs, 'runScheduled').mockResolvedValue({});
       h.jobs.onApplicationBootstrap();
       await h.jobs.scheduledSchedules();
       await h.jobs.localScores();

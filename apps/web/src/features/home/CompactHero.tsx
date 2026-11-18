@@ -9,7 +9,6 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
-import { images } from "@/assets";
 import { buttonVariants } from "@/components/ui/button";
 
 export function CompactHero({
@@ -33,8 +32,8 @@ export function CompactHero({
     <section className="dashboard-hero" aria-labelledby="home-title">
       <div className="dashboard-hero-main">
         <Image
-          src={images.banners.worldCup2026}
-          alt="Football's biggest stars at the stadium"
+          src="/assets/images/banners/pl-banner.png"
+          alt="Premier League football"
           fill
           priority
           sizes="(min-width:1440px) 1380px, 100vw"
@@ -52,7 +51,7 @@ export function CompactHero({
             Stats <span>&amp; More.</span>
           </h1>
           <p className="dashboard-hero-description">
-            From the World Cup to your favourite club.
+            Follow your favourite clubs across Europe&apos;s top competitions.
             <br className="hidden sm:block" /> Your whole football world, in one
             place.
           </p>

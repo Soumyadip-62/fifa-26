@@ -71,11 +71,9 @@ export function FootballOperations({ secret }: { secret: string }) {
           className="rounded-lg border bg-card p-3 dark:bg-card"
         >
           <option value="all">All competitions</option>
-          {["world-cup", "premier-league", "la-liga", "ucl", "bundesliga"].map(
-            (id) => (
-              <option key={id}>{id}</option>
-            ),
-          )}
+          {["premier-league", "la-liga", "ucl", "bundesliga"].map((id) => (
+            <option key={id}>{id}</option>
+          ))}
         </select>
         <input
           aria-label="Starting season year"

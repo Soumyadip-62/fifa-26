@@ -1,0 +1,100 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Football Companion home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]:
+            - strong [ref=e9]: Football
+            - generic [ref=e10]: Companion
+        - link "Search football" [ref=e11] [cursor=pointer]:
+          - /url: /search
+        - link "Notification settings" [ref=e15] [cursor=pointer]:
+          - /url: /settings/notifications
+        - group [ref=e19]:
+          - generic "Browse football pages" [ref=e20] [cursor=pointer]
+        - button "Open profile settings" [ref=e22] [cursor=pointer]
+    - main [ref=e27]:
+      - generic [ref=e28]:
+        - navigation "Breadcrumb" [ref=e29]:
+          - link "Home" [ref=e30] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e33]: Settings
+          - generic [ref=e36]: Notifications
+        - generic [ref=e37]:
+          - link "Standings" [ref=e38] [cursor=pointer]:
+            - /url: /standings
+          - link "Stadiums" [ref=e42] [cursor=pointer]:
+            - /url: /stadiums
+          - link "History" [ref=e46] [cursor=pointer]:
+            - /url: /history
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: Never miss your matchday
+          - heading "Notification settings" [level=1] [ref=e54]
+          - paragraph [ref=e55]: Kickoff reminders and full-time scores for the teams, competitions and matches you follow.
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e65]:
+              - heading "Alerts are off" [level=2] [ref=e66]
+              - paragraph [ref=e67]: Get the moments that matter, straight to this device.
+            - button "Enable browser notifications" [ref=e68] [cursor=pointer]
+            - generic [ref=e69]:
+              - generic [ref=e70] [cursor=pointer]:
+                - generic [ref=e71]:
+                  - strong [ref=e72]: 30 minutes before kickoff
+                  - generic [ref=e73]: A little time to get ready for the game.
+                - checkbox "30 minutes before kickoff" [checked] [ref=e74]
+              - generic [ref=e75] [cursor=pointer]:
+                - generic [ref=e76]:
+                  - strong [ref=e77]: 10 minutes before kickoff
+                  - generic [ref=e78]: Your final reminder before the first whistle.
+                - checkbox "10 minutes before kickoff" [ref=e79]
+              - generic [ref=e80] [cursor=pointer]:
+                - generic [ref=e81]:
+                  - strong [ref=e82]: Full-time scores
+                  - generic [ref=e83]: The final result when the match is done.
+                - checkbox "Full-time scores" [checked] [ref=e84]
+            - paragraph [ref=e85]: Preferences are saved on this device. Delivery requires browser permission and an active notification service. Other event alerts are unavailable with current data coverage.
+            - generic [ref=e86]:
+              - heading "Local notification test" [level=3] [ref=e87]
+              - paragraph [ref=e88]: Show a sample notification on this device. This checks browser display; Firebase push delivery is tested separately in Operations.
+              - button "Send dummy notification" [ref=e89] [cursor=pointer]
+              - status
+          - complementary [ref=e95]:
+            - generic [ref=e96]:
+              - heading "Following" [level=2] [ref=e97]
+              - link "Manage" [ref=e101] [cursor=pointer]:
+                - /url: /favourites
+            - paragraph [ref=e105]: No teams selected yet. Follow a team from your favourites to make these alerts your own.
+    - navigation "Mobile navigation" [ref=e107]:
+      - link "Home" [ref=e108] [cursor=pointer]:
+        - /url: /
+      - link "Matches" [ref=e112] [cursor=pointer]:
+        - /url: /matches
+      - link "Competitions" [ref=e115] [cursor=pointer]:
+        - /url: /competitions
+      - link "News" [ref=e122] [cursor=pointer]:
+        - /url: /news
+      - link "Saved" [ref=e126] [cursor=pointer]:
+        - /url: /favourites
+    - contentinfo [ref=e129]:
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - link "Football Companion" [ref=e132] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e133]: Five competitions. One matchday home.
+        - navigation "Footer navigation" [ref=e134]:
+          - link "Live matches" [ref=e135] [cursor=pointer]:
+            - /url: /live
+          - link "Standings" [ref=e136] [cursor=pointer]:
+            - /url: /standings
+          - link "Stadiums" [ref=e137] [cursor=pointer]:
+            - /url: /stadiums
+          - link "History" [ref=e138] [cursor=pointer]:
+            - /url: /history
+        - generic [ref=e139]: Made for your matchday.
+  - button "Open Next.js Dev Tools" [ref=e145] [cursor=pointer]
+  - alert [ref=e149]

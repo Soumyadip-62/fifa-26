@@ -144,7 +144,7 @@ export function FavouritesPage({
       <SectionHeader
         eyebrow="Your football, closer"
         title="Your favourites"
-        description="The teams you follow. The players you watch. The matches you don't want to miss. Saved on this device."
+        description="The teams you follow, players you watch, and matches you want to keep close. Saved in this browser and synced for notifications."
       />
       <nav className="filter-tabs" aria-label="Favourite categories">
         {categories.map((item) => {

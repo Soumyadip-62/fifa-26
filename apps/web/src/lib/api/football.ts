@@ -1,6 +1,8 @@
 import "server-only";
 import { cache } from "react";
 import { apiUrl } from "./config";
+import { notFound } from "next/navigation";
+import { activeCompetitionList, isActiveCompetition } from "@/lib/competitions";
 import type {
   CompetitionId,
   FootballSnapshot,
@@ -10,7 +12,6 @@ import type {
   Stadium,
   MatchDetails,
   Standing,
-  BracketRound,
 } from "@/types/football";
 import type {
   PremierLeagueData,
@@ -34,16 +35,56 @@ export const footballRequest = cache(async <T>(path: string): Promise<T> => {
 });
 export const getSnapshot = cache(
   async (competition?: string, season?: string) => {
+    if (competition && !isActiveCompetition(competition)) notFound();
     const q = new URLSearchParams();
     if (competition) q.set("competition", competition);
     if (season) q.set("season", season);
-    return footballRequest<FootballSnapshot>(`/snapshot?${q}`);
+    const data = await footballRequest<FootballSnapshot>(`/snapshot?${q}`);
+    const teams = data.teams
+      .map((team) => ({
+        ...team,
+        competitionIds: activeCompetitionList(team.competitionIds),
+      }))
+      .filter((team) => team.competitionIds.length > 0);
+    const teamIds = new Set(teams.map((team) => team.id));
+    const matches = data.matches.filter((match) =>
+      isActiveCompetition(match.competitionId),
+    );
+    const stadiumIds = new Set([
+      ...teams.map((team) => team.stadiumId),
+      ...matches.map((match) => match.stadiumId),
+    ]);
+    return {
+      ...data,
+      competitions: data.competitions.filter((item) =>
+        isActiveCompetition(item.id),
+      ),
+      teams,
+      players: data.players.filter((player) => teamIds.has(player.teamId)),
+      stadiums: data.stadiums.filter((stadium) => stadiumIds.has(stadium.id)),
+      matches,
+      news: data.news.filter((article) =>
+        isActiveCompetition(article.competitionId),
+      ),
+      errors: Object.fromEntries(
+        Object.entries(data.errors).filter(([id]) => isActiveCompetition(id)),
+      ),
+      availability: Object.fromEntries(
+        Object.entries(data.availability).filter(([id]) =>
+          isActiveCompetition(id),
+        ),
+      ),
+    } satisfies FootballSnapshot;
   },
 );
 export const getFootballData = cache(async () => {
   const [data, news] = await Promise.all([
     getSnapshot(),
-    footballRequest<FootballNews[]>("/news").catch(() => []),
+    footballRequest<FootballNews[]>("/news")
+      .then((items) =>
+        items.filter((item) => isActiveCompetition(item.competitionId)),
+      )
+      .catch(() => []),
   ]);
   return { ...data, news };
 });
@@ -150,50 +191,21 @@ const leagueData = cache(
     };
   },
 );
-async function worldCupData(season?: string) {
-  const data = await getSnapshot("world-cup", season),
-    query = season ? `?season=${season}` : "";
-  const [table, bracket] = await Promise.all([
-    footballRequest<{ rows: Standing[] }>(
-      `/competitions/world-cup/standings${query}`,
-    ).catch(() => ({ rows: [] })),
-    footballRequest<{ rounds: BracketRound[] }>(
-      `/competitions/world-cup/bracket${query}`,
-    ).catch(() => ({ rounds: [] })),
-  ]);
-  return {
-    competition: data.competitions[0]!,
-    teams: data.teams,
-    matches: data.matches,
-    players: data.players,
-    standings: table.rows,
-    bracket: bracket.rounds,
-    news: [],
-    errors: data.errors,
-  };
-}
 export function getCompetitionData(
   id: Exclude<CompetitionId, "world-cup">,
   season?: string,
-): ReturnType<typeof leagueData>;
-export function getCompetitionData(
-  id: "world-cup",
-  season?: string,
-): ReturnType<typeof worldCupData>;
-export function getCompetitionData(
-  id: CompetitionId,
-  season?: string,
-): ReturnType<typeof leagueData> | ReturnType<typeof worldCupData>;
-export function getCompetitionData(id: CompetitionId, season?: string) {
-  return id === "world-cup" ? worldCupData(season) : leagueData(id, season);
+) {
+  return leagueData(id, season);
 }
+
 export async function getPlatformMatch(
   id: string,
 ): Promise<MatchDetails | null> {
   try {
-    return await footballRequest<MatchDetails>(
+    const match = await footballRequest<MatchDetails>(
       `/matches/${encodeURIComponent(id)}`,
     );
+    return isActiveCompetition(match.match.competitionId) ? match : null;
   } catch (e) {
     if (e instanceof Error && e.message === "Football record not found.")
       return null;
@@ -234,6 +246,10 @@ export async function getPlatformTeam(
 ) {
   const profileTeam = await profile<FootballTeam>("teams", id);
   if (!profileTeam) return null;
+  profileTeam.competitionIds = activeCompetitionList(
+    profileTeam.competitionIds,
+  );
+  if (!profileTeam.competitionIds.length) return null;
   const all = await getSnapshot();
   const competition =
     selectedCompetition &&
@@ -292,6 +308,7 @@ export async function getPlatformStadium(id: string) {
   const stadium = await profile<Stadium>("stadiums", id);
   if (!stadium) return null;
   const data = await getFootballData();
+  if (!data.stadiums.some((item) => item.id === stadium.id)) return null;
   return {
     stadium,
     team: data.teams.find((t) => t.id === stadium.homeTeamId) ?? null,
@@ -304,9 +321,10 @@ export async function getPlatformStadium(id: string) {
 }
 export async function getPlatformArticle(id: string) {
   try {
-    return await footballRequest<FootballNews>(
+    const article = await footballRequest<FootballNews>(
       `/articles/${encodeURIComponent(id)}`,
     );
+    return isActiveCompetition(article.competitionId) ? article : null;
   } catch (e) {
     if (e instanceof Error && e.message === "Football record not found.")
       return null;

@@ -2,6 +2,7 @@ import { apiUrl } from "@/lib/api/config";
 import type { NewsArticle } from "@/types/news";
 import { cache } from "react";
 import type { CompetitionId, FootballNews } from "@/types/football";
+import { isActiveCompetition } from "@/lib/competitions";
 
 export type FootballNewsFeed = {
   articles: FootballNews[];
@@ -12,6 +13,8 @@ export type FootballNewsFeed = {
 
 export const getFootballNewsFeed = cache(
   async (competitionId?: CompetitionId): Promise<FootballNewsFeed> => {
+    if (competitionId && !isActiveCompetition(competitionId))
+      throw new Error("Competition is currently unavailable.");
     const path = competitionId
       ? `/news/competitions/${competitionId}`
       : "/news";
@@ -28,7 +31,6 @@ export const getFootballNewsFeed = cache(
     if (!Array.isArray(feed.news))
       throw new Error("News is temporarily unavailable.");
     const ids: CompetitionId[] = [
-      "world-cup",
       "premier-league",
       "la-liga",
       "ucl",
@@ -56,7 +58,11 @@ export const getFootballNewsFeed = cache(
           sourceUrl: article.url,
           sourceName: new URL(article.url).hostname.replace(/^www\./, ""),
         })),
-      errors: feed.errors ?? {},
+      errors: Object.fromEntries(
+        Object.entries(feed.errors ?? {}).filter(([id]) =>
+          isActiveCompetition(id),
+        ),
+      ),
       stale: feed.freshness?.stale ?? false,
       fetchedAt: feed.freshness?.fetchedAt,
     };
@@ -75,7 +81,6 @@ type ApiNewsArticle = {
   source_category: string[];
   published: string;
 };
-
 
 function toImageUrl(image: string | null | undefined) {
   if (!image || image === "None") {

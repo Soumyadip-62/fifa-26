@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, History, ListOrdered, MapPin } from "lucide-react";
+import { ChevronRight, ListOrdered, MapPin } from "lucide-react";
+import { isActiveCompetition } from "@/lib/competitions";
 
 const labels: Record<string, string> = {
   competitions: "Competitions",
@@ -15,15 +16,12 @@ const labels: Record<string, string> = {
   stadiums: "Stadiums",
   live: "Live football",
   favourites: "Your favourites",
-  history: "World Cup history",
   search: "Search",
   settings: "Settings",
   notifications: "Notifications",
   admin: "Operations",
-  "points-table": "World Cup standings",
   "knockout-matches": "Knockout stage",
   "premier-league": "Premier League",
-  "world-cup": "World Cup",
   "la-liga": "La Liga",
   ucl: "Champions League",
   bundesliga: "Bundesliga",
@@ -31,7 +29,15 @@ const labels: Record<string, string> = {
 
 export function PageContext() {
   const pathname = usePathname();
-  if (pathname === "/") return null;
+  if (
+    pathname === "/" ||
+    ["/history", "/points-table", "/matches/knockout-matches"].includes(
+      pathname,
+    ) ||
+    (pathname.startsWith("/competitions/") &&
+      !isActiveCompetition(pathname.split("/")[2] ?? ""))
+  )
+    return null;
   const segments = pathname.split("/").filter(Boolean);
   const section = segments[0] ?? "";
   const nested = segments.length > 1;
@@ -71,10 +77,6 @@ export function PageContext() {
         <Link href="/stadiums">
           <MapPin aria-hidden="true" />
           Stadiums
-        </Link>
-        <Link href="/history">
-          <History aria-hidden="true" />
-          History
         </Link>
       </div>
     </div>

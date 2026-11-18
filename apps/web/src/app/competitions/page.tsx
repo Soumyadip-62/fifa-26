@@ -4,7 +4,6 @@ import { SectionHeader } from "@/components/common/SectionHeader";
 import { getFixtureData } from "@/lib/api/fixtures";
 import { FixtureErrors } from "@/components/football/FixtureErrors";
 import { TeamMark } from "@/components/football/TeamMark";
-import { images } from "@/assets";
 
 export default async function CompetitionsPage() {
   const { competitions, items, errors } = await getFixtureData();
@@ -13,13 +12,13 @@ export default async function CompetitionsPage() {
       <SectionHeader
         eyebrow="Every competition. One matchday."
         title="Competitions"
-        description="From football's biggest international stage to the leagues you follow every week. Choose a competition to explore fixtures, tables and teams."
+        description="Explore fixtures, tables and teams from the Premier League, La Liga, Champions League and Bundesliga."
       />
       <div className="results-meta">
         <p>
           <strong>{competitions.length}</strong> competitions
         </p>
-        <span>Club & international football</span>
+        <span>Club football</span>
       </div>
       <div className="competition-directory">
         {competitions.map((competition) => {
@@ -49,11 +48,7 @@ export default async function CompetitionsPage() {
                     team={{
                       name: competition.name,
                       shortName: competition.shortName,
-                      logoUrl:
-                        competition.emblem ||
-                        (competition.id === "world-cup"
-                          ? images.logos.fifa_logo
-                          : ""),
+                      logoUrl: competition.emblem || "",
                     }}
                     showName={false}
                     size="lg"

@@ -88,7 +88,7 @@ export function toggleReminder(id: string) {
   });
 }
 
-type Registration = { id: string; secret: string; token: string };
+type Registration = { id: string; secret: string; token: string | null };
 const deviceKey = "football:device:v1";
 export async function syncDevice(
   preferences = readPreferences(),
@@ -96,8 +96,27 @@ export async function syncDevice(
 ) {
   const raw = localStorage.getItem(deviceKey),
     saved: Registration | null = raw ? JSON.parse(raw) : null;
-  const pushToken = token ?? saved?.token;
-  if (!pushToken) return;
+  const pushToken = token ?? saved?.token ?? null;
+  const customizedNotifications = Object.keys(
+    defaultPreferences.notifications,
+  ).some(
+    (key) =>
+      preferences.notifications[
+        key as keyof DevicePreferences["notifications"]
+      ] !==
+      defaultPreferences.notifications[
+        key as keyof DevicePreferences["notifications"]
+      ],
+  );
+  const hasPreferencesToSave =
+    preferences.teamIds.length > 0 ||
+    preferences.playerIds.length > 0 ||
+    preferences.competitionIds.length > 0 ||
+    preferences.matchIds.length > 0 ||
+    Object.keys(preferences.reminders).length > 0 ||
+    preferences.notifications.enabled ||
+    customizedNotifications;
+  if (!saved && !pushToken && !hasPreferencesToSave) return;
   const response = await fetch(
     apiUrl(saved ? `/football/devices/${saved.id}` : "/football/devices"),
     {

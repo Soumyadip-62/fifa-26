@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fifa26-platform.com";
-const siteName = "Worldcup Companion";
-const defaultImage = "/assets/images/banners/world-cup26.webp";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://fifa26-platform.com";
+const siteName = "NinetyPlus";
+const defaultImage = "/assets/images/banners/pl-banner.png";
 
 type SeoConfig = {
   title: string;

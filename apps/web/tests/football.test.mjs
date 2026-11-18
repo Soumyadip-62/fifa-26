@@ -1,18 +1,376 @@
-import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
-import test from 'node:test';
-import ts from 'typescript';
-let nonce=0;
-const compile=s=>ts.transpileModule(s,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText;
-const moduleUrl=s=>`data:text/javascript;base64,${Buffer.from(`${s}\n// ${nonce++}`).toString('base64')}`;
-async function loadFootball(){const src=await readFile(new URL('../src/lib/api/football.ts',import.meta.url),'utf8');return import(moduleUrl(compile(src).replace('import "server-only";','').replace(/import \{ cache \} from "react";/,'const cache=fn=>fn;').replace(/import \{ apiUrl \} from "\.\/config";/,'const apiUrl=p=>"https://backend.test"+p;')));}
-const snapshot=()=>({competitions:[{id:'world-cup',name:'World Cup'},{id:'premier-league',name:'Premier League'}],teams:[{id:'uuid-home',name:'Home',shortName:'Home',logoUrl:'',competitionIds:['premier-league']}],players:[],stadiums:[],news:[],matches:[{id:'stored-wc-100',competitionId:'world-cup',season:'2026',homeTeamId:'unconfirmed-home',awayTeamId:'unconfirmed-away',kickoff:'2026-07-01T12:00:00Z',homeLabel:'Winner Group A',awayLabel:'Runner-up Group B'},{id:'100',competitionId:'premier-league',season:'2026',homeTeamId:'uuid-home',awayTeamId:'unconfirmed-away',kickoff:'2026-10-19T12:00:00Z'}],errors:{'la-liga':'Unavailable'},availability:{}});
-test('shared fixture loader uses only stored backend fixtures and preserves independent failures',async()=>{const old=globalThis.fetch,calls=[];globalThis.fetch=async url=>{calls.push(url);return {ok:true,json:async()=>snapshot()};};try{globalThis.footballLoaderTest=await loadFootball();const src=await readFile(new URL('../src/lib/api/fixtures.ts',import.meta.url),'utf8');const code=compile(src).replace('import "server-only";','').replace(/import \{ cache \} from "react";/,'const cache=fn=>fn;').replace(/import \{ getSnapshot, resolveFixtures \} from "\.\/football";/,'const {getSnapshot,resolveFixtures}=globalThis.footballLoaderTest;');const loader=await import(moduleUrl(code)),data=await loader.getFixtureData();assert.deepEqual(data.items.map(r=>r.match.id),['stored-wc-100','100']);assert.equal(data.items[0].homeTeam.name,'Winner Group A');assert.equal(data.items[1].homeTeam.id,'uuid-home');assert.equal(data.errors['la-liga'],'Unavailable');assert.equal(calls.length,1);assert.match(calls[0],/\/football\/snapshot/);assert.doesNotMatch(calls[0],/standings|scorers|details/);assert.equal(loader.fixturesForTeam(data.items,{id:'uuid-home'}).length,1);}finally{globalThis.fetch=old;delete globalThis.footballLoaderTest;}});
-test('unified services use backend URLs, keep season filters, and never hide failed snapshots with mock data',async()=>{const old=globalThis.fetch,calls=[];globalThis.fetch=async url=>{calls.push(url);return {ok:true,json:async()=>snapshot()};};try{const service=await loadFootball();await service.getSnapshot('premier-league','2025');assert.match(calls[0],/competition=premier-league&season=2025/);globalThis.fetch=async()=>({ok:false,status:503});await assert.rejects(service.getSnapshot(),/unavailable/);globalThis.fetch=async()=>({ok:false,status:404});assert.equal(await service.getPlatformMatch('fictional-match'),null);}finally{globalThis.fetch=old;}});
-test('lazy competition sections isolate provider-backed statistics errors from fixtures',async()=>{const old=globalThis.fetch,calls=[];globalThis.fetch=async url=>{calls.push(url);return url.includes('/scorers')?{ok:false,status:503}:{ok:true,json:async()=>url.includes('/standings')?{rows:[]}:snapshot()};};try{const service=await loadFootball();const d=await service.getCompetitionData('premier-league','2026');assert.equal(calls.length,1);assert.equal((await d.matches).error,null);assert.equal(calls.length,1);assert.match((await d.scorers).error,/unavailable/);assert.equal((await d.matches).data[1].homeTeam.id,'uuid-home');assert.equal((await d.standings).error,null);}finally{globalThis.fetch=old;}});
-function storage(){const map=new Map();return {getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,String(v)),removeItem:k=>map.delete(k)};}
-async function loadPreferences(){const src=await readFile(new URL('../src/lib/preferences.ts',import.meta.url),'utf8');let code=compile(src).replace(/import \{ useSyncExternalStore \} from ['"]react['"];/,'const useSyncExternalStore=(_s,get)=>get();').replace(/import \{ apiUrl \} from ['"]\.\/api\/config['"];/,'const apiUrl=p=>"https://backend.test"+p;').replace(/await import\([^)]*notificationService[^)]*\)/,'await Promise.resolve({registerPush:globalThis.testRegisterPush})');return import(moduleUrl(code));}
-test('favourites, saved matches and reminder choices persist across reloads and store instances',async()=>{const oldWindow=globalThis.window,oldStorage=globalThis.localStorage;globalThis.window=new EventTarget();globalThis.localStorage=storage();try{const p=await loadPreferences();assert.deepEqual(p.readPreferences().teamIds,[]);p.toggleFavourite('teamIds','uuid-team');p.toggleFavourite('matchIds','100');p.toggleReminder('100');const reload=await loadPreferences();assert.deepEqual(reload.readPreferences().teamIds,['uuid-team']);assert.deepEqual(reload.readPreferences().matchIds,['100']);assert.deepEqual(reload.readPreferences().reminders,{'100':[30]});reload.toggleReminder('100');assert.deepEqual(p.readPreferences().reminders,{});reload.toggleFavourite('teamIds','uuid-team');assert.deepEqual(p.readPreferences().teamIds,[]);}finally{globalThis.window=oldWindow;globalThis.localStorage=oldStorage;}});
-test('legacy favourites migrate only through verified aliases and preserve existing choices',async()=>{const oldWindow=globalThis.window,oldStorage=globalThis.localStorage,oldFetch=globalThis.fetch;globalThis.window=new EventTarget();globalThis.localStorage=storage();localStorage.setItem('fifa26:notification-preferences',JSON.stringify({favoriteTeams:['Arsenal','Fictional FC'],kickoff10:true}));globalThis.fetch=async url=>url.endsWith('/Arsenal')?{ok:true,json:async()=>({item:{id:'real-uuid'}})}:{ok:false,status:404};try{const p=await loadPreferences();await p.migratePreferences();assert.deepEqual(p.readPreferences().teamIds,['real-uuid']);assert.equal(p.readPreferences().notifications.kickoff10,true);p.toggleFavourite('teamIds','other-uuid');await p.migratePreferences();assert.deepEqual(p.readPreferences().teamIds,['real-uuid','other-uuid']);}finally{globalThis.window=oldWindow;globalThis.localStorage=oldStorage;globalThis.fetch=oldFetch;}});
-test('denied notification permission preserves local choices and never registers a device',async()=>{const oldWindow=globalThis.window,oldStorage=globalThis.localStorage,oldFetch=globalThis.fetch,oldKey=process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;globalThis.window=new EventTarget();globalThis.localStorage=storage();globalThis.testRegisterPush=async()=>null;process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY='public-test-key';let calls=0;globalThis.fetch=async()=>{calls++;throw new Error();};try{const p=await loadPreferences();p.toggleFavourite('teamIds','home');await assert.rejects(p.enablePush(),/not permitted/);assert.equal(p.readPreferences().notifications.enabled,false);assert.deepEqual(p.readPreferences().teamIds,['home']);assert.equal(calls,0);}finally{globalThis.window=oldWindow;globalThis.localStorage=oldStorage;globalThis.fetch=oldFetch;delete globalThis.testRegisterPush;if(oldKey===undefined)delete process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;else process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY=oldKey;}});
-test('device updates carry the issued ownership credential and avoid legacy subscription endpoints',async()=>{const oldWindow=globalThis.window,oldStorage=globalThis.localStorage,oldFetch=globalThis.fetch;globalThis.window=new EventTarget();globalThis.localStorage=storage();const calls=[];globalThis.fetch=async(url,options)=>{calls.push({url,options});return {ok:true,json:async()=>({id:'device-id',secret:'owner-secret'})};};try{const p=await loadPreferences();await p.syncDevice(p.readPreferences(),'push-token');await p.syncDevice(p.readPreferences());assert.equal(calls[0].options.method,'POST');assert.equal(calls[1].options.method,'PATCH');assert.equal(calls[1].options.headers['x-device-secret'],'owner-secret');assert.equal(calls[1].url,'https://backend.test/football/devices/device-id');}finally{globalThis.window=oldWindow;globalThis.localStorage=oldStorage;globalThis.fetch=oldFetch;}});
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+import ts from "typescript";
+let nonce = 0;
+const compile = (s) =>
+  ts.transpileModule(s, {
+    compilerOptions: {
+      target: ts.ScriptTarget.ES2022,
+      module: ts.ModuleKind.ESNext,
+    },
+  }).outputText;
+const moduleUrl = (s) =>
+  `data:text/javascript;base64,${Buffer.from(`${s}\n// ${nonce++}`).toString("base64")}`;
+async function loadFootball() {
+  const helpers = compile(
+    await readFile(
+      new URL("../src/lib/competitions.ts", import.meta.url),
+      "utf8",
+    ),
+  ).replace(/export /g, "");
+  const src = await readFile(
+    new URL("../src/lib/api/football.ts", import.meta.url),
+    "utf8",
+  );
+  return import(
+    moduleUrl(
+      helpers +
+        compile(src)
+          .replace('import "server-only";', "")
+          .replace(/import \{[^}]*\} from "@\/lib\/competitions";/, "")
+          .replace(
+            /import \{ notFound \} from "next\/navigation";/,
+            'const notFound=()=>{throw new Error("Page not found");};',
+          )
+          .replace(/import \{ cache \} from "react";/, "const cache=fn=>fn;")
+          .replace(
+            /import \{ apiUrl \} from "\.\/config";/,
+            'const apiUrl=p=>"https://backend.test"+p;',
+          ),
+    )
+  );
+}
+const snapshot = () => ({
+  competitions: [
+    { id: "world-cup", name: "World Cup" },
+    { id: "premier-league", name: "Premier League" },
+  ],
+  teams: [
+    {
+      id: "uuid-home",
+      name: "Home",
+      shortName: "Home",
+      logoUrl: "",
+      competitionIds: ["premier-league"],
+    },
+  ],
+  players: [],
+  stadiums: [],
+  news: [],
+  matches: [
+    {
+      id: "stored-wc-100",
+      competitionId: "world-cup",
+      season: "2026",
+      homeTeamId: "unconfirmed-home",
+      awayTeamId: "unconfirmed-away",
+      kickoff: "2026-07-01T12:00:00Z",
+      homeLabel: "Winner Group A",
+      awayLabel: "Runner-up Group B",
+    },
+    {
+      id: "100",
+      competitionId: "premier-league",
+      season: "2026",
+      homeTeamId: "uuid-home",
+      awayTeamId: "unconfirmed-away",
+      kickoff: "2026-10-19T12:00:00Z",
+    },
+  ],
+  errors: { "la-liga": "Unavailable" },
+  availability: {},
+});
+test("shared fixture loader uses only stored backend fixtures and preserves independent failures", async () => {
+  const old = globalThis.fetch,
+    calls = [];
+  globalThis.fetch = async (url) => {
+    calls.push(url);
+    return { ok: true, json: async () => snapshot() };
+  };
+  try {
+    globalThis.footballLoaderTest = await loadFootball();
+    const src = await readFile(
+      new URL("../src/lib/api/fixtures.ts", import.meta.url),
+      "utf8",
+    );
+    const code = compile(src)
+      .replace('import "server-only";', "")
+      .replace(/import \{ cache \} from "react";/, "const cache=fn=>fn;")
+      .replace(
+        /import \{ getSnapshot, resolveFixtures \} from "\.\/football";/,
+        "const {getSnapshot,resolveFixtures}=globalThis.footballLoaderTest;",
+      );
+    const loader = await import(moduleUrl(code)),
+      data = await loader.getFixtureData();
+    assert.deepEqual(
+      data.items.map((r) => r.match.id),
+      ["100"],
+    );
+    assert.equal(data.items[0].homeTeam.id, "uuid-home");
+    assert.equal(data.errors["la-liga"], "Unavailable");
+    assert.equal(calls.length, 1);
+    assert.match(calls[0], /\/football\/snapshot/);
+    assert.doesNotMatch(calls[0], /standings|scorers|details/);
+    assert.equal(
+      loader.fixturesForTeam(data.items, { id: "uuid-home" }).length,
+      1,
+    );
+  } finally {
+    globalThis.fetch = old;
+    delete globalThis.footballLoaderTest;
+  }
+});
+test("unified services use backend URLs, keep season filters, and never hide failed snapshots with mock data", async () => {
+  const old = globalThis.fetch,
+    calls = [];
+  globalThis.fetch = async (url) => {
+    calls.push(url);
+    return { ok: true, json: async () => snapshot() };
+  };
+  try {
+    const service = await loadFootball();
+    await service.getSnapshot("premier-league", "2025");
+    assert.match(calls[0], /competition=premier-league&season=2025/);
+    globalThis.fetch = async () => ({ ok: false, status: 503 });
+    await assert.rejects(service.getSnapshot(), /unavailable/);
+    globalThis.fetch = async () => ({ ok: false, status: 404 });
+    assert.equal(await service.getPlatformMatch("fictional-match"), null);
+  } finally {
+    globalThis.fetch = old;
+  }
+});
+test("lazy competition sections isolate provider-backed statistics errors from fixtures", async () => {
+  const old = globalThis.fetch,
+    calls = [];
+  globalThis.fetch = async (url) => {
+    calls.push(url);
+    return url.includes("/scorers")
+      ? { ok: false, status: 503 }
+      : {
+          ok: true,
+          json: async () =>
+            url.includes("/standings") ? { rows: [] } : snapshot(),
+        };
+  };
+  try {
+    const service = await loadFootball();
+    const d = await service.getCompetitionData("premier-league", "2026");
+    assert.equal(calls.length, 1);
+    assert.equal((await d.matches).error, null);
+    assert.equal(calls.length, 1);
+    assert.match((await d.scorers).error, /unavailable/);
+    assert.equal((await d.matches).data[0].homeTeam.id, "uuid-home");
+    assert.equal((await d.standings).error, null);
+  } finally {
+    globalThis.fetch = old;
+  }
+});
+function storage() {
+  const map = new Map();
+  return {
+    getItem: (k) => map.get(k) ?? null,
+    setItem: (k, v) => map.set(k, String(v)),
+    removeItem: (k) => map.delete(k),
+  };
+}
+async function loadPreferences() {
+  const src = await readFile(
+    new URL("../src/lib/preferences.ts", import.meta.url),
+    "utf8",
+  );
+  let code = compile(src)
+    .replace(
+      /import \{ useSyncExternalStore \} from ['"]react['"];/,
+      "const useSyncExternalStore=(_s,get)=>get();",
+    )
+    .replace(
+      /import \{ apiUrl \} from ['"]\.\/api\/config['"];/,
+      'const apiUrl=p=>"https://backend.test"+p;',
+    )
+    .replace(
+      /await import\([^)]*notificationService[^)]*\)/,
+      "await Promise.resolve({registerPush:globalThis.testRegisterPush})",
+    );
+  return import(moduleUrl(code));
+}
+test("favourites, saved matches and reminder choices persist across reloads and store instances", async () => {
+  const oldWindow = globalThis.window,
+    oldStorage = globalThis.localStorage;
+  globalThis.window = new EventTarget();
+  globalThis.localStorage = storage();
+  try {
+    const p = await loadPreferences();
+    assert.deepEqual(p.readPreferences().teamIds, []);
+    p.toggleFavourite("teamIds", "uuid-team");
+    p.toggleFavourite("matchIds", "100");
+    p.toggleReminder("100");
+    const reload = await loadPreferences();
+    assert.deepEqual(reload.readPreferences().teamIds, ["uuid-team"]);
+    assert.deepEqual(reload.readPreferences().matchIds, ["100"]);
+    assert.deepEqual(reload.readPreferences().reminders, { 100: [30] });
+    reload.toggleReminder("100");
+    assert.deepEqual(p.readPreferences().reminders, {});
+    reload.toggleFavourite("teamIds", "uuid-team");
+    assert.deepEqual(p.readPreferences().teamIds, []);
+  } finally {
+    globalThis.window = oldWindow;
+    globalThis.localStorage = oldStorage;
+  }
+});
+test("legacy favourites migrate only through verified aliases and preserve existing choices", async () => {
+  const oldWindow = globalThis.window,
+    oldStorage = globalThis.localStorage,
+    oldFetch = globalThis.fetch;
+  globalThis.window = new EventTarget();
+  globalThis.localStorage = storage();
+  localStorage.setItem(
+    "fifa26:notification-preferences",
+    JSON.stringify({
+      favoriteTeams: ["Arsenal", "Fictional FC"],
+      kickoff10: true,
+    }),
+  );
+  globalThis.fetch = async (url) =>
+    url.endsWith("/Arsenal")
+      ? { ok: true, json: async () => ({ item: { id: "real-uuid" } }) }
+      : { ok: false, status: 404 };
+  try {
+    const p = await loadPreferences();
+    await p.migratePreferences();
+    assert.deepEqual(p.readPreferences().teamIds, ["real-uuid"]);
+    assert.equal(p.readPreferences().notifications.kickoff10, true);
+    p.toggleFavourite("teamIds", "other-uuid");
+    await p.migratePreferences();
+    assert.deepEqual(p.readPreferences().teamIds, ["real-uuid", "other-uuid"]);
+  } finally {
+    globalThis.window = oldWindow;
+    globalThis.localStorage = oldStorage;
+    globalThis.fetch = oldFetch;
+  }
+});
+test("denied notification permission preserves local choices and never registers a device", async () => {
+  const oldWindow = globalThis.window,
+    oldStorage = globalThis.localStorage,
+    oldFetch = globalThis.fetch,
+    oldKey = process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;
+  globalThis.window = new EventTarget();
+  globalThis.localStorage = storage();
+  globalThis.testRegisterPush = async () => null;
+  process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY = "public-test-key";
+  let calls = 0;
+  globalThis.fetch = async () => {
+    calls++;
+    throw new Error();
+  };
+  try {
+    const p = await loadPreferences();
+    p.toggleFavourite("teamIds", "home");
+    await assert.rejects(p.enablePush(), /not permitted/);
+    assert.equal(p.readPreferences().notifications.enabled, false);
+    assert.deepEqual(p.readPreferences().teamIds, ["home"]);
+    assert.equal(calls, 0);
+  } finally {
+    globalThis.window = oldWindow;
+    globalThis.localStorage = oldStorage;
+    globalThis.fetch = oldFetch;
+    delete globalThis.testRegisterPush;
+    if (oldKey === undefined) delete process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;
+    else process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY = oldKey;
+  }
+});
+test("device updates carry the issued ownership credential and avoid legacy subscription endpoints", async () => {
+  const oldWindow = globalThis.window,
+    oldStorage = globalThis.localStorage,
+    oldFetch = globalThis.fetch;
+  globalThis.window = new EventTarget();
+  globalThis.localStorage = storage();
+  const calls = [];
+  globalThis.fetch = async (url, options) => {
+    calls.push({ url, options });
+    return {
+      ok: true,
+      json: async () => ({ id: "device-id", secret: "owner-secret" }),
+    };
+  };
+  try {
+    const p = await loadPreferences();
+    await p.syncDevice(p.readPreferences(), "push-token");
+    await p.syncDevice(p.readPreferences());
+    assert.equal(calls[0].options.method, "POST");
+    assert.equal(calls[1].options.method, "PATCH");
+    assert.equal(calls[1].options.headers["x-device-secret"], "owner-secret");
+    assert.equal(
+      calls[1].url,
+      "https://backend.test/football/devices/device-id",
+    );
+  } finally {
+    globalThis.window = oldWindow;
+    globalThis.localStorage = oldStorage;
+    globalThis.fetch = oldFetch;
+  }
+});
+
+test("favourite preferences register in the database before push permission", async () => {
+  const oldWindow = globalThis.window,
+    oldStorage = globalThis.localStorage,
+    oldFetch = globalThis.fetch;
+  globalThis.window = new EventTarget();
+  globalThis.localStorage = storage();
+  const calls = [];
+  globalThis.fetch = async (url, options) => {
+    calls.push({ url, options });
+    return {
+      ok: true,
+      json: async () => ({ id: "browser-device", secret: "browser-secret" }),
+    };
+  };
+  try {
+    const p = await loadPreferences();
+    await p.syncDevice();
+    assert.equal(calls.length, 0);
+    p.toggleFavourite("teamIds", "team-uuid");
+    await p.syncDevice();
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].options.method, "POST");
+    assert.equal(JSON.parse(calls[0].options.body).token, null);
+    assert.deepEqual(JSON.parse(calls[0].options.body).preferences.teamIds, [
+      "team-uuid",
+    ]);
+    assert.deepEqual(JSON.parse(localStorage.getItem("football:device:v1")), {
+      id: "browser-device",
+      secret: "browser-secret",
+      token: null,
+    });
+  } finally {
+    globalThis.window = oldWindow;
+    globalThis.localStorage = oldStorage;
+    globalThis.fetch = oldFetch;
+  }
+});
+
+test("paused World Cup content is excluded and explicit requests stop before contacting the backend", async () => {
+  const old = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (url) => {
+    calls.push(url);
+    return { ok: true, json: async () => snapshot() };
+  };
+  try {
+    const service = await loadFootball();
+    const data = await service.getSnapshot();
+    assert.deepEqual(
+      data.competitions.map((c) => c.id),
+      ["premier-league"],
+    );
+    assert.deepEqual(
+      data.matches.map((m) => m.id),
+      ["100"],
+    );
+    assert.equal(snapshot().matches.length, 2);
+    await assert.rejects(service.getSnapshot("world-cup"), /not found/);
+    assert.equal(calls.length, 1);
+  } finally {
+    globalThis.fetch = old;
+  }
+});

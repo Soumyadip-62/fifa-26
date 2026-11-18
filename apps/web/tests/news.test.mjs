@@ -15,9 +15,11 @@ const compile = (text) =>
     },
   }).outputText;
 async function loadService() {
-  const adapters = `const cache = (fn) => { const values=new Map(); return (...args)=>{const key=JSON.stringify(args); if(!values.has(key)) values.set(key,fn(...args)); return values.get(key);}; };
+  const helpers = compile(await readFile(new URL("../src/lib/competitions.ts", import.meta.url), "utf8")).replace(/export /g, "");
+  const adapters = helpers + `const cache = (fn) => { const values=new Map(); return (...args)=>{const key=JSON.stringify(args); if(!values.has(key)) values.set(key,fn(...args)); return values.get(key);}; };
     const apiUrl = (path) => new URL(path, "http://backend.test").toString(); const mockNewsArticles=[];`;
   const code = compile(source)
+    .replace(/import \{[^}]*\} from "@\/lib\/competitions";/, "")
     .replace(/import \{[^}]*\} from "@\/data\/mock\/news";/, "")
     .replace(/import \{[^}]*\} from "@\/lib\/api\/config";/, "")
     .replace('import { cache } from "react";', "");

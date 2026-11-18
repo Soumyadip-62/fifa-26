@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import {
   Bell,
@@ -9,7 +9,6 @@ import {
   ChartNoAxesColumnIncreasing,
   ChevronDown,
   Heart,
-  History,
   Home,
   ListOrdered,
   MapPin,
@@ -22,7 +21,6 @@ import {
   Users,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { images } from "@/assets";
 import { cn } from "@/lib/utils/cn";
 import { ProfileDrawer } from "./ProfileDrawer";
 
@@ -44,7 +42,6 @@ const extraLinks = [
   { href: "/standings", label: "Standings", icon: ListOrdered },
   { href: "/favourites", label: "Your favourites", icon: Heart },
   { href: "/stadiums", label: "Stadiums", icon: MapPin },
-  { href: "/history", label: "World Cup history", icon: History },
   {
     href: "/settings/notifications",
     label: "Notification settings",
@@ -52,7 +49,6 @@ const extraLinks = [
   },
 ];
 const competitions = [
-  { href: "/competitions/world-cup", label: "World Cup" },
   { href: "/competitions/ucl", label: "Champions League" },
   { href: "/competitions/premier-league", label: "Premier League" },
   { href: "/competitions/la-liga", label: "La Liga" },
@@ -80,24 +76,30 @@ export function Header() {
         <div className="home-header-inner flex min-h-16 items-center gap-3">
           <Link
             href="/"
-            className="home-brand mr-auto inline-flex items-center gap-2"
-            aria-label="Football Companion home"
+            className="home-brand mr-auto inline-flex items-center"
+            aria-label="NinetyPlus home"
             onClick={closeMenus}
           >
-            <span className="home-brand-icon relative shrink-0">
-              <Image
-                src={images.logos.fifa_logo}
-                alt=""
-                fill
-                sizes="32px"
-                className="object-contain"
-                priority
-              />
-            </span>
-            <span className="grid leading-tight">
-              <strong>Football</strong>
-              <small>Companion</small>
-            </span>
+            <Image
+              src="/assets/images/logo/NinetypluslogoDark.png"
+              alt=""
+              aria-hidden="true"
+              width={1143}
+              height={312}
+              sizes="142px"
+              priority
+              className="home-brand-logo hidden h-auto w-[142px] dark:block"
+            />
+            <Image
+              src="/assets/images/logo/NinetypluslogoLight.png"
+              alt=""
+              aria-hidden="true"
+              width={1101}
+              height={294}
+              sizes="142px"
+              priority
+              className="home-brand-logo block h-auto w-[142px] dark:hidden"
+            />
           </Link>
           <nav
             className="hidden items-center gap-1 xl:flex"

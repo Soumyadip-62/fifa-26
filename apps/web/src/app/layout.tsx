@@ -9,10 +9,11 @@ import "@/features/home/home-dashboard.css";
 import "@/features/matches/match-centre.css";
 
 export const metadata: Metadata = {
+  applicationName: "NinetyPlus",
   metadataBase: new URL(absoluteUrl("/")),
   title: {
-    default: "Football Companion | Scores, Fixtures and Stats",
-    template: "%s | Football Companion",
+    default: "NinetyPlus | Scores, Fixtures and Stats",
+    template: "%s | NinetyPlus",
   },
   description:
     "Follow major football competitions, live scores, fixtures, tables, teams, players and news.",
@@ -20,32 +21,31 @@ export const metadata: Metadata = {
     canonical: absoluteUrl("/"),
   },
   openGraph: {
-    title: "Football Companion | Scores, Fixtures and Stats",
+    title: "NinetyPlus | Scores, Fixtures and Stats",
     description:
       "Follow major football competitions, live scores, fixtures, tables, teams, players and news.",
     url: absoluteUrl("/"),
-    siteName: "Football Companion",
+    siteName: "NinetyPlus",
     images: [
       {
-        url: absoluteUrl("/assets/images/banners/world-cup26.webp"),
+        url: absoluteUrl("/assets/images/banners/pl-banner.png"),
         width: 1200,
         height: 630,
-        alt: "Worldcup Companion Banner",
+        alt: "NinetyPlus football scores and fixtures",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Football Companion | Scores, Fixtures and Stats",
+    title: "NinetyPlus | Scores, Fixtures and Stats",
     description:
       "Follow major football competitions, live scores, fixtures, tables, teams, players and news.",
-    images: [absoluteUrl("/assets/images/banners/world-cup26.webp")],
+    images: [absoluteUrl("/assets/images/banners/pl-banner.png")],
   },
 };
 
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { MatchProvider } from "Context/MatchContext";
 
 export default function RootLayout({
   children,
@@ -61,9 +61,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <MatchProvider>
-            <AppShell>{children}</AppShell>
-          </MatchProvider>
+          <AppShell>{children}</AppShell>
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

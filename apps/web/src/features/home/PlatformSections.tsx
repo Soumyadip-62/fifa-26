@@ -2,7 +2,7 @@
 
 import { MotionReveal } from "@/components/common/MotionReveal";
 import Link from "next/link";
-import { Calendar, Shield, Newspaper, History } from "lucide-react";
+import { Calendar, Shield, Newspaper, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
 const sections = [
@@ -28,10 +28,10 @@ const sections = [
     color: "bg-orange-500 text-white",
   },
   {
-    href: "/history",
-    title: "Football archives",
-    description: "Scan previous winners, host countries, and summaries.",
-    icon: History,
+    href: "/competitions",
+    title: "Competitions",
+    description: "Explore league fixtures, standings and teams.",
+    icon: Trophy,
     color: "bg-purple-500 text-white",
   },
 ];
@@ -51,7 +51,12 @@ export function PlatformSections() {
               href={section.href}
             >
               <div className="flex flex-col h-full justify-between gap-5">
-                <div className={cn("flex h-12 w-12 items-center justify-center rounded-[14px] shadow-md transition duration-300 group-hover:scale-110", section.color)}>
+                <div
+                  className={cn(
+                    "flex h-12 w-12 items-center justify-center rounded-[14px] shadow-md transition duration-300 group-hover:scale-110",
+                    section.color,
+                  )}
+                >
                   <Icon className="h-6 w-6" />
                 </div>
                 <div className="grid gap-1">
@@ -70,4 +75,3 @@ export function PlatformSections() {
     </section>
   );
 }
-

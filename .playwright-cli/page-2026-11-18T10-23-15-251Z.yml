@@ -1,0 +1,123 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Football Companion home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e14]:
+            - strong [ref=e15]: Football
+            - generic [ref=e16]: Companion
+        - link "Search football" [ref=e17] [cursor=pointer]:
+          - /url: /search
+        - link "Notification settings" [ref=e21] [cursor=pointer]:
+          - /url: /settings/notifications
+        - group [ref=e25]:
+          - generic "Browse football pages" [ref=e26] [cursor=pointer]
+        - button "Open profile settings" [ref=e28] [cursor=pointer]
+    - main [ref=e33]:
+      - generic [ref=e34]:
+        - navigation "Breadcrumb" [ref=e35]:
+          - link "Home" [ref=e36] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e39]: Competitions
+        - generic [ref=e40]:
+          - link "Standings" [ref=e41] [cursor=pointer]:
+            - /url: /standings
+          - link "Stadiums" [ref=e45] [cursor=pointer]:
+            - /url: /stadiums
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: Every competition. One matchday.
+          - heading "Competitions" [level=1] [ref=e52]
+          - paragraph [ref=e53]: Explore fixtures, tables and teams from the Premier League, La Liga, Champions League and Bundesliga.
+        - generic [ref=e54]:
+          - paragraph [ref=e55]:
+            - strong [ref=e56]: "4"
+            - text: competitions
+          - generic [ref=e57]: Club football
+        - generic [ref=e58]:
+          - link [ref=e59] [cursor=pointer]:
+            - /url: /competitions/premier-league
+            - img "Premier League logo" [ref=e64]
+            - generic [ref=e68]:
+              - paragraph [ref=e69]: England
+              - heading "Premier League" [level=2] [ref=e70]
+              - paragraph [ref=e71]: 2026/27 · League
+            - generic [ref=e72]:
+              - generic [ref=e73]:
+                - strong [ref=e74]: "20"
+                - text: teams
+              - generic [ref=e75]:
+                - strong [ref=e76]: "380"
+                - text: fixtures
+          - link [ref=e77] [cursor=pointer]:
+            - /url: /competitions/la-liga
+            - img "La Liga logo" [ref=e82]
+            - generic [ref=e86]:
+              - paragraph [ref=e87]: Spain
+              - heading "La Liga" [level=2] [ref=e88]
+              - paragraph [ref=e89]: 2026/27 · League
+            - generic [ref=e90]:
+              - generic [ref=e91]:
+                - strong [ref=e92]: "20"
+                - text: teams
+              - generic [ref=e93]:
+                - strong [ref=e94]: "380"
+                - text: fixtures
+          - link [ref=e95] [cursor=pointer]:
+            - /url: /competitions/ucl
+            - img "UEFA Champions League logo" [ref=e100]
+            - generic [ref=e104]:
+              - paragraph [ref=e105]: Europe
+              - heading "UEFA Champions League" [level=2] [ref=e106]
+              - paragraph [ref=e107]: 2026/27 · League phase + knockout
+            - generic [ref=e108]:
+              - generic [ref=e109]:
+                - strong [ref=e110]: "36"
+                - text: teams
+              - generic [ref=e111]:
+                - strong [ref=e112]: "144"
+                - text: fixtures
+          - link [ref=e113] [cursor=pointer]:
+            - /url: /competitions/bundesliga
+            - img "Bundesliga logo" [ref=e118]
+            - generic [ref=e122]:
+              - paragraph [ref=e123]: Germany
+              - heading "Bundesliga" [level=2] [ref=e124]
+              - paragraph [ref=e125]: 2026/27 · League
+            - generic [ref=e126]:
+              - generic [ref=e127]:
+                - strong [ref=e128]: "18"
+                - text: teams
+              - generic [ref=e129]:
+                - strong [ref=e130]: "306"
+                - text: fixtures
+    - navigation "Mobile navigation" [ref=e132]:
+      - link "Home" [ref=e133] [cursor=pointer]:
+        - /url: /
+      - link "Matches" [ref=e137] [cursor=pointer]:
+        - /url: /matches
+      - link "Competitions" [ref=e140] [cursor=pointer]:
+        - /url: /competitions
+      - link "News" [ref=e147] [cursor=pointer]:
+        - /url: /news
+      - link "Saved" [ref=e151] [cursor=pointer]:
+        - /url: /favourites
+    - contentinfo [ref=e154]:
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - link "Football Companion" [ref=e157] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e158]: Four competitions. One matchday home.
+        - navigation "Footer navigation" [ref=e159]:
+          - link "Live matches" [ref=e160] [cursor=pointer]:
+            - /url: /live
+          - link "Standings" [ref=e161] [cursor=pointer]:
+            - /url: /standings
+          - link "Stadiums" [ref=e162] [cursor=pointer]:
+            - /url: /stadiums
+        - generic [ref=e163]: Made for your matchday.
+  - button "Open Next.js Dev Tools" [ref=e169] [cursor=pointer]
+  - alert [ref=e173]

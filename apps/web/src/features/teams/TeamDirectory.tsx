@@ -73,9 +73,9 @@ export function TeamDirectory({
           <strong>{filtered.length.toLocaleString("en-GB")}</strong> teams
           {query || competitionId !== "all"
             ? " match your filters"
-            : " across club and international football"}
+            : " across club football"}
         </p>
-        <span>Clubs & nations</span>
+        <span>Club football</span>
       </div>
       {filtered.length ? (
         <div className="directory-grid">

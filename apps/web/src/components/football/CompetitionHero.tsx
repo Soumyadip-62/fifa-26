@@ -2,7 +2,6 @@ import Image from "next/image";
 import { CalendarDays } from "lucide-react";
 import type { ReactNode } from "react";
 import type { Competition } from "@/types/football";
-import { images } from "@/assets";
 import { CompetitionBadge } from "./CompetitionBadge";
 import { SeasonSelect } from "./SeasonSelect";
 import { TeamMark } from "./TeamMark";
@@ -35,11 +34,7 @@ export function CompetitionHero({
               team={{
                 name: competition.name,
                 shortName: competition.shortName,
-                logoUrl:
-                  competition.emblem ||
-                  (competition.id === "world-cup"
-                    ? images.logos.fifa_logo
-                    : ""),
+                logoUrl: competition.emblem || "",
               }}
               size="lg"
               showName={false}
