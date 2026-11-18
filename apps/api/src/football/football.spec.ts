@@ -28,6 +28,7 @@ import {
 } from '../tournaments/tournament.entities';
 import { FootballDataClient } from '../football-data/football-data.client';
 import { NewsService } from '../news/news.service';
+import { MatchEntity } from '../matches/entities/matches.entity';
 const mockPushSend = jest.fn();
 jest.mock('firebase-admin/messaging', () => ({
   getMessaging: () => ({ send: mockPushSend }),
@@ -159,6 +160,19 @@ describe('Device ownership and reminder eligibility', () => {
     expect(args[1]).toHaveLength(64);
     expect(device.id).toMatch(/^[a-f0-9-]{36}$/);
   });
+  it('stores browser preferences before a push token is registered', async () => {
+    const db = {
+      query: jest
+        .fn<Promise<unknown[]>, [string, unknown[]]>()
+        .mockResolvedValue([]),
+    };
+    const device = await new FootballDevices(
+      db as unknown as DataSource,
+    ).register(preferences(), null);
+    expect(db.query.mock.calls[0][0]).toContain('football_devices');
+    expect(db.query.mock.calls[0][1][2]).toBeNull();
+    expect(device.secret).toBeTruthy();
+  });
   it('rejects updates from another device without changing preferences', async () => {
     const db = {
       query: jest.fn().mockResolvedValue([{ secretHash: 'incorrect' }]),
@@ -195,11 +209,19 @@ describe('Device ownership and reminder eligibility', () => {
     p.notifications.enabled = false;
     expect(deliveryEvents(fixture(), p, now)).toEqual([]);
   });
-  it('supports explicit reminders without requiring a favourite', () => {
+  it('requires a favourite team even when a match reminder is saved', () => {
     const p = preferences();
     p.teamIds = [];
     p.reminders = { '100': [30] };
-    expect(deliveryEvents(fixture(), p, now)).toEqual(['kickoff30']);
+    expect(deliveryEvents(fixture(), p, now)).toEqual([]);
+  });
+  it('does not broaden team alerts through saved competitions or matches', () => {
+    const p = preferences();
+    p.teamIds = ['another-team'];
+    p.competitionIds = ['premier-league'];
+    p.matchIds = ['100'];
+    p.reminders = { '100': [30, 10] };
+    expect(deliveryEvents(fixture(), p, now)).toEqual([]);
   });
   it('does not send reminders for an old kickoff after a postponement', () => {
     expect(
@@ -208,6 +230,15 @@ describe('Device ownership and reminder eligibility', () => {
     expect(
       deliveryEvents(
         fixture({ kickoff: new Date(now + 90 * 60000).toISOString() }),
+        preferences(),
+        now,
+      ),
+    ).toEqual([]);
+  });
+  it('does not deliver World Cup reminders while its data is paused', () => {
+    expect(
+      deliveryEvents(
+        fixture({ competitionId: 'world-cup' }),
         preferences(),
         now,
       ),
@@ -344,6 +375,60 @@ describe('Stored football reads', () => {
     expect(d.errors['premier-league']).toBeTruthy();
     expect(provider.get).not.toHaveBeenCalled();
   });
+  it('publishes only club competitions and never loads World Cup fixtures or archives', async () => {
+    const { service, db } = create();
+    const data = await service.snapshot();
+    expect(data.competitions.map((c) => c.id)).toEqual([
+      'premier-league',
+      'la-liga',
+      'ucl',
+      'bundesliga',
+    ]);
+    expect(db.getRepository.mock.calls.map(([entity]) => entity)).not.toContain(
+      MatchEntity,
+    );
+    expect(
+      db.query.mock.calls.some(([sql]) =>
+        /wc:match|football_history/.test(sql),
+      ),
+    ).toBe(false);
+    await expect(service.snapshot('world-cup')).rejects.toThrow(
+      NotFoundException,
+    );
+    await expect(service.history()).rejects.toThrow(NotFoundException);
+    expect(provider.get).not.toHaveBeenCalled();
+  });
+  it('leaves World Cup and archive records untouched during catalog backfill', async () => {
+    const runner = {
+      connect: jest.fn(),
+      startTransaction: jest.fn(),
+      query: jest.fn().mockResolvedValue([]),
+      commitTransaction: jest.fn(),
+      rollbackTransaction: jest.fn(),
+      release: jest.fn(),
+      isTransactionActive: true,
+      manager: {
+        getRepository: jest.fn((entity: unknown) => {
+          expect(entity).toBe(TournamentSeasonEntity);
+          return { find: jest.fn().mockResolvedValue([]) };
+        }),
+      },
+    };
+    const service = new FootballService(
+      { createQueryRunner: () => runner } as unknown as DataSource,
+      tournaments as unknown as TournamentsService,
+      news as NewsService,
+      provider as unknown as FootballDataClient,
+    );
+    expect(await service.backfill()).toMatchObject({ archives: 0 });
+    expect(
+      runner.query.mock.calls.some(([sql]) =>
+        /DELETE|TRUNCATE|football_history|INSERT INTO matches|UPDATE matches/.test(
+          String(sql),
+        ),
+      ),
+    ).toBe(false);
+  });
   it('returns not found for fictional profile aliases', async () => {
     const { service } = create();
     await expect(service.resolve('players', 'fake-player')).rejects.toThrow(
@@ -385,7 +470,9 @@ describe('Job concurrency and activation', () => {
       {} as TournamentsService,
       {} as FootballDataClient,
     );
-    const run = jest.spyOn(jobs, 'run').mockResolvedValue({ outcomes: [] });
+    const run = jest
+      .spyOn(jobs, 'runScheduled')
+      .mockResolvedValue({ outcomes: [] });
     try {
       process.env.NODE_ENV = 'development';
       delete process.env.FOOTBALL_SCHEDULER;
@@ -406,7 +493,38 @@ describe('Job concurrency and activation', () => {
       else process.env.FOOTBALL_SCHEDULER = scheduler;
     }
   });
+  it('runs process reminders only when push is activated', async () => {
+    const push = process.env.FOOTBALL_PUSH_ENABLED,
+      scheduler = process.env.FOOTBALL_SCHEDULER;
+    const jobs = new FootballJobs(
+      {} as DataSource,
+      {} as FootballService,
+      {} as TournamentsService,
+      {} as FootballDataClient,
+    );
+    const run = jest.spyOn(jobs, 'run').mockResolvedValue({ sent: 0 });
+    try {
+      delete process.env.FOOTBALL_PUSH_ENABLED;
+      delete process.env.FOOTBALL_SCHEDULER;
+      await jobs.localReminders();
+      expect(run).not.toHaveBeenCalled();
+      process.env.FOOTBALL_PUSH_ENABLED = 'true';
+      await jobs.localReminders();
+      expect(run).toHaveBeenCalledWith('reminders');
+      run.mockClear();
+      process.env.FOOTBALL_SCHEDULER = 'supabase';
+      await jobs.localReminders();
+      expect(run).not.toHaveBeenCalled();
+    } finally {
+      if (push === undefined) delete process.env.FOOTBALL_PUSH_ENABLED;
+      else process.env.FOOTBALL_PUSH_ENABLED = push;
+      if (scheduler === undefined) delete process.env.FOOTBALL_SCHEDULER;
+      else process.env.FOOTBALL_SCHEDULER = scheduler;
+    }
+  });
   it('skips overlapping jobs before doing provider or notification work', async () => {
+    const oldPush = process.env.FOOTBALL_PUSH_ENABLED;
+    process.env.FOOTBALL_PUSH_ENABLED = 'true';
     const runner = {
       connect: jest.fn(),
       startTransaction: jest.fn(),
@@ -422,9 +540,14 @@ describe('Job concurrency and activation', () => {
       {} as TournamentsService,
       {} as FootballDataClient,
     );
-    expect(await jobs.run('reminders')).toEqual({ skipped: true });
-    expect(football.snapshot).not.toHaveBeenCalled();
-    expect(runner.release).toHaveBeenCalled();
+    try {
+      expect(await jobs.run('reminders')).toEqual({ skipped: true });
+      expect(football.snapshot).not.toHaveBeenCalled();
+      expect(runner.release).toHaveBeenCalled();
+    } finally {
+      if (oldPush === undefined) delete process.env.FOOTBALL_PUSH_ENABLED;
+      else process.env.FOOTBALL_PUSH_ENABLED = oldPush;
+    }
   });
   it('never sends automatically before activation', async () => {
     const old = process.env.FOOTBALL_PUSH_ENABLED;
@@ -550,6 +673,24 @@ describe('Job concurrency and activation', () => {
       h.row.kickoff = new Date(
         Date.parse(h.row.kickoff.toISOString()) - 86400000,
       );
+      await h.jobs.reminders();
+      expect(mockPushSend).not.toHaveBeenCalled();
+      expect(
+        h.manager.query.mock.calls.some(([sql]) =>
+          sql.includes("status='cancelled'"),
+        ),
+      ).toBe(true);
+    }));
+  it('cancels queued delivery after the team is removed from favourites', async () =>
+    activated(async () => {
+      const h = deliveryHarness();
+      h.row.preferences = {
+        ...preferences(),
+        teamIds: [],
+        competitionIds: ['premier-league'],
+        matchIds: ['100'],
+        reminders: { '100': [30] },
+      };
       await h.jobs.reminders();
       expect(mockPushSend).not.toHaveBeenCalled();
       expect(

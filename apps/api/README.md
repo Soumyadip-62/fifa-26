@@ -29,7 +29,7 @@
 
 `NEWS_API_URL` and `NEWS_API_TOKEN` stay in the backend environment. News uses the
 configured Currents search API with separate English sports/news queries for
-World Cup, Premier League, La Liga, Champions League, and Bundesliga. See the
+Premier League, La Liga, Champions League, and Bundesliga. See the
 [provider search documentation](https://currentsapi.services/en/docs/search).
 
 - `GET /news` combines the competition feeds, sorts newest first, deduplicates
@@ -194,9 +194,11 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 ## Unified football data and operations
 
-`/football/snapshot` is a database-only read model over club fixtures, stored World Cup matches, and the catalog. Shared DTOs live in `packages/football-contracts/index.d.ts`. Missing sports statistics use null; unsupported sections return availability metadata. No production frontend loader imports sample sports data.
+World Cup is currently paused. The public football feeds publish only Premier League, La Liga, UCL and Bundesliga. Hourly imports, five-minute updates, news refreshes and catalog backfill skip World Cup, and its queued notifications are left untouched. Existing World Cup fixtures, catalog memberships and historical archives remain in the database; no cleanup migration is required.
 
-Apply the additive schema before deploying code, then backfill existing payloads and archives:
+`/football/snapshot` is a database-only read model over club fixtures and their active catalog memberships. Shared DTOs live in `packages/football-contracts/index.d.ts`. Missing sports statistics use null; unsupported sections return availability metadata. No production frontend loader imports sample sports data.
+
+For an initial installation, apply the additive schema before deploying code, then backfill existing club payloads:
 
 ```sh
 pnpm --filter api football:migrate
@@ -211,7 +213,7 @@ Public endpoints:
 - `GET /football/snapshot` and `/matches` accept `competition` and starting-year `season`. Unimported seasons return an explicit per-competition unavailable state and never initiate imports.
 - `GET /football/matches/:id` refreshes stored details through the shared client with a 60-second cache. Saved details remain available with stale metadata on failure. Database-only fixture views never request individual details, standings or scorers.
 - `GET /football/teams`, `/players`, `/stadiums` accept `competition`, `season`, `q`, `page` (starting at 1), `pageSize` (1?100). `/:id` resolves profiles/aliases. SportsDB enrichment only uses verified IDs and caches results for 24 hours; no fuzzy person matching.
-- `GET /football/search?q=...` searches real catalogs, saved fixtures and cached news, with the same filters and pagination. `GET /football/news`, `/articles/:id`, `/history`, `/history/:year` serve cached publisher previews and imported archives from PostgreSQL.
+- `GET /football/search?q=...` searches active catalogs, saved club fixtures and cached club news, with the same filters and pagination. `GET /football/news` and `/articles/:id` serve cached publisher previews. World Cup history endpoints are currently unavailable; their archives remain stored.
 - `POST /football/devices` issues a random anonymous ownership secret. `PATCH /football/devices/:id` requires `x-device-secret`. Secrets are hashed at rest; token ownership cannot be overwritten by another registration.
 
 The admin page has competition imports, backfill, provider configuration and last-success/failure status. All admin mutations require `ADMIN_SECRET`; an unset secret denies administrative access. `GET /football/admin/status` also requires the secret. Provider credentials, push tokens and ownership secrets are not returned by status endpoints.
@@ -226,11 +228,11 @@ The normal data path is football-data.org -> Nest jobs -> PostgreSQL -> Nest rea
 
 With `FOOTBALL_SCHEDULER=process` (the Render default), the running backend:
 
-- Imports all four club schedules plus the 2026 World Cup schedule, refreshes their official standings, and rebuilds the catalog hourly at minute 05 UTC.
-- Refreshes active/recently due fixtures and their official standings every five minutes. Scheduled games within the previous 48 hours are included to recover missed full-time updates.
-- Starts a background catch-up import after boot when schedules have not succeeded within an hour. A 15-minute startup retry interval prevents restart loops exhausting the provider quota.
+- Wakes schedule discovery hourly at minute 05 UTC; the read-only cadence gate imports schedules, standings and the catalog hourly on matchdays and no more than every two hours otherwise.
+- Wakes score checks every five minutes so live matches stay current. The read-only gate refreshes scores and standings every five minutes during live play, hourly when fixtures are scheduled today, and near the next kickoff when there is no fixture today. A skipped wake-up makes no job-status or fixture writes.
+- Starts a background catch-up import after boot through the same cadence gate, avoiding duplicate work soon after a recent successful import.
 
-These jobs also run in production. Database advisory locks prevent duplicate execution across instances. The shared provider quota applies to every request. Schedule imports upsert new fixtures and corrections without deleting history; a bad provider response never replaces a good table. Partial failures are recorded per competition in `football_jobs.result`, with `lastError`; successful competitions remain updated. Both World Cup standings endpoints use the same persisted official response. They no longer calculate a substitute from JSON or saved results.
+These jobs also run in production. Database advisory locks prevent duplicate execution across instances. The shared provider quota applies to every request. Schedule imports upsert new fixtures and corrections without deleting history; a bad provider response never replaces a good table. Partial failures are recorded per competition in `football_jobs.result`, with `lastError`; successful competitions remain updated.
 
 Run `pnpm --filter api football:sync` for an immediate complete schedule-and-table sync, or `pnpm --filter api football:scores` for active fixtures and tables. Inspect protected `GET /football/admin/status` for last success, partial failures, configured scheduler and cadence.
 
@@ -238,9 +240,11 @@ A process scheduler needs a running API. Render free services can sleep. For una
 
 1. Deploy Nest and the existing migrations; configure `FOOTBALL_SCHEDULER=supabase`, `FOOTBALL_SCHEDULER_SECRET`, and the frontend backend URL. This disables in-process polling.
 2. Create Vault secrets `football_api_url` (confirmed HTTPS backend URL) and `football_scheduler_secret` matching the backend credential. Apply `src/football/supabase-cron.sql`; jobs are initially disabled.
-3. Verify protected job endpoints, then activate only `football-scores` and `football-schedules`. Their cadences match the process scheduler. Do not enable both scheduler modes.
+3. Verify protected job endpoints, then activate only `football-scores` and `football-schedules`. These are lightweight wake-up triggers; the API applies the same read-only cadence gate as the process scheduler. Do not enable both scheduler modes.
 4. Check `net._http_response` for transport failures and `football_jobs` for outcomes. Free-plan provider delays and cold starts still apply.
 
 Data synchronization never requires push activation. Keep `FOOTBALL_PUSH_ENABLED=false` and reminder cron disabled unless notification delivery has separately been configured and tested. Device delivery remains opt-in with retries, reschedule cancellation and invalid-token cleanup.
+
+Favourite teams and notification choices are mirrored from each browser into `football_devices.preferences` using that browser's locally stored ownership credential; no account or schema migration is required. Notifications are queued and revalidated only for games involving a saved team ID. With process scheduling, setting `FOOTBALL_PUSH_ENABLED=true` starts the gated one-minute reminder worker; Firebase Admin credentials and frontend VAPID configuration must also be ready. In Supabase mode, configure those first, then activate `football-reminders` separately from the schedule and score jobs.
 
 Missing provider statistics, lineups and media remain unavailable rather than invented. Historical archives remain the existing supplied project records.

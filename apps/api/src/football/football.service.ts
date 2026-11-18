@@ -5,8 +5,6 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
 import type {
   Competition,
   CompetitionId,
@@ -25,7 +23,6 @@ import {
   TournamentResourceCacheEntity,
 } from '../tournaments/tournament.entities';
 import { MatchEntity } from '../matches/entities/matches.entity';
-import { TeamEntity } from '../teams/entitites/teams.entity';
 import {
   TournamentsService,
   validateMatch,
@@ -54,13 +51,7 @@ const str = (v: unknown, fallback = '') =>
 const num = (v: unknown) =>
   typeof v === 'number' && Number.isFinite(v) ? v : null;
 const rows = (v: unknown): Json[] => (Array.isArray(v) ? v.map(obj) : []);
-const ids: CompetitionId[] = [
-  'world-cup',
-  'premier-league',
-  'la-liga',
-  'ucl',
-  'bundesliga',
-];
+const ids: CompetitionId[] = ['premier-league', 'la-liga', 'ucl', 'bundesliga'];
 const clubAliases: Record<number, string> = {
   57: 'arsenal',
   61: 'chelsea',
@@ -92,15 +83,6 @@ export class FootballService {
   }
   async seasons(id: string) {
     this.competitionId(id);
-    if (id === 'world-cup') {
-      const records = await this.db.query<Array<{ season: string }>>(
-        'SELECT DISTINCT season FROM matches WHERE season IS NOT NULL',
-      );
-      return records
-        .map((r: { season: string }) => Number(r.season.slice(0, 4)))
-        .filter(Number.isFinite)
-        .sort((a: number, b: number) => b - a);
-    }
     return (
       await this.db
         .getRepository(TournamentSeasonEntity)
@@ -118,8 +100,6 @@ export class FootballService {
       const seasons = await runner.manager
         .getRepository(TournamentSeasonEntity)
         .find({ order: { season: 'DESC' } });
-      const nationals = await runner.manager.getRepository(TeamEntity).find();
-      const wc = await runner.manager.getRepository(MatchEntity).find();
       const catalog = new Map<
         string,
         { id: string; kind: string; providerKey: string; payload: Json }
@@ -276,69 +256,6 @@ export class FootballService {
             );
           }
         }
-      for (const t of nationals) {
-        const related = wc.find(
-          (m) =>
-            m.sportsDbHomeTeamId === t.sportsdb_team_id ||
-            m.sportsDbAwayTeamId === t.sportsdb_team_id,
-        );
-        const fd = related
-          ? related.sportsDbHomeTeamId === t.sportsdb_team_id
-            ? related.footballDataorgHomeTeamId
-            : related.footballDataorgAwayTeamId
-          : null;
-        const provider = fd ? 'football-data' : 'sportsdb',
-          key = fd ?? t.sportsdb_team_id,
-          tid = entityId('teams', provider, key);
-        add(
-          'teams',
-          provider,
-          key,
-          {
-            name: t.name,
-            shortName: t.fifa_code,
-            country: t.name,
-            city: '',
-            coach: '',
-            founded: null,
-            logoUrl: t.image_url ?? '',
-            stadiumId: '',
-            position: null,
-            form: [],
-            stats: resultsFor(tid, []).stats,
-            providerIds: { footballData: fd, sportsdb: t.sportsdb_team_id },
-            group: t.group,
-          },
-          'world-cup',
-          2026,
-        );
-        for (const alias of [
-          t.fifa_code,
-          t.sportsdb_team_id,
-          `sportsdb:${t.sportsdb_team_id}`,
-          t.name,
-          t.name_normalised,
-        ].filter(Boolean))
-          aliases.push({ kind: 'teams', alias, entityId: tid });
-      }
-      // World Cup venues are identified by their verified stored name and country, not a guessed club.
-      for (const m of wc)
-        if (m.venue?.stadium)
-          add(
-            'stadiums',
-            'world-cup',
-            `${m.venue.country ?? ''}:${m.venue.stadium}`,
-            {
-              name: m.venue.stadium,
-              city: m.venue.city ?? '',
-              country: m.venue.country ?? '',
-              capacity: null,
-              homeTeamId: '',
-              imageUrl: '/assets/images/stadiums/default-stadium.svg',
-            },
-            'world-cup',
-            Number(m.season) || 2026,
-          );
       await runner.query(
         `INSERT INTO football_catalog(id,kind,"providerKey",payload) SELECT id::uuid,kind,"providerKey",payload FROM jsonb_to_recordset($1::jsonb) AS x(id text,kind text,"providerKey" text,payload jsonb) ON CONFLICT(id) DO UPDATE SET payload=EXCLUDED.payload,"updatedAt"=now()`,
         [JSON.stringify([...catalog.values()])],
@@ -351,11 +268,7 @@ export class FootballService {
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/^-|-$/g, '');
       for (const c of catalog.values()) {
-        if (
-          c.kind === 'players' ||
-          (Array.isArray(c.payload.competitionIds) &&
-            c.payload.competitionIds.includes('world-cup'))
-        )
+        if (c.kind === 'players')
           aliases.push({
             kind: c.kind,
             alias: slug(str(c.payload.name)),
@@ -383,26 +296,12 @@ export class FootballService {
         `INSERT INTO football_memberships("entityId","competitionId",season,"teamId") SELECT "entityId"::uuid,"competitionId",season,"teamId"::uuid FROM jsonb_to_recordset($1::jsonb) AS x("entityId" text,"competitionId" text,season int,"teamId" text) ON CONFLICT("entityId","competitionId",season) DO UPDATE SET "teamId"=EXCLUDED."teamId"`,
         [JSON.stringify([...memberships.values()])],
       );
-      const base = join(process.cwd(), 'fifa-data', 'worldcup-by-year');
-      let archives = 0;
-      if (existsSync(base))
-        for (const d of readdirSync(base)) {
-          const year = Number(d),
-            path = join(base, d, 'worldcup.json');
-          if (!Number.isInteger(year) || !existsSync(path)) continue;
-          const payload = JSON.parse(readFileSync(path, 'utf8')) as {
-            matches: unknown[];
-          };
-          if (!Array.isArray(payload.matches))
-            throw new Error('Invalid history archive');
-          await runner.query(
-            'INSERT INTO football_history(year,payload) VALUES($1,$2) ON CONFLICT(year) DO UPDATE SET payload=EXCLUDED.payload',
-            [year, payload],
-          );
-          archives++;
-        }
       await runner.commitTransaction();
-      return { catalog: catalog.size, memberships: memberships.size, archives };
+      return {
+        catalog: catalog.size,
+        memberships: memberships.size,
+        archives: 0,
+      };
     } finally {
       if (runner.isTransactionActive) await runner.rollbackTransaction();
       await runner.release();
@@ -424,50 +323,41 @@ export class FootballService {
       )
         selected.set(s.competitionId, s);
     const competitions: Competition[] = [
-      {
-        id: 'world-cup',
-        name: 'FIFA World Cup',
-        shortName: 'World Cup',
-        region: 'International',
-        season: '2026',
-        format: 'Group stage + knockout',
-        accent: 'red',
-        hasBracket: true,
-      },
-      ...ids
-        .filter((id) => id !== 'world-cup')
-        .map((id) => {
-          const s = selected.get(id);
-          return {
-            id,
-            name: id === 'la-liga' ? 'La Liga' : (s?.competition.name ?? id),
-            shortName:
-              id === 'la-liga'
-                ? 'La Liga'
-                : id === 'ucl'
-                  ? 'UCL'
-                  : (s?.competition.name ?? id),
-            region: s?.competition.area.name ?? '',
-            season: s
-              ? `${s.season}/${String(s.competition.currentSeason.endDate).slice(2, 4)}`
-              : 'Unavailable',
-            format: id === 'ucl' ? 'League phase + knockout' : 'League',
-            accent: 'violet',
-            hasBracket: id === 'ucl',
-            emblem: s?.competition.emblem,
-            currentMatchday: s?.competition.currentSeason.currentMatchday,
-          };
-        }),
+      ...ids.map((id) => {
+        const s = selected.get(id);
+        return {
+          id,
+          name: id === 'la-liga' ? 'La Liga' : (s?.competition.name ?? id),
+          shortName:
+            id === 'la-liga'
+              ? 'La Liga'
+              : id === 'ucl'
+                ? 'UCL'
+                : (s?.competition.name ?? id),
+          region: s?.competition.area.name ?? '',
+          season: s
+            ? `${s.season}/${String(s.competition.currentSeason.endDate).slice(2, 4)}`
+            : 'Unavailable',
+          format: id === 'ucl' ? 'League phase + knockout' : 'League',
+          accent: 'violet',
+          hasBracket: id === 'ucl',
+          emblem: s?.competition.emblem,
+          currentMatchday: s?.competition.currentSeason.currentMatchday,
+        };
+      }),
     ];
-    const [catalog, members, club, wc] = (await Promise.all([
-      this.db.query('SELECT id,kind,payload FROM football_catalog'),
-      this.db.query('SELECT * FROM football_memberships'),
+    const [catalog, members, club] = (await Promise.all([
+      this.db.query(
+        'SELECT id,kind,payload FROM football_catalog WHERE EXISTS (SELECT 1 FROM football_memberships m WHERE m."entityId"=football_catalog.id AND m."competitionId"=ANY($1::text[]))',
+        [ids],
+      ),
+      this.db.query(
+        'SELECT * FROM football_memberships WHERE "competitionId"=ANY($1::text[])',
+        [ids],
+      ),
       this.db
         .getRepository(TournamentFixtureEntity)
         .find({ order: { kickoff: 'ASC' } }),
-      this.db
-        .getRepository(MatchEntity)
-        .find({ order: { timestampUtc: 'ASC' } }),
     ])) as [
       Array<{ id: string; kind: string; payload: Json }>,
       Array<{
@@ -477,13 +367,11 @@ export class FootballService {
         teamId: string | null;
       }>,
       TournamentFixtureEntity[],
-      MatchEntity[],
     ];
     const active = (id: string, year: number) =>
+      ids.includes(id as CompetitionId) &&
       (!competitionId || competitionId === id) &&
-      (id === 'world-cup'
-        ? season === undefined || season === year
-        : selected.get(id)?.season === year);
+      selected.get(id)?.season === year;
     const memberships = members.filter((m) =>
       active(m.competitionId, m.season),
     );
@@ -522,55 +410,7 @@ export class FootballService {
     const matches: FootballMatch[] = club
       .filter((f) => active(f.competitionId, f.season))
       .map((f) => this.clubMatch(f));
-    if (active('world-cup', 2026))
-      for (const m of wc) {
-        const find = (home: boolean) => {
-          const fd = home
-              ? m.footballDataorgHomeTeamId
-              : m.footballDataorgAwayTeamId,
-            sd = home ? m.sportsDbHomeTeamId : m.sportsDbAwayTeamId;
-          return fd
-            ? entityId('teams', 'football-data', fd)
-            : (teams.find(
-                (t) =>
-                  (t as FootballTeam & { providerIds?: { sportsdb: string } })
-                    .providerIds?.sportsdb === sd,
-              )?.id ?? `unconfirmed-${m.id}-${home ? 'home' : 'away'}`);
-        };
-        const kickoff =
-          m.timestampUtc ||
-          `${m.dateUtc || m.date}T${m.timeUtc || m.time || '00:00:00'}Z`;
-        if (!Number.isFinite(Date.parse(kickoff))) continue;
-        matches.push({
-          id: m.id,
-          competitionId: 'world-cup',
-          season: m.season || '2026',
-          homeTeamId: find(true),
-          awayTeamId: find(false),
-          stadiumId: m.venue?.stadium
-            ? entityId(
-                'stadiums',
-                'world-cup',
-                `${m.venue.country ?? ''}:${m.venue.stadium}`,
-              )
-            : '',
-          venueName: m.venue?.stadium ?? undefined,
-          kickoff: new Date(kickoff).toISOString(),
-          status: status(m.statusCode || m.status),
-          stage: m.stage ?? '',
-          matchday: m.matchday ? `Matchday ${m.matchday}` : (m.stage ?? ''),
-          homeScore: m.score?.home ?? null,
-          awayScore: m.score?.away ?? null,
-          ...{
-            group: m.group,
-            homeLabel: m.homeTeam || m.homeTeamSlot,
-            awayLabel: m.awayTeam || m.awayTeamSlot,
-          },
-        });
-      }
-    for (const match of matches.filter(
-      (m) => m.competitionId !== 'world-cup',
-    )) {
+    for (const match of matches) {
       const venues = stadiums.filter((v) => v.name === match.venueName);
       match.stadiumId = venues.length === 1 ? venues[0].id : '';
     }
@@ -584,10 +424,7 @@ export class FootballService {
           'This season has not been imported or has no published fixtures.';
     for (const t of teams) Object.assign(t, resultsFor(t.id, matches));
     if (competitionId) {
-      const year =
-        competitionId === 'world-cup'
-          ? 2026
-          : selected.get(competitionId)?.season;
+      const year = selected.get(competitionId)?.season;
       const cached = year
         ? await this.db
             .getRepository(TournamentResourceCacheEntity)
@@ -607,9 +444,6 @@ export class FootballService {
           });
       }
     }
-    const wcUpdates = await this.db.query<Array<{ updatedAt: Date | null }>>(
-      `SELECT max("fetchedAt") AS "updatedAt" FROM tournament_resource_cache WHERE key LIKE 'wc:match:%'`,
-    );
     return {
       competitions: competitions.filter(
         (c) => !competitionId || c.id === competitionId,
@@ -631,12 +465,7 @@ export class FootballService {
                 .filter((f) => f.competitionId === id && active(id, f.season))
                 .map((f) => f.observedAt?.getTime() ?? 0),
             );
-            const fetchedAt =
-              id === 'world-cup'
-                ? (wcUpdates[0]?.updatedAt?.toISOString() ?? null)
-                : latest
-                  ? new Date(latest).toISOString()
-                  : null;
+            const fetchedAt = latest ? new Date(latest).toISOString() : null;
             return [
               id,
               {
@@ -975,24 +804,10 @@ export class FootballService {
             .getRepository(TournamentFixtureEntity)
             .findOneBy({ id: Number(id) })
         : null;
-      const wc = club
-        ? null
-        : await this.db.getRepository(MatchEntity).findOneBy({ id });
-      if (!club && !wc) throw new NotFoundException('Match not found.');
-      const homeTeam = club
-        ? club.payload.homeTeam
-        : {
-            id: wc!.footballDataorgHomeTeamId,
-            name: wc!.homeTeam,
-            shortName: wc!.homeTeam,
-          };
-      const awayTeam = club
-        ? club.payload.awayTeam
-        : {
-            id: wc!.footballDataorgAwayTeamId,
-            name: wc!.awayTeam,
-            shortName: wc!.awayTeam,
-          };
+      if (!club) throw new NotFoundException('Match not found.');
+      this.competitionId(club.competitionId);
+      const homeTeam = club.payload.homeTeam,
+        awayTeam = club.payload.awayTeam;
       if (!homeTeam.id || !awayTeam.id || !homeTeam.name || !awayTeam.name)
         return {
           articles: [],
@@ -1002,15 +817,10 @@ export class FootballService {
           },
         };
       const feed = await this.news.getMatchNews({
-        id: club ? String(club.id) : wc!.id,
-        status: club ? club.status : wc!.statusCode || wc!.status,
-        competitionId: club
-          ? this.competitionId(club.competitionId)
-          : 'world-cup',
-        kickoff: club
-          ? club.kickoff.toISOString()
-          : wc!.timestampUtc ||
-            `${wc!.dateUtc || wc!.date}T${wc!.timeUtc || wc!.time || '00:00:00'}Z`,
+        id: String(club.id),
+        status: club.status,
+        competitionId: this.competitionId(club.competitionId) as TournamentId,
+        kickoff: club.kickoff.toISOString(),
         homeTeam: {
           name: homeTeam.name,
           shortName: homeTeam.shortName ?? undefined,
@@ -1024,7 +834,7 @@ export class FootballService {
         .map((article) =>
           this.newsPreview(
             { ...article },
-            club ? this.competitionId(club.competitionId) : 'world-cup',
+            this.competitionId(club.competitionId),
           ),
         )
         .filter((article): article is FootballNews => article !== null);
@@ -1139,12 +949,11 @@ export class FootballService {
       pageSize,
     };
   }
-  async history(year?: number) {
-    const records = await this.db.query<Array<{ year: number; payload: Json }>>(
-      `SELECT year,payload FROM football_history ${year === undefined ? '' : 'WHERE year=$1'} ORDER BY year`,
-      year === undefined ? [] : [year],
+  history(year?: number): Promise<never> {
+    void year;
+    return Promise.reject(
+      new NotFoundException('Competition history is currently unavailable.'),
     );
-    return records;
   }
   private async worldCupDetails(id: string) {
     const repo = this.db.getRepository(TournamentResourceCacheEntity),
@@ -1241,6 +1050,8 @@ export class FootballService {
           .getRepository(TournamentFixtureEntity)
           .findOneBy({ id: Number(id) })
       : null;
+    if (!fixture) throw new NotFoundException('Match not found.');
+    this.competitionId(fixture.competitionId);
     let raw: Json = {},
       freshness: { fetchedAt: string; stale: boolean } | undefined;
     if (fixture) {
@@ -1250,25 +1061,7 @@ export class FootballService {
     }
     const data = await this.snapshot();
     let match = data.matches.find((m) => m.id === id);
-    // Number aliases apply only to actual stored World Cup match numbers.
-    if (!match && !fixture) {
-      const wc = await this.db.getRepository(MatchEntity).findOne({
-        where: [
-          { id },
-          ...(/^\d+$/.test(id) ? [{ matchNumber: Number(id) }] : []),
-        ],
-      });
-      if (wc) match = data.matches.find((m) => m.id === wc.id);
-    }
     if (!match) throw new NotFoundException('Match not found.');
-    if (!fixture && /^\d+$/.test(match.id)) {
-      const result = await this.worldCupDetails(match.id);
-      raw = obj(result);
-      freshness = result.freshness;
-      const newData = await this.snapshot('world-cup');
-      match = newData.matches.find((m) => m.id === match!.id) ?? match;
-    }
-
     if (fixture)
       match = this.clubMatch({
         ...fixture,

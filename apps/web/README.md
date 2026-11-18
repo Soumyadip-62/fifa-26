@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+The current site publishes Premier League, La Liga, Champions League and Bundesliga only. World Cup navigation, fixtures, profiles, news feeds and filters are hidden; its competition, history, group-table and knockout pages return not found. Stored World Cup data is retained on the backend.
+
 Premier League, La Liga, Champions League, and Bundesliga data comes from the
 NestJS backend through `NEXT_PUBLIC_BACKEND_URL`. Do not configure a football
 provider key in the web app. Schedule imports, provider credentials, throttling,
@@ -9,10 +11,10 @@ and persistent caches belong to `apps/api`.
 
 Club fixtures on competition, home, live, matches, search, favourites, and profile
 pages use the same saved schedules. Missing imports show competition errors;
-mock club fixtures are not substituted. World Cup fixtures and unrelated static
-profile, player, and stadium content retain their existing behavior.
+mock club fixtures are not substituted. World Cup fixtures and profiles remain
+stored but are excluded from published pages.
 
-Home, `/news`, and all five competition pages load current news from the backend.
+Home, `/news`, and all four competition pages load current news from the backend.
 Each competition has a separate feed; the home/newsroom feed combines and
 deduplicates them. Provider credentials remain on the backend, with a shared
 one-hour cache. News has independent loading, empty, error, and saved-data states.
@@ -70,7 +72,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 All production sports loaders now call the Nest `/football` API, with publisher news fetched through Nest `/news`. The backend must have the additive schema and catalog/history backfill before deploying this frontend. Keep football provider secrets exclusively in the backend.
 
-Favourites, saved matches, reminders and notification choices use one versioned device store. Existing named favourites migrate only through verified backend aliases. Browser permission is requested solely from an Enable notifications/admin test action. Set `NEXT_PUBLIC_FIREBASE_VAPID_KEY` at build time; anonymous backend updates use the issued device ownership credential. Login/cross-device synchronization is not included.
+Favourites, saved matches, reminders and notification choices use one versioned browser store and are mirrored to the backend's per-device record. Team favourites sync even before push permission is granted; the browser's ownership credential is stored locally and no login is required. Automatic kickoff and full-time alerts are limited to games involving saved favourite team IDs. Existing named favourites migrate only through verified backend aliases. Browser permission is requested solely from an Enable notifications/admin test action. Set `NEXT_PUBLIC_FIREBASE_VAPID_KEY` at build time. Login/cross-device synchronization is not included.
 
 Fixture pages refresh while visible every 15 minutes; live match details use the short backend cache and refresh every minute. Imported seasons, nullable statistics, stale timestamps and unavailable sections are shown directly. News preview pages link to the original publisher and do not reproduce complete articles.
 

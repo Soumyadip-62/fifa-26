@@ -157,6 +157,8 @@ export class FootballController {
       throw new UnauthorizedException('Invalid scheduler credential.');
     if (!['scores', 'schedules', 'reminders'].includes(job))
       throw new UnauthorizedException('Unknown job.');
-    return this.jobs.run(job as 'scores' | 'schedules' | 'reminders');
+    if (job === 'scores' || job === 'schedules')
+      return this.jobs.runScheduled(job);
+    return this.jobs.run('reminders');
   }
 }

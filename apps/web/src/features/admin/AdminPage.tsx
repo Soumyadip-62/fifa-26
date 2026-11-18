@@ -2,18 +2,11 @@
 
 import { useState } from "react";
 import { FootballOperations } from "./FootballOperations";
-import {
-  BellRing,
-  Database,
-  KeyRound,
-  RefreshCw,
-  Smartphone,
-} from "lucide-react";
+import { BellRing, KeyRound, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import { syncMatchesDb, syncQualifiedTeamsDb } from "@/lib/api/admin";
 import { sendDeviceTestNotifications } from "@/lib/api/notification";
 import { registerPush } from "@/lib/utils/notificationService";
 
@@ -40,8 +33,6 @@ const testTypes = [
 const ADMIN_SECRET_STORAGE_KEY = "fifa26:admin-secret";
 
 export function AdminPage() {
-  const [matchesSync, setMatchesSync] = useState<ActionState>(initialState);
-  const [qualifiedSync, setQualifiedSync] = useState<ActionState>(initialState);
   const [notificationTest, setNotificationTest] =
     useState<ActionState>(initialState);
   const [deviceToken, setDeviceToken] = useState<string | null>(null);
@@ -54,38 +45,6 @@ export function AdminPage() {
   const updateAdminSecret = (value: string) => {
     setAdminSecret(value);
     window.localStorage.setItem(ADMIN_SECRET_STORAGE_KEY, value);
-  };
-
-  const runAction = async (
-    setState: (state: ActionState) => void,
-    action: () => Promise<unknown>,
-    successMessage: string,
-  ) => {
-    setState({ loading: true, message: "", error: "" });
-
-    try {
-      await action();
-      setState({ loading: false, message: successMessage, error: "" });
-    } catch (error) {
-      setState({
-        loading: false,
-        message: "",
-        error: error instanceof Error ? error.message : "Action failed",
-      });
-    }
-  };
-
-  const syncEverything = async () => {
-    await runAction(
-      setMatchesSync,
-      () => syncMatchesDb(adminSecret),
-      "Matches DB sync completed.",
-    );
-    await runAction(
-      setQualifiedSync,
-      () => syncQualifiedTeamsDb(adminSecret),
-      "Qualified teams sync completed.",
-    );
   };
 
   const sendNotificationTest = async (
@@ -158,67 +117,6 @@ export function AdminPage() {
 
       <FootballOperations secret={adminSecret} />
       <section className="grid gap-5 lg:grid-cols-2">
-        <Card className="rounded-lg border border-border bg-card shadow-none backdrop-blur-md dark:border-border dark:bg-card">
-          <CardContent className="grid gap-5 p-5 sm:p-6">
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
-                <Database size={18} />
-              </span>
-              <div>
-                <h2 className="font-heading text-lg font-black text-foreground dark:text-white">
-                  Database Sync
-                </h2>
-                <p className="text-xs font-semibold text-muted-foreground">
-                  Refresh matches and qualification data.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-3">
-              <Button
-                className="h-11 rounded-full text-xs font-bold"
-                disabled={matchesSync.loading}
-                onClick={() =>
-                  runAction(
-                    setMatchesSync,
-                    () => syncMatchesDb(adminSecret),
-                    "Matches DB sync completed.",
-                  )
-                }
-              >
-                <RefreshCw size={15} />
-                Matches
-              </Button>
-              <Button
-                className="h-11 rounded-full text-xs font-bold"
-                disabled={qualifiedSync.loading}
-                onClick={() =>
-                  runAction(
-                    setQualifiedSync,
-                    () => syncQualifiedTeamsDb(adminSecret),
-                    "Qualified teams sync completed.",
-                  )
-                }
-              >
-                <RefreshCw size={15} />
-                Qualified
-              </Button>
-              <Button
-                className="h-11 rounded-full text-xs font-bold"
-                disabled={matchesSync.loading || qualifiedSync.loading}
-                variant="outline"
-                onClick={syncEverything}
-              >
-                <Database size={15} />
-                All
-              </Button>
-            </div>
-
-            <StatusLine state={matchesSync} />
-            <StatusLine state={qualifiedSync} />
-          </CardContent>
-        </Card>
-
         <Card className="rounded-lg border border-border bg-card shadow-none backdrop-blur-md dark:border-border dark:bg-card">
           <CardContent className="grid gap-5 p-5 sm:p-6">
             <div className="flex items-center gap-3">

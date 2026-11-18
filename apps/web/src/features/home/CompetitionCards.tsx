@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { Trophy, ChevronRight } from "lucide-react";
 import { TeamMark } from "@/components/football/TeamMark";
-import { images } from "@/assets";
 import type { Competition } from "@/types/football";
 import { DashboardPanel } from "./DashboardPanel";
 
 const labels = {
-  "world-cup": "World Cup",
   "premier-league": "Premier League",
   "la-liga": "La Liga",
   ucl: "Champions League",
@@ -41,17 +39,16 @@ export function CompetitionCards({
                 team={{
                   name: competition.name,
                   shortName: competition.shortName,
-                  logoUrl:
-                    competition.emblem ||
-                    (competition.id === "world-cup"
-                      ? images.logos.fifa_logo
-                      : ""),
+                  logoUrl: competition.emblem || "",
                 }}
                 showName={false}
                 size="md"
               />
             </span>
-            <strong>{labels[competition.id]}</strong>
+            <strong>
+              {labels[competition.id as keyof typeof labels] ??
+                competition.shortName}
+            </strong>
             <span>{competition.region || "International"}</span>
             <ChevronRight
               aria-hidden="true"

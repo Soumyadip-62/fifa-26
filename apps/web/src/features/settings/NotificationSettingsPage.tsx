@@ -13,6 +13,7 @@ import { SectionHeader } from "@/components/common/SectionHeader";
 import { TeamMark } from "@/components/football/TeamMark";
 import { Button } from "@/components/ui/button";
 import type { FootballTeam } from "@/types/football";
+import { LocalNotificationTest } from "./LocalNotificationTest";
 
 export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
   const p = usePreferences();
@@ -39,7 +40,7 @@ export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
       <SectionHeader
         eyebrow="Never miss your matchday"
         title="Notification settings"
-        description="Kickoff reminders and full-time scores for the teams, competitions and matches you follow."
+        description="Kickoff reminders and full-time scores only for games involving your favourite teams."
       />
       <div className="settings-grid">
         <section className="companion-panel notification-panel">
@@ -134,10 +135,12 @@ export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
             ))}
           </div>
           <p className="mt-5 text-[11px] leading-5 text-muted-foreground">
-            Preferences are saved on this device. Delivery requires browser
-            permission and an active notification service. Other event alerts
-            are unavailable with current data coverage.
+            Preferences are saved in this browser and synced for delivery.
+            Alerts require browser permission and an active notification
+            service. Other event alerts are unavailable with current data
+            coverage.
           </p>
+          {process.env.NODE_ENV === "development" && <LocalNotificationTest />}
         </section>
         <aside className="companion-panel">
           <div className="mb-4 flex items-center justify-between gap-3">

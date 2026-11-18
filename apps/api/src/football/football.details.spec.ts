@@ -145,77 +145,20 @@ describe('Match detail API compatibility', () => {
     });
   });
 
-  it('exposes existing World Cup entity metadata without guessing venue or results', async () => {
-    const stored = {
-      id: 'wc-stored',
-      score: {
-        home: 0,
-        away: 1,
-        halfTime: { home: 0, away: 0 },
-        winner: 'AWAY_TEAM',
-        duration: 'EXTRA_TIME',
-      },
-      referees: [{ id: 10, name: 'Main Official', type: 'REFEREE' }],
-      venue: {
-        stadium: 'Stored Match Stadium',
-        city: 'Host City',
-        country: 'Host Country',
-      },
-      goals: [],
-    };
-    const db = {
-      getRepository: (entity: unknown) => ({
-        findOneBy: jest
-          .fn()
-          .mockResolvedValue(
-            entity === TournamentFixtureEntity ? null : stored,
-          ),
-      }),
-    };
+  it('keeps World Cup details unavailable without querying or updating saved World Cup records', async () => {
+    const getRepository = jest.fn(() => ({
+      findOneBy: jest.fn().mockResolvedValue(null),
+    }));
+    const provider = { get: jest.fn() };
     const service = new FootballService(
-      db as unknown as DataSource,
+      { getRepository } as unknown as DataSource,
       {} as TournamentsService,
       {} as NewsService,
-      {} as FootballDataClient,
+      provider as unknown as FootballDataClient,
     );
-    jest.spyOn(service, 'snapshot').mockResolvedValue({
-      matches: [
-        {
-          id: 'wc-stored',
-          competitionId: 'world-cup',
-          status: 'finished',
-          homeTeamId: 'home',
-          awayTeamId: 'away',
-          stadiumId: 'stored-stadium',
-          homeScore: 0,
-          awayScore: 1,
-        },
-      ],
-      competitions: [{ id: 'world-cup' }],
-      teams: [],
-      stadiums: [
-        {
-          id: 'stored-stadium',
-          name: 'Stored Match Stadium',
-          imageUrl: '/stored.svg',
-        },
-      ],
-    } as unknown as FootballSnapshot);
-    jest.spyOn(service, 'cachedNews').mockResolvedValue([]);
-    const result = await service.details('wc-stored');
-    expect(result.score).toEqual({
-      fullTime: { home: 0, away: 1 },
-      halfTime: { home: 0, away: 0 },
-      winner: 'AWAY_TEAM',
-      duration: 'EXTRA_TIME',
-    });
-    expect(result.match.referee).toBe('Main Official');
-    expect(result.referees?.[0].nationality).toBeNull();
-    expect(result.venue).toMatchObject({
-      name: 'Stored Match Stadium',
-      confirmed: true,
-      source: 'database',
-    });
-    expect(result.stadium.id).toBe('stored-stadium');
+    await expect(service.details('100')).rejects.toThrow('Match not found');
+    expect(getRepository).toHaveBeenCalledTimes(1);
+    expect(getRepository).toHaveBeenCalledWith(TournamentFixtureEntity);
+    expect(provider.get).not.toHaveBeenCalled();
   });
 });

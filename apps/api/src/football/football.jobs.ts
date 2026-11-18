@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   Logger,
   OnApplicationBootstrap,
@@ -24,22 +25,18 @@ export function deliveryEvents(
   p: DevicePreferences,
   now: number,
 ): string[] {
+  if (match.competitionId === 'world-cup') return [];
   if (!p.notifications.enabled) return [];
-  const followed =
-    p.matchIds.includes(match.id) ||
-    p.teamIds.some(
-      (id) => id === match.homeTeamId || id === match.awayTeamId,
-    ) ||
-    p.competitionIds.includes(match.competitionId);
-  const explicit = p.reminders[match.id] ?? [];
+  const followed = p.teamIds.some(
+    (id) => id === match.homeTeamId || id === match.awayTeamId,
+  );
+  if (!followed) return [];
   const events: string[] = [];
   if (match.status === 'upcoming')
     for (const offset of [30, 10]) {
       const due = Date.parse(match.kickoff) - offset * 60000;
       if (
-        (explicit.includes(offset) ||
-          (followed &&
-            p.notifications[offset === 30 ? 'kickoff30' : 'kickoff10'])) &&
+        p.notifications[offset === 30 ? 'kickoff30' : 'kickoff10'] &&
         now >= due &&
         now < due + 120000 &&
         now < Date.parse(match.kickoff)
@@ -78,16 +75,13 @@ export class FootballJobs implements OnApplicationBootstrap {
     );
   }
   async catchUp() {
-    const rows = await this.db.query<Array<{ fresh: boolean }>>(
-      `SELECT ("lastSuccessAt">now()-interval '1 hour' OR "lastStartedAt">now()-interval '15 minutes') AS fresh FROM football_jobs WHERE name='schedules'`,
-    );
-    if (!rows[0]?.fresh) await this.run('schedules');
+    await this.runScheduled('schedules');
   }
   @Cron('0 5 * * * *', { timeZone: 'UTC', waitForCompletion: true })
   async scheduledSchedules() {
     if (process.env.FOOTBALL_SCHEDULER === 'supabase') return;
     try {
-      await this.run('schedules');
+      await this.runScheduled('schedules');
       this.logger.log('Scheduled football schedules refresh completed.');
     } catch (error) {
       this.logger.warn(
@@ -99,7 +93,7 @@ export class FootballJobs implements OnApplicationBootstrap {
   async localScores() {
     if (process.env.FOOTBALL_SCHEDULER === 'supabase') return;
     try {
-      await this.run('scores');
+      await this.runScheduled('scores');
       this.logger.log('Local score refresh completed.');
     } catch (error) {
       this.logger.warn(
@@ -107,10 +101,88 @@ export class FootballJobs implements OnApplicationBootstrap {
       );
     }
   }
+  @Cron('* * * * *', { timeZone: 'UTC', waitForCompletion: true })
+  async localReminders() {
+    if (
+      process.env.FOOTBALL_SCHEDULER === 'supabase' ||
+      process.env.FOOTBALL_PUSH_ENABLED !== 'true'
+    )
+      return;
+    try {
+      await this.run('reminders');
+      this.logger.log('Scheduled notification delivery completed.');
+    } catch (error) {
+      this.logger.warn(
+        error instanceof Error
+          ? error.message
+          : 'Notification delivery failed.',
+      );
+    }
+  }
+  /** Lightweight read-only gate used by both process and Supabase schedulers. */
+  async runScheduled(name: 'scores' | 'schedules') {
+    const competitionIds = ['premier-league', 'la-liga', 'ucl', 'bundesliga'];
+    const rows = await this.db.query<
+      Array<{
+        live: boolean;
+        matchday: boolean;
+        nextKickoff: Date | string | null;
+        lastSuccessAt: Date | string | null;
+      }>
+    >(
+      `SELECT
+        EXISTS (SELECT 1 FROM tournament_fixtures WHERE "competitionId"=ANY($1::text[]) AND status IN ('IN_PLAY','PAUSED','SUSPENDED')) AS live,
+        EXISTS (SELECT 1 FROM tournament_fixtures WHERE "competitionId"=ANY($1::text[]) AND kickoff >= (date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC') AND kickoff < ((date_trunc('day', now() AT TIME ZONE 'UTC') + interval '1 day') AT TIME ZONE 'UTC') AND status IN ('SCHEDULED','TIMED','IN_PLAY','PAUSED','SUSPENDED')) AS matchday,
+        (SELECT min(kickoff) FROM tournament_fixtures WHERE "competitionId"=ANY($1::text[]) AND kickoff >= now()-interval '5 minutes' AND status IN ('SCHEDULED','TIMED')) AS "nextKickoff",
+        (SELECT "lastSuccessAt" FROM football_jobs WHERE name=$2) AS "lastSuccessAt"`,
+      [competitionIds, name],
+    );
+    const state = rows[0];
+    if (!state) return { skipped: true, reason: 'cadence-state-unavailable' };
+    const now = Date.now();
+    const lastSuccess = state.lastSuccessAt
+      ? new Date(state.lastSuccessAt).getTime()
+      : 0;
+    let intervalMs: number | null;
+    if (name === 'scores') {
+      if (state.live) intervalMs = 5 * 60_000;
+      else if (
+        state.matchday &&
+        state.nextKickoff &&
+        Math.abs(new Date(state.nextKickoff).getTime() - now) <= 5 * 60_000
+      )
+        intervalMs = 0;
+      else if (state.matchday) intervalMs = 60 * 60_000;
+      else {
+        const nextKickoff = state.nextKickoff
+          ? new Date(state.nextKickoff).getTime()
+          : null;
+        if (nextKickoff == null || now < nextKickoff)
+          return {
+            skipped: true,
+            reason: 'no-fixture-today',
+            nextRunAt: nextKickoff ? new Date(nextKickoff).toISOString() : null,
+          };
+        intervalMs = 5 * 60_000;
+      }
+    } else intervalMs = state.matchday ? 60 * 60_000 : 2 * 60 * 60_000;
+    if (lastSuccess && now - lastSuccess < intervalMs)
+      return {
+        skipped: true,
+        reason: 'not-due',
+        nextRunAt: new Date(lastSuccess + intervalMs).toISOString(),
+      };
+    return this.run(name);
+  }
   async run(
     name: 'scores' | 'schedules' | 'reminders' | 'backfill',
     args?: { competition?: string; season?: number },
   ) {
+    if (name === 'reminders' && process.env.FOOTBALL_PUSH_ENABLED !== 'true')
+      return { enabled: false, sent: 0 };
+    if (args?.competition === 'world-cup') {
+      throw new BadRequestException('World Cup operations are paused.');
+    }
     const runner = this.db.createQueryRunner();
     await runner.connect();
     await runner.startTransaction();
@@ -131,21 +203,12 @@ export class FootballJobs implements OnApplicationBootstrap {
       );
       if (name === 'backfill') result = await this.football.backfill();
       else if (name === 'schedules') {
-        const outcomes =
-          args?.competition === 'world-cup'
-            ? []
-            : await this.tournaments.syncAll(
-                args?.competition && args.competition !== 'all'
-                  ? this.tournaments.tournamentId(args.competition)
-                  : undefined,
-                args?.season,
-              );
-        const wc =
-          args?.competition && !['all', 'world-cup'].includes(args.competition)
-            ? { skipped: true }
-            : await this.refreshWorldCup(false).catch(() => ({
-                error: 'World Cup import failed; saved data retained.',
-              }));
+        const outcomes = await this.tournaments.syncAll(
+          args?.competition && args.competition !== 'all'
+            ? this.tournaments.tournamentId(args.competition)
+            : undefined,
+          args?.season,
+        );
         const tables = await this.refreshTables(
           outcomes
             .filter((r) => !r.skipped && !r.error)
@@ -153,24 +216,15 @@ export class FootballJobs implements OnApplicationBootstrap {
               competition: String(r.id),
               season: Number(r.season),
             })),
-          !('skipped' in wc),
-          args?.season,
         );
         const catalog = await this.football.backfill();
-        result = { outcomes, wc, tables, catalog };
-        if (
-          outcomes.some((r) => r.error) ||
-          'error' in wc ||
-          tables.some((r) => r.error)
-        )
+        result = { outcomes, tables, catalog };
+        if (outcomes.some((r) => r.error) || tables.some((r) => r.error))
           throw new ServiceUnavailableException(
             'Some competition imports failed. Successful imports and previous data were retained.',
           );
       } else if (name === 'scores') {
         const outcomes = await this.tournaments.refreshActive();
-        const wc = await this.refreshWorldCup(true).catch(() => ({
-          error: 'World Cup refresh failed; saved fixtures retained.',
-        }));
         const tables = await this.refreshTables(
           outcomes
             .filter((r) => !r.error)
@@ -178,14 +232,9 @@ export class FootballJobs implements OnApplicationBootstrap {
               competition: String(r.competitionId),
               season: Number(r.season),
             })),
-          !('skipped' in wc),
         );
-        result = { outcomes, wc, tables };
-        if (
-          outcomes.some((r) => r.error) ||
-          'error' in wc ||
-          tables.some((r) => r.error)
-        )
+        result = { outcomes, tables };
+        if (outcomes.some((r) => r.error) || tables.some((r) => r.error))
           throw new ServiceUnavailableException(
             'Some score updates failed; previous scores were retained.',
           );
@@ -213,8 +262,6 @@ export class FootballJobs implements OnApplicationBootstrap {
   }
   async refreshTables(
     competitions: Array<{ competition: string; season: number }>,
-    worldCup: boolean,
-    worldCupSeason = 2026,
   ) {
     const results: Array<{
       competition: string;
@@ -222,18 +269,9 @@ export class FootballJobs implements OnApplicationBootstrap {
       fetchedAt?: string;
       error?: string;
     }> = [];
-    const targets = [
-      ...competitions,
-      ...(worldCup
-        ? [{ competition: 'world-cup', season: worldCupSeason }]
-        : []),
-    ];
-    for (const target of targets) {
+    for (const target of competitions) {
       try {
-        const id =
-          target.competition === 'world-cup'
-            ? 'world-cup'
-            : this.tournaments.tournamentId(target.competition);
+        const id = this.tournaments.tournamentId(target.competition);
         const table = await this.tournaments.resource(
           id,
           'standings',
@@ -360,7 +398,7 @@ export class FootballJobs implements OnApplicationBootstrap {
             preferences: DevicePreferences;
           }>
         >(
-          `SELECT d.*,v.token,v.preferences FROM football_deliveries d JOIN football_devices v ON v.id=d."deviceId" WHERE d.status='pending' AND d."nextAttemptAt"<=now() AND d.attempts<5 ORDER BY d."nextAttemptAt" LIMIT 1 FOR UPDATE OF d SKIP LOCKED`,
+          `SELECT d.*,v.token,v.preferences FROM football_deliveries d JOIN football_devices v ON v.id=d."deviceId" WHERE d.status='pending' AND d."nextAttemptAt"<=now() AND d.attempts<5 AND EXISTS (SELECT 1 FROM tournament_fixtures f WHERE f.id::text=d."matchId") ORDER BY d."nextAttemptAt" LIMIT 1 FOR UPDATE OF d SKIP LOCKED`,
         );
         const d = due[0];
         if (!d) return 'empty';
@@ -368,19 +406,16 @@ export class FootballJobs implements OnApplicationBootstrap {
         const final = d.event === 'finalScore';
         const stillFollowed =
           m &&
-          (d.preferences.matchIds.includes(m.id) ||
-            d.preferences.teamIds.some(
-              (id) => id === m.homeTeamId || id === m.awayTeamId,
-            ) ||
-            d.preferences.competitionIds.includes(m.competitionId));
+          d.preferences.teamIds.some(
+            (id) => id === m.homeTeamId || id === m.awayTeamId,
+          );
         const offset = d.event === 'kickoff30' ? 30 : 10;
         const subscribed = final
           ? stillFollowed && d.preferences.notifications.finalScore
-          : d.preferences.reminders[d.matchId]?.includes(offset) ||
-            (stillFollowed &&
-              d.preferences.notifications[
-                offset === 30 ? 'kickoff30' : 'kickoff10'
-              ]);
+          : stillFollowed &&
+            d.preferences.notifications[
+              offset === 30 ? 'kickoff30' : 'kickoff10'
+            ];
         if (
           !m ||
           !d.token ||
@@ -483,8 +518,9 @@ export class FootballJobs implements OnApplicationBootstrap {
       pushEnabled: process.env.FOOTBALL_PUSH_ENABLED === 'true',
       scheduler: process.env.FOOTBALL_SCHEDULER ?? 'process',
       cadence: {
-        schedules: 'hourly',
-        activeScoresAndTables: 'every 5 minutes',
+        schedules: 'hourly on matchdays; every 2 hours otherwise',
+        scores:
+          'every 5 minutes while live; hourly on matchdays; next kickoff when no fixture is scheduled today',
         startupCatchUp: true,
       },
     };

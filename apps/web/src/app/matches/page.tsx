@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata = createPageMetadata({
   title: "Football Matches, Live Scores and Results",
   description:
-    "Browse fixtures, live scores and results across five major football competitions.",
+    "Browse fixtures, live scores and results across four major club football competitions.",
   path: "/matches",
 });
 

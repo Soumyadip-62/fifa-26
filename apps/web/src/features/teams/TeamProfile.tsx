@@ -91,9 +91,7 @@ export function TeamProfile({
             <TeamMark team={team} size="lg" showName={false} />
             <div className="min-w-0">
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                {team.competitionIds.includes("world-cup")
-                  ? "National team"
-                  : "Club profile"}
+                Club profile
               </p>
               <h1>{team.name}</h1>
               <p className="mt-2 text-xs text-muted-foreground">

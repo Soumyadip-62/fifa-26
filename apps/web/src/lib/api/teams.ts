@@ -1,6 +1,7 @@
 import { apiUrl } from "./config";
 import type { FootballSnapshot, FootballTeam } from "@/types/football";
 import type { Player, Team } from "@/types/team";
+import { isActiveCompetition } from "@/lib/competitions";
 const legacy = (t: FootballTeam): Team => ({
   id: t.id,
   name: t.name,
@@ -23,7 +24,9 @@ async function data(): Promise<FootballSnapshot> {
   return r.json();
 }
 export async function getTeams(): Promise<Team[]> {
-  return (await data()).teams.map(legacy);
+  return (await data()).teams
+    .filter((team) => team.competitionIds.some(isActiveCompetition))
+    .map(legacy);
 }
 export async function getTeamById(id: string): Promise<Team | null> {
   const r = await fetch(apiUrl(`/football/teams/${encodeURIComponent(id)}`));

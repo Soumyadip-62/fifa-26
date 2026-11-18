@@ -119,17 +119,19 @@ describe('NewsService', () => {
 
   it('uses a different football query per competition and keeps provider authentication on the backend', async () => {
     const { service } = setup();
-    for (const id of Object.keys(NEWS_COMPETITIONS)) {
+    for (const id of Object.keys(NEWS_COMPETITIONS).filter(
+      (id) => id !== 'world-cup',
+    )) {
       const feed = await service.getCompetitionNews(id);
       expect(feed.news[0].competitionId).toBe(id);
     }
     const calls = (global.fetch as jest.MockedFunction<typeof fetch>).mock
       .calls;
-    expect(calls).toHaveLength(5);
+    expect(calls).toHaveLength(4);
     expect(
       new Set(calls.map(([url]) => requestUrl(url).searchParams.get('query')))
         .size,
-    ).toBe(5);
+    ).toBe(4);
     for (const [url, options] of calls) {
       expect(requestUrl(url).pathname).toBe('/v1/search');
       expect(requestUrl(url).searchParams.get('category')).toBe('sports');
@@ -253,6 +255,9 @@ describe('NewsService', () => {
       'not supported',
     );
     expect(() => service.getNewsByKeywords(' ')).toThrow();
+    expect(() => service.getCompetitionNews('world-cup')).toThrow(
+      'not supported',
+    );
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
@@ -294,11 +299,11 @@ describe('NewsService', () => {
     global.fetch = jest
       .fn()
       .mockRejectedValue(new Error('sensitive transport error'));
-    await expect(service.getCompetitionNews('world-cup')).rejects.toThrow(
+    await expect(service.getCompetitionNews('premier-league')).rejects.toThrow(
       'News is temporarily unavailable.',
     );
     delete process.env.NEWS_API_TOKEN;
-    await expect(service.getCompetitionNews('world-cup')).rejects.toThrow(
+    await expect(service.getCompetitionNews('premier-league')).rejects.toThrow(
       'News is temporarily unavailable.',
     );
     expect(global.fetch).toHaveBeenCalledTimes(1);

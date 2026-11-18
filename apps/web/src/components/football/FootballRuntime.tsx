@@ -38,7 +38,7 @@ export function FootballRuntime() {
             setError(
               e instanceof Error
                 ? e.message
-                : "Notification settings could not be synced.",
+                : "Favourites and notification settings could not be synced.",
             );
         });
     }, 750);
