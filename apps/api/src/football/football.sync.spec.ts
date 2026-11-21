@@ -1,8 +1,13 @@
+import { Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { FootballJobs } from './football.jobs';
 import { FootballService } from './football.service';
 import { TournamentsService } from '../tournaments/tournaments.service';
 import { FootballDataClient } from '../football-data/football-data.client';
+import type {
+  FootballCadenceState,
+  ScheduledFootballJob,
+} from './football.cadence';
 
 function setup() {
   const runner = {
@@ -44,10 +49,12 @@ function setup() {
   const worldCup = jest
     .spyOn(jobs, 'refreshWorldCup')
     .mockResolvedValue({ fixtures: 104 });
-  return { jobs, db, tournaments, football, worldCup };
+  return { jobs, db, runner, tournaments, football, worldCup };
 }
 
 describe('Backend fixture and official-table synchronization', () => {
+  afterEach(() => jest.restoreAllMocks());
+
   it('imports schedules and official tables together before reporting success', async () => {
     const h = setup();
     await h.jobs.run('schedules');
@@ -82,6 +89,7 @@ describe('Backend fixture and official-table synchronization', () => {
 
   it('skips idle score wakeups without writing job state or calling providers', async () => {
     const h = setup();
+    const log = jest.spyOn(Logger.prototype, 'log').mockImplementation();
     h.db.query.mockResolvedValueOnce([
       {
         live: false,
@@ -90,10 +98,13 @@ describe('Backend fixture and official-table synchronization', () => {
         lastSuccessAt: new Date(),
       },
     ]);
-    await expect(h.jobs.runScheduled('scores')).resolves.toMatchObject({
+    const gate = jest.spyOn(h.jobs, 'runScheduled');
+    await h.jobs.localScores();
+    await expect(gate.mock.results[0].value).resolves.toMatchObject({
       skipped: true,
       reason: 'no-fixture-today',
     });
+    expect(log).not.toHaveBeenCalled();
     expect(h.db.query).toHaveBeenCalledTimes(1);
     const gateCalls = h.db.query.mock.calls as unknown as [string, unknown[]][];
     const gateQuery = gateCalls[0]?.[0];
@@ -101,6 +112,36 @@ describe('Backend fixture and official-table synchronization', () => {
     expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
     expect(h.tournaments.resource).not.toHaveBeenCalled();
   });
+
+  it.each([
+    ['localScores', 'scores', 'Local score refresh completed.'],
+    [
+      'scheduledSchedules',
+      'schedules',
+      'Scheduled football schedules refresh completed.',
+    ],
+  ] as const)(
+    'logs %s completion only when a refresh runs',
+    async (method, job, message) => {
+      const h = setup();
+      const log = jest.spyOn(Logger.prototype, 'log').mockImplementation();
+      const run = jest.spyOn(h.jobs, 'runScheduled');
+      run.mockResolvedValueOnce({ skipped: true, reason: 'not-due' });
+      await h.jobs[method]();
+      expect(log).not.toHaveBeenCalled();
+
+      // An overlapping worker can also skip after passing the cadence check.
+      run.mockResolvedValueOnce({ skipped: true });
+      await h.jobs[method]();
+      expect(log).not.toHaveBeenCalled();
+
+      run.mockResolvedValueOnce({ outcomes: [] });
+      await h.jobs[method]();
+      expect(run).toHaveBeenLastCalledWith(job);
+      expect(log).toHaveBeenCalledTimes(1);
+      expect(log).toHaveBeenCalledWith(message);
+    },
+  );
 
   it('runs scores every five minutes while a match is live', async () => {
     const h = setup();
@@ -223,5 +264,237 @@ describe('Backend fixture and official-table synchronization', () => {
       if (old === undefined) delete process.env.FOOTBALL_SCHEDULER;
       else process.env.FOOTBALL_SCHEDULER = old;
     }
+  });
+});
+
+describe('Football one-shot scheduling', () => {
+  const now = Date.parse('2026-11-19T07:00:00Z');
+  const minute = 60_000;
+  const instances: FootballJobs[] = [];
+  let previousScheduler: string | undefined;
+
+  beforeEach(() => {
+    previousScheduler = process.env.FOOTBALL_SCHEDULER;
+    delete process.env.FOOTBALL_SCHEDULER;
+    jest.useFakeTimers({ now });
+    jest.spyOn(Logger.prototype, 'log').mockImplementation();
+    jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+  });
+  afterEach(() => {
+    for (const jobs of instances.splice(0)) jobs.onModuleDestroy();
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+    if (previousScheduler === undefined) delete process.env.FOOTBALL_SCHEDULER;
+    else process.env.FOOTBALL_SCHEDULER = previousScheduler;
+  });
+
+  function timedSetup(overrides: Partial<FootballCadenceState> = {}) {
+    const h = setup();
+    instances.push(h.jobs);
+    const state: FootballCadenceState = {
+      live: false,
+      matchday: false,
+      nextKickoff: new Date(now + 24 * 60 * minute),
+      lastSuccessAt: new Date(now),
+      ...overrides,
+    };
+    const successes: Record<ScheduledFootballJob, Date | string | null> = {
+      schedules: new Date(now),
+      scores: state.lastSuccessAt,
+    };
+    h.db.query.mockImplementation((sql: string, args: unknown[]) => {
+      if (sql.includes(' AS live')) {
+        const name = args[1] as ScheduledFootballJob;
+        return Promise.resolve([{ ...state, lastSuccessAt: successes[name] }]);
+      }
+      if (sql.includes('"lastSuccessAt"=now()'))
+        successes[args[0] as ScheduledFootballJob] = new Date(Date.now());
+      return Promise.resolve([]);
+    });
+    const gate = jest.spyOn(h.jobs, 'runScheduled');
+    const start = async () => {
+      h.jobs.onApplicationBootstrap();
+      await jest.advanceTimersByTimeAsync(0);
+    };
+    return { ...h, state, successes, gate, start };
+  }
+
+  it('does no five-minute polling on an idle day and imports schedules after two hours', async () => {
+    const h = timedSetup();
+    await h.start();
+    h.db.query.mockClear();
+    h.gate.mockClear();
+
+    await jest.advanceTimersByTimeAsync(119 * minute);
+    expect(h.db.query).not.toHaveBeenCalled();
+    expect(h.gate).not.toHaveBeenCalled();
+    expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
+
+    await jest.advanceTimersByTimeAsync(minute);
+    expect(h.tournaments.syncAll).toHaveBeenCalledTimes(1);
+    expect(h.gate).toHaveBeenCalledWith('schedules');
+    expect(h.gate).not.toHaveBeenCalledWith('scores');
+    expect(jest.getTimerCount()).toBe(2);
+  });
+
+  it('arms no score timer when there are no fixtures, then discovers a new fixture during import', async () => {
+    const h = timedSetup({ nextKickoff: null });
+    await h.start();
+    expect(jest.getTimerCount()).toBe(1);
+    h.state.nextKickoff = new Date(now + 30 * minute);
+    await h.jobs.run('schedules');
+    expect(jest.getTimerCount()).toBe(2);
+    await jest.advanceTimersByTimeAsync(30 * minute - 1);
+    expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+  });
+
+  it('wakes exactly at kickoff, refreshes live play every five minutes, and sleeps after full time', async () => {
+    const h = timedSetup({
+      matchday: true,
+      nextKickoff: new Date(now + 12 * minute),
+    });
+    h.tournaments.refreshActive.mockImplementation(() => {
+      h.state.nextKickoff = null;
+      h.state.live = h.tournaments.refreshActive.mock.calls.length === 1;
+      h.state.matchday = h.state.live;
+      return Promise.resolve([
+        { competitionId: 'premier-league', season: 2026, fixtures: 380 },
+      ]);
+    });
+    await h.start();
+    h.db.query.mockClear();
+    await jest.advanceTimersByTimeAsync(12 * minute - 1);
+    expect(h.db.query).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+    await jest.advanceTimersByTimeAsync(5 * minute - 1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(2);
+    expect(jest.getTimerCount()).toBe(1);
+    h.db.query.mockClear();
+    await jest.advanceTimersByTimeAsync(10 * minute);
+    expect(h.db.query).not.toHaveBeenCalled();
+  });
+
+  it('replaces the old timer when imports move kickoff earlier or postpone it', async () => {
+    const h = timedSetup({ nextKickoff: new Date(now + 120 * minute) });
+    await h.start();
+    h.state.nextKickoff = new Date(now + 10 * minute);
+    await h.jobs.run('schedules');
+    h.state.nextKickoff = new Date(now + 45 * minute);
+    await h.jobs.run('schedules');
+    await jest.advanceTimersByTimeAsync(45 * minute - 1);
+    expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+  });
+
+  it('reconstructs the remaining live interval from persisted success after a restart', async () => {
+    const first = timedSetup({ live: true, matchday: true, nextKickoff: null });
+    await first.start();
+    await jest.advanceTimersByTimeAsync(2 * minute);
+    first.jobs.onModuleDestroy();
+    expect(jest.getTimerCount()).toBe(0);
+    const restarted = timedSetup({
+      live: true,
+      matchday: true,
+      nextKickoff: null,
+    });
+    await restarted.start();
+    await jest.advanceTimersByTimeAsync(3 * minute - 1);
+    expect(restarted.tournaments.refreshActive).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(restarted.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+    expect(first.tournaments.refreshActive).not.toHaveBeenCalled();
+  });
+
+  it('backs off failed scores even when a schedule import replans the timer', async () => {
+    const h = timedSetup({
+      live: true,
+      matchday: true,
+      nextKickoff: null,
+      lastSuccessAt: null,
+    });
+    h.tournaments.refreshActive.mockRejectedValueOnce(
+      new Error('Provider down'),
+    );
+    await h.start();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+    await jest.advanceTimersByTimeAsync(minute);
+    await h.jobs.run('schedules');
+    await jest.advanceTimersByTimeAsync(4 * minute - 1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(2);
+  });
+
+  it('retries an advisory-lock skip without an immediate timer loop', async () => {
+    const h = timedSetup({
+      live: true,
+      matchday: true,
+      nextKickoff: null,
+      lastSuccessAt: null,
+    });
+    h.runner.query.mockResolvedValueOnce([{ locked: false }]);
+    await h.start();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.runner.query).toHaveBeenCalledTimes(1);
+    expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(5 * minute - 1);
+    expect(h.runner.query).toHaveBeenCalledTimes(1);
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+  });
+
+  it('recovers a failed startup read without retrying on every timer tick', async () => {
+    const h = timedSetup();
+    h.successes.schedules = null;
+    h.db.query.mockRejectedValueOnce(new Error('Database unavailable'));
+    await h.start();
+    expect(h.tournaments.syncAll).not.toHaveBeenCalled();
+    h.db.query.mockClear();
+    await jest.advanceTimersByTimeAsync(5 * minute - 1);
+    expect(h.db.query).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(1);
+    expect(h.gate).toHaveBeenCalledTimes(2);
+    expect(h.tournaments.syncAll).toHaveBeenCalledTimes(1);
+  });
+
+  it('prevents overlapping local refreshes and never rearms after shutdown during a refresh', async () => {
+    const h = timedSetup({
+      live: true,
+      matchday: true,
+      nextKickoff: null,
+      lastSuccessAt: null,
+    });
+    let finish!: (
+      value: Array<{ competitionId: string; season: number; fixtures: number }>,
+    ) => void;
+    h.tournaments.refreshActive.mockReturnValueOnce(
+      new Promise((resolve) => {
+        finish = resolve;
+      }),
+    );
+    await h.start();
+    await jest.advanceTimersByTimeAsync(1);
+    await h.jobs.localScores();
+    await jest.advanceTimersByTimeAsync(10 * minute);
+    expect(h.tournaments.refreshActive).toHaveBeenCalledTimes(1);
+    h.jobs.onModuleDestroy();
+    finish([{ competitionId: 'premier-league', season: 2026, fixtures: 380 }]);
+    await jest.advanceTimersByTimeAsync(0);
+    expect(jest.getTimerCount()).toBe(0);
+  });
+
+  it('does not register process timers in Supabase scheduler mode', async () => {
+    process.env.FOOTBALL_SCHEDULER = 'supabase';
+    const h = timedSetup();
+    await h.start();
+    expect(jest.getTimerCount()).toBe(0);
+    expect(h.db.query).not.toHaveBeenCalled();
   });
 });

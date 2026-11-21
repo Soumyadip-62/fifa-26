@@ -3,6 +3,7 @@ import {
   Injectable,
   Logger,
   OnApplicationBootstrap,
+  OnModuleDestroy,
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
@@ -14,6 +15,12 @@ import {
   validateMatch,
 } from '../tournaments/tournaments.service';
 import { FootballDataClient } from '../football-data/football-data.client';
+import {
+  FOOTBALL_RETRY_MS,
+  nextFootballRun,
+  type FootballCadenceState,
+  type ScheduledFootballJob,
+} from './football.cadence';
 import type { ProviderMatch } from '../tournaments/provider.types';
 import type {
   DevicePreferences,
@@ -55,8 +62,14 @@ export function deliveryEvents(
   return events;
 }
 @Injectable()
-export class FootballJobs implements OnApplicationBootstrap {
+export class FootballJobs implements OnApplicationBootstrap, OnModuleDestroy {
   private readonly logger = new Logger(FootballJobs.name);
+  private schedulerActive = false;
+  private readonly timers = new Map<ScheduledFootballJob, NodeJS.Timeout>();
+  private readonly nextRuns = new Map<ScheduledFootballJob, number>();
+  private readonly planVersions = new Map<ScheduledFootballJob, number>();
+  private readonly runningLocal = new Set<ScheduledFootballJob>();
+  private readonly retryNotBefore = new Map<ScheduledFootballJob, number>();
   constructor(
     private readonly db: DataSource,
     private readonly football: FootballService,
@@ -66,39 +79,137 @@ export class FootballJobs implements OnApplicationBootstrap {
   onApplicationBootstrap() {
     // Recover missed imports after downtime without delaying HTTP startup.
     if (process.env.FOOTBALL_SCHEDULER === 'supabase') return;
-    void this.catchUp().catch((error: unknown) =>
+    this.schedulerActive = true;
+    void this.catchUp();
+  }
+  onModuleDestroy() {
+    this.schedulerActive = false;
+    this.cancelTimer('scores');
+    this.cancelTimer('schedules');
+  }
+  async catchUp() {
+    await this.scheduledSchedules();
+  }
+  async scheduledSchedules() {
+    await this.executeLocal('schedules');
+  }
+  async localScores() {
+    await this.executeLocal('scores');
+  }
+  private async executeLocal(name: ScheduledFootballJob) {
+    if (
+      process.env.FOOTBALL_SCHEDULER === 'supabase' ||
+      this.runningLocal.has(name)
+    )
+      return;
+    this.cancelTimer(name);
+    this.runningLocal.add(name);
+    try {
+      const result = await this.runScheduled(name);
+      if (
+        result &&
+        typeof result === 'object' &&
+        'skipped' in result &&
+        result.skipped === true
+      ) {
+        // Lock contention or unavailable state must not cause an immediate loop.
+        if (!('nextRunAt' in result))
+          this.retryNotBefore.set(name, Date.now() + FOOTBALL_RETRY_MS);
+        return;
+      }
+      this.logger.log(
+        name === 'scores'
+          ? 'Local score refresh completed.'
+          : 'Scheduled football schedules refresh completed.',
+      );
+    } catch (error) {
+      this.retryNotBefore.set(name, Date.now() + FOOTBALL_RETRY_MS);
+      this.logger.warn(
+        error instanceof Error ? error.message : `${name} refresh failed.`,
+      );
+    } finally {
+      this.runningLocal.delete(name);
+      await this.reschedule(name);
+    }
+  }
+
+  private cancelTimer(name: ScheduledFootballJob) {
+    const timer = this.timers.get(name);
+    if (timer) clearTimeout(timer);
+    this.timers.delete(name);
+    this.nextRuns.delete(name);
+    this.planVersions.set(name, (this.planVersions.get(name) ?? 0) + 1);
+  }
+
+  private armTimer(name: ScheduledFootballJob, at: number) {
+    this.cancelTimer(name);
+    this.nextRuns.set(name, at);
+    const arm = () => {
+      // Node timeouts cannot exceed about 24.8 days. Re-arm long sleeps in
+      // memory without polling the database or running a football job.
+      const delay = Math.min(Math.max(1, at - Date.now()), 2 ** 31 - 1);
+      const timer = setTimeout(() => {
+        if (
+          !this.schedulerActive ||
+          process.env.FOOTBALL_SCHEDULER === 'supabase'
+        ) {
+          this.cancelTimer(name);
+          return;
+        }
+        if (Date.now() < at) {
+          arm();
+          return;
+        }
+        this.timers.delete(name);
+        this.nextRuns.delete(name);
+        void this.executeLocal(name);
+      }, delay);
+      timer.unref();
+      this.timers.set(name, timer);
+    };
+    arm();
+  }
+
+  private async reschedule(name: ScheduledFootballJob) {
+    if (name === 'schedules') await this.scheduleNext('scores');
+    await this.scheduleNext(name);
+  }
+
+  private async scheduleNext(name: ScheduledFootballJob) {
+    if (
+      !this.schedulerActive ||
+      process.env.FOOTBALL_SCHEDULER === 'supabase' ||
+      this.runningLocal.has(name)
+    )
+      return;
+    const version = (this.planVersions.get(name) ?? 0) + 1;
+    this.planVersions.set(name, version);
+    const current = () =>
+      this.schedulerActive &&
+      process.env.FOOTBALL_SCHEDULER !== 'supabase' &&
+      !this.runningLocal.has(name) &&
+      this.planVersions.get(name) === version;
+    try {
+      const state = await this.cadenceState(name);
+      if (!current()) return;
+      if (!state) throw new Error('Football cadence state unavailable.');
+      const at = nextFootballRun(name, state, Date.now());
+      if (at === null) this.cancelTimer(name);
+      else
+        this.armTimer(
+          name,
+          Math.max(at, Date.now(), this.retryNotBefore.get(name) ?? 0),
+        );
+    } catch (error) {
+      if (!current()) return;
       this.logger.warn(
         error instanceof Error
           ? error.message
-          : 'Football startup sync failed.',
-      ),
-    );
-  }
-  async catchUp() {
-    await this.runScheduled('schedules');
-  }
-  @Cron('0 5 * * * *', { timeZone: 'UTC', waitForCompletion: true })
-  async scheduledSchedules() {
-    if (process.env.FOOTBALL_SCHEDULER === 'supabase') return;
-    try {
-      await this.runScheduled('schedules');
-      this.logger.log('Scheduled football schedules refresh completed.');
-    } catch (error) {
-      this.logger.warn(
-        error instanceof Error ? error.message : 'Schedule refresh failed.',
+          : 'Football timer planning failed.',
       );
-    }
-  }
-  @Cron('0 */5 * * * *', { timeZone: 'UTC', waitForCompletion: true })
-  async localScores() {
-    if (process.env.FOOTBALL_SCHEDULER === 'supabase') return;
-    try {
-      await this.runScheduled('scores');
-      this.logger.log('Local score refresh completed.');
-    } catch (error) {
-      this.logger.warn(
-        error instanceof Error ? error.message : 'Local score refresh failed.',
-      );
+      const retryAt = Date.now() + FOOTBALL_RETRY_MS;
+      this.retryNotBefore.set(name, retryAt);
+      this.armTimer(name, retryAt);
     }
   }
   @Cron('* * * * *', { timeZone: 'UTC', waitForCompletion: true })
@@ -119,17 +230,9 @@ export class FootballJobs implements OnApplicationBootstrap {
       );
     }
   }
-  /** Lightweight read-only gate used by both process and Supabase schedulers. */
-  async runScheduled(name: 'scores' | 'schedules') {
+  private async cadenceState(name: ScheduledFootballJob) {
     const competitionIds = ['premier-league', 'la-liga', 'ucl', 'bundesliga'];
-    const rows = await this.db.query<
-      Array<{
-        live: boolean;
-        matchday: boolean;
-        nextKickoff: Date | string | null;
-        lastSuccessAt: Date | string | null;
-      }>
-    >(
+    const rows = await this.db.query<FootballCadenceState[]>(
       `SELECT
         EXISTS (SELECT 1 FROM tournament_fixtures WHERE "competitionId"=ANY($1::text[]) AND status IN ('IN_PLAY','PAUSED','SUSPENDED')) AS live,
         EXISTS (SELECT 1 FROM tournament_fixtures WHERE "competitionId"=ANY($1::text[]) AND kickoff >= (date_trunc('day', now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC') AND kickoff < ((date_trunc('day', now() AT TIME ZONE 'UTC') + interval '1 day') AT TIME ZONE 'UTC') AND status IN ('SCHEDULED','TIMED','IN_PLAY','PAUSED','SUSPENDED')) AS matchday,
@@ -137,40 +240,23 @@ export class FootballJobs implements OnApplicationBootstrap {
         (SELECT "lastSuccessAt" FROM football_jobs WHERE name=$2) AS "lastSuccessAt"`,
       [competitionIds, name],
     );
-    const state = rows[0];
+    return rows[0];
+  }
+  /** Guard early external requests and recheck fixtures when a timer fires. */
+  async runScheduled(name: ScheduledFootballJob) {
+    const state = await this.cadenceState(name);
     if (!state) return { skipped: true, reason: 'cadence-state-unavailable' };
     const now = Date.now();
-    const lastSuccess = state.lastSuccessAt
-      ? new Date(state.lastSuccessAt).getTime()
-      : 0;
-    let intervalMs: number | null;
-    if (name === 'scores') {
-      if (state.live) intervalMs = 5 * 60_000;
-      else if (
-        state.matchday &&
-        state.nextKickoff &&
-        Math.abs(new Date(state.nextKickoff).getTime() - now) <= 5 * 60_000
-      )
-        intervalMs = 0;
-      else if (state.matchday) intervalMs = 60 * 60_000;
-      else {
-        const nextKickoff = state.nextKickoff
-          ? new Date(state.nextKickoff).getTime()
-          : null;
-        if (nextKickoff == null || now < nextKickoff)
-          return {
-            skipped: true,
-            reason: 'no-fixture-today',
-            nextRunAt: nextKickoff ? new Date(nextKickoff).toISOString() : null,
-          };
-        intervalMs = 5 * 60_000;
-      }
-    } else intervalMs = state.matchday ? 60 * 60_000 : 2 * 60 * 60_000;
-    if (lastSuccess && now - lastSuccess < intervalMs)
+    const nextRunAt = nextFootballRun(name, state, now);
+    if (nextRunAt === null || nextRunAt > now)
       return {
         skipped: true,
-        reason: 'not-due',
-        nextRunAt: new Date(lastSuccess + intervalMs).toISOString(),
+        reason:
+          name === 'scores' && !state.matchday && !state.live
+            ? 'no-fixture-today'
+            : 'not-due',
+        nextRunAt:
+          nextRunAt === null ? null : new Date(nextRunAt).toISOString(),
       };
     return this.run(name);
   }
@@ -244,8 +330,12 @@ export class FootballJobs implements OnApplicationBootstrap {
         [name, JSON.stringify(result)],
       );
       await runner.commitTransaction();
+      if (name === 'scores' || name === 'schedules')
+        this.retryNotBefore.delete(name);
       return result;
     } catch (error) {
+      if (name === 'scores' || name === 'schedules')
+        this.retryNotBefore.set(name, Date.now() + FOOTBALL_RETRY_MS);
       await this.db.query(
         'UPDATE football_jobs SET "lastError"=$2,result=$3 WHERE name=$1',
         [
@@ -258,6 +348,12 @@ export class FootballJobs implements OnApplicationBootstrap {
     } finally {
       if (runner.isTransactionActive) await runner.rollbackTransaction();
       await runner.release();
+      // Manual imports and score refreshes can move the next wake-up too.
+      if (
+        (name === 'scores' || name === 'schedules') &&
+        !this.runningLocal.has(name)
+      )
+        await this.reschedule(name);
     }
   }
   async refreshTables(
@@ -517,7 +613,17 @@ export class FootballJobs implements OnApplicationBootstrap {
       },
       pushEnabled: process.env.FOOTBALL_PUSH_ENABLED === 'true',
       scheduler: process.env.FOOTBALL_SCHEDULER ?? 'process',
+      nextRuns: {
+        scores: this.nextRuns.has('scores')
+          ? new Date(this.nextRuns.get('scores')!).toISOString()
+          : null,
+        schedules: this.nextRuns.has('schedules')
+          ? new Date(this.nextRuns.get('schedules')!).toISOString()
+          : null,
+      },
       cadence: {
+        process:
+          'one-shot timers recalculated after fixture imports and refreshes',
         schedules: 'hourly on matchdays; every 2 hours otherwise',
         scores:
           'every 5 minutes while live; hourly on matchdays; next kickoff when no fixture is scheduled today',

@@ -429,3 +429,10 @@
 [ 5033889ms] [LOG] [Fast Refresh] done in 317ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
 [ 5064691ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
 [ 5065064ms] [LOG] [Fast Refresh] done in 477ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 5616997ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 5617224ms] [LOG] [Fast Refresh] done in 335ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 6517312ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 6518187ms] [LOG] [Fast Refresh] done in 976ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 7417037ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 7417294ms] [LOG] [Fast Refresh] done in 360ms @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
+[ 7872290ms] [LOG] %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {speed: 4g, metrics: Array(2), scriptVersion: 0.1.3, sdkName: @vercel/speed-insights/next, sdkVersion: 2.0.0} /_vercel/speed-insights/vitals @ http://localhost:14000/_next/static/chunks/0_q4_next_dist_0lbetlo._.js:2432
