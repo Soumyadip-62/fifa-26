@@ -228,19 +228,20 @@ The normal data path is football-data.org -> Nest jobs -> PostgreSQL -> Nest rea
 
 With `FOOTBALL_SCHEDULER=process` (the Render default), the running backend:
 
-- Wakes schedule discovery hourly at minute 05 UTC; the read-only cadence gate imports schedules, standings and the catalog hourly on matchdays and no more than every two hours otherwise.
-- Wakes score checks every five minutes so live matches stay current. The read-only gate refreshes scores and standings every five minutes during live play, hourly when fixtures are scheduled today, and near the next kickoff when there is no fixture today. A skipped wake-up makes no job-status or fixture writes.
+- Uses one-shot timers for schedule imports and scores, with no fixed five-minute score cron or hourly schedule wake-up. Schedule imports run hourly on matchdays and every two hours otherwise, discovering new fixtures and kickoff corrections.
+- Sleeps the score job until the next kickoff when there is no fixture today; if no future kickoff is known, no score timer is armed. Scores refresh every five minutes during live play and hourly on matchdays, with a timer at kickoff taking priority over the hourly interval. Days use UTC.
+- Recalculates timers after imports (including admin imports) and score refreshes. Failed runs and advisory-lock contention retry after five minutes. Timers are cleared on application shutdown and reconstructed from persisted fixtures and last success after restart. Only actual refreshes emit completion logs.
 - Starts a background catch-up import after boot through the same cadence gate, avoiding duplicate work soon after a recent successful import.
 
 These jobs also run in production. Database advisory locks prevent duplicate execution across instances. The shared provider quota applies to every request. Schedule imports upsert new fixtures and corrections without deleting history; a bad provider response never replaces a good table. Partial failures are recorded per competition in `football_jobs.result`, with `lastError`; successful competitions remain updated.
 
-Run `pnpm --filter api football:sync` for an immediate complete schedule-and-table sync, or `pnpm --filter api football:scores` for active fixtures and tables. Inspect protected `GET /football/admin/status` for last success, partial failures, configured scheduler and cadence.
+Run `pnpm --filter api football:sync` for an immediate complete schedule-and-table sync, or `pnpm --filter api football:scores` for active fixtures and tables. Inspect protected `GET /football/admin/status` for last success, partial failures, configured scheduler, cadence and `nextRuns` (the armed process timer timestamps, or null when stopped). Separate CLI imports are picked up by the running API on its next schedule import.
 
 A process scheduler needs a running API. Render free services can sleep. For unattended execution while the app sleeps, use the optional Supabase scheduler:
 
-1. Deploy Nest and the existing migrations; configure `FOOTBALL_SCHEDULER=supabase`, `FOOTBALL_SCHEDULER_SECRET`, and the frontend backend URL. This disables in-process polling.
+1. Deploy Nest and the existing migrations; configure `FOOTBALL_SCHEDULER=supabase`, `FOOTBALL_SCHEDULER_SECRET`, and the frontend backend URL. This disables process timers.
 2. Create Vault secrets `football_api_url` (confirmed HTTPS backend URL) and `football_scheduler_secret` matching the backend credential. Apply `src/football/supabase-cron.sql`; jobs are initially disabled.
-3. Verify protected job endpoints, then activate only `football-scores` and `football-schedules`. These are lightweight wake-up triggers; the API applies the same read-only cadence gate as the process scheduler. Do not enable both scheduler modes.
+3. Verify protected job endpoints, then activate only `football-scores` and `football-schedules`. This optional external mode still uses fixed wake-up triggers with a read-only API cadence gate; sleeping until the due time applies to process mode. Do not enable both scheduler modes.
 4. Check `net._http_response` for transport failures and `football_jobs` for outcomes. Free-plan provider delays and cold starts still apply.
 
 Data synchronization never requires push activation. Keep `FOOTBALL_PUSH_ENABLED=false` and reminder cron disabled unless notification delivery has separately been configured and tested. Device delivery remains opt-in with retries, reschedule cancellation and invalid-token cleanup.
