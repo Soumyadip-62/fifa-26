@@ -31,6 +31,8 @@ import { FootballDataClient } from '../football-data/football-data.client';
 import { NewsService } from '../news/news.service';
 import { matchAvailability, matchMetadata } from './match-metadata';
 import { matchNewsRelevance, matchNewsSearch } from '../news/match-news';
+import { FootballReadCache, matchCacheTtl } from './football-cache';
+import { MatchPageReader, type MatchPageQuery } from './football.match-page';
 import type {
   TournamentId,
   ProviderMatch,
@@ -67,17 +69,16 @@ const clubAliases: Record<number, string> = {
 
 @Injectable()
 export class FootballService {
-  private readonly snapshots = new Map<
-    string,
-    { data: FootballSnapshot; expiresAt: number }
-  >();
-  private readonly snapshotLoads = new Map<string, Promise<FootballSnapshot>>();
+  private readonly readCache = new FootballReadCache();
+  private readonly matchPageReader: MatchPageReader;
   constructor(
     private readonly db: DataSource,
     private readonly tournaments: TournamentsService,
     private readonly news: NewsService,
     private readonly provider: FootballDataClient,
-  ) {}
+  ) {
+    this.matchPageReader = new MatchPageReader(db);
+  }
   competitionId(value: string): CompetitionId {
     if (!ids.includes(value as CompetitionId))
       throw new NotFoundException('Competition not supported.');
@@ -317,41 +318,42 @@ export class FootballService {
     season?: number,
   ): Promise<FootballSnapshot> {
     if (competitionId) this.competitionId(competitionId);
-    const key = `${competitionId ?? 'all'}:${season ?? 'latest'}`;
-    const cached = this.snapshots.get(key);
-    if (cached && cached.expiresAt > Date.now()) return cached.data;
-    const loading = this.snapshotLoads.get(key);
-    if (loading) return loading;
-    const promise = this.loadSnapshot(competitionId, season);
-    this.snapshotLoads.set(key, promise);
-    try {
-      const data = await promise;
-      const now = Date.now();
-      const nearMatch = data.matches.some((match) => {
-        const kickoff = Date.parse(match.kickoff);
-        return (
-          match.status === 'live' ||
-          (kickoff >= now - 4 * 60 * 60_000 && kickoff <= now + 15 * 60_000)
+    const key = `snapshot:${competitionId ?? 'all'}:${season ?? 'latest'}`;
+    return this.readCache.get(
+      key,
+      (data: FootballSnapshot) => {
+        const now = Date.now();
+        const nearMatch = data.matches.some((match) => {
+          const kickoff = Date.parse(match.kickoff);
+          return (
+            match.status === 'live' ||
+            (kickoff >= now - 4 * 60 * 60_000 && kickoff <= now + 15 * 60_000)
+          );
+        });
+        const nextKickoff = Math.min(
+          ...data.matches
+            .filter((match) => match.status === 'upcoming')
+            .map((match) => Date.parse(match.kickoff))
+            .filter((kickoff) => kickoff > now),
+          Infinity,
         );
-      });
-      const nextKickoff = Math.min(
-        ...data.matches
-          .filter((match) => match.status === 'upcoming')
-          .map((match) => Date.parse(match.kickoff))
-          .filter((kickoff) => kickoff > now),
-        Infinity,
-      );
-      const ttl = nearMatch
-        ? 60_000
-        : Math.min(15 * 60_000, Math.max(30_000, nextKickoff - now));
-      this.snapshots.set(key, { data, expiresAt: now + ttl });
-      return data;
-    } finally {
-      this.snapshotLoads.delete(key);
-    }
+        const ttl = nearMatch
+          ? matchCacheTtl.live
+          : Math.min(
+              matchCacheTtl.snapshot,
+              Math.max(30_000, nextKickoff - now),
+            );
+        return ttl;
+      },
+      () => this.loadSnapshot(competitionId, season),
+    );
+  }
+  matchPage(query: MatchPageQuery) {
+    return this.matchPageReader.get(query);
   }
   invalidateSnapshots() {
-    this.snapshots.clear();
+    this.readCache.clear();
+    this.matchPageReader.clear();
   }
   private async loadSnapshot(
     competitionId?: string,

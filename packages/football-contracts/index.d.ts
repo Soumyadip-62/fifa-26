@@ -102,6 +102,29 @@ export type FootballMatch = {
   summary?: string;
 };
 
+export type MatchListItem = {
+  match: Omit<FootballMatch, 'stadiumId'>;
+  competition: Competition;
+  homeTeam: Pick<FootballTeam, 'name' | 'shortName' | 'logoUrl'>;
+  awayTeam: Pick<FootballTeam, 'name' | 'shortName' | 'logoUrl'>;
+};
+
+export type MatchPageResponse = {
+  data: MatchListItem[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+  competitions: Competition[];
+  stages: string[];
+  availability: Record<string, Availability>;
+  errors: Partial<Record<CompetitionId, string>>;
+};
+
 export type MatchEvent = {
   id: string;
   matchId: string;

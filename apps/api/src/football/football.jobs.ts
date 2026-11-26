@@ -34,15 +34,15 @@ export function deliveryEvents(
 ): string[] {
   if (match.competitionId === 'world-cup') return [];
   if (!p.notifications.enabled) return [];
-  const followed = p.teamIds.some(
+  const followedTeam = p.teamIds.some(
     (id) => id === match.homeTeamId || id === match.awayTeamId,
   );
-  if (!followed) return [];
   const events: string[] = [];
   if (match.status === 'upcoming')
     for (const offset of [30, 10]) {
       const due = Date.parse(match.kickoff) - offset * 60000;
       if (
+        (followedTeam || p.reminders[match.id]?.includes(offset)) &&
         p.notifications[offset === 30 ? 'kickoff30' : 'kickoff10'] &&
         now >= due &&
         now < due + 120000 &&
@@ -52,7 +52,7 @@ export function deliveryEvents(
     }
   if (
     match.status === 'finished' &&
-    followed &&
+    followedTeam &&
     p.notifications.finalScore &&
     match.homeScore != null &&
     match.awayScore != null &&
@@ -336,8 +336,10 @@ export class FootballJobs implements OnApplicationBootstrap, OnModuleDestroy {
       }
       return result;
     } catch (error) {
-      if (name === 'scores' || name === 'schedules')
+      if (name === 'scores' || name === 'schedules') {
+        this.football.invalidateSnapshots();
         this.retryNotBefore.set(name, Date.now() + FOOTBALL_RETRY_MS);
+      }
       await this.db.query(
         'UPDATE football_jobs SET "lastError"=$2,result=$3 WHERE name=$1',
         [
@@ -502,15 +504,16 @@ export class FootballJobs implements OnApplicationBootstrap, OnModuleDestroy {
         if (!d) return 'empty';
         const m = data.matches.find((m) => m.id === d.matchId);
         const final = d.event === 'finalScore';
-        const stillFollowed =
+        const stillFollowingTeam =
           m &&
           d.preferences.teamIds.some(
             (id) => id === m.homeTeamId || id === m.awayTeamId,
           );
         const offset = d.event === 'kickoff30' ? 30 : 10;
         const subscribed = final
-          ? stillFollowed && d.preferences.notifications.finalScore
-          : stillFollowed &&
+          ? stillFollowingTeam && d.preferences.notifications.finalScore
+          : (stillFollowingTeam ||
+              d.preferences.reminders[d.matchId]?.includes(offset)) &&
             d.preferences.notifications[
               offset === 30 ? 'kickoff30' : 'kickoff10'
             ];

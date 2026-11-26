@@ -1,12 +1,15 @@
 import { getSnapshot } from "@/lib/api/football";
+import type { FootballSnapshot } from "@/types/football";
 export async function DataFreshness({
   competition,
   season,
+  data: suppliedData,
 }: {
   competition?: string;
   season?: string;
+  data?: Pick<FootballSnapshot, "availability" | "competitions">;
 }) {
-  const data = await getSnapshot(competition, season);
+  const data = suppliedData ?? (await getSnapshot(competition, season));
   const entries = Object.entries(data.availability);
   const stale = entries.some(([, a]) => a.state === "stale");
   const unavailable = entries.some(([, a]) => a.state === "unavailable");

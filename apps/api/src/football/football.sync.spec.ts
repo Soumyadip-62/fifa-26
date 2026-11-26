@@ -202,6 +202,7 @@ describe('Backend fixture and official-table synchronization', () => {
     await expect(h.jobs.run('schedules')).rejects.toThrow(
       'Some competition imports failed',
     );
+    expect(h.football.invalidateSnapshots).toHaveBeenCalledTimes(1);
     expect(h.tournaments.resource).toHaveBeenCalledWith(
       'la-liga',
       'standings',
@@ -230,6 +231,7 @@ describe('Backend fixture and official-table synchronization', () => {
     await expect(h.jobs.run('scores')).rejects.toThrow(
       'Some score updates failed',
     );
+    expect(h.football.invalidateSnapshots).toHaveBeenCalledTimes(1);
   });
 
   it('rejects explicit World Cup imports without provider or database work', async () => {

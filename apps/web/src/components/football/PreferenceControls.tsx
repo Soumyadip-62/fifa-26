@@ -43,9 +43,11 @@ export function ReminderButton({ id }: { id: string }) {
         <Bell className="size-4" />
         {set ? "30-minute reminder saved" : "Remind me"}
       </button>
-      {set && !p.notifications.enabled ? (
+      {set && (!p.notifications.enabled || !p.notifications.kickoff30) ? (
         <Link className="text-xs underline" href="/settings/notifications">
-          Enable browser notifications to receive this reminder
+          {!p.notifications.enabled
+            ? "Enable browser notifications to receive this reminder"
+            : "Enable 30-minute alerts to receive this reminder"}
         </Link>
       ) : null}
     </div>
