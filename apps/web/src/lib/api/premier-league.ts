@@ -29,10 +29,10 @@ export const leagueIds: readonly LeagueId[] = [
 ];
 class FootballDataError extends Error {}
 
-// Render-level deduplication only. PostgreSQL/backend own persistent caching.
+// Share read responses across page requests; the backend owns provider refreshes.
 const request = cache(async (path: string): Promise<unknown> => {
   const response = await fetch(apiUrl(`/tournaments${path}`), {
-    cache: "no-store",
+    next: { revalidate: 60 },
     signal: AbortSignal.timeout(40_000),
   });
   if (response.status === 404)

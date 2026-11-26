@@ -19,7 +19,7 @@ export const getFootballNewsFeed = cache(
       ? `/news/competitions/${competitionId}`
       : "/news";
     const response = await fetch(apiUrl(path), {
-      cache: "no-store",
+      next: { revalidate: 300 },
       signal: AbortSignal.timeout(40_000),
     });
     if (!response.ok) throw new Error("News is temporarily unavailable.");

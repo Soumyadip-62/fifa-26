@@ -367,6 +367,16 @@ describe('Stored football reads', () => {
     expect(d.matches[0].awayTeamId).toBe('unconfirmed-100-away');
     expect(provider.get).not.toHaveBeenCalled();
   });
+  it('reuses a snapshot until a score or schedule update invalidates it', async () => {
+    const { service, db } = create();
+    const first = await service.snapshot();
+    const queryCount = db.query.mock.calls.length;
+    expect(await service.snapshot()).toBe(first);
+    expect(db.query).toHaveBeenCalledTimes(queryCount);
+    service.invalidateSnapshots();
+    expect(await service.snapshot()).not.toBe(first);
+    expect(db.query.mock.calls.length).toBeGreaterThan(queryCount);
+  });
   it('isolates seasons and returns unavailable data without importing', async () => {
     const { service } = create();
     const d = await service.snapshot('premier-league', 2025);

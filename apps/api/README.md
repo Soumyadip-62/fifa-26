@@ -74,7 +74,7 @@ prints per-competition fixture counts, and exits unsuccessfully if any import
 fails. It does not boot Firebase or start application cron jobs. Existing World
 Cup and historical tables are untouched.
 
-The API syncs current-season fixtures and official standings **hourly, at five minutes past the hour (UTC)**. Dates, newly
+The API imports current-season fixtures weekly and refreshes scores separately during match play. Dates, newly
 announced knockout fixtures, and scores are upserted atomically per competition.
 Previous seasons and fixtures absent from later responses are retained. Syncs
 and cache refreshes use PostgreSQL transaction advisory locks, including with
@@ -228,7 +228,7 @@ The normal data path is football-data.org -> Nest jobs -> PostgreSQL -> Nest rea
 
 With `FOOTBALL_SCHEDULER=process` (the Render default), the running backend:
 
-- Uses one-shot timers for schedule imports and scores, with no fixed five-minute score cron or hourly schedule wake-up. Schedule imports run hourly on matchdays and every two hours otherwise, discovering new fixtures and kickoff corrections.
+- Uses one-shot timers for schedule imports and scores, with no fixed five-minute score cron or hourly schedule wake-up. Schedule imports run weekly, discovering new fixtures and kickoff corrections.
 - Sleeps the score job until the next kickoff when there is no fixture today; if no future kickoff is known, no score timer is armed. Scores refresh every five minutes during live play and hourly on matchdays, with a timer at kickoff taking priority over the hourly interval. Days use UTC.
 - Recalculates timers after imports (including admin imports) and score refreshes. Failed runs and advisory-lock contention retry after five minutes. Timers are cleared on application shutdown and reconstructed from persisted fixtures and last success after restart. Only actual refreshes emit completion logs.
 - Starts a background catch-up import after boot through the same cadence gate, avoiding duplicate work soon after a recent successful import.

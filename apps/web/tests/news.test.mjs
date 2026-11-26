@@ -44,7 +44,7 @@ test("competition news uses the backend only, scopes IDs and preserves publisher
   globalThis.fetch = async (url, options) => {
     calls.push(url);
     assert.equal(options.headers, undefined);
-    assert.equal(options.cache, "no-store");
+    assert.equal(options.next.revalidate, 300);
     return {
       ok: true,
       json: async () => ({

@@ -67,6 +67,11 @@ const clubAliases: Record<number, string> = {
 
 @Injectable()
 export class FootballService {
+  private readonly snapshots = new Map<
+    string,
+    { data: FootballSnapshot; expiresAt: number }
+  >();
+  private readonly snapshotLoads = new Map<string, Promise<FootballSnapshot>>();
   constructor(
     private readonly db: DataSource,
     private readonly tournaments: TournamentsService,
@@ -312,6 +317,46 @@ export class FootballService {
     season?: number,
   ): Promise<FootballSnapshot> {
     if (competitionId) this.competitionId(competitionId);
+    const key = `${competitionId ?? 'all'}:${season ?? 'latest'}`;
+    const cached = this.snapshots.get(key);
+    if (cached && cached.expiresAt > Date.now()) return cached.data;
+    const loading = this.snapshotLoads.get(key);
+    if (loading) return loading;
+    const promise = this.loadSnapshot(competitionId, season);
+    this.snapshotLoads.set(key, promise);
+    try {
+      const data = await promise;
+      const now = Date.now();
+      const nearMatch = data.matches.some((match) => {
+        const kickoff = Date.parse(match.kickoff);
+        return (
+          match.status === 'live' ||
+          (kickoff >= now - 4 * 60 * 60_000 && kickoff <= now + 15 * 60_000)
+        );
+      });
+      const nextKickoff = Math.min(
+        ...data.matches
+          .filter((match) => match.status === 'upcoming')
+          .map((match) => Date.parse(match.kickoff))
+          .filter((kickoff) => kickoff > now),
+        Infinity,
+      );
+      const ttl = nearMatch
+        ? 60_000
+        : Math.min(15 * 60_000, Math.max(30_000, nextKickoff - now));
+      this.snapshots.set(key, { data, expiresAt: now + ttl });
+      return data;
+    } finally {
+      this.snapshotLoads.delete(key);
+    }
+  }
+  invalidateSnapshots() {
+    this.snapshots.clear();
+  }
+  private async loadSnapshot(
+    competitionId?: string,
+    season?: number,
+  ): Promise<FootballSnapshot> {
     const allSeasons = await this.db
       .getRepository(TournamentSeasonEntity)
       .find({ order: { season: 'DESC' } });
@@ -322,6 +367,11 @@ export class FootballService {
         !selected.has(s.competitionId)
       )
         selected.set(s.competitionId, s);
+    const activeSeasons = [...selected.values()].filter(
+      (s) =>
+        ids.includes(s.competitionId as CompetitionId) &&
+        (!competitionId || s.competitionId === competitionId),
+    );
     const competitions: Competition[] = [
       ...ids.map((id) => {
         const s = selected.get(id);
@@ -355,9 +405,15 @@ export class FootballService {
         'SELECT * FROM football_memberships WHERE "competitionId"=ANY($1::text[])',
         [ids],
       ),
-      this.db
-        .getRepository(TournamentFixtureEntity)
-        .find({ order: { kickoff: 'ASC' } }),
+      activeSeasons.length
+        ? this.db.getRepository(TournamentFixtureEntity).find({
+            where: activeSeasons.map((s) => ({
+              competitionId: s.competitionId,
+              season: s.season,
+            })),
+            order: { kickoff: 'ASC' },
+          })
+        : Promise.resolve([]),
     ])) as [
       Array<{ id: string; kind: string; payload: Json }>,
       Array<{

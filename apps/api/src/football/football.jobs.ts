@@ -330,8 +330,10 @@ export class FootballJobs implements OnApplicationBootstrap, OnModuleDestroy {
         [name, JSON.stringify(result)],
       );
       await runner.commitTransaction();
-      if (name === 'scores' || name === 'schedules')
+      if (name === 'scores' || name === 'schedules') {
+        this.football.invalidateSnapshots();
         this.retryNotBefore.delete(name);
+      }
       return result;
     } catch (error) {
       if (name === 'scores' || name === 'schedules')
@@ -624,7 +626,7 @@ export class FootballJobs implements OnApplicationBootstrap, OnModuleDestroy {
       cadence: {
         process:
           'one-shot timers recalculated after fixture imports and refreshes',
-        schedules: 'hourly on matchdays; every 2 hours otherwise',
+        schedules: 'weekly',
         scores:
           'every 5 minutes while live; hourly on matchdays; next kickoff when no fixture is scheduled today',
         startupCatchUp: true,

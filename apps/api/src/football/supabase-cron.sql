@@ -29,11 +29,12 @@ REVOKE ALL ON FUNCTION public.football_invoke_job(text) FROM PUBLIC, anon, authe
 -- last success read-only, then skips without job or fixture writes until due.
 -- Scores may be woken every 5 minutes for live-play responsiveness; actual
 -- provider refreshes are hourly on matchdays and wait for the next kickoff
--- when no fixture is scheduled today. Schedule imports run hourly on matchdays
--- and at most every 2 hours otherwise.
+-- when no fixture is scheduled today. Schedule imports run weekly. The daily
+-- wake-up below only checks the persisted due time, so an import after a manual
+-- sync is still at most one day later than its seven-day due time.
 -- Idempotent names: pg_cron updates named jobs on repeated installation.
 SELECT cron.schedule('football-scores', '*/5 * * * *', $$SELECT public.football_invoke_job('scores')$$);
-SELECT cron.schedule('football-schedules', '5 * * * *', $$SELECT public.football_invoke_job('schedules')$$);
+SELECT cron.schedule('football-schedules', '5 0 * * *', $$SELECT public.football_invoke_job('schedules')$$);
 SELECT cron.schedule('football-reminders', '* * * * *', $$SELECT public.football_invoke_job('reminders')$$);
 -- Install in a disabled state. Enable after endpoint checks and a device push test.
 UPDATE cron.job SET active=false WHERE jobname IN ('football-scores','football-schedules','football-reminders');

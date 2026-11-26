@@ -67,4 +67,13 @@ describe('Football due times', () => {
       nextFootballRun('schedules', state({ lastSuccessAt: null }), now),
     ).toBe(now);
   });
+
+  it('imports schedules once a week without delaying score updates', () => {
+    expect(nextFootballRun('schedules', state({ matchday: true }), now)).toBe(
+      now + 7 * 24 * 60 * minute,
+    );
+    expect(nextFootballRun('schedules', state({ live: true }), now)).toBe(
+      now + 7 * 24 * 60 * minute,
+    );
+  });
 });
