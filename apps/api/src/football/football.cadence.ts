@@ -21,8 +21,7 @@ export function nextFootballRun(
   const after = (interval: number) =>
     lastSuccess === null ? now : lastSuccess + interval;
 
-  if (name === 'schedules')
-    return after((state.matchday || state.live ? 1 : 2) * 60 * 60_000);
+  if (name === 'schedules') return after(7 * 24 * 60 * 60_000);
   if (state.live) return after(FOOTBALL_RETRY_MS);
 
   const kickoff = state.nextKickoff

@@ -39,7 +39,10 @@ function setup() {
       freshness: { fetchedAt: new Date().toISOString(), stale: false },
     }),
   };
-  const football = { backfill: jest.fn().mockResolvedValue({ catalog: 100 }) };
+  const football = {
+    backfill: jest.fn().mockResolvedValue({ catalog: 100 }),
+    invalidateSnapshots: jest.fn(),
+  };
   const jobs = new FootballJobs(
     db as unknown as DataSource,
     football as unknown as FootballService,
@@ -158,7 +161,7 @@ describe('Backend fixture and official-table synchronization', () => {
     expect(run).toHaveBeenCalledWith('scores');
   });
 
-  it('runs schedule imports hourly on matchdays and every two hours otherwise', async () => {
+  it('runs schedule imports weekly regardless of matchday status', async () => {
     const h = setup();
     const run = jest.spyOn(h.jobs, 'run').mockResolvedValue({});
     h.db.query.mockResolvedValueOnce([
@@ -166,7 +169,7 @@ describe('Backend fixture and official-table synchronization', () => {
         live: false,
         matchday: true,
         nextKickoff: null,
-        lastSuccessAt: new Date(Date.now() - 60 * 60_000),
+        lastSuccessAt: new Date(Date.now() - 7 * 24 * 60 * 60_000),
       },
     ]);
     await h.jobs.runScheduled('schedules');
@@ -319,22 +322,18 @@ describe('Football one-shot scheduling', () => {
     return { ...h, state, successes, gate, start };
   }
 
-  it('does no five-minute polling on an idle day and imports schedules after two hours', async () => {
-    const h = timedSetup();
+  it('does no idle polling before the weekly import', async () => {
+    const h = timedSetup({ nextKickoff: null });
     await h.start();
     h.db.query.mockClear();
     h.gate.mockClear();
 
-    await jest.advanceTimersByTimeAsync(119 * minute);
+    await jest.advanceTimersByTimeAsync(2 * 60 * minute);
     expect(h.db.query).not.toHaveBeenCalled();
     expect(h.gate).not.toHaveBeenCalled();
     expect(h.tournaments.refreshActive).not.toHaveBeenCalled();
-
-    await jest.advanceTimersByTimeAsync(minute);
-    expect(h.tournaments.syncAll).toHaveBeenCalledTimes(1);
-    expect(h.gate).toHaveBeenCalledWith('schedules');
-    expect(h.gate).not.toHaveBeenCalledWith('scores');
-    expect(jest.getTimerCount()).toBe(2);
+    expect(h.tournaments.syncAll).toHaveBeenCalledTimes(0);
+    expect(jest.getTimerCount()).toBe(1);
   });
 
   it('arms no score timer when there are no fixtures, then discovers a new fixture during import', async () => {

@@ -19,7 +19,9 @@ const legacy = (t: FootballTeam): Team => ({
   },
 });
 async function data(): Promise<FootballSnapshot> {
-  const r = await fetch(apiUrl("/football/snapshot"), { cache: "no-store" });
+  const r = await fetch(apiUrl("/football/snapshot"), {
+    next: { revalidate: 60 },
+  });
   if (!r.ok) throw new Error("Team data unavailable.");
   return r.json();
 }

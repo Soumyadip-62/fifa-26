@@ -269,7 +269,7 @@ test("individual match requests use the backend without credentials and handle u
   let calls = 0;
   globalThis.fetch = async (url, options) => {
     calls++;
-    assert.equal(options.cache, "no-store");
+    assert.equal(options.next.revalidate, 60);
     assert.equal(options.headers, undefined);
     assert.ok(url.startsWith("http://backend.test/tournaments/"));
     assert.equal(options.headers, undefined);
@@ -305,7 +305,7 @@ test("server service pins one season, shares requests and isolates scorer failur
   globalThis.fetch = async (url, options) => {
     calls.push(url);
     assert.equal(options.headers, undefined);
-    assert.equal(options.cache, "no-store");
+    assert.equal(options.next.revalidate, 60);
     if (url.includes("/scorers?")) return { ok: false, status: 403 };
     const body = url.endsWith("/premier-league")
       ? competition

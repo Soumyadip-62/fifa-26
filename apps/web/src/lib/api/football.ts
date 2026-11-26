@@ -22,7 +22,7 @@ import type {
 
 export const footballRequest = cache(async <T>(path: string): Promise<T> => {
   const res = await fetch(apiUrl(`/football${path}`), {
-    cache: "no-store",
+    next: { revalidate: 60 },
     signal: AbortSignal.timeout(45000),
   });
   if (!res.ok)
