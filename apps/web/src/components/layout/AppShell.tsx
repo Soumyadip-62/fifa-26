@@ -6,6 +6,7 @@ import { QueryProvider } from "./QueryProvider";
 import { PushNotificationListener } from "../providers/PushNotificationListener";
 import { FootballRuntime } from "../football/FootballRuntime";
 import { PageContext } from "./PageContext";
+import { WebsiteTour } from "../onboarding/WebsiteTour";
 
 export type AppShellProps = {
   children: ReactNode;
@@ -27,6 +28,7 @@ export function AppShell({ children }: AppShellProps) {
         </main>
         <TabBar />
         <Footer />
+        <WebsiteTour />
       </QueryProvider>
     </div>
   );

@@ -104,6 +104,7 @@ export function Header() {
           <nav
             className="hidden items-center gap-1 xl:flex"
             aria-label="Primary navigation"
+            data-tour="navigation"
           >
             <Link
               href="/"
@@ -147,6 +148,7 @@ export function Header() {
             {links.slice(2).map((item) => (
               <Link
                 key={item.href}
+                data-tour={item.href === "/matches" ? "matches" : undefined}
                 href={item.href}
                 className={linkClass(item.href)}
                 aria-current={active(item.href) ? "page" : undefined}
@@ -158,6 +160,7 @@ export function Header() {
           <Link
             href="/search"
             aria-label="Search football"
+            data-tour="search"
             className="home-header-action"
           >
             <Search aria-hidden="true" />
@@ -165,6 +168,7 @@ export function Header() {
           <Link
             href="/settings/notifications"
             aria-label="Notification settings"
+            data-tour="notifications"
             className="home-header-action header-notifications"
           >
             <Bell aria-hidden="true" />

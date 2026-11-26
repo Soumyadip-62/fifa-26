@@ -1,39 +1,43 @@
 import { getToken } from "firebase/messaging";
 import { getFirebaseMessaging } from "@/lib/firebase";
+import {
+  getNotificationAccess,
+  notificationAccessMessage,
+} from "@/lib/notification-permission";
+import {
+  getNotificationWorker,
+  withNotificationTimeout,
+} from "./notificationWorker";
 
-let isRegistering = false;
-let cachedToken: string | null = null;
+let registrationPromise: Promise<string> | null = null;
 
-// notificationService.ts
-export async function registerPush() {
-  if (isRegistering) return null;
-  if (cachedToken) return cachedToken;
-
-  isRegistering = true;
-  try {
-    if (!process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY)
-      throw new Error("Firebase VAPID key is not configured.");
+// Permission is requested by the tap handler before loading this module.
+// Firebase handles token caching; always recheck permission before reuse.
+export function registerPush(): Promise<string> {
+  const access = getNotificationAccess();
+  if (access !== "granted")
+    return Promise.reject(new Error(notificationAccessMessage(access)));
+  if (registrationPromise) return registrationPromise;
+  registrationPromise = (async () => {
     const messaging = await getFirebaseMessaging();
-    if (!messaging) throw new Error("Messaging unsupported");
-
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      isRegistering = false;
-      return null;
-    }
-
-    // 🟢 REMOVED THE UNREGISTER LOOP FROM HERE
-
-    const token = await getToken(messaging, {
-      vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
-    });
-
-    cachedToken = token;
+    if (!messaging) throw new Error(notificationAccessMessage("unsupported"));
+    const serviceWorkerRegistration = await getNotificationWorker();
+    const token = await withNotificationTimeout(
+      getToken(messaging, {
+        vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+        serviceWorkerRegistration,
+      }),
+      "Notification activation timed out. Check your connection and try again.",
+    );
+    if (!token)
+      throw new Error(
+        "Notifications could not be activated. Please try again.",
+      );
+    if (Notification.permission !== "granted")
+      throw new Error(notificationAccessMessage(Notification.permission));
     return token;
-  } catch (err) {
-    console.error("Error inside getToken:", err);
-    throw err;
-  } finally {
-    isRegistering = false;
-  }
+  })().finally(() => {
+    registrationPromise = null;
+  });
+  return registrationPromise;
 }

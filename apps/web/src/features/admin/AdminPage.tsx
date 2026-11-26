@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { sendDeviceTestNotifications } from "@/lib/api/notification";
 import { registerPush } from "@/lib/utils/notificationService";
+import { requestNotificationPermission } from "@/lib/notification-permission";
 
 type ActionState = {
   loading: boolean;
@@ -53,7 +54,8 @@ export function AdminPage() {
     setNotificationTest({ loading: true, message: "", error: "" });
 
     try {
-      const token = deviceToken ?? (await registerPush());
+      await requestNotificationPermission();
+      const token = await registerPush();
 
       if (!token) {
         throw new Error("Notification permission or FCM token not available.");

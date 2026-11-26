@@ -25,6 +25,8 @@ import {
 import { images } from "@/assets";
 import type { Team } from "@/types/team";
 import { useQuery } from "@tanstack/react-query";
+import { replayWebsiteTour } from "@/lib/website-tour";
+import { useNotificationAccess } from "@/lib/use-notification-access";
 
 const emptyTeams: Team[] = [];
 
@@ -43,6 +45,8 @@ function getTeamSearchText(team: Team) {
 
 export function ProfileDrawer() {
   const preferences = usePreferences();
+  const notificationAccess = useNotificationAccess();
+  const replayAfterClose = React.useRef(false);
   const [open, setOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const [teamInput, setTeamInput] = React.useState("");
@@ -234,10 +238,21 @@ export function ProfileDrawer() {
   };
 
   return (
-    <Drawer direction="right" open={open} onOpenChange={setOpen}>
+    <Drawer
+      direction="right"
+      open={open}
+      onOpenChange={setOpen}
+      onAnimationEnd={(isOpen) => {
+        if (!isOpen && replayAfterClose.current) {
+          replayAfterClose.current = false;
+          replayWebsiteTour();
+        }
+      }}
+    >
       <DrawerTrigger asChild>
         <Button
           aria-label="Open profile settings"
+          data-tour="settings"
           variant="ghost"
           className="relative h-10 w-10 rounded-full p-0 overflow-hidden border border-border dark:border-border hover:border-primary transition-all duration-300"
         >
@@ -402,7 +417,8 @@ export function ProfileDrawer() {
               href="/settings/notifications"
               className="text-xs font-bold text-primary"
             >
-              {preferences.notifications.enabled
+              {preferences.notifications.enabled &&
+              notificationAccess === "granted"
                 ? "Manage browser notifications"
                 : "Enable browser notifications"}
             </Link>
@@ -423,6 +439,19 @@ export function ProfileDrawer() {
                 prefKey="finalScore"
               />
             </div>
+          </section>
+          <section className="border-t border-border pt-5">
+            <DrawerClose asChild>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  replayAfterClose.current = true;
+                }}
+              >
+                Replay website tour
+              </Button>
+            </DrawerClose>
           </section>
         </div>
       </DrawerContent>

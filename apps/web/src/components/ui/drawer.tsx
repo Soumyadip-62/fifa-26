@@ -11,6 +11,7 @@ type DrawerProps = {
   dismissible?: boolean;
   modal?: boolean;
   onOpenChange?: (open: boolean) => void;
+  onAnimationEnd?: (open: boolean) => void;
   open?: boolean;
   shouldScaleBackground?: boolean;
 };

@@ -181,6 +181,10 @@ async function loadPreferences() {
   );
   let code = compile(src)
     .replace(
+      /import \{ requestNotificationPermission \} from ['"]\.\/notification-permission['"];/,
+      "const requestNotificationPermission = async () => {};",
+    )
+    .replace(
       /import \{ useSyncExternalStore \} from ['"]react['"];/,
       "const useSyncExternalStore=(_s,get)=>get();",
     )
