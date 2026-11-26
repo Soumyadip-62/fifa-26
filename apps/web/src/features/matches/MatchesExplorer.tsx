@@ -1,33 +1,20 @@
 "use client";
-import { useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Filter, RefreshCw, Search, X } from "lucide-react";
-import { isUpcomingFixture, orderFixtures } from "@/lib/matches/fixture-order";
 import { ErrorState } from "@/components/common/ErrorState";
 import { Input } from "@/components/ui/input";
 import { Pagination } from "@/components/common/Pagination";
-import {
-  PlatformMatchCard,
-  type ResolvedMatch,
-} from "@/components/football/PlatformMatchCard";
-import type { Competition } from "@/types/football";
-
-function localDate(date: Date) {
-  return new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Kolkata" }).format(
-    date,
-  );
-}
+import { PlatformMatchCard } from "@/components/football/PlatformMatchCard";
+import { getMatchPage } from "@/lib/api/match-pages";
+import type { MatchPageResponse } from "@/types/football";
 
 export function MatchesExplorer({
-  items,
-  competitions,
-  leagueErrors,
+  initialPage,
   initialCompetition = "all",
   initialStatus = "all",
 }: {
-  items: ResolvedMatch[];
-  competitions: Competition[];
-  leagueErrors: Partial<Record<string, string>>;
+  initialPage: MatchPageResponse;
   initialCompetition?: string;
   initialStatus?: string;
 }) {
@@ -37,42 +24,47 @@ export function MatchesExplorer({
   const [competition, setCompetition] = useState(initialCompetition);
   const [stage, setStage] = useState("all");
   const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [day, setDay] = useState("all");
-  const router = useRouter();
-  const [refreshing, startRefresh] = useTransition();
-  const today = localDate(new Date());
-  const tomorrow = localDate(new Date(Date.now() + 86_400_000));
-  const filtered = useMemo(
-    () =>
-      orderFixtures(
-        items.filter((item) => {
-          const date = localDate(new Date(item.match.kickoff));
-          const text =
-            `${item.homeTeam.name} ${item.awayTeam.name} ${item.competition.name}`.toLowerCase();
-          return (
-            (status === "all" ||
-              (status === "upcoming"
-                ? isUpcomingFixture(item.match)
-                : item.match.status === status)) &&
-            (competition === "all" ||
-              item.match.competitionId === competition) &&
-            (stage === "all" || item.match.stage === stage) &&
-            (!query || text.includes(query.toLowerCase())) &&
-            (day === "all" ||
-              (day === "today" && date === today) ||
-              (day === "tomorrow" && date === tomorrow) ||
-              (day === "past" && item.match.status === "finished") ||
-              (day === "upcoming" && isUpcomingFixture(item.match)))
-          );
-        }),
-      ),
-    [items, status, competition, stage, query, day, today, tomorrow],
-  );
+  useEffect(() => {
+    const timer = window.setTimeout(() => setSearch(query.trim()), 300);
+    return () => window.clearTimeout(timer);
+  }, [query]);
+  const filters = {
+    competition,
+    status,
+    stage,
+    day,
+    q: search,
+    page,
+    limit: pageSize,
+  };
+  const initialSelection =
+    competition === initialCompetition &&
+    status === initialStatus &&
+    stage === "all" &&
+    day === "all" &&
+    search === "" &&
+    page === 1;
+  const { data, isPending, isFetching, isError, error, refetch } = useQuery({
+    queryKey: ["match-page", filters],
+    queryFn: ({ signal }) => getMatchPage(filters, signal),
+    initialData: initialSelection ? initialPage : undefined,
+    staleTime: status === "live" || day === "today" ? 30_000 : 60_000,
+    gcTime: 30 * 60_000,
+    refetchOnWindowFocus: false,
+  });
+  const competitions = data?.competitions ?? initialPage.competitions;
+  const stages = data?.stages ?? initialPage.stages;
+  const leagueErrors = data?.errors ?? initialPage.errors;
+  const items = data?.data ?? [];
+  const total = data?.pagination.total ?? 0;
   const reset = () => {
     setStatus("all");
     setCompetition("all");
     setStage("all");
     setQuery("");
+    setSearch("");
     setDay("all");
     setPage(1);
   };
@@ -145,7 +137,7 @@ export function MatchesExplorer({
             className={selectClass}
           >
             <option value="all">All stages</option>
-            {[...new Set(items.map((item) => item.match.stage))].map((item) => (
+            {stages.map((item) => (
               <option key={item}>{item}</option>
             ))}
           </select>
@@ -190,33 +182,44 @@ export function MatchesExplorer({
       )}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-xs font-semibold text-muted-foreground">
-          {filtered.length} matches · Live and upcoming first, latest results
-          next
+          {total} matches · Live and upcoming first, latest results next
         </p>
         <button
           type="button"
-          disabled={refreshing}
-          onClick={() => startRefresh(() => router.refresh())}
+          disabled={isFetching}
+          onClick={() => void refetch()}
           className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-bold disabled:opacity-50 dark:border-border"
         >
           <RefreshCw
-            className={`size-3.5 ${refreshing ? "animate-spin" : ""}`}
+            className={`size-3.5 ${isFetching ? "animate-spin" : ""}`}
           />
-          {refreshing ? "Refreshing fixtures..." : "Refresh fixtures"}
+          {isFetching ? "Refreshing fixtures..." : "Refresh fixtures"}
         </button>
       </div>
-      {filtered.length ? (
+      {isError && (
+        <ErrorState
+          title="Matches unavailable"
+          message={error instanceof Error ? error.message : "Please try again."}
+        />
+      )}
+      {isPending ? (
+        <p
+          className="rounded-lg border border-dashed p-10 text-center text-sm text-muted-foreground"
+          role="status"
+        >
+          Loading matches...
+        </p>
+      ) : items.length ? (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {filtered
-            .slice((page - 1) * pageSize, page * pageSize)
-            .map((item) => (
-              <PlatformMatchCard
-                key={`${item.match.competitionId}-${item.match.id}`}
-                item={item}
-              />
-            ))}
+          {items.map((item) => (
+            <PlatformMatchCard
+              key={`${item.match.competitionId}-${item.match.id}`}
+              item={item}
+            />
+          ))}
         </div>
-      ) : leagueErrors[competition] ? null : (
+      ) : leagueErrors[competition as keyof typeof leagueErrors] ||
+        isError ? null : (
         <div className="rounded-lg border border-dashed p-10 text-center">
           <h2 className="font-heading text-lg font-bold">No matches found</h2>
           <p className="mt-1 text-xs text-muted-foreground">
@@ -226,10 +229,13 @@ export function MatchesExplorer({
       )}
       <Pagination
         page={page}
-        total={filtered.length}
+        total={total}
         pageSize={pageSize}
-        onChange={setPage}
+        onChange={(nextPage) => {
+          if (!isFetching) setPage(nextPage);
+        }}
         label="matches"
+        disabled={isFetching}
       />
     </div>
   );

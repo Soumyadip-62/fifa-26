@@ -13,6 +13,15 @@ import { FootballService } from './football.service';
 import { FootballDevices, credentialMatches } from './football.devices';
 import { FootballJobs } from './football.jobs';
 import { assertAdminSecret } from '../common/admin-auth';
+import type {
+  FootballSnapshot,
+  MatchPageResponse,
+} from '../../../../packages/football-contracts';
+
+type LegacyMatchList = Pick<
+  FootballSnapshot,
+  'matches' | 'teams' | 'competitions' | 'errors' | 'availability'
+>;
 
 type Filters = {
   competition?: string;
@@ -20,6 +29,11 @@ type Filters = {
   q?: string;
   page?: string;
   pageSize?: string;
+  limit?: string;
+  tournamentId?: string;
+  status?: string;
+  stage?: string;
+  day?: string;
 };
 @Controller('football')
 export class FootballController {
@@ -58,7 +72,25 @@ export class FootballController {
   ) {
     return this.football.bracket(id, this.football.season(season));
   }
+  matches(q: Filters & { page: string }): Promise<MatchPageResponse>;
+  matches(q: Filters): Promise<LegacyMatchList>;
   @Get('matches') async matches(@Query() q: Filters) {
+    if (
+      q.page !== undefined ||
+      q.pageSize !== undefined ||
+      q.limit !== undefined ||
+      q.tournamentId !== undefined
+    )
+      return this.football.matchPage({
+        competition: q.competition ?? q.tournamentId,
+        season: this.football.season(q.season),
+        page: q.page,
+        pageSize: q.pageSize ?? q.limit,
+        status: q.status,
+        stage: q.stage,
+        day: q.day,
+        q: q.q,
+      });
     const d = await this.football.snapshot(
       q.competition,
       this.football.season(q.season),

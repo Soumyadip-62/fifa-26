@@ -50,7 +50,7 @@ export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
       <SectionHeader
         eyebrow="Never miss your matchday"
         title="Notification settings"
-        description="Kickoff reminders and full-time scores only for games involving your favourite teams."
+        description="Kickoff reminders for followed teams and saved matches, plus full-time scores for followed teams."
       />
       <div className="settings-grid">
         <section className="companion-panel notification-panel">

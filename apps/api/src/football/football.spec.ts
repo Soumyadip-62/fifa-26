@@ -209,18 +209,17 @@ describe('Device ownership and reminder eligibility', () => {
     p.notifications.enabled = false;
     expect(deliveryEvents(fixture(), p, now)).toEqual([]);
   });
-  it('requires a favourite team even when a match reminder is saved', () => {
+  it('sends a saved match reminder without a favourite team', () => {
     const p = preferences();
     p.teamIds = [];
     p.reminders = { '100': [30] };
-    expect(deliveryEvents(fixture(), p, now)).toEqual([]);
+    expect(deliveryEvents(fixture(), p, now)).toEqual(['kickoff30']);
   });
-  it('does not broaden team alerts through saved competitions or matches', () => {
+  it('does not broaden team alerts through saved competitions or match favourites', () => {
     const p = preferences();
     p.teamIds = ['another-team'];
     p.competitionIds = ['premier-league'];
     p.matchIds = ['100'];
-    p.reminders = { '100': [30, 10] };
     expect(deliveryEvents(fixture(), p, now)).toEqual([]);
   });
   it('does not send reminders for an old kickoff after a postponement', () => {
@@ -699,7 +698,7 @@ describe('Job concurrency and activation', () => {
         teamIds: [],
         competitionIds: ['premier-league'],
         matchIds: ['100'],
-        reminders: { '100': [30] },
+        reminders: {},
       };
       await h.jobs.reminders();
       expect(mockPushSend).not.toHaveBeenCalled();
@@ -708,6 +707,18 @@ describe('Job concurrency and activation', () => {
           sql.includes("status='cancelled'"),
         ),
       ).toBe(true);
+    }));
+  it('keeps a queued saved-match reminder when no team is followed', async () =>
+    activated(async () => {
+      const h = deliveryHarness();
+      h.row.preferences = {
+        ...preferences(),
+        teamIds: [],
+        reminders: { '100': [30] },
+      };
+      mockPushSend.mockResolvedValue('message-id');
+      await expect(h.jobs.reminders()).resolves.toMatchObject({ sent: 1 });
+      expect(mockPushSend).toHaveBeenCalledTimes(1);
     }));
   it('records successful delivery and uses a canonical match link', async () =>
     activated(async () => {

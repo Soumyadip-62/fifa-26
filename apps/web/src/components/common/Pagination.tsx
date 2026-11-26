@@ -8,12 +8,14 @@ export function Pagination({
   pageSize,
   onChange,
   label,
+  disabled = false,
 }: {
   page: number;
   total: number;
   pageSize: number;
   onChange: (page: number) => void;
   label: string;
+  disabled?: boolean;
 }) {
   const pages = Math.max(1, Math.ceil(total / pageSize));
   if (!total) return null;
@@ -29,7 +31,7 @@ export function Pagination({
         <button
           type="button"
           aria-label={`Previous ${label} page`}
-          disabled={page <= 1}
+          disabled={disabled || page <= 1}
           onClick={() => onChange(page - 1)}
         >
           <ChevronLeft aria-hidden="true" />
@@ -40,7 +42,7 @@ export function Pagination({
         <button
           type="button"
           aria-label={`Next ${label} page`}
-          disabled={page >= pages}
+          disabled={disabled || page >= pages}
           onClick={() => onChange(page + 1)}
         >
           <ChevronRight aria-hidden="true" />
