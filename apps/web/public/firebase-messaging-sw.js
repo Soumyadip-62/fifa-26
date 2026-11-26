@@ -28,6 +28,10 @@ messaging.onBackgroundMessage((payload) => {
 
   self.registration.showNotification(title, {
     body,
+    tag: payload.data?.matchId
+      ? `${payload.data.matchId}:${payload.data.event}`
+      : undefined,
+    data: { url: payload.data?.url },
   });
 });
 

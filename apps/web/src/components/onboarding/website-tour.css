@@ -1,0 +1,37 @@
+.website-tour-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgb(2 8 15 / 42%);
+}
+
+.website-tour-panel {
+  position: fixed;
+  z-index: 81;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(26rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 11rem);
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 35%);
+}
+
+.website-tour-highlight {
+  outline: 3px solid #a3ff7a !important;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 24px rgb(163 255 122 / 70%) !important;
+}
+
+@media (max-height: 540px) {
+  .website-tour-panel {
+    max-height: calc(100dvh - 8.5rem);
+    padding: 1rem;
+  }
+}

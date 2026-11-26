@@ -2,6 +2,7 @@
 import { useSyncExternalStore } from "react";
 import type { DevicePreferences } from "@/types/football";
 import { apiUrl } from "./api/config";
+import { requestNotificationPermission } from "./notification-permission";
 
 const key = "football:preferences:v1";
 export const defaultPreferences: DevicePreferences = {
@@ -90,10 +91,13 @@ export function toggleReminder(id: string) {
 
 type Registration = { id: string; secret: string; token: string | null };
 const deviceKey = "football:device:v1";
-export async function syncDevice(
-  preferences = readPreferences(),
-  token?: string,
-) {
+let syncQueue: Promise<void> = Promise.resolve();
+export function syncDevice(preferences = readPreferences(), token?: string) {
+  const operation = syncQueue.then(() => persistDevice(preferences, token));
+  syncQueue = operation.catch(() => {});
+  return operation;
+}
+async function persistDevice(preferences = readPreferences(), token?: string) {
   const raw = localStorage.getItem(deviceKey),
     saved: Registration | null = raw ? JSON.parse(raw) : null;
   const pushToken = token ?? saved?.token ?? null;
@@ -142,10 +146,7 @@ export async function syncDevice(
   );
 }
 export async function enablePush() {
-  if (!process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY)
-    throw new Error(
-      "Push activation needs NEXT_PUBLIC_FIREBASE_VAPID_KEY in the frontend environment.",
-    );
+  await requestNotificationPermission();
   const { registerPush } = await import("./utils/notificationService");
   const token = await registerPush();
   if (!token)
@@ -157,7 +158,11 @@ export async function enablePush() {
     notifications: { ...readPreferences().notifications, enabled: true },
   };
   await syncDevice(next, token);
-  savePreferences(next);
+  // Preserve choices made while the network request was in flight.
+  updatePreferences((current) => ({
+    ...current,
+    notifications: { ...current.notifications, enabled: true },
+  }));
 }
 export async function migratePreferences() {
   if (localStorage.getItem(key)) return;

@@ -18,6 +18,7 @@ export function TabBar() {
     <div className="fixed inset-x-0 bottom-0 z-50 xl:hidden">
       <nav
         aria-label="Mobile navigation"
+        data-tour="navigation"
         className="home-bottom-nav flex items-center justify-around px-1 py-2"
         style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}
       >
@@ -36,6 +37,13 @@ export function TabBar() {
           return (
             <Link
               key={item.href}
+              data-tour={
+                item.href === "/matches"
+                  ? "matches"
+                  : item.href === "/favourites"
+                    ? "saved"
+                    : undefined
+              }
               href={item.href}
               aria-current={active ? "page" : undefined}
               className="flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1"

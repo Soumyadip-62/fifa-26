@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BellRing } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getNotificationWorker } from "@/lib/utils/notificationWorker";
 
 export function LocalNotificationTest() {
   const [busy, setBusy] = useState(false);
@@ -31,22 +32,7 @@ export function LocalNotificationTest() {
         );
       }
 
-      await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-      let timeout: ReturnType<typeof setTimeout> | undefined;
-      const registration = await Promise.race([
-        navigator.serviceWorker.ready,
-        new Promise<never>((_, reject) => {
-          timeout = setTimeout(
-            () =>
-              reject(
-                new Error(
-                  "The notification service worker did not become ready. Check your connection and try again.",
-                ),
-              ),
-            15000,
-          );
-        }),
-      ]).finally(() => clearTimeout(timeout));
+      const registration = await getNotificationWorker();
 
       await registration.showNotification("NinetyPlus - Test", {
         body: "This is a dummy notification from your local NinetyPlus app.",

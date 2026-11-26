@@ -14,14 +14,23 @@ import { TeamMark } from "@/components/football/TeamMark";
 import { Button } from "@/components/ui/button";
 import type { FootballTeam } from "@/types/football";
 import { LocalNotificationTest } from "./LocalNotificationTest";
+import { notificationAccessMessage } from "@/lib/notification-permission";
+import {
+  refreshNotificationAccess,
+  useNotificationAccess,
+} from "@/lib/use-notification-access";
 
 export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
   const p = usePreferences();
+  const access = useNotificationAccess();
+  const enabled = p.notifications.enabled && access === "granted";
+  const canEnable = access === "default" || access === "granted";
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const followed = teams.filter((team) => p.teamIds.includes(team.id));
   const enable = async () => {
     setBusy(true);
+    setStatus("");
     try {
       await enablePush();
       setStatus("Browser notifications enabled for this device.");
@@ -32,6 +41,7 @@ export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
           : "Notifications could not be enabled.",
       );
     } finally {
+      refreshNotificationAccess();
       setBusy(false);
     }
   };
@@ -46,41 +56,44 @@ export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
         <section className="companion-panel notification-panel">
           <div className="notification-status">
             <span
-              className={
-                p.notifications.enabled
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              }
+              className={enabled ? "text-primary" : "text-muted-foreground"}
             >
               <BellRing aria-hidden="true" />
             </span>
             <div>
               <h2>
-                {p.notifications.enabled
+                {enabled
                   ? "Alerts are enabled"
-                  : "Alerts are off"}
+                  : access === "denied"
+                    ? "Notifications are blocked"
+                    : "Alerts are off"}
               </h2>
-              <p>Get the moments that matter, straight to this device.</p>
+              <p>
+                {enabled
+                  ? "Get the moments that matter, straight to this device."
+                  : notificationAccessMessage(access)}
+              </p>
             </div>
           </div>
           <Button
-            disabled={busy}
-            variant={p.notifications.enabled ? "outline" : "default"}
+            disabled={busy || (!canEnable && !p.notifications.enabled)}
+            variant={enabled ? "outline" : "default"}
             className="mb-6 w-fit"
             onClick={() => {
-              if (p.notifications.enabled) {
+              if (enabled || (!canEnable && p.notifications.enabled)) {
                 updatePreferences((value) => ({
                   ...value,
                   notifications: { ...value.notifications, enabled: false },
                 }));
+                setStatus("Alerts are off for this device.");
                 void syncDevice().catch((error) => setStatus(error.message));
               } else void enable();
             }}
           >
             {busy
               ? "Enabling notifications…"
-              : p.notifications.enabled
-                ? "Disable browser notifications"
+              : enabled || (!canEnable && p.notifications.enabled)
+                ? "Disable alerts for this device"
                 : "Enable browser notifications"}
           </Button>
           {status && (
@@ -170,8 +183,9 @@ export function NotificationSettingsPage({ teams }: { teams: FootballTeam[] }) {
             </div>
           ) : (
             <p className="text-xs leading-6 text-muted-foreground">
-              No teams selected yet. Follow a team from your favourites to make
-              these alerts your own.
+              {p.teamIds.length
+                ? "Your saved teams are still followed. Team details are temporarily unavailable; manage your choices in Favourites."
+                : "No teams selected yet. Follow a team from your favourites to make these alerts your own."}
             </p>
           )}
         </aside>
